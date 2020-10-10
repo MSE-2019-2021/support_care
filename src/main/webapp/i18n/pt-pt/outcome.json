@@ -1,0 +1,35 @@
+{
+  "supportcareApp": {
+    "outcome": {
+      "home": {
+        "title": "Outcomes",
+        "createLabel": "Criar novo(a) Outcome",
+        "createOrEditLabel": "Criar ou editar Outcome",
+        "notFound": "Nenhum Outcomes encontrado"
+      },
+      "created": "Um novo Outcome foi criado com o identificador {{ param }}",
+      "updated": "Outcome com identificador {{ param }} foi actualizado",
+      "deleted": "Outcome com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Outcome {{ id }}?"
+      },
+      "detail": {
+        "title": "Outcome"
+      },
+      "description": "Description",
+      "score": "Score",
+      "createUser": "Create User",
+      "createDate": "Create Date",
+      "updateUser": "Update User",
+      "updateDate": "Update Date",
+      "help": {
+        "description": "Patient Reported Outcome Measures.",
+        "score": "Score, between 0 and 4.",
+        "createUser": "Utilizador que criou o registo.",
+        "createDate": "Data de criação.",
+        "updateUser": "Utilizador que actualizou o registo.",
+        "updateDate": "Data de actualização."
+      }
+    }
+  }
+}

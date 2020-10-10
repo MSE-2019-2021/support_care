@@ -1,0 +1,56 @@
+{
+  "name": "Outcome",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Patient Reported Outcome Measures.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer",
+      "javadoc": "Score, between 0 and 4.",
+      "fieldValidateRules": ["min", "max"],
+      "fieldValidateRulesMin": "0",
+      "fieldValidateRulesMax": "4"
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "String",
+      "javadoc": "Utilizador que criou o registo.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "Instant",
+      "javadoc": "Data de criação.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updateUser",
+      "fieldType": "String",
+      "javadoc": "Utilizador que actualizou o registo.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updateDate",
+      "fieldType": "Instant",
+      "javadoc": "Data de actualização.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201010185919",
+  "javadoc": "Patient Reported Outcome Measures.",
+  "entityTableName": "outcome",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportcare"]
+}

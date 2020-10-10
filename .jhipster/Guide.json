@@ -1,0 +1,48 @@
+{
+  "name": "Guide",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Guia.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createUser",
+      "fieldType": "String",
+      "javadoc": "Utilizador que criou o registo.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createDate",
+      "fieldType": "Instant",
+      "javadoc": "Data de criação.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updateUser",
+      "fieldType": "String",
+      "javadoc": "Utilizador que actualizou o registo.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updateDate",
+      "fieldType": "Instant",
+      "javadoc": "Data de actualização.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201010190019",
+  "javadoc": "Guide.",
+  "entityTableName": "guide",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportcare"]
+}

@@ -1,0 +1,36 @@
+{
+  "supportcareApp": {
+    "protocol": {
+      "home": {
+        "title": "Protocols",
+        "createLabel": "Criar novo(a) Protocol",
+        "createOrEditLabel": "Criar ou editar Protocol",
+        "notFound": "Nenhum Protocols encontrado"
+      },
+      "created": "Um novo Protocol foi criado com o identificador {{ param }}",
+      "updated": "Protocol com identificador {{ param }} foi actualizado",
+      "deleted": "Protocol com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Protocol {{ id }}?"
+      },
+      "detail": {
+        "title": "Protocol"
+      },
+      "toxicityDiagnosis": "Toxicity Diagnosis",
+      "createUser": "Create User",
+      "createDate": "Create Date",
+      "updateUser": "Update User",
+      "updateDate": "Update Date",
+      "therapeuticRegime": "Therapeutic Regime",
+      "outcome": "Outcome",
+      "guide": "Guide",
+      "help": {
+        "toxicityDiagnosis": "Diagnóstico de toxicidade.",
+        "createUser": "Utilizador que criou o registo.",
+        "createDate": "Data de criação.",
+        "updateUser": "Utilizador que actualizou o registo.",
+        "updateDate": "Data de actualização."
+      }
+    }
+  }
+}

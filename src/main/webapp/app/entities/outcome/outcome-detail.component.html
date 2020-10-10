@@ -1,0 +1,50 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="outcome">
+            <h2><span jhiTranslate="supportcareApp.outcome.detail.title">Outcome</span> {{ outcome.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="supportcareApp.outcome.description" [ngbTooltip]="'supportcareApp.outcome.help.description' | translate">Description</span></dt>
+                <dd>
+                    <span>{{ outcome.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.outcome.score" [ngbTooltip]="'supportcareApp.outcome.help.score' | translate">Score</span></dt>
+                <dd>
+                    <span>{{ outcome.score }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.outcome.createUser" [ngbTooltip]="'supportcareApp.outcome.help.createUser' | translate">Create User</span></dt>
+                <dd>
+                    <span>{{ outcome.createUser }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.outcome.createDate" [ngbTooltip]="'supportcareApp.outcome.help.createDate' | translate">Create Date</span></dt>
+                <dd>
+                    <span>{{ outcome.createDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.outcome.updateUser" [ngbTooltip]="'supportcareApp.outcome.help.updateUser' | translate">Update User</span></dt>
+                <dd>
+                    <span>{{ outcome.updateUser }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.outcome.updateDate" [ngbTooltip]="'supportcareApp.outcome.help.updateDate' | translate">Update Date</span></dt>
+                <dd>
+                    <span>{{ outcome.updateDate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/outcome', outcome.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

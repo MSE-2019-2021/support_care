@@ -1,0 +1,33 @@
+{
+  "supportcareApp": {
+    "drug": {
+      "home": {
+        "title": "Drugs",
+        "createLabel": "Criar novo(a) Drug",
+        "createOrEditLabel": "Criar ou editar Drug",
+        "notFound": "Nenhum Drugs encontrado"
+      },
+      "created": "Um novo Drug foi criado com o identificador {{ param }}",
+      "updated": "Drug com identificador {{ param }} foi actualizado",
+      "deleted": "Drug com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Drug {{ id }}?"
+      },
+      "detail": {
+        "title": "Drug"
+      },
+      "drugName": "Drug Name",
+      "createUser": "Create User",
+      "createDate": "Create Date",
+      "updateUser": "Update User",
+      "updateDate": "Update Date",
+      "help": {
+        "drugName": "Nome do medicamento.",
+        "createUser": "Utilizador que criou o registo.",
+        "createDate": "Data de criação.",
+        "updateUser": "Utilizador que actualizou o registo.",
+        "updateDate": "Data de actualização."
+      }
+    }
+  }
+}

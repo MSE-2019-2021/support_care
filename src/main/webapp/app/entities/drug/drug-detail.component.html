@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="drug">
+            <h2><span jhiTranslate="supportcareApp.drug.detail.title">Drug</span> {{ drug.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="supportcareApp.drug.drugName" [ngbTooltip]="'supportcareApp.drug.help.drugName' | translate">Drug Name</span></dt>
+                <dd>
+                    <span>{{ drug.drugName }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.drug.createUser" [ngbTooltip]="'supportcareApp.drug.help.createUser' | translate">Create User</span></dt>
+                <dd>
+                    <span>{{ drug.createUser }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.drug.createDate" [ngbTooltip]="'supportcareApp.drug.help.createDate' | translate">Create Date</span></dt>
+                <dd>
+                    <span>{{ drug.createDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.drug.updateUser" [ngbTooltip]="'supportcareApp.drug.help.updateUser' | translate">Update User</span></dt>
+                <dd>
+                    <span>{{ drug.updateUser }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportcareApp.drug.updateDate" [ngbTooltip]="'supportcareApp.drug.help.updateDate' | translate">Update Date</span></dt>
+                <dd>
+                    <span>{{ drug.updateDate }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/drug', drug.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

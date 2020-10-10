@@ -1,0 +1,38 @@
+{
+  "supportcareApp": {
+    "therapeuticRegime": {
+      "home": {
+        "title": "Therapeutic Regimes",
+        "createLabel": "Criar novo(a) Therapeutic Regime",
+        "createOrEditLabel": "Criar ou editar Therapeutic Regime",
+        "notFound": "Nenhum Therapeutic Regimes encontrado"
+      },
+      "created": "Um novo Therapeutic Regime foi criado com o identificador {{ param }}",
+      "updated": "Therapeutic Regime com identificador {{ param }} foi actualizado",
+      "deleted": "Therapeutic Regime com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
+      },
+      "detail": {
+        "title": "Therapeutic Regime"
+      },
+      "timing": "Timing",
+      "dietary": "Dietary",
+      "sideEffects": "Side Effects",
+      "createUser": "Create User",
+      "createDate": "Create Date",
+      "updateUser": "Update User",
+      "updateDate": "Update Date",
+      "drug": "Drug",
+      "help": {
+        "timing": "Calendarização.",
+        "dietary": "Indicações sobre o regime.",
+        "sideEffects": "Efeitos secundários.",
+        "createUser": "Utilizador que criou o registo.",
+        "createDate": "Data de criação.",
+        "updateUser": "Utilizador que actualizou o registo.",
+        "updateDate": "Data de actualização."
+      }
+    }
+  }
+}
