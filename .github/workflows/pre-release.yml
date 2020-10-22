@@ -29,8 +29,6 @@ jobs:
         run: npm run test
       - name: Packaging ready for production
         run: ./mvnw -Pprod clean verify
-      
-
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -38,6 +36,5 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Automatic Pre-Release"
-          files: |
-            LICENSE.txt
+          files: | 
             *.jar
