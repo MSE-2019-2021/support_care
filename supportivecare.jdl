@@ -1,23 +1,51 @@
 application {
   config {
     applicationType monolith,
-    baseName supportcare,
-    packageName uc.dei.mse.supportcare,
+    baseName supportivecare,
+    packageName uc.dei.mse.supportivecare,
     buildTool maven,
     clientPackageManager npm,
     databaseType sql,
     devDatabaseType h2Memory,
     prodDatabaseType postgresql,
-    nativeLanguage en,
-    languages [en, pt-pt]
+    nativeLanguage pt-pt,
+    languages [pt-pt, en]
     authenticationType jwt,
     cacheProvider caffeine,
-    enableHibernateCache false,
+    enableHibernateCache true,
     clientFramework angularX,
     useSass true,
-    testFrameworks [protractor],
+    testFrameworks [protractor] // cypress
   }
   entities *
+}
+
+/**
+* Administração.
+*/
+entity Administration {
+	/**
+	* Tipo de Administração.
+	*/
+	type String required
+}
+
+/**
+* Observação.
+*/
+entity Notice {
+	/**
+	* Descrição.
+	*/
+	description String required,
+	/**
+	* Avaliação.
+	*/
+	evaluation String required,
+	/**
+	* Intervenção.
+	*/
+	intervention String required
 }
 
 /**
@@ -27,23 +55,21 @@ entity Drug {
 	/**
 	* Nome do medicamento.
 	*/
-	drugName String required,
+	name String required,
 	/**
-	* Utilizador que criou o registo.
+	* Descrição.
 	*/
-    createUser String required,
+	description String
+}
+
+/**
+* Tratamento.
+*/
+entity Treatment {
 	/**
-	* Data de criação.
+	* Tipo de Tratamento.
 	*/
-    createDate Instant required,
-	/**
-	* Utilizador que actualizou o registo.
-	*/
-    updateUser String required,
-	/**
-	* Data de actualização.
-	*/
-    updateDate Instant required
+	type String required
 }
 
 /**
@@ -51,125 +77,62 @@ entity Drug {
 */
 entity TherapeuticRegime {
 	/**
+	* Nome.
+	*/
+	name String required,
+	/**
+	* Acrónimo.
+	*/
+	acronym String,
+	/**
+	* Propósito.
+	*/
+	purpose String required,
+	/**
+	* Condição para administração.
+	*/
+	condition String required,
+	/**
 	* Calendarização.
 	*/
-	timing String required,
+	timing String,
 	/**
-	* Indicações sobre o regime.
+	* Indicação para prescrição.
 	*/
-    dietary String required,
+    indication String required,
 	/**
-	* Efeitos secundários.
+	* Critério de redução de dose.
 	*/
-    sideEffects String required,
+    criteria String required,
 	/**
-	* Utilizador que criou o registo.
+	* Outras informações.
 	*/
-    createUser String required,
-	/**
-	* Data de criação.
-	*/
-    createDate Instant required,
-	/**
-	* Utilizador que actualizou o registo.
-	*/
-    updateUser String required,
-	/**
-	* Data de actualização.
-	*/
-    updateDate Instant required
+    notice String
 }
 
 /**
-* Protocolo.
+* Sintoma (Efeito secundário).
 */
-entity Protocol {
+entity Diagnostic {
 	/**
-	* Diagnóstico de toxicidade.
+	* Nome.
 	*/
-	toxicityDiagnosis String required,
+	name String required,
 	/**
-	* Utilizador que criou o registo.
+	* Informação ao enfermeiro.
 	*/
-    createUser String required,
-	/**
-	* Data de criação.
-	*/
-    createDate Instant required,
-	/**
-	* Utilizador que actualizou o registo.
-	*/
-    updateUser String required,
-	/**
-	* Data de actualização.
-	*/
-    updateDate Instant required
-}
-
-/**
-* Patient Reported Outcome Measures.
-*/
-entity Outcome {
-	/**
-	* Patient Reported Outcome Measures.
-	*/
-	description String required,
-	/**
-	* Score, between 0 and 4.
-	*/
-    score Integer min(0) max(4),
-	/**
-	* Utilizador que criou o registo.
-	*/
-    createUser String required,
-	/**
-	* Data de criação.
-	*/
-    createDate Instant required,
-	/**
-	* Utilizador que actualizou o registo.
-	*/
-    updateUser String required,
-	/**
-	* Data de actualização.
-	*/
-    updateDate Instant required
-}
-
-/**
-* Guide.
-*/
-entity Guide {
-	/**
-	* Guia.
-	*/
-    description String required,
-	/**
-	* Utilizador que criou o registo.
-	*/
-    createUser String required,
-	/**
-	* Data de criação.
-	*/
-    createDate Instant required,
-	/**
-	* Utilizador que actualizou o registo.
-	*/
-    updateUser String required,
-	/**
-	* Data de actualização.
-	*/
-    updateDate Instant required
-}
-
-relationship ManyToOne {
-	TherapeuticRegime{drug} to Drug
-	Protocol{outcome} to Outcome
-	Protocol{guide} to Guide
+	notice String
 }
 
 relationship OneToOne {
-	Protocol{therapeuticRegime} to TherapeuticRegime,
+	Drug{administration(type) required} to Administration,
+	TherapeuticRegime{treatment(type) required} to Treatment
+}
+
+relationship OneToMany {
+	Drug to Notice{drug(name) required},
+	TherapeuticRegime to Drug{therapeuticRegime(name)},
+    Diagnostic to TherapeuticRegime{diagnostic(name)}
 }
 
 filter *
