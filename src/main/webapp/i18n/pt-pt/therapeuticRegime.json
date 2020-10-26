@@ -14,7 +14,7 @@
         "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
       },
       "detail": {
-        "title": "Therapeutic Regime"
+        "title": "Regime Terapêutico"
       },
       "name": "Name",
       "acronym": "Acronym",
