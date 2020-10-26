@@ -1,0 +1,86 @@
+{
+  "name": "TherapeuticRegime",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "acronym",
+      "fieldType": "String",
+      "javadoc": "Acrónimo."
+    },
+    {
+      "fieldName": "purpose",
+      "fieldType": "String",
+      "javadoc": "Propósito.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condition",
+      "fieldType": "String",
+      "javadoc": "Condição para administração.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "timing",
+      "fieldType": "String",
+      "javadoc": "Calendarização."
+    },
+    {
+      "fieldName": "indication",
+      "fieldType": "String",
+      "javadoc": "Indicação para prescrição.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "criteria",
+      "fieldType": "String",
+      "javadoc": "Critério de redução de dose.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notice",
+      "fieldType": "String",
+      "javadoc": "Outras informações."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "treatment",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipValidateRules": "required",
+      "relationshipName": "treatment",
+      "otherEntityField": "type",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "drug",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipName": "drug"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "diagnostic",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipName": "diagnostic",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20201026010052",
+  "javadoc": "Regime terapêutico.",
+  "entityTableName": "therapeutic_regime",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"]
+}

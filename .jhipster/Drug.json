@@ -1,0 +1,52 @@
+{
+  "name": "Drug",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome do medicamento.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Descrição."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "administration",
+      "otherEntityRelationshipName": "drug",
+      "relationshipValidateRules": "required",
+      "relationshipName": "administration",
+      "otherEntityField": "type",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "notice",
+      "otherEntityRelationshipName": "drug",
+      "relationshipName": "notice"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "drug",
+      "relationshipName": "therapeuticRegime",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20201026005852",
+  "javadoc": "Medicamento.",
+  "entityTableName": "drug",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"]
+}

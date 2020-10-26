@@ -1,0 +1,28 @@
+{
+  "supportivecareApp": {
+    "diagnostic": {
+      "home": {
+        "title": "Diagnostics",
+        "createLabel": "Criar novo(a) Diagnostic",
+        "createOrEditLabel": "Criar ou editar Diagnostic",
+        "notFound": "Nenhum Diagnostics encontrado"
+      },
+      "created": "Um novo Diagnostic foi criado com o identificador {{ param }}",
+      "updated": "Diagnostic com identificador {{ param }} foi actualizado",
+      "deleted": "Diagnostic com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Diagnostic {{ id }}?"
+      },
+      "detail": {
+        "title": "Diagnostic"
+      },
+      "name": "Name",
+      "notice": "Notice",
+      "therapeuticRegime": "Therapeutic Regime",
+      "help": {
+        "name": "Nome.",
+        "notice": "Informação ao enfermeiro."
+      }
+    }
+  }
+}

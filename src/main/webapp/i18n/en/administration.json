@@ -1,0 +1,25 @@
+{
+  "supportivecareApp": {
+    "administration": {
+      "home": {
+        "title": "Administrations",
+        "createLabel": "Create a new Administration",
+        "createOrEditLabel": "Create or edit a Administration",
+        "notFound": "No Administrations found"
+      },
+      "created": "A new Administration is created with identifier {{ param }}",
+      "updated": "A Administration is updated with identifier {{ param }}",
+      "deleted": "A Administration is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Administration {{ id }}?"
+      },
+      "detail": {
+        "title": "Administration"
+      },
+      "type": "Type",
+      "help": {
+        "type": "Tipo de Administração."
+      }
+    }
+  }
+}

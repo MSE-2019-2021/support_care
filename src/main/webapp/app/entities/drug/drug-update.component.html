@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-drug-heading" jhiTranslate="supportivecareApp.drug.home.createOrEditLabel">Create or edit a Drug</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.drug.name" for="field_name" [ngbTooltip]="'supportivecareApp.drug.help.name' | translate">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.drug.description" for="field_description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.drug.administration" for="field_administration">Administration</label>
+                    <select class="form-control" id="field_administration" name="administration" formControlName="administrationId">
+                        <option *ngIf="!editForm.get('administrationId')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="administrationOption.id" *ngFor="let administrationOption of administrations; trackBy: trackById">{{ administrationOption.type }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('administrationId')!.invalid && (editForm.get('administrationId')!.dirty || editForm.get('administrationId')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('administrationId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.drug.therapeuticRegime" for="field_therapeuticRegime">Therapeutic Regime</label>
+                    <select class="form-control" id="field_therapeuticRegime" name="therapeuticRegime" formControlName="therapeuticRegimeId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="therapeuticRegimeOption.id" *ngFor="let therapeuticRegimeOption of therapeuticregimes; trackBy: trackById">{{ therapeuticRegimeOption.name }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

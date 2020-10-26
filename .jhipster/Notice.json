@@ -1,0 +1,45 @@
+{
+  "name": "Notice",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Descrição.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "evaluation",
+      "fieldType": "String",
+      "javadoc": "Avaliação.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "intervention",
+      "fieldType": "String",
+      "javadoc": "Intervenção.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "drug",
+      "otherEntityRelationshipName": "notice",
+      "relationshipValidateRules": "required",
+      "relationshipName": "drug",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20201026005752",
+  "javadoc": "Observação.",
+  "entityTableName": "notice",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"]
+}

@@ -1,0 +1,97 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Therapeutic Regimes</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-therapeutic-regime" [routerLink]="['/therapeutic-regime/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
+            Create a new Therapeutic Regime
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="therapeuticRegimes?.length === 0">
+        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="acronym"><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="purpose"><span jhiTranslate="supportivecareApp.therapeuticRegime.purpose">Purpose</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="condition"><span jhiTranslate="supportivecareApp.therapeuticRegime.condition">Condition</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="timing"><span jhiTranslate="supportivecareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="indication"><span jhiTranslate="supportivecareApp.therapeuticRegime.indication">Indication</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="criteria"><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="treatmentType"><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="diagnosticName"><span jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic">Diagnostic</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let therapeuticRegime of therapeuticRegimes ;trackBy: trackId">
+                    <td><a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">{{ therapeuticRegime.id }}</a></td>
+                    <td>{{ therapeuticRegime.name }}</td>
+                    <td>{{ therapeuticRegime.acronym }}</td>
+                    <td>{{ therapeuticRegime.purpose }}</td>
+                    <td>{{ therapeuticRegime.condition }}</td>
+                    <td>{{ therapeuticRegime.timing }}</td>
+                    <td>{{ therapeuticRegime.indication }}</td>
+                    <td>{{ therapeuticRegime.criteria }}</td>
+                    <td>{{ therapeuticRegime.notice }}</td>
+                    <td>
+                        <div *ngIf="therapeuticRegime.treatmentId">
+                            <a [routerLink]="['/treatment', therapeuticRegime.treatmentId , 'view']" >{{ therapeuticRegime.treatmentType }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="therapeuticRegime.diagnosticId">
+                            <a [routerLink]="['/diagnostic', therapeuticRegime.diagnosticId , 'view']" >{{ therapeuticRegime.diagnosticName }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(therapeuticRegime)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "supportivecareApp": {
+    "treatment": {
+      "home": {
+        "title": "Treatments",
+        "createLabel": "Criar novo(a) Treatment",
+        "createOrEditLabel": "Criar ou editar Treatment",
+        "notFound": "Nenhum Treatments encontrado"
+      },
+      "created": "Um novo Treatment foi criado com o identificador {{ param }}",
+      "updated": "Treatment com identificador {{ param }} foi actualizado",
+      "deleted": "Treatment com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Treatment {{ id }}?"
+      },
+      "detail": {
+        "title": "Treatment"
+      },
+      "type": "Type",
+      "help": {
+        "type": "Tipo de Tratamento."
+      }
+    }
+  }
+}

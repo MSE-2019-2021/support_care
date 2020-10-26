@@ -1,0 +1,42 @@
+{
+  "supportivecareApp": {
+    "therapeuticRegime": {
+      "home": {
+        "title": "Therapeutic Regimes",
+        "createLabel": "Create a new Therapeutic Regime",
+        "createOrEditLabel": "Create or edit a Therapeutic Regime",
+        "notFound": "No Therapeutic Regimes found"
+      },
+      "created": "A new Therapeutic Regime is created with identifier {{ param }}",
+      "updated": "A Therapeutic Regime is updated with identifier {{ param }}",
+      "deleted": "A Therapeutic Regime is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Therapeutic Regime {{ id }}?"
+      },
+      "detail": {
+        "title": "Therapeutic Regime"
+      },
+      "name": "Name",
+      "acronym": "Acronym",
+      "purpose": "Purpose",
+      "condition": "Condition",
+      "timing": "Timing",
+      "indication": "Indication",
+      "criteria": "Criteria",
+      "notice": "Notice",
+      "treatment": "Treatment",
+      "drug": "Drug",
+      "diagnostic": "Diagnostic",
+      "help": {
+        "name": "Nome.",
+        "acronym": "Acrónimo.",
+        "purpose": "Propósito.",
+        "condition": "Condição para administração.",
+        "timing": "Calendarização.",
+        "indication": "Indicação para prescrição.",
+        "criteria": "Critério de redução de dose.",
+        "notice": "Outras informações."
+      }
+    }
+  }
+}
