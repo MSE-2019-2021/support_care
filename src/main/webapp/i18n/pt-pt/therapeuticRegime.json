@@ -14,7 +14,7 @@
         "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
       },
       "detail": {
-        "title": "Therapeutic Regime"
+        "title": "Regime Terapêutico"
       },
       "name": "Name",
       "acronym": "Acronym",
@@ -28,14 +28,14 @@
       "drug": "Drug",
       "diagnostic": "Diagnostic",
       "help": {
-        "name": "Nome.",
-        "acronym": "Acrónimo.",
-        "purpose": "Propósito.",
-        "condition": "Condição para administração.",
-        "timing": "Calendarização.",
-        "indication": "Indicação para prescrição.",
-        "criteria": "Critério de redução de dose.",
-        "notice": "Outras informações."
+        "name": "Name.",
+        "acronym": "Acronym.",
+        "purpose": "Purpose.",
+        "condition": "Administration Condition",
+        "timing": "Timing.",
+        "indication": "Prescription Indication.",
+        "criteria": "Dose reduction criteria.",
+        "notice": "Other information's."
       }
     }
   }
