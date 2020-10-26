@@ -9,7 +9,7 @@ import java.io.Serializable;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Diagnostic} entity.
  */
 @ApiModel(description = "Sintoma (Efeito secundário).")
-public class DiagnosticDTO implements Serializable {
+public class DiagnosticDTO extends AbstractAuditingDTO implements Serializable {
     
     private Long id;
 

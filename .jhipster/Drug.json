@@ -48,5 +48,6 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportivecare"]
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
 }

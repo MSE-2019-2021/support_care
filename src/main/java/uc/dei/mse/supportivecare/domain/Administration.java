@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "administration")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Administration implements Serializable {
+public class Administration extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

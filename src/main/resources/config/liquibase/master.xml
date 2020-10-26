@@ -20,6 +20,7 @@
     <include file="config/liquibase/changelog/20201026005952_added_entity_Treatment.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201026010052_added_entity_TherapeuticRegime.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201026010152_added_entity_Diagnostic.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201026010734_added_entity_EntityAuditEvent.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201026005752_added_entity_constraints_Notice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201026005852_added_entity_constraints_Drug.xml" relativeToChangelogFile="false"/>

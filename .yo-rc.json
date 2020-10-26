@@ -39,5 +39,10 @@
     "otherModules": [],
     "blueprints": []
   },
-  "entities": ["Administration", "Notice", "Drug", "Treatment", "TherapeuticRegime", "Diagnostic"]
+  "entities": ["Administration", "Notice", "Drug", "Treatment", "TherapeuticRegime", "Diagnostic"],
+  "generator-jhipster-entity-audit": {
+    "auditFramework": "custom",
+    "auditPage": true,
+    "lastLiquibaseTimestamp": 1603674454000
+  }
 }
