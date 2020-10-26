@@ -4,11 +4,16 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
 import { IDrug, Drug } from 'app/shared/model/drug.model';
 import { DrugService } from './drug.service';
+import { IAdministration } from 'app/shared/model/administration.model';
+import { AdministrationService } from 'app/entities/administration/administration.service';
+import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
+import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
+
+type SelectableEntity = IAdministration | ITherapeuticRegime;
 
 @Component({
   selector: 'jhi-drug-update',
@@ -16,38 +21,64 @@ import { DrugService } from './drug.service';
 })
 export class DrugUpdateComponent implements OnInit {
   isSaving = false;
+  administrations: IAdministration[] = [];
+  therapeuticregimes: ITherapeuticRegime[] = [];
 
   editForm = this.fb.group({
     id: [],
-    drugName: [null, [Validators.required]],
-    createUser: [null, [Validators.required]],
-    createDate: [null, [Validators.required]],
-    updateUser: [null, [Validators.required]],
-    updateDate: [null, [Validators.required]],
+    name: [null, [Validators.required]],
+    description: [],
+    administrationId: [null, Validators.required],
+    therapeuticRegimeId: [],
   });
 
-  constructor(protected drugService: DrugService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected drugService: DrugService,
+    protected administrationService: AdministrationService,
+    protected therapeuticRegimeService: TherapeuticRegimeService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ drug }) => {
-      if (!drug.id) {
-        const today = moment().startOf('day');
-        drug.createDate = today;
-        drug.updateDate = today;
-      }
-
       this.updateForm(drug);
+
+      this.administrationService
+        .query({ 'drugId.specified': 'false' })
+        .pipe(
+          map((res: HttpResponse<IAdministration[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: IAdministration[]) => {
+          if (!drug.administrationId) {
+            this.administrations = resBody;
+          } else {
+            this.administrationService
+              .find(drug.administrationId)
+              .pipe(
+                map((subRes: HttpResponse<IAdministration>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: IAdministration[]) => (this.administrations = concatRes));
+          }
+        });
+
+      this.therapeuticRegimeService
+        .query()
+        .subscribe((res: HttpResponse<ITherapeuticRegime[]>) => (this.therapeuticregimes = res.body || []));
     });
   }
 
   updateForm(drug: IDrug): void {
     this.editForm.patchValue({
       id: drug.id,
-      drugName: drug.drugName,
-      createUser: drug.createUser,
-      createDate: drug.createDate ? drug.createDate.format(DATE_TIME_FORMAT) : null,
-      updateUser: drug.updateUser,
-      updateDate: drug.updateDate ? drug.updateDate.format(DATE_TIME_FORMAT) : null,
+      name: drug.name,
+      description: drug.description,
+      administrationId: drug.administrationId,
+      therapeuticRegimeId: drug.therapeuticRegimeId,
     });
   }
 
@@ -69,11 +100,10 @@ export class DrugUpdateComponent implements OnInit {
     return {
       ...new Drug(),
       id: this.editForm.get(['id'])!.value,
-      drugName: this.editForm.get(['drugName'])!.value,
-      createUser: this.editForm.get(['createUser'])!.value,
-      createDate: this.editForm.get(['createDate'])!.value ? moment(this.editForm.get(['createDate'])!.value, DATE_TIME_FORMAT) : undefined,
-      updateUser: this.editForm.get(['updateUser'])!.value,
-      updateDate: this.editForm.get(['updateDate'])!.value ? moment(this.editForm.get(['updateDate'])!.value, DATE_TIME_FORMAT) : undefined,
+      name: this.editForm.get(['name'])!.value,
+      description: this.editForm.get(['description'])!.value,
+      administrationId: this.editForm.get(['administrationId'])!.value,
+      therapeuticRegimeId: this.editForm.get(['therapeuticRegimeId'])!.value,
     };
   }
 
@@ -91,5 +121,9 @@ export class DrugUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: SelectableEntity): any {
+    return item.id;
   }
 }

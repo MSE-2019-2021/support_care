@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { SupportcareTestModule } from '../../../test.module';
+import { SupportivecareTestModule } from '../../../test.module';
 import { MockEventManager } from '../../../helpers/mock-event-manager.service';
 import { MockActiveModal } from '../../../helpers/mock-active-modal.service';
 import { DrugDeleteDialogComponent } from 'app/entities/drug/drug-delete-dialog.component';
@@ -19,7 +19,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportcareTestModule],
+        imports: [SupportivecareTestModule],
         declarations: [DrugDeleteDialogComponent],
       })
         .overrideTemplate(DrugDeleteDialogComponent, '')

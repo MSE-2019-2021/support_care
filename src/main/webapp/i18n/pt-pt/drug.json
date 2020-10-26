@@ -1,5 +1,5 @@
 {
-  "supportcareApp": {
+  "supportivecareApp": {
     "drug": {
       "home": {
         "title": "Drugs",
@@ -16,17 +16,14 @@
       "detail": {
         "title": "Drug"
       },
-      "drugName": "Drug Name",
-      "createUser": "Create User",
-      "createDate": "Create Date",
-      "updateUser": "Update User",
-      "updateDate": "Update Date",
+      "name": "Name",
+      "description": "Description",
+      "administration": "Administration",
+      "notice": "Notice",
+      "therapeuticRegime": "Therapeutic Regime",
       "help": {
-        "drugName": "Nome do medicamento.",
-        "createUser": "Utilizador que criou o registo.",
-        "createDate": "Data de criação.",
-        "updateUser": "Utilizador que actualizou o registo.",
-        "updateDate": "Data de actualização."
+        "name": "Nome do medicamento.",
+        "description": "Descrição."
       }
     }
   }

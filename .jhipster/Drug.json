@@ -2,38 +2,42 @@
   "name": "Drug",
   "fields": [
     {
-      "fieldName": "drugName",
+      "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome do medicamento.",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "createUser",
+      "fieldName": "description",
       "fieldType": "String",
-      "javadoc": "Utilizador que criou o registo.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "createDate",
-      "fieldType": "Instant",
-      "javadoc": "Data de criação.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updateUser",
-      "fieldType": "String",
-      "javadoc": "Utilizador que actualizou o registo.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updateDate",
-      "fieldType": "Instant",
-      "javadoc": "Data de actualização.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Descrição."
     }
   ],
-  "relationships": [],
-  "changelogDate": "20201010185619",
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "administration",
+      "otherEntityRelationshipName": "drug",
+      "relationshipValidateRules": "required",
+      "relationshipName": "administration",
+      "otherEntityField": "type",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "notice",
+      "otherEntityRelationshipName": "drug",
+      "relationshipName": "notice"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "drug",
+      "relationshipName": "therapeuticRegime",
+      "otherEntityField": "name"
+    }
+  ],
+  "changelogDate": "20201026005852",
   "javadoc": "Medicamento.",
   "entityTableName": "drug",
   "dto": "mapstruct",
@@ -44,5 +48,6 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportcare"]
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
 }

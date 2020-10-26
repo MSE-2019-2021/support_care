@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { SupportcareTestModule } from '../../../test.module';
+import { SupportivecareTestModule } from '../../../test.module';
 import { ConfigurationComponent } from 'app/admin/configuration/configuration.component';
 import { ConfigurationService, Bean, PropertySource } from 'app/admin/configuration/configuration.service';
 
@@ -13,7 +13,7 @@ describe('Component Tests', () => {
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
-        imports: [SupportcareTestModule],
+        imports: [SupportivecareTestModule],
         declarations: [ConfigurationComponent],
         providers: [ConfigurationService],
       })

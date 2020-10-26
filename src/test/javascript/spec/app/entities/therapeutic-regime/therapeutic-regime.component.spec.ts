@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 
-import { SupportcareTestModule } from '../../../test.module';
+import { SupportivecareTestModule } from '../../../test.module';
 import { TherapeuticRegimeComponent } from 'app/entities/therapeutic-regime/therapeutic-regime.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
@@ -16,7 +16,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportcareTestModule],
+        imports: [SupportivecareTestModule],
         declarations: [TherapeuticRegimeComponent],
         providers: [
           {

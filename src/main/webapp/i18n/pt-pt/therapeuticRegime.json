@@ -1,5 +1,5 @@
 {
-  "supportcareApp": {
+  "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
         "title": "Therapeutic Regimes",
@@ -16,22 +16,26 @@
       "detail": {
         "title": "Therapeutic Regime"
       },
+      "name": "Name",
+      "acronym": "Acronym",
+      "purpose": "Purpose",
+      "condition": "Condition",
       "timing": "Timing",
-      "dietary": "Dietary",
-      "sideEffects": "Side Effects",
-      "createUser": "Create User",
-      "createDate": "Create Date",
-      "updateUser": "Update User",
-      "updateDate": "Update Date",
+      "indication": "Indication",
+      "criteria": "Criteria",
+      "notice": "Notice",
+      "treatment": "Treatment",
       "drug": "Drug",
+      "diagnostic": "Diagnostic",
       "help": {
+        "name": "Nome.",
+        "acronym": "Acrónimo.",
+        "purpose": "Propósito.",
+        "condition": "Condição para administração.",
         "timing": "Calendarização.",
-        "dietary": "Indicações sobre o regime.",
-        "sideEffects": "Efeitos secundários.",
-        "createUser": "Utilizador que criou o registo.",
-        "createDate": "Data de criação.",
-        "updateUser": "Utilizador que actualizou o registo.",
-        "updateDate": "Data de actualização."
+        "indication": "Indicação para prescrição.",
+        "criteria": "Critério de redução de dose.",
+        "notice": "Outras informações."
       }
     }
   }

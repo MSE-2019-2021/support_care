@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NgJhipsterModule, translatePartialLoader, missingTranslationHandler, JhiConfigService, JhiLanguageService } from 'ng-jhipster';
-import locale from '@angular/common/locales/en';
+import locale from '@angular/common/locales/pt-PT';
 
 import * as moment from 'moment';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -29,7 +29,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
       alertAsToast: false,
       alertTimeout: 5000,
       i18nEnabled: true,
-      defaultI18nLang: 'en',
+      defaultI18nLang: 'pt-pt',
     }),
     TranslateModule.forRoot({
       loader: {
@@ -49,7 +49,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
     CookieService,
     {
       provide: LOCALE_ID,
-      useValue: 'en',
+      useValue: 'pt-PT',
     },
     { provide: NgbDateAdapter, useClass: NgbDateMomentAdapter },
     DatePipe,
@@ -75,7 +75,7 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
     },
   ],
 })
-export class SupportcareCoreModule {
+export class SupportivecareCoreModule {
   constructor(iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig, languageService: JhiLanguageService) {
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);

@@ -41,7 +41,7 @@ export const therapeuticRegimeRoute: Routes = [
     data: {
       authorities: [Authority.USER],
       defaultSort: 'id,asc',
-      pageTitle: 'supportcareApp.therapeuticRegime.home.title',
+      pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -53,7 +53,7 @@ export const therapeuticRegimeRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.therapeuticRegime.home.title',
+      pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -65,7 +65,7 @@ export const therapeuticRegimeRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.therapeuticRegime.home.title',
+      pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -77,7 +77,7 @@ export const therapeuticRegimeRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.therapeuticRegime.home.title',
+      pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

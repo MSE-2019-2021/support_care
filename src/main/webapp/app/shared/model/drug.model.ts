@@ -1,21 +1,25 @@
-import { Moment } from 'moment';
+import { INotice } from 'app/shared/model/notice.model';
 
 export interface IDrug {
   id?: number;
-  drugName?: string;
-  createUser?: string;
-  createDate?: Moment;
-  updateUser?: string;
-  updateDate?: Moment;
+  name?: string;
+  description?: string;
+  administrationType?: string;
+  administrationId?: number;
+  notices?: INotice[];
+  therapeuticRegimeName?: string;
+  therapeuticRegimeId?: number;
 }
 
 export class Drug implements IDrug {
   constructor(
     public id?: number,
-    public drugName?: string,
-    public createUser?: string,
-    public createDate?: Moment,
-    public updateUser?: string,
-    public updateDate?: Moment
+    public name?: string,
+    public description?: string,
+    public administrationType?: string,
+    public administrationId?: number,
+    public notices?: INotice[],
+    public therapeuticRegimeName?: string,
+    public therapeuticRegimeId?: number
   ) {}
 }

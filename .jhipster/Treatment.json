@@ -1,0 +1,25 @@
+{
+  "name": "Treatment",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "String",
+      "javadoc": "Tipo de Tratamento.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201026005952",
+  "javadoc": "Tratamento.",
+  "entityTableName": "treatment",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
+}

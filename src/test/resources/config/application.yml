@@ -18,10 +18,10 @@ spring:
     # Uncomment the following line to enable tests against production database type rather than H2, using Testcontainers
     #active: testcontainers
   application:
-    name: supportcare
+    name: supportivecare
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:supportcare;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:supportivecare;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     name:
     username:
     password:
@@ -57,13 +57,13 @@ spring:
     basename: i18n/messages
   task:
     execution:
-      thread-name-prefix: supportcare-task-
+      thread-name-prefix: supportivecare-task-
       pool:
         core-size: 1
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: supportcare-scheduling-
+      thread-name-prefix: supportivecare-scheduling-
       pool:
         size: 1
   thymeleaf:
@@ -81,7 +81,7 @@ server:
 
 jhipster:
   clientApp:
-    name: 'supportcareApp'
+    name: 'supportivecareApp'
   logging:
     # To test json console appender
     use-json-format: false
@@ -97,7 +97,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: MzhmOGYyMTk3ZTZlODI5ZjFiMjgyZTMwM2VjZWJjNjUxNzEzNzQyODdkZDQ2NTQ0OWRiNjkyNWVjYjJiNGZhNDQyMGZiODE5MDIyNTBiZDNjODRkYzhiNTliNDY3YTQ5YjZjYzg5MmVlYzFlNTdlMTBlOTEwMzQ0MmI4ODdmNGQ=
+        base64-secret: YjhkY2JmZTUxYTZhNmEyMzY0ZDZjNWNjN2RlZWFmNTg4NmZmYTk2ZTVlOGUwMzA5YThjMzEyNDBiNzY4MzE5NjgyMzI0NTk3ZGRjMDY0YzE2MTQ3MDBmYmI1ZTRhZjdhNjE2M2JiZjJhZDkxNzk5NDQ4MTIyNTdhMzUxOTYyZjA=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
   metrics:

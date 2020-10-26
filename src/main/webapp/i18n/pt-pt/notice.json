@@ -1,0 +1,30 @@
+{
+  "supportivecareApp": {
+    "notice": {
+      "home": {
+        "title": "Notices",
+        "createLabel": "Criar novo(a) Notice",
+        "createOrEditLabel": "Criar ou editar Notice",
+        "notFound": "Nenhum Notices encontrado"
+      },
+      "created": "Um novo Notice foi criado com o identificador {{ param }}",
+      "updated": "Notice com identificador {{ param }} foi actualizado",
+      "deleted": "Notice com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Notice {{ id }}?"
+      },
+      "detail": {
+        "title": "Notice"
+      },
+      "description": "Description",
+      "evaluation": "Evaluation",
+      "intervention": "Intervention",
+      "drug": "Drug",
+      "help": {
+        "description": "Descrição.",
+        "evaluation": "Avaliação.",
+        "intervention": "Intervenção."
+      }
+    }
+  }
+}

@@ -41,7 +41,7 @@ export const drugRoute: Routes = [
     data: {
       authorities: [Authority.USER],
       defaultSort: 'id,asc',
-      pageTitle: 'supportcareApp.drug.home.title',
+      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -53,7 +53,7 @@ export const drugRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.drug.home.title',
+      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -65,7 +65,7 @@ export const drugRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.drug.home.title',
+      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -77,7 +77,7 @@ export const drugRoute: Routes = [
     },
     data: {
       authorities: [Authority.USER],
-      pageTitle: 'supportcareApp.drug.home.title',
+      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

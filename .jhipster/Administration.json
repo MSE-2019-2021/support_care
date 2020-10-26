@@ -1,0 +1,25 @@
+{
+  "name": "Administration",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "String",
+      "javadoc": "Tipo de Administração.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20201026005652",
+  "javadoc": "Administração.",
+  "entityTableName": "administration",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
+}

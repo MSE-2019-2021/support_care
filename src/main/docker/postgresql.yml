@@ -1,11 +1,11 @@
 version: '2'
 services:
-  supportcare-postgresql:
+  supportivecare-postgresql:
     image: postgres:12.3
     # volumes:
-    #     - ~/volumes/jhipster/supportcare/postgresql/:/var/lib/postgresql/data/
+    #     - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=supportcare
+      - POSTGRES_USER=supportivecare
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:

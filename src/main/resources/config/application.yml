@@ -59,7 +59,7 @@ management:
 
 spring:
   application:
-    name: supportcare
+    name: supportivecare
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
     # Otherwise, it will be filled in by maven when building the JAR file
@@ -77,7 +77,7 @@ spring:
       hibernate.jdbc.time_zone: UTC
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
-      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_second_level_cache: true
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       # modify batch size as necessary
@@ -97,13 +97,13 @@ spring:
     allow-bean-definition-overriding: true
   task:
     execution:
-      thread-name-prefix: supportcare-task-
+      thread-name-prefix: supportivecare-task-
       pool:
         core-size: 2
         max-size: 50
         queue-capacity: 10000
     scheduling:
-      thread-name-prefix: supportcare-scheduling-
+      thread-name-prefix: supportivecare-scheduling-
       pool:
         size: 2
   thymeleaf:
@@ -131,7 +131,7 @@ info:
 
 jhipster:
   clientApp:
-    name: 'supportcareApp'
+    name: 'supportivecareApp'
   # By default CORS is disabled. Uncomment to enable.
   # cors:
   #     allowed-origins: "*"
@@ -141,11 +141,11 @@ jhipster:
   #     allow-credentials: true
   #     max-age: 1800
   mail:
-    from: supportcare@localhost
+    from: supportivecare@localhost
   swagger:
     default-include-pattern: /api/.*
-    title: supportcare API
-    description: supportcare API documentation
+    title: supportivecare API
+    description: supportivecare API documentation
     version: 0.0.1
     terms-of-service-url:
     contact-name:

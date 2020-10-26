@@ -2,58 +2,76 @@
   "name": "TherapeuticRegime",
   "fields": [
     {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "acronym",
+      "fieldType": "String",
+      "javadoc": "Acrónimo."
+    },
+    {
+      "fieldName": "purpose",
+      "fieldType": "String",
+      "javadoc": "Propósito.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "condition",
+      "fieldType": "String",
+      "javadoc": "Condição para administração.",
+      "fieldValidateRules": ["required"]
+    },
+    {
       "fieldName": "timing",
       "fieldType": "String",
-      "javadoc": "Calendarização.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Calendarização."
     },
     {
-      "fieldName": "dietary",
+      "fieldName": "indication",
       "fieldType": "String",
-      "javadoc": "Indicações sobre o regime.",
+      "javadoc": "Indicação para prescrição.",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "sideEffects",
+      "fieldName": "criteria",
       "fieldType": "String",
-      "javadoc": "Efeitos secundários.",
+      "javadoc": "Critério de redução de dose.",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "createUser",
+      "fieldName": "notice",
       "fieldType": "String",
-      "javadoc": "Utilizador que criou o registo.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "createDate",
-      "fieldType": "Instant",
-      "javadoc": "Data de criação.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updateUser",
-      "fieldType": "String",
-      "javadoc": "Utilizador que actualizou o registo.",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updateDate",
-      "fieldType": "Instant",
-      "javadoc": "Data de actualização.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Outras informações."
     }
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "one-to-one",
+      "otherEntityName": "treatment",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipValidateRules": "required",
+      "relationshipName": "treatment",
+      "otherEntityField": "type",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "drug",
       "otherEntityRelationshipName": "therapeuticRegime",
-      "relationshipName": "drug",
-      "otherEntityField": "id"
+      "relationshipName": "drug"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "diagnostic",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipName": "diagnostic",
+      "otherEntityField": "name"
     }
   ],
-  "changelogDate": "20201010185719",
+  "changelogDate": "20201026010052",
   "javadoc": "Regime terapêutico.",
   "entityTableName": "therapeutic_regime",
   "dto": "mapstruct",
@@ -64,5 +82,6 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportcare"]
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
 }

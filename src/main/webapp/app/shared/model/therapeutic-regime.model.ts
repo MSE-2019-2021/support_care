@@ -1,27 +1,37 @@
-import { Moment } from 'moment';
+import { IDrug } from 'app/shared/model/drug.model';
 
 export interface ITherapeuticRegime {
   id?: number;
+  name?: string;
+  acronym?: string;
+  purpose?: string;
+  condition?: string;
   timing?: string;
-  dietary?: string;
-  sideEffects?: string;
-  createUser?: string;
-  createDate?: Moment;
-  updateUser?: string;
-  updateDate?: Moment;
-  drugId?: number;
+  indication?: string;
+  criteria?: string;
+  notice?: string;
+  treatmentType?: string;
+  treatmentId?: number;
+  drugs?: IDrug[];
+  diagnosticName?: string;
+  diagnosticId?: number;
 }
 
 export class TherapeuticRegime implements ITherapeuticRegime {
   constructor(
     public id?: number,
+    public name?: string,
+    public acronym?: string,
+    public purpose?: string,
+    public condition?: string,
     public timing?: string,
-    public dietary?: string,
-    public sideEffects?: string,
-    public createUser?: string,
-    public createDate?: Moment,
-    public updateUser?: string,
-    public updateDate?: Moment,
-    public drugId?: number
+    public indication?: string,
+    public criteria?: string,
+    public notice?: string,
+    public treatmentType?: string,
+    public treatmentId?: number,
+    public drugs?: IDrug[],
+    public diagnosticName?: string,
+    public diagnosticId?: number
   ) {}
 }

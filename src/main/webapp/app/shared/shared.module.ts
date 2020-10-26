@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SupportcareSharedLibsModule } from './shared-libs.module';
+import { SupportivecareSharedLibsModule } from './shared-libs.module';
 import { FindLanguageFromKeyPipe } from './language/find-language-from-key.pipe';
 import { AlertComponent } from './alert/alert.component';
 import { AlertErrorComponent } from './alert/alert-error.component';
@@ -7,11 +7,11 @@ import { LoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 
 @NgModule({
-  imports: [SupportcareSharedLibsModule],
+  imports: [SupportivecareSharedLibsModule],
   declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, LoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [LoginModalComponent],
   exports: [
-    SupportcareSharedLibsModule,
+    SupportivecareSharedLibsModule,
     FindLanguageFromKeyPipe,
     AlertComponent,
     AlertErrorComponent,
@@ -19,4 +19,4 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
     HasAnyAuthorityDirective,
   ],
 })
-export class SupportcareSharedModule {}
+export class SupportivecareSharedModule {}

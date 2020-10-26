@@ -1,0 +1,37 @@
+{
+  "name": "Diagnostic",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notice",
+      "fieldType": "String",
+      "javadoc": "Informação ao enfermeiro."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "diagnostic",
+      "relationshipName": "therapeuticRegime"
+    }
+  ],
+  "changelogDate": "20201026010152",
+  "javadoc": "Sintoma (Efeito secundário).",
+  "entityTableName": "diagnostic",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["supportivecare"],
+  "enableEntityAudit": true
+}

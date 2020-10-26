@@ -4,13 +4,16 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { map } from 'rxjs/operators';
 
 import { ITherapeuticRegime, TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
-import { IDrug } from 'app/shared/model/drug.model';
-import { DrugService } from 'app/entities/drug/drug.service';
+import { ITreatment } from 'app/shared/model/treatment.model';
+import { TreatmentService } from 'app/entities/treatment/treatment.service';
+import { IDiagnostic } from 'app/shared/model/diagnostic.model';
+import { DiagnosticService } from 'app/entities/diagnostic/diagnostic.service';
+
+type SelectableEntity = ITreatment | IDiagnostic;
 
 @Component({
   selector: 'jhi-therapeutic-regime-update',
@@ -18,52 +21,74 @@ import { DrugService } from 'app/entities/drug/drug.service';
 })
 export class TherapeuticRegimeUpdateComponent implements OnInit {
   isSaving = false;
-  drugs: IDrug[] = [];
+  treatments: ITreatment[] = [];
+  diagnostics: IDiagnostic[] = [];
 
   editForm = this.fb.group({
     id: [],
-    timing: [null, [Validators.required]],
-    dietary: [null, [Validators.required]],
-    sideEffects: [null, [Validators.required]],
-    createUser: [null, [Validators.required]],
-    createDate: [null, [Validators.required]],
-    updateUser: [null, [Validators.required]],
-    updateDate: [null, [Validators.required]],
-    drugId: [],
+    name: [null, [Validators.required]],
+    acronym: [],
+    purpose: [null, [Validators.required]],
+    condition: [null, [Validators.required]],
+    timing: [],
+    indication: [null, [Validators.required]],
+    criteria: [null, [Validators.required]],
+    notice: [],
+    treatmentId: [null, Validators.required],
+    diagnosticId: [],
   });
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
-    protected drugService: DrugService,
+    protected treatmentService: TreatmentService,
+    protected diagnosticService: DiagnosticService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
-      if (!therapeuticRegime.id) {
-        const today = moment().startOf('day');
-        therapeuticRegime.createDate = today;
-        therapeuticRegime.updateDate = today;
-      }
-
       this.updateForm(therapeuticRegime);
 
-      this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body || []));
+      this.treatmentService
+        .query({ 'therapeuticRegimeId.specified': 'false' })
+        .pipe(
+          map((res: HttpResponse<ITreatment[]>) => {
+            return res.body || [];
+          })
+        )
+        .subscribe((resBody: ITreatment[]) => {
+          if (!therapeuticRegime.treatmentId) {
+            this.treatments = resBody;
+          } else {
+            this.treatmentService
+              .find(therapeuticRegime.treatmentId)
+              .pipe(
+                map((subRes: HttpResponse<ITreatment>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: ITreatment[]) => (this.treatments = concatRes));
+          }
+        });
+
+      this.diagnosticService.query().subscribe((res: HttpResponse<IDiagnostic[]>) => (this.diagnostics = res.body || []));
     });
   }
 
   updateForm(therapeuticRegime: ITherapeuticRegime): void {
     this.editForm.patchValue({
       id: therapeuticRegime.id,
+      name: therapeuticRegime.name,
+      acronym: therapeuticRegime.acronym,
+      purpose: therapeuticRegime.purpose,
+      condition: therapeuticRegime.condition,
       timing: therapeuticRegime.timing,
-      dietary: therapeuticRegime.dietary,
-      sideEffects: therapeuticRegime.sideEffects,
-      createUser: therapeuticRegime.createUser,
-      createDate: therapeuticRegime.createDate ? therapeuticRegime.createDate.format(DATE_TIME_FORMAT) : null,
-      updateUser: therapeuticRegime.updateUser,
-      updateDate: therapeuticRegime.updateDate ? therapeuticRegime.updateDate.format(DATE_TIME_FORMAT) : null,
-      drugId: therapeuticRegime.drugId,
+      indication: therapeuticRegime.indication,
+      criteria: therapeuticRegime.criteria,
+      notice: therapeuticRegime.notice,
+      treatmentId: therapeuticRegime.treatmentId,
+      diagnosticId: therapeuticRegime.diagnosticId,
     });
   }
 
@@ -85,14 +110,16 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     return {
       ...new TherapeuticRegime(),
       id: this.editForm.get(['id'])!.value,
+      name: this.editForm.get(['name'])!.value,
+      acronym: this.editForm.get(['acronym'])!.value,
+      purpose: this.editForm.get(['purpose'])!.value,
+      condition: this.editForm.get(['condition'])!.value,
       timing: this.editForm.get(['timing'])!.value,
-      dietary: this.editForm.get(['dietary'])!.value,
-      sideEffects: this.editForm.get(['sideEffects'])!.value,
-      createUser: this.editForm.get(['createUser'])!.value,
-      createDate: this.editForm.get(['createDate'])!.value ? moment(this.editForm.get(['createDate'])!.value, DATE_TIME_FORMAT) : undefined,
-      updateUser: this.editForm.get(['updateUser'])!.value,
-      updateDate: this.editForm.get(['updateDate'])!.value ? moment(this.editForm.get(['updateDate'])!.value, DATE_TIME_FORMAT) : undefined,
-      drugId: this.editForm.get(['drugId'])!.value,
+      indication: this.editForm.get(['indication'])!.value,
+      criteria: this.editForm.get(['criteria'])!.value,
+      notice: this.editForm.get(['notice'])!.value,
+      treatmentId: this.editForm.get(['treatmentId'])!.value,
+      diagnosticId: this.editForm.get(['diagnosticId'])!.value,
     };
   }
 
@@ -112,7 +139,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: IDrug): any {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

@@ -17,7 +17,7 @@ logging:
   level:
     ROOT: INFO
     io.github.jhipster: INFO
-    uc.dei.mse.supportcare: INFO
+    uc.dei.mse.supportivecare: INFO
 
 management:
   metrics:
@@ -33,8 +33,8 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/supportcare
-    username: supportcare
+    url: jdbc:postgresql://localhost:5432/supportivecare
+    username: supportivecare
     password:
     hikari:
       poolName: Hikari
@@ -55,7 +55,7 @@ spring:
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
-# keytool -genkey -alias supportcare -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+# keytool -genkey -alias supportivecare -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
 #
 # You can also use Let's Encrypt:
 # https://maximilian-boehm.com/hp2121/Create-a-Java-Keystore-JKS-from-Let-s-Encrypt-Certificates.htm
@@ -101,7 +101,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: MzhmOGYyMTk3ZTZlODI5ZjFiMjgyZTMwM2VjZWJjNjUxNzEzNzQyODdkZDQ2NTQ0OWRiNjkyNWVjYjJiNGZhNDQyMGZiODE5MDIyNTBiZDNjODRkYzhiNTliNDY3YTQ5YjZjYzg5MmVlYzFlNTdlMTBlOTEwMzQ0MmI4ODdmNGQ=
+        base64-secret: YjhkY2JmZTUxYTZhNmEyMzY0ZDZjNWNjN2RlZWFmNTg4NmZmYTk2ZTVlOGUwMzA5YThjMzEyNDBiNzY4MzE5NjgyMzI0NTk3ZGRjMDY0YzE2MTQ3MDBmYmI1ZTRhZjdhNjE2M2JiZjJhZDkxNzk5NDQ4MTIyNTdhMzUxOTYyZjA=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

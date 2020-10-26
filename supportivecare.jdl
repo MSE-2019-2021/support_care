@@ -1,0 +1,142 @@
+application {
+  config {
+    applicationType monolith,
+    baseName supportivecare,
+    packageName uc.dei.mse.supportivecare,
+    buildTool maven,
+    clientPackageManager npm,
+    databaseType sql,
+    devDatabaseType h2Memory,
+    prodDatabaseType postgresql,
+    nativeLanguage pt-pt,
+    languages [pt-pt, en]
+    authenticationType jwt,
+    cacheProvider caffeine,
+    enableHibernateCache true,
+    clientFramework angularX,
+    useSass true,
+    testFrameworks [protractor] // cypress
+  }
+  entities *
+}
+
+/**
+* Administração.
+*/
+entity Administration {
+	/**
+	* Tipo de Administração.
+	*/
+	type String required
+}
+
+/**
+* Observação.
+*/
+entity Notice {
+	/**
+	* Descrição.
+	*/
+	description String required,
+	/**
+	* Avaliação.
+	*/
+	evaluation String required,
+	/**
+	* Intervenção.
+	*/
+	intervention String required
+}
+
+/**
+* Medicamento.
+*/
+entity Drug {
+	/**
+	* Nome do medicamento.
+	*/
+	name String required,
+	/**
+	* Descrição.
+	*/
+	description String
+}
+
+/**
+* Tratamento.
+*/
+entity Treatment {
+	/**
+	* Tipo de Tratamento.
+	*/
+	type String required
+}
+
+/**
+* Regime terapêutico.
+*/
+entity TherapeuticRegime {
+	/**
+	* Nome.
+	*/
+	name String required,
+	/**
+	* Acrónimo.
+	*/
+	acronym String,
+	/**
+	* Propósito.
+	*/
+	purpose String required,
+	/**
+	* Condição para administração.
+	*/
+	condition String required,
+	/**
+	* Calendarização.
+	*/
+	timing String,
+	/**
+	* Indicação para prescrição.
+	*/
+    indication String required,
+	/**
+	* Critério de redução de dose.
+	*/
+    criteria String required,
+	/**
+	* Outras informações.
+	*/
+    notice String
+}
+
+/**
+* Sintoma (Efeito secundário).
+*/
+entity Diagnostic {
+	/**
+	* Nome.
+	*/
+	name String required,
+	/**
+	* Informação ao enfermeiro.
+	*/
+	notice String
+}
+
+relationship OneToOne {
+	Drug{administration(type) required} to Administration,
+	TherapeuticRegime{treatment(type) required} to Treatment
+}
+
+relationship OneToMany {
+	Drug to Notice{drug(name) required},
+	TherapeuticRegime to Drug{therapeuticRegime(name)},
+    Diagnostic to TherapeuticRegime{diagnostic(name)}
+}
+
+filter *
+
+paginate * with pagination
+
+dto * with mapstruct

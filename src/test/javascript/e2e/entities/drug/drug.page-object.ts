@@ -29,54 +29,62 @@ export class DrugUpdatePage {
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
 
-  drugNameInput = element(by.id('field_drugName'));
-  createUserInput = element(by.id('field_createUser'));
-  createDateInput = element(by.id('field_createDate'));
-  updateUserInput = element(by.id('field_updateUser'));
-  updateDateInput = element(by.id('field_updateDate'));
+  nameInput = element(by.id('field_name'));
+  descriptionInput = element(by.id('field_description'));
+
+  administrationSelect = element(by.id('field_administration'));
+  therapeuticRegimeSelect = element(by.id('field_therapeuticRegime'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
   }
 
-  async setDrugNameInput(drugName: string): Promise<void> {
-    await this.drugNameInput.sendKeys(drugName);
+  async setNameInput(name: string): Promise<void> {
+    await this.nameInput.sendKeys(name);
   }
 
-  async getDrugNameInput(): Promise<string> {
-    return await this.drugNameInput.getAttribute('value');
+  async getNameInput(): Promise<string> {
+    return await this.nameInput.getAttribute('value');
   }
 
-  async setCreateUserInput(createUser: string): Promise<void> {
-    await this.createUserInput.sendKeys(createUser);
+  async setDescriptionInput(description: string): Promise<void> {
+    await this.descriptionInput.sendKeys(description);
   }
 
-  async getCreateUserInput(): Promise<string> {
-    return await this.createUserInput.getAttribute('value');
+  async getDescriptionInput(): Promise<string> {
+    return await this.descriptionInput.getAttribute('value');
   }
 
-  async setCreateDateInput(createDate: string): Promise<void> {
-    await this.createDateInput.sendKeys(createDate);
+  async administrationSelectLastOption(): Promise<void> {
+    await this.administrationSelect.all(by.tagName('option')).last().click();
   }
 
-  async getCreateDateInput(): Promise<string> {
-    return await this.createDateInput.getAttribute('value');
+  async administrationSelectOption(option: string): Promise<void> {
+    await this.administrationSelect.sendKeys(option);
   }
 
-  async setUpdateUserInput(updateUser: string): Promise<void> {
-    await this.updateUserInput.sendKeys(updateUser);
+  getAdministrationSelect(): ElementFinder {
+    return this.administrationSelect;
   }
 
-  async getUpdateUserInput(): Promise<string> {
-    return await this.updateUserInput.getAttribute('value');
+  async getAdministrationSelectedOption(): Promise<string> {
+    return await this.administrationSelect.element(by.css('option:checked')).getText();
   }
 
-  async setUpdateDateInput(updateDate: string): Promise<void> {
-    await this.updateDateInput.sendKeys(updateDate);
+  async therapeuticRegimeSelectLastOption(): Promise<void> {
+    await this.therapeuticRegimeSelect.all(by.tagName('option')).last().click();
   }
 
-  async getUpdateDateInput(): Promise<string> {
-    return await this.updateDateInput.getAttribute('value');
+  async therapeuticRegimeSelectOption(option: string): Promise<void> {
+    await this.therapeuticRegimeSelect.sendKeys(option);
+  }
+
+  getTherapeuticRegimeSelect(): ElementFinder {
+    return this.therapeuticRegimeSelect;
+  }
+
+  async getTherapeuticRegimeSelectedOption(): Promise<string> {
+    return await this.therapeuticRegimeSelect.element(by.css('option:checked')).getText();
   }
 
   async save(): Promise<void> {

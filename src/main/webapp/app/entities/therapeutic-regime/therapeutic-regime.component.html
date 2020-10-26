@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="supportcareApp.therapeuticRegime.home.title">Therapeutic Regimes</span>
+        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Therapeutic Regimes</span>
 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-therapeutic-regime" [routerLink]="['/therapeutic-regime/new']">
             <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="supportcareApp.therapeuticRegime.home.createLabel">
+            <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
             Create a new Therapeutic Regime
             </span>
         </button>
@@ -15,7 +15,7 @@
     <jhi-alert></jhi-alert>
 
     <div class="alert alert-warning" id="no-result" *ngIf="therapeuticRegimes?.length === 0">
-        <span jhiTranslate="supportcareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
+        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
     </div>
 
     <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
@@ -23,30 +23,38 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="timing"><span jhiTranslate="supportcareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="dietary"><span jhiTranslate="supportcareApp.therapeuticRegime.dietary">Dietary</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="sideEffects"><span jhiTranslate="supportcareApp.therapeuticRegime.sideEffects">Side Effects</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="createUser"><span jhiTranslate="supportcareApp.therapeuticRegime.createUser">Create User</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="createDate"><span jhiTranslate="supportcareApp.therapeuticRegime.createDate">Create Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updateUser"><span jhiTranslate="supportcareApp.therapeuticRegime.updateUser">Update User</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updateDate"><span jhiTranslate="supportcareApp.therapeuticRegime.updateDate">Update Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="drugId"><span jhiTranslate="supportcareApp.therapeuticRegime.drug">Drug</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="acronym"><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="purpose"><span jhiTranslate="supportivecareApp.therapeuticRegime.purpose">Purpose</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="condition"><span jhiTranslate="supportivecareApp.therapeuticRegime.condition">Condition</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="timing"><span jhiTranslate="supportivecareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="indication"><span jhiTranslate="supportivecareApp.therapeuticRegime.indication">Indication</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="criteria"><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="treatmentType"><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="diagnosticName"><span jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic">Diagnostic</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let therapeuticRegime of therapeuticRegimes ;trackBy: trackId">
                     <td><a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">{{ therapeuticRegime.id }}</a></td>
+                    <td>{{ therapeuticRegime.name }}</td>
+                    <td>{{ therapeuticRegime.acronym }}</td>
+                    <td>{{ therapeuticRegime.purpose }}</td>
+                    <td>{{ therapeuticRegime.condition }}</td>
                     <td>{{ therapeuticRegime.timing }}</td>
-                    <td>{{ therapeuticRegime.dietary }}</td>
-                    <td>{{ therapeuticRegime.sideEffects }}</td>
-                    <td>{{ therapeuticRegime.createUser }}</td>
-                    <td>{{ therapeuticRegime.createDate | date:'medium' }}</td>
-                    <td>{{ therapeuticRegime.updateUser }}</td>
-                    <td>{{ therapeuticRegime.updateDate | date:'medium' }}</td>
+                    <td>{{ therapeuticRegime.indication }}</td>
+                    <td>{{ therapeuticRegime.criteria }}</td>
+                    <td>{{ therapeuticRegime.notice }}</td>
                     <td>
-                        <div *ngIf="therapeuticRegime.drugId">
-                            <a [routerLink]="['/drug', therapeuticRegime.drugId , 'view']" >{{ therapeuticRegime.drugId }}</a>
+                        <div *ngIf="therapeuticRegime.treatmentId">
+                            <a [routerLink]="['/treatment', therapeuticRegime.treatmentId , 'view']" >{{ therapeuticRegime.treatmentType }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="therapeuticRegime.diagnosticId">
+                            <a [routerLink]="['/diagnostic', therapeuticRegime.diagnosticId , 'view']" >{{ therapeuticRegime.diagnosticName }}</a>
                         </div>
                     </td>
                     <td class="text-right">

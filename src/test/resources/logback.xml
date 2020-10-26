@@ -4,7 +4,7 @@
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
-    <logger name="uc.dei.mse.supportcare" level="INFO"/>
+    <logger name="uc.dei.mse.supportivecare" level="INFO"/>
 
     <logger name="io.github.jhipster" level="WARN"/>
 

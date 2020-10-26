@@ -1,45 +1,55 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="therapeuticRegime">
-            <h2><span jhiTranslate="supportcareApp.therapeuticRegime.detail.title">Therapeutic Regime</span> {{ therapeuticRegime.id }}</h2>
+            <h2><span jhiTranslate="supportivecareApp.therapeuticRegime.detail.title">Therapeutic Regime</span> {{ therapeuticRegime.id }}</h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.timing" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.timing' | translate">Timing</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.name" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{ therapeuticRegime.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.acronym' | translate">Acronym</span></dt>
+                <dd>
+                    <span>{{ therapeuticRegime.acronym }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.purpose" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.purpose' | translate">Purpose</span></dt>
+                <dd>
+                    <span>{{ therapeuticRegime.purpose }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.condition" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.condition' | translate">Condition</span></dt>
+                <dd>
+                    <span>{{ therapeuticRegime.condition }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.timing" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.timing' | translate">Timing</span></dt>
                 <dd>
                     <span>{{ therapeuticRegime.timing }}</span>
                 </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.dietary" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.dietary' | translate">Dietary</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.indication" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.indication' | translate">Indication</span></dt>
                 <dd>
-                    <span>{{ therapeuticRegime.dietary }}</span>
+                    <span>{{ therapeuticRegime.indication }}</span>
                 </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.sideEffects" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.sideEffects' | translate">Side Effects</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.criteria' | translate">Criteria</span></dt>
                 <dd>
-                    <span>{{ therapeuticRegime.sideEffects }}</span>
+                    <span>{{ therapeuticRegime.criteria }}</span>
                 </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.createUser" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.createUser' | translate">Create User</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.notice" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.notice' | translate">Notice</span></dt>
                 <dd>
-                    <span>{{ therapeuticRegime.createUser }}</span>
+                    <span>{{ therapeuticRegime.notice }}</span>
                 </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.createDate" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.createDate' | translate">Create Date</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
                 <dd>
-                    <span>{{ therapeuticRegime.createDate }}</span>
+                    <div *ngIf="therapeuticRegime.treatmentId">
+                        <a [routerLink]="['/treatment', therapeuticRegime.treatmentId, 'view']">{{ therapeuticRegime.treatmentType }}</a>
+                    </div>
                 </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.updateUser" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.updateUser' | translate">Update User</span></dt>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic">Diagnostic</span></dt>
                 <dd>
-                    <span>{{ therapeuticRegime.updateUser }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.updateDate" [ngbTooltip]="'supportcareApp.therapeuticRegime.help.updateDate' | translate">Update Date</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.updateDate }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportcareApp.therapeuticRegime.drug">Drug</span></dt>
-                <dd>
-                    <div *ngIf="therapeuticRegime.drugId">
-                        <a [routerLink]="['/drug', therapeuticRegime.drugId, 'view']">{{ therapeuticRegime.drugId }}</a>
+                    <div *ngIf="therapeuticRegime.diagnosticId">
+                        <a [routerLink]="['/diagnostic', therapeuticRegime.diagnosticId, 'view']">{{ therapeuticRegime.diagnosticName }}</a>
                     </div>
                 </dd>
             </dl>

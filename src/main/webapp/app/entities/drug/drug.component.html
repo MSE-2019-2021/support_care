@@ -1,10 +1,10 @@
 <div>
     <h2 id="page-heading">
-        <span jhiTranslate="supportcareApp.drug.home.title">Drugs</span>
+        <span jhiTranslate="supportivecareApp.drug.home.title">Drugs</span>
 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-drug" [routerLink]="['/drug/new']">
             <fa-icon icon="plus"></fa-icon>
-            <span  jhiTranslate="supportcareApp.drug.home.createLabel">
+            <span  jhiTranslate="supportivecareApp.drug.home.createLabel">
             Create a new Drug
             </span>
         </button>
@@ -15,7 +15,7 @@
     <jhi-alert></jhi-alert>
 
     <div class="alert alert-warning" id="no-result" *ngIf="drugs?.length === 0">
-        <span jhiTranslate="supportcareApp.drug.home.notFound">No drugs found</span>
+        <span jhiTranslate="supportivecareApp.drug.home.notFound">No drugs found</span>
     </div>
 
     <div class="table-responsive" id="entities" *ngIf="drugs && drugs.length > 0">
@@ -23,22 +23,28 @@
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="drugName"><span jhiTranslate="supportcareApp.drug.drugName">Drug Name</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="createUser"><span jhiTranslate="supportcareApp.drug.createUser">Create User</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="createDate"><span jhiTranslate="supportcareApp.drug.createDate">Create Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updateUser"><span jhiTranslate="supportcareApp.drug.updateUser">Update User</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="updateDate"><span jhiTranslate="supportcareApp.drug.updateDate">Update Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.drug.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="supportivecareApp.drug.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="administrationType"><span jhiTranslate="supportivecareApp.drug.administration">Administration</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="therapeuticRegimeName"><span jhiTranslate="supportivecareApp.drug.therapeuticRegime">Therapeutic Regime</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let drug of drugs ;trackBy: trackId">
                     <td><a [routerLink]="['/drug', drug.id, 'view']">{{ drug.id }}</a></td>
-                    <td>{{ drug.drugName }}</td>
-                    <td>{{ drug.createUser }}</td>
-                    <td>{{ drug.createDate | date:'medium' }}</td>
-                    <td>{{ drug.updateUser }}</td>
-                    <td>{{ drug.updateDate | date:'medium' }}</td>
+                    <td>{{ drug.name }}</td>
+                    <td>{{ drug.description }}</td>
+                    <td>
+                        <div *ngIf="drug.administrationId">
+                            <a [routerLink]="['/administration', drug.administrationId , 'view']" >{{ drug.administrationType }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="drug.therapeuticRegimeId">
+                            <a [routerLink]="['/therapeutic-regime', drug.therapeuticRegimeId , 'view']" >{{ drug.therapeuticRegimeName }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

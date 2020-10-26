@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { SupportcareTestModule } from '../../../test.module';
+import { SupportivecareTestModule } from '../../../test.module';
 import { TherapeuticRegimeDetailComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-detail.component';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
@@ -14,7 +14,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportcareTestModule],
+        imports: [SupportivecareTestModule],
         declarations: [TherapeuticRegimeDetailComponent],
         providers: [{ provide: ActivatedRoute, useValue: route }],
       })

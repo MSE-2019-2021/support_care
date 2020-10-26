@@ -5,27 +5,31 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
+        path: 'administration',
+        loadChildren: () => import('./administration/administration.module').then(m => m.SupportivecareAdministrationModule),
+      },
+      {
+        path: 'notice',
+        loadChildren: () => import('./notice/notice.module').then(m => m.SupportivecareNoticeModule),
+      },
+      {
         path: 'drug',
-        loadChildren: () => import('./drug/drug.module').then(m => m.SupportcareDrugModule),
+        loadChildren: () => import('./drug/drug.module').then(m => m.SupportivecareDrugModule),
+      },
+      {
+        path: 'treatment',
+        loadChildren: () => import('./treatment/treatment.module').then(m => m.SupportivecareTreatmentModule),
       },
       {
         path: 'therapeutic-regime',
-        loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.SupportcareTherapeuticRegimeModule),
+        loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.SupportivecareTherapeuticRegimeModule),
       },
       {
-        path: 'protocol',
-        loadChildren: () => import('./protocol/protocol.module').then(m => m.SupportcareProtocolModule),
-      },
-      {
-        path: 'outcome',
-        loadChildren: () => import('./outcome/outcome.module').then(m => m.SupportcareOutcomeModule),
-      },
-      {
-        path: 'guide',
-        loadChildren: () => import('./guide/guide.module').then(m => m.SupportcareGuideModule),
+        path: 'diagnostic',
+        loadChildren: () => import('./diagnostic/diagnostic.module').then(m => m.SupportivecareDiagnosticModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
 })
-export class SupportcareEntityModule {}
+export class SupportivecareEntityModule {}

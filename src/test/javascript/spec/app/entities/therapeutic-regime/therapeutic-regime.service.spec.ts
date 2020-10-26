@@ -1,7 +1,5 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { ITherapeuticRegime, TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
@@ -12,7 +10,6 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: ITherapeuticRegime;
     let expectedResult: ITherapeuticRegime | ITherapeuticRegime[] | boolean | null;
-    let currentDate: moment.Moment;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -22,20 +19,13 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(TherapeuticRegimeService);
       httpMock = injector.get(HttpTestingController);
-      currentDate = moment();
 
-      elemDefault = new TherapeuticRegime(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', currentDate, 'AAAAAAA', currentDate);
+      elemDefault = new TherapeuticRegime(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign(
-          {
-            createDate: currentDate.format(DATE_TIME_FORMAT),
-            updateDate: currentDate.format(DATE_TIME_FORMAT),
-          },
-          elemDefault
-        );
+        const returnedFromService = Object.assign({}, elemDefault);
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -48,19 +38,11 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            createDate: currentDate.format(DATE_TIME_FORMAT),
-            updateDate: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
 
-        const expected = Object.assign(
-          {
-            createDate: currentDate,
-            updateDate: currentDate,
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
 
         service.create(new TherapeuticRegime()).subscribe(resp => (expectedResult = resp.body));
 
@@ -72,24 +54,19 @@ describe('Service Tests', () => {
       it('should update a TherapeuticRegime', () => {
         const returnedFromService = Object.assign(
           {
+            name: 'BBBBBB',
+            acronym: 'BBBBBB',
+            purpose: 'BBBBBB',
+            condition: 'BBBBBB',
             timing: 'BBBBBB',
-            dietary: 'BBBBBB',
-            sideEffects: 'BBBBBB',
-            createUser: 'BBBBBB',
-            createDate: currentDate.format(DATE_TIME_FORMAT),
-            updateUser: 'BBBBBB',
-            updateDate: currentDate.format(DATE_TIME_FORMAT),
+            indication: 'BBBBBB',
+            criteria: 'BBBBBB',
+            notice: 'BBBBBB',
           },
           elemDefault
         );
 
-        const expected = Object.assign(
-          {
-            createDate: currentDate,
-            updateDate: currentDate,
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
 
         service.update(expected).subscribe(resp => (expectedResult = resp.body));
 
@@ -101,24 +78,19 @@ describe('Service Tests', () => {
       it('should return a list of TherapeuticRegime', () => {
         const returnedFromService = Object.assign(
           {
+            name: 'BBBBBB',
+            acronym: 'BBBBBB',
+            purpose: 'BBBBBB',
+            condition: 'BBBBBB',
             timing: 'BBBBBB',
-            dietary: 'BBBBBB',
-            sideEffects: 'BBBBBB',
-            createUser: 'BBBBBB',
-            createDate: currentDate.format(DATE_TIME_FORMAT),
-            updateUser: 'BBBBBB',
-            updateDate: currentDate.format(DATE_TIME_FORMAT),
+            indication: 'BBBBBB',
+            criteria: 'BBBBBB',
+            notice: 'BBBBBB',
           },
           elemDefault
         );
 
-        const expected = Object.assign(
-          {
-            createDate: currentDate,
-            updateDate: currentDate,
-          },
-          returnedFromService
-        );
+        const expected = Object.assign({}, returnedFromService);
 
         service.query().subscribe(resp => (expectedResult = resp.body));
 

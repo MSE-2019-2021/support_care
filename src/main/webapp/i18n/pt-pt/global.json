@@ -1,17 +1,18 @@
 {
   "global": {
-    "title": "Supportcare",
+    "title": "Supportivecare",
     "browsehappy": "Está a usar um navegador <strong>desatualizado</strong>. Por favor <a href=\"http://browsehappy.com/?locale=pt_PT\">atualize o seu navegador</a> para ter uma experiência melhor.",
     "menu": {
       "home": "Início",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
+        "administration": "Administration",
+        "notice": "Notice",
         "drug": "Drug",
+        "treatment": "Treatment",
         "therapeuticRegime": "Therapeutic Regime",
-        "protocol": "Protocol",
-        "outcome": "Outcome",
-        "guide": "Guide",
+        "diagnostic": "Diagnostic",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -34,6 +35,7 @@
         "audits": "Auditorias",
         "apidocs": "API",
         "database": "Base de Dados",
+        "entity-audit": "Entity Audit",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
       "language": "Idioma"
