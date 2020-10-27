@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - "master"
+      - "feature/MSEDO-50-add-release-automatically"
 
 jobs:
   pre-release:
