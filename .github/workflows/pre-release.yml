@@ -36,5 +36,8 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Automatic Pre-Release"
-          files: | 
-            *.jar
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: target/*.jar
