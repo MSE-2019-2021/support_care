@@ -44,7 +44,7 @@
     <!--
         Load data
     -->
-    <changeSet id="20201026005952-1-data" author="dfranco">
+    <changeSet id="20201026005952-1-data" author="dfranco" context="!test">
         <loadData
                   file="config/liquibase/data/treatment.csv"
                   separator=";"
