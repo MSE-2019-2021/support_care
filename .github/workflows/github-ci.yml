@@ -30,3 +30,11 @@ jobs:
               run: npm run test
             - name: Package application
               run: ./mvnw -ntp package -Pprod -DskipTests
+              
+            - if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+              uses: actions/upload-artifact@v2
+              with:
+                name: jar-deliverable
+                path: target/*.jar
+                if-no-files-found: error
+
