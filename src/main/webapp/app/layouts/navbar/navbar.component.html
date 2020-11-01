@@ -202,6 +202,15 @@
                     </li>
                 </ul>
             </li>
+            <li ngbDropdown class="nav-item dropdown pointer" display="dynamic">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="navBarMainMenu"></a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="navBarMainMenu">
+                    <li *ngFor="let mainMenu of mainMenus">
+                        <a class="dropdown-item" [jhiActiveMenu]="mainMenu" href="javascript:void(0);" (click)="collapseNavbar();" > {{ mainMenu }}</a>
+                        <!--TODO andrenunes - reencaminhar para pagina, adicionar traduções ao dicionario, dropdown tem de cobrir a pagina toda-->
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </nav>

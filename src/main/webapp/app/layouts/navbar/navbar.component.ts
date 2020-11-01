@@ -4,6 +4,7 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
+import { MAIN_MENU } from 'app/core/mainMenu/mainMenu.constants';
 import { LANGUAGES } from 'app/core/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
@@ -18,6 +19,7 @@ export class NavbarComponent implements OnInit {
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
+  mainMenus = MAIN_MENU;
   openAPIEnabled?: boolean;
   version: string;
 
