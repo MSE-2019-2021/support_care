@@ -200,3 +200,17 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+/* ==========================================================================
+main menu
+========================================================================== */
+
+.main-menu-dropdown {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 80px;
+
+  background: rgba(71, 76, 104, 0.9);
+}
