@@ -11,7 +11,7 @@ import java.util.Set;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
  */
 @ApiModel(description = "Regime terapêutico.")
-public class TherapeuticRegimeDTO implements Serializable {
+public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
     
     private Long id;
 

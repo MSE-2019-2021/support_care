@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "therapeutic_regime")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TherapeuticRegime implements Serializable {
+public class TherapeuticRegime extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

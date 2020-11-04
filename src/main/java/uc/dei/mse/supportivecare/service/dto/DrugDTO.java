@@ -9,7 +9,7 @@ import java.io.Serializable;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Drug} entity.
  */
 @ApiModel(description = "Medicamento.")
-public class DrugDTO implements Serializable {
+public class DrugDTO extends AbstractAuditingDTO implements Serializable {
     
     private Long id;
 
