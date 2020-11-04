@@ -137,6 +137,6 @@ relationship OneToMany {
 
 filter *
 
-paginate * with pagination
+paginate * with infinite-scroll
 
 dto * with mapstruct
