@@ -15,7 +15,7 @@ application {
     enableHibernateCache true,
     clientFramework angularX,
     useSass true,
-    testFrameworks [protractor] // cypress
+    testFrameworks [cypress]
   }
   entities *
 }
