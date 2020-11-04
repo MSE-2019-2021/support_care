@@ -42,14 +42,6 @@
                         This field is required.
                     </small>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="supportivecareApp.drug.therapeuticRegime" for="field_therapeuticRegime">Therapeutic Regime</label>
-                    <select class="form-control" id="field_therapeuticRegime" name="therapeuticRegime" formControlName="therapeuticRegimeId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="therapeuticRegimeOption.id" *ngFor="let therapeuticRegimeOption of therapeuticregimes; trackBy: trackById">{{ therapeuticRegimeOption.name }}</option>
-                    </select>
-                </div>
             </div>
 
             <div>

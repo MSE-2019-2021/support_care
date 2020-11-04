@@ -40,7 +40,6 @@ export const drugRoute: Routes = [
     component: DrugComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],

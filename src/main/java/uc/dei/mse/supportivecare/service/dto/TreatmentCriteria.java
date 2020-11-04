@@ -28,12 +28,15 @@ public class TreatmentCriteria implements Serializable, Criteria {
 
     private StringFilter type;
 
+    private LongFilter therapeuticRegimeId;
+
     public TreatmentCriteria() {
     }
 
     public TreatmentCriteria(TreatmentCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.type = other.type == null ? null : other.type.copy();
+        this.therapeuticRegimeId = other.therapeuticRegimeId == null ? null : other.therapeuticRegimeId.copy();
     }
 
     @Override
@@ -57,6 +60,14 @@ public class TreatmentCriteria implements Serializable, Criteria {
         this.type = type;
     }
 
+    public LongFilter getTherapeuticRegimeId() {
+        return therapeuticRegimeId;
+    }
+
+    public void setTherapeuticRegimeId(LongFilter therapeuticRegimeId) {
+        this.therapeuticRegimeId = therapeuticRegimeId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -69,14 +80,16 @@ public class TreatmentCriteria implements Serializable, Criteria {
         final TreatmentCriteria that = (TreatmentCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(type, that.type);
+            Objects.equals(type, that.type) &&
+            Objects.equals(therapeuticRegimeId, that.therapeuticRegimeId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        type
+        type,
+        therapeuticRegimeId
         );
     }
 
@@ -86,6 +99,7 @@ public class TreatmentCriteria implements Serializable, Criteria {
         return "TreatmentCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (type != null ? "type=" + type + ", " : "") +
+                (therapeuticRegimeId != null ? "therapeuticRegimeId=" + therapeuticRegimeId + ", " : "") +
             "}";
     }
 

@@ -2,6 +2,7 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Treatment;
+import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.repository.TreatmentRepository;
 import uc.dei.mse.supportivecare.service.TreatmentService;
 import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
@@ -267,6 +268,26 @@ public class TreatmentResourceIT {
 
         // Get all the treatmentList where type does not contain UPDATED_TYPE
         defaultTreatmentShouldBeFound("type.doesNotContain=" + UPDATED_TYPE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllTreatmentsByTherapeuticRegimeIsEqualToSomething() throws Exception {
+        // Initialize the database
+        treatmentRepository.saveAndFlush(treatment);
+        TherapeuticRegime therapeuticRegime = TherapeuticRegimeResourceIT.createEntity(em);
+        em.persist(therapeuticRegime);
+        em.flush();
+        treatment.addTherapeuticRegime(therapeuticRegime);
+        treatmentRepository.saveAndFlush(treatment);
+        Long therapeuticRegimeId = therapeuticRegime.getId();
+
+        // Get all the treatmentList where therapeuticRegime equals to therapeuticRegimeId
+        defaultTreatmentShouldBeFound("therapeuticRegimeId.equals=" + therapeuticRegimeId);
+
+        // Get all the treatmentList where therapeuticRegime equals to therapeuticRegimeId + 1
+        defaultTreatmentShouldNotBeFound("therapeuticRegimeId.equals=" + (therapeuticRegimeId + 1));
     }
 
     /**

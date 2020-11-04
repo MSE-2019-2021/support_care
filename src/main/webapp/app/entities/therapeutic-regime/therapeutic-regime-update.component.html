@@ -90,6 +90,13 @@
                 </div>
 
                 <div class="form-group">
+                    <label jhiTranslate="supportivecareApp.therapeuticRegime.drug" for="field_drugs">Drug</label>
+                    <select class="form-control" id="field_drugs" multiple name="drugs" formControlName="drugs">
+                        <option [ngValue]="getSelected(editForm.get('drugs')!.value, drugOption)" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.treatment" for="field_treatment">Treatment</label>
                     <select class="form-control" id="field_treatment" name="treatment" formControlName="treatmentId">
                         <option *ngIf="!editForm.get('treatmentId')!.value" [ngValue]="null" selected></option>
@@ -101,14 +108,6 @@
                            *ngIf="editForm.get('treatmentId')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic" for="field_diagnostic">Diagnostic</label>
-                    <select class="form-control" id="field_diagnostic" name="diagnostic" formControlName="diagnosticId">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="diagnosticOption.id" *ngFor="let diagnosticOption of diagnostics; trackBy: trackById">{{ diagnosticOption.name }}</option>
-                    </select>
                 </div>
             </div>
 

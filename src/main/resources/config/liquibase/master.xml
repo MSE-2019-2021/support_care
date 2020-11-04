@@ -14,17 +14,15 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026005652_added_entity_Administration.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026005752_added_entity_Notice.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026005852_added_entity_Drug.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026005952_added_entity_Treatment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026010052_added_entity_TherapeuticRegime.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026010152_added_entity_Diagnostic.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026010734_added_entity_EntityAuditEvent.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142443_added_entity_Administration.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142543_added_entity_Notice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142643_added_entity_Drug.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142743_added_entity_Treatment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142843_added_entity_TherapeuticRegime.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20201026005752_added_entity_constraints_Notice.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026005852_added_entity_constraints_Drug.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20201026010052_added_entity_constraints_TherapeuticRegime.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142543_added_entity_constraints_Notice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142643_added_entity_constraints_Drug.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201104142843_added_entity_constraints_TherapeuticRegime.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

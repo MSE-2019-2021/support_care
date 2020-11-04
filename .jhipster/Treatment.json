@@ -8,18 +8,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
-  "changelogDate": "20201026005952",
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "treatment",
+      "relationshipName": "therapeuticRegime"
+    }
+  ],
+  "changelogDate": "20201104142743",
   "javadoc": "Tratamento.",
   "entityTableName": "treatment",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "applications": ["supportivecare"]
 }

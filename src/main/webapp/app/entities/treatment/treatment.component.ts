@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
-import { Subscription, combineLatest } from 'rxjs';
-import { JhiEventManager } from 'ng-jhipster';
+import { Subscription } from 'rxjs';
+import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITreatment } from 'app/shared/model/treatment.model';
@@ -16,56 +15,54 @@ import { TreatmentDeleteDialogComponent } from './treatment-delete-dialog.compon
   templateUrl: './treatment.component.html',
 })
 export class TreatmentComponent implements OnInit, OnDestroy {
-  treatments?: ITreatment[];
+  treatments: ITreatment[];
   eventSubscriber?: Subscription;
-  totalItems = 0;
-  itemsPerPage = ITEMS_PER_PAGE;
-  page!: number;
-  predicate!: string;
-  ascending!: boolean;
-  ngbPaginationPage = 1;
+  itemsPerPage: number;
+  links: any;
+  page: number;
+  predicate: string;
+  ascending: boolean;
 
   constructor(
     protected treatmentService: TreatmentService,
-    protected activatedRoute: ActivatedRoute,
-    protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
-  ) {}
+    protected modalService: NgbModal,
+    protected parseLinks: JhiParseLinks
+  ) {
+    this.treatments = [];
+    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.page = 0;
+    this.links = {
+      last: 0,
+    };
+    this.predicate = 'id';
+    this.ascending = true;
+  }
 
-  loadPage(page?: number, dontNavigate?: boolean): void {
-    const pageToLoad: number = page || this.page || 1;
-
+  loadAll(): void {
     this.treatmentService
       .query({
-        page: pageToLoad - 1,
+        page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe(
-        (res: HttpResponse<ITreatment[]>) => this.onSuccess(res.body, res.headers, pageToLoad, !dontNavigate),
-        () => this.onError()
-      );
+      .subscribe((res: HttpResponse<ITreatment[]>) => this.paginateTreatments(res.body, res.headers));
+  }
+
+  reset(): void {
+    this.page = 0;
+    this.treatments = [];
+    this.loadAll();
+  }
+
+  loadPage(page: number): void {
+    this.page = page;
+    this.loadAll();
   }
 
   ngOnInit(): void {
-    this.handleNavigation();
+    this.loadAll();
     this.registerChangeInTreatments();
-  }
-
-  protected handleNavigation(): void {
-    combineLatest(this.activatedRoute.data, this.activatedRoute.queryParamMap, (data: Data, params: ParamMap) => {
-      const page = params.get('page');
-      const pageNumber = page !== null ? +page : 1;
-      const sort = (params.get('sort') ?? data['defaultSort']).split(',');
-      const predicate = sort[0];
-      const ascending = sort[1] === 'asc';
-      if (pageNumber !== this.page || predicate !== this.predicate || ascending !== this.ascending) {
-        this.predicate = predicate;
-        this.ascending = ascending;
-        this.loadPage(pageNumber, true);
-      }
-    }).subscribe();
   }
 
   ngOnDestroy(): void {
@@ -80,7 +77,7 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInTreatments(): void {
-    this.eventSubscriber = this.eventManager.subscribe('treatmentListModification', () => this.loadPage());
+    this.eventSubscriber = this.eventManager.subscribe('treatmentListModification', () => this.reset());
   }
 
   delete(treatment: ITreatment): void {
@@ -96,23 +93,13 @@ export class TreatmentComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  protected onSuccess(data: ITreatment[] | null, headers: HttpHeaders, page: number, navigate: boolean): void {
-    this.totalItems = Number(headers.get('X-Total-Count'));
-    this.page = page;
-    if (navigate) {
-      this.router.navigate(['/treatment'], {
-        queryParams: {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc'),
-        },
-      });
+  protected paginateTreatments(data: ITreatment[] | null, headers: HttpHeaders): void {
+    const headersLink = headers.get('link');
+    this.links = this.parseLinks.parse(headersLink ? headersLink : '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.treatments.push(data[i]);
+      }
     }
-    this.treatments = data || [];
-    this.ngbPaginationPage = this.page;
-  }
-
-  protected onError(): void {
-    this.ngbPaginationPage = this.page ?? 1;
   }
 }

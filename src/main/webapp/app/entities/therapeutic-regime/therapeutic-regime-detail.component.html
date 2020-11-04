@@ -40,16 +40,16 @@
                 <dd>
                     <span>{{ therapeuticRegime.notice }}</span>
                 </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.drug">Drug</span></dt>
+                <dd>
+                    <span *ngFor="let drug of therapeuticRegime.drugs; let last = last">
+                        <a [routerLink]="['/drug', drug?.id, 'view']">{{ drug.name }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
                 <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
                 <dd>
                     <div *ngIf="therapeuticRegime.treatmentId">
                         <a [routerLink]="['/treatment', therapeuticRegime.treatmentId, 'view']">{{ therapeuticRegime.treatmentType }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic">Diagnostic</span></dt>
-                <dd>
-                    <div *ngIf="therapeuticRegime.diagnosticId">
-                        <a [routerLink]="['/diagnostic', therapeuticRegime.diagnosticId, 'view']">{{ therapeuticRegime.diagnosticName }}</a>
                     </div>
                 </dd>
             </dl>

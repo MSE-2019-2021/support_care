@@ -56,8 +56,8 @@ describe('TherapeuticRegime e2e test', () => {
             therapeuticRegimeUpdatePage.setIndicationInput('indication'),
             therapeuticRegimeUpdatePage.setCriteriaInput('criteria'),
             therapeuticRegimeUpdatePage.setNoticeInput('notice'),
+            // therapeuticRegimeUpdatePage.drugSelectLastOption(),
             therapeuticRegimeUpdatePage.treatmentSelectLastOption(),
-            therapeuticRegimeUpdatePage.diagnosticSelectLastOption(),
         ]);
 
         expect(await therapeuticRegimeUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');

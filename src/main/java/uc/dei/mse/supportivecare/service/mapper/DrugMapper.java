@@ -9,19 +9,18 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Drug} and its DTO {@link DrugDTO}.
  */
-@Mapper(componentModel = "spring", uses = {AdministrationMapper.class, TherapeuticRegimeMapper.class})
+@Mapper(componentModel = "spring", uses = {AdministrationMapper.class})
 public interface DrugMapper extends EntityMapper<DrugDTO, Drug> {
 
     @Mapping(source = "administration.id", target = "administrationId")
     @Mapping(source = "administration.type", target = "administrationType")
-    @Mapping(source = "therapeuticRegime.id", target = "therapeuticRegimeId")
-    @Mapping(source = "therapeuticRegime.name", target = "therapeuticRegimeName")
     DrugDTO toDto(Drug drug);
 
-    @Mapping(source = "administrationId", target = "administration")
     @Mapping(target = "notices", ignore = true)
     @Mapping(target = "removeNotice", ignore = true)
-    @Mapping(source = "therapeuticRegimeId", target = "therapeuticRegime")
+    @Mapping(source = "administrationId", target = "administration")
+    @Mapping(target = "therapeuticRegimes", ignore = true)
+    @Mapping(target = "removeTherapeuticRegime", ignore = true)
     Drug toEntity(DrugDTO drugDTO);
 
     default Drug fromId(Long id) {

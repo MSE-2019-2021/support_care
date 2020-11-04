@@ -24,18 +24,17 @@
       "indication": "Indication",
       "criteria": "Criteria",
       "notice": "Notice",
-      "treatment": "Treatment",
       "drug": "Drug",
-      "diagnostic": "Diagnostic",
+      "treatment": "Treatment",
       "help": {
-        "name": "Name",
-        "acronym": "Acronym.",
-        "purpose": "Purpose.",
-        "condition": "Administration condition.",
-        "timing": "Timing",
-        "indication": "Prescription indication",
-        "criteria": "Dose reduction criteria",
-        "notice": "Other information's"
+        "name": "Nome.",
+        "acronym": "Acrónimo.",
+        "purpose": "Propósito.",
+        "condition": "Condição para administração.",
+        "timing": "Calendarização.",
+        "indication": "Indicação para prescrição.",
+        "criteria": "Critério de redução de dose.",
+        "notice": "Outras informações."
       }
     }
   }

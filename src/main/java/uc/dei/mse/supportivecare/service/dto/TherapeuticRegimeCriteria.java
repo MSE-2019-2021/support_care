@@ -42,11 +42,9 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
 
     private StringFilter notice;
 
-    private LongFilter treatmentId;
-
     private LongFilter drugId;
 
-    private LongFilter diagnosticId;
+    private LongFilter treatmentId;
 
     public TherapeuticRegimeCriteria() {
     }
@@ -61,9 +59,8 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.indication = other.indication == null ? null : other.indication.copy();
         this.criteria = other.criteria == null ? null : other.criteria.copy();
         this.notice = other.notice == null ? null : other.notice.copy();
-        this.treatmentId = other.treatmentId == null ? null : other.treatmentId.copy();
         this.drugId = other.drugId == null ? null : other.drugId.copy();
-        this.diagnosticId = other.diagnosticId == null ? null : other.diagnosticId.copy();
+        this.treatmentId = other.treatmentId == null ? null : other.treatmentId.copy();
     }
 
     @Override
@@ -143,14 +140,6 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.notice = notice;
     }
 
-    public LongFilter getTreatmentId() {
-        return treatmentId;
-    }
-
-    public void setTreatmentId(LongFilter treatmentId) {
-        this.treatmentId = treatmentId;
-    }
-
     public LongFilter getDrugId() {
         return drugId;
     }
@@ -159,12 +148,12 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.drugId = drugId;
     }
 
-    public LongFilter getDiagnosticId() {
-        return diagnosticId;
+    public LongFilter getTreatmentId() {
+        return treatmentId;
     }
 
-    public void setDiagnosticId(LongFilter diagnosticId) {
-        this.diagnosticId = diagnosticId;
+    public void setTreatmentId(LongFilter treatmentId) {
+        this.treatmentId = treatmentId;
     }
 
 
@@ -187,9 +176,8 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
             Objects.equals(indication, that.indication) &&
             Objects.equals(criteria, that.criteria) &&
             Objects.equals(notice, that.notice) &&
-            Objects.equals(treatmentId, that.treatmentId) &&
             Objects.equals(drugId, that.drugId) &&
-            Objects.equals(diagnosticId, that.diagnosticId);
+            Objects.equals(treatmentId, that.treatmentId);
     }
 
     @Override
@@ -204,9 +192,8 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         indication,
         criteria,
         notice,
-        treatmentId,
         drugId,
-        diagnosticId
+        treatmentId
         );
     }
 
@@ -223,9 +210,8 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
                 (indication != null ? "indication=" + indication + ", " : "") +
                 (criteria != null ? "criteria=" + criteria + ", " : "") +
                 (notice != null ? "notice=" + notice + ", " : "") +
-                (treatmentId != null ? "treatmentId=" + treatmentId + ", " : "") +
                 (drugId != null ? "drugId=" + drugId + ", " : "") +
-                (diagnosticId != null ? "diagnosticId=" + diagnosticId + ", " : "") +
+                (treatmentId != null ? "treatmentId=" + treatmentId + ", " : "") +
             "}";
     }
 

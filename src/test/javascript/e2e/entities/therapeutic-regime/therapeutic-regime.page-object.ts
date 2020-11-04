@@ -38,8 +38,8 @@ export class TherapeuticRegimeUpdatePage {
   criteriaInput = element(by.id('field_criteria'));
   noticeInput = element(by.id('field_notice'));
 
+  drugSelect = element(by.id('field_drug'));
   treatmentSelect = element(by.id('field_treatment'));
-  diagnosticSelect = element(by.id('field_diagnostic'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -109,6 +109,22 @@ export class TherapeuticRegimeUpdatePage {
     return await this.noticeInput.getAttribute('value');
   }
 
+  async drugSelectLastOption(): Promise<void> {
+    await this.drugSelect.all(by.tagName('option')).last().click();
+  }
+
+  async drugSelectOption(option: string): Promise<void> {
+    await this.drugSelect.sendKeys(option);
+  }
+
+  getDrugSelect(): ElementFinder {
+    return this.drugSelect;
+  }
+
+  async getDrugSelectedOption(): Promise<string> {
+    return await this.drugSelect.element(by.css('option:checked')).getText();
+  }
+
   async treatmentSelectLastOption(): Promise<void> {
     await this.treatmentSelect.all(by.tagName('option')).last().click();
   }
@@ -123,22 +139,6 @@ export class TherapeuticRegimeUpdatePage {
 
   async getTreatmentSelectedOption(): Promise<string> {
     return await this.treatmentSelect.element(by.css('option:checked')).getText();
-  }
-
-  async diagnosticSelectLastOption(): Promise<void> {
-    await this.diagnosticSelect.all(by.tagName('option')).last().click();
-  }
-
-  async diagnosticSelectOption(option: string): Promise<void> {
-    await this.diagnosticSelect.sendKeys(option);
-  }
-
-  getDiagnosticSelect(): ElementFinder {
-    return this.diagnosticSelect;
-  }
-
-  async getDiagnosticSelectedOption(): Promise<string> {
-    return await this.diagnosticSelect.element(by.css('option:checked')).getText();
   }
 
   async save(): Promise<void> {

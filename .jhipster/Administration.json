@@ -8,18 +8,24 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [],
-  "changelogDate": "20201026005652",
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "drug",
+      "otherEntityRelationshipName": "administration",
+      "relationshipName": "drug"
+    }
+  ],
+  "changelogDate": "20201104142443",
   "javadoc": "Administração.",
   "entityTableName": "administration",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "applications": ["supportivecare"]
 }

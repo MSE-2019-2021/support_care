@@ -9,7 +9,7 @@ import java.io.Serializable;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Drug} entity.
  */
 @ApiModel(description = "Medicamento.")
-public class DrugDTO extends AbstractAuditingDTO implements Serializable {
+public class DrugDTO implements Serializable {
     
     private Long id;
 
@@ -30,10 +30,6 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
     private Long administrationId;
 
     private String administrationType;
-
-    private Long therapeuticRegimeId;
-
-    private String therapeuticRegimeName;
     
     public Long getId() {
         return id;
@@ -75,22 +71,6 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
         this.administrationType = administrationType;
     }
 
-    public Long getTherapeuticRegimeId() {
-        return therapeuticRegimeId;
-    }
-
-    public void setTherapeuticRegimeId(Long therapeuticRegimeId) {
-        this.therapeuticRegimeId = therapeuticRegimeId;
-    }
-
-    public String getTherapeuticRegimeName() {
-        return therapeuticRegimeName;
-    }
-
-    public void setTherapeuticRegimeName(String therapeuticRegimeName) {
-        this.therapeuticRegimeName = therapeuticRegimeName;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -117,8 +97,6 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", administrationId=" + getAdministrationId() +
             ", administrationType='" + getAdministrationType() + "'" +
-            ", therapeuticRegimeId=" + getTherapeuticRegimeId() +
-            ", therapeuticRegimeName='" + getTherapeuticRegimeName() + "'" +
             "}";
     }
 }

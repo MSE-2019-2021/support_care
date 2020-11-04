@@ -15,15 +15,6 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "administration",
-      "otherEntityRelationshipName": "drug",
-      "relationshipValidateRules": "required",
-      "relationshipName": "administration",
-      "otherEntityField": "type",
-      "ownerSide": true
-    },
-    {
       "relationshipType": "one-to-many",
       "otherEntityName": "notice",
       "otherEntityRelationshipName": "drug",
@@ -31,23 +22,31 @@
     },
     {
       "relationshipType": "many-to-one",
+      "otherEntityName": "administration",
+      "otherEntityRelationshipName": "drug",
+      "relationshipValidateRules": "required",
+      "relationshipName": "administration",
+      "otherEntityField": "type"
+    },
+    {
+      "relationshipType": "many-to-many",
       "otherEntityName": "therapeuticRegime",
       "otherEntityRelationshipName": "drug",
       "relationshipName": "therapeuticRegime",
-      "otherEntityField": "name"
+      "otherEntityField": "name",
+      "ownerSide": false
     }
   ],
-  "changelogDate": "20201026005852",
+  "changelogDate": "20201104142643",
   "javadoc": "Medicamento.",
   "entityTableName": "drug",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "applications": ["supportivecare"]
 }

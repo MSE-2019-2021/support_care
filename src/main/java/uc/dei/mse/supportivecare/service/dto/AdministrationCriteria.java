@@ -28,12 +28,15 @@ public class AdministrationCriteria implements Serializable, Criteria {
 
     private StringFilter type;
 
+    private LongFilter drugId;
+
     public AdministrationCriteria() {
     }
 
     public AdministrationCriteria(AdministrationCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.type = other.type == null ? null : other.type.copy();
+        this.drugId = other.drugId == null ? null : other.drugId.copy();
     }
 
     @Override
@@ -57,6 +60,14 @@ public class AdministrationCriteria implements Serializable, Criteria {
         this.type = type;
     }
 
+    public LongFilter getDrugId() {
+        return drugId;
+    }
+
+    public void setDrugId(LongFilter drugId) {
+        this.drugId = drugId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -69,14 +80,16 @@ public class AdministrationCriteria implements Serializable, Criteria {
         final AdministrationCriteria that = (AdministrationCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(type, that.type);
+            Objects.equals(type, that.type) &&
+            Objects.equals(drugId, that.drugId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        type
+        type,
+        drugId
         );
     }
 
@@ -86,6 +99,7 @@ public class AdministrationCriteria implements Serializable, Criteria {
         return "AdministrationCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (type != null ? "type=" + type + ", " : "") +
+                (drugId != null ? "drugId=" + drugId + ", " : "") +
             "}";
     }
 

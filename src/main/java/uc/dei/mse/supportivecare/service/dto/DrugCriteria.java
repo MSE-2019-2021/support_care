@@ -30,9 +30,9 @@ public class DrugCriteria implements Serializable, Criteria {
 
     private StringFilter description;
 
-    private LongFilter administrationId;
-
     private LongFilter noticeId;
+
+    private LongFilter administrationId;
 
     private LongFilter therapeuticRegimeId;
 
@@ -43,8 +43,8 @@ public class DrugCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
-        this.administrationId = other.administrationId == null ? null : other.administrationId.copy();
         this.noticeId = other.noticeId == null ? null : other.noticeId.copy();
+        this.administrationId = other.administrationId == null ? null : other.administrationId.copy();
         this.therapeuticRegimeId = other.therapeuticRegimeId == null ? null : other.therapeuticRegimeId.copy();
     }
 
@@ -77,20 +77,20 @@ public class DrugCriteria implements Serializable, Criteria {
         this.description = description;
     }
 
-    public LongFilter getAdministrationId() {
-        return administrationId;
-    }
-
-    public void setAdministrationId(LongFilter administrationId) {
-        this.administrationId = administrationId;
-    }
-
     public LongFilter getNoticeId() {
         return noticeId;
     }
 
     public void setNoticeId(LongFilter noticeId) {
         this.noticeId = noticeId;
+    }
+
+    public LongFilter getAdministrationId() {
+        return administrationId;
+    }
+
+    public void setAdministrationId(LongFilter administrationId) {
+        this.administrationId = administrationId;
     }
 
     public LongFilter getTherapeuticRegimeId() {
@@ -115,8 +115,8 @@ public class DrugCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
-            Objects.equals(administrationId, that.administrationId) &&
             Objects.equals(noticeId, that.noticeId) &&
+            Objects.equals(administrationId, that.administrationId) &&
             Objects.equals(therapeuticRegimeId, that.therapeuticRegimeId);
     }
 
@@ -126,8 +126,8 @@ public class DrugCriteria implements Serializable, Criteria {
         id,
         name,
         description,
-        administrationId,
         noticeId,
+        administrationId,
         therapeuticRegimeId
         );
     }
@@ -139,8 +139,8 @@ public class DrugCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
-                (administrationId != null ? "administrationId=" + administrationId + ", " : "") +
                 (noticeId != null ? "noticeId=" + noticeId + ", " : "") +
+                (administrationId != null ? "administrationId=" + administrationId + ", " : "") +
                 (therapeuticRegimeId != null ? "therapeuticRegimeId=" + therapeuticRegimeId + ", " : "") +
             "}";
     }

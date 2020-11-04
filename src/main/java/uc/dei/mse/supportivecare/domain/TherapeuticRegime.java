@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @Table(name = "therapeutic_regime")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TherapeuticRegime extends AbstractAuditingEntity implements Serializable {
+public class TherapeuticRegime implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -79,18 +79,17 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     @Column(name = "notice")
     private String notice;
 
-    @OneToOne(optional = false)
-    @NotNull
-    @JoinColumn(unique = true)
-    private Treatment treatment;
-
-    @OneToMany(mappedBy = "therapeuticRegime")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JoinTable(name = "therapeutic_regime_drug",
+               joinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id"),
+               inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
     private Set<Drug> drugs = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = "therapeuticRegimes", allowSetters = true)
-    private Diagnostic diagnostic;
+    private Treatment treatment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -205,19 +204,6 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
         this.notice = notice;
     }
 
-    public Treatment getTreatment() {
-        return treatment;
-    }
-
-    public TherapeuticRegime treatment(Treatment treatment) {
-        this.treatment = treatment;
-        return this;
-    }
-
-    public void setTreatment(Treatment treatment) {
-        this.treatment = treatment;
-    }
-
     public Set<Drug> getDrugs() {
         return drugs;
     }
@@ -229,13 +215,13 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     public TherapeuticRegime addDrug(Drug drug) {
         this.drugs.add(drug);
-        drug.setTherapeuticRegime(this);
+        drug.getTherapeuticRegimes().add(this);
         return this;
     }
 
     public TherapeuticRegime removeDrug(Drug drug) {
         this.drugs.remove(drug);
-        drug.setTherapeuticRegime(null);
+        drug.getTherapeuticRegimes().remove(this);
         return this;
     }
 
@@ -243,17 +229,17 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
         this.drugs = drugs;
     }
 
-    public Diagnostic getDiagnostic() {
-        return diagnostic;
+    public Treatment getTreatment() {
+        return treatment;
     }
 
-    public TherapeuticRegime diagnostic(Diagnostic diagnostic) {
-        this.diagnostic = diagnostic;
+    public TherapeuticRegime treatment(Treatment treatment) {
+        this.treatment = treatment;
         return this;
     }
 
-    public void setDiagnostic(Diagnostic diagnostic) {
-        this.diagnostic = diagnostic;
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

@@ -13,6 +13,9 @@ import org.mapstruct.*;
 public interface TreatmentMapper extends EntityMapper<TreatmentDTO, Treatment> {
 
 
+    @Mapping(target = "therapeuticRegimes", ignore = true)
+    @Mapping(target = "removeTherapeuticRegime", ignore = true)
+    Treatment toEntity(TreatmentDTO treatmentDTO);
 
     default Treatment fromId(Long id) {
         if (id == null) {

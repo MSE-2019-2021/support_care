@@ -40,7 +40,6 @@ export const noticeRoute: Routes = [
     component: NoticeComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'supportivecareApp.notice.home.title',
     },
     canActivate: [UserRouteAccessService],

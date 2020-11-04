@@ -94,6 +94,10 @@ public class AdministrationQueryService extends QueryService<Administration> {
             if (criteria.getType() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getType(), Administration_.type));
             }
+            if (criteria.getDrugId() != null) {
+                specification = specification.and(buildSpecification(criteria.getDrugId(),
+                    root -> root.join(Administration_.drugs, JoinType.LEFT).get(Drug_.id)));
+            }
         }
         return specification;
     }

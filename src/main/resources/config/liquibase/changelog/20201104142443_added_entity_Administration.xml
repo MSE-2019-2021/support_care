@@ -6,11 +6,11 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-
+    
     <!--
         Added the entity Administration.
     -->
-    <changeSet id="20201026005652-1" author="jhipster">
+    <changeSet id="20201104142443-1" author="jhipster">
         <createTable tableName="administration" remarks="Administração.">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
@@ -22,31 +22,22 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="20201026005652-1-relations" author="jhipster">
+    <changeSet id="20201104142443-1-relations" author="jhipster">
 
-    </changeSet>
-
-    <!-- Added the entity audit columns -->
-    <changeSet id="20201026010734-audit-1" author="jhipster-entity-audit">
-        <addColumn tableName="administration">
-            <column name="created_by" type="varchar(50)" defaultValue="system">
-                <constraints nullable="false"/>
-            </column>
-            <column name="created_date" type="timestamp" defaultValueDate="${now}">
-                <constraints nullable="false"/>
-            </column>
-            <column name="last_modified_by" type="varchar(50)"/>
-            <column name="last_modified_date" type="timestamp"/>
-        </addColumn>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--
-        Load data
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
     -->
-    <changeSet id="20201026005652-1-data" author="dfranco" context="!test">
+    <changeSet id="20201104142443-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/data/administration.csv"
+                  file="config/liquibase/fake-data/administration.csv"
                   separator=";"
                   tableName="administration">
             <column name="id" type="numeric"/>

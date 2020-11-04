@@ -12,7 +12,6 @@
         "drug": "Drug",
         "treatment": "Treatment",
         "therapeuticRegime": "Therapeutic Regime",
-        "diagnostic": "Diagnostic",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -35,7 +34,6 @@
         "audits": "Auditorias",
         "apidocs": "API",
         "database": "Base de Dados",
-        "entity-audit": "Entity Audit",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
       "language": "Idioma"

@@ -24,10 +24,6 @@ import { RouterModule } from '@angular/router';
         path: 'therapeutic-regime',
         loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.SupportivecareTherapeuticRegimeModule),
       },
-      {
-        path: 'diagnostic',
-        loadChildren: () => import('./diagnostic/diagnostic.module').then(m => m.SupportivecareDiagnosticModule),
-      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

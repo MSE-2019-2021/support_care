@@ -2,6 +2,7 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Administration;
+import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.repository.AdministrationRepository;
 import uc.dei.mse.supportivecare.service.AdministrationService;
 import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
@@ -267,6 +268,26 @@ public class AdministrationResourceIT {
 
         // Get all the administrationList where type does not contain UPDATED_TYPE
         defaultAdministrationShouldBeFound("type.doesNotContain=" + UPDATED_TYPE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllAdministrationsByDrugIsEqualToSomething() throws Exception {
+        // Initialize the database
+        administrationRepository.saveAndFlush(administration);
+        Drug drug = DrugResourceIT.createEntity(em);
+        em.persist(drug);
+        em.flush();
+        administration.addDrug(drug);
+        administrationRepository.saveAndFlush(administration);
+        Long drugId = drug.getId();
+
+        // Get all the administrationList where drug equals to drugId
+        defaultAdministrationShouldBeFound("drugId.equals=" + drugId);
+
+        // Get all the administrationList where drug equals to drugId + 1
+        defaultAdministrationShouldNotBeFound("drugId.equals=" + (drugId + 1));
     }
 
     /**
