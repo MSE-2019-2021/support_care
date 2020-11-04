@@ -41,7 +41,7 @@ jobs:
             - name: Package application
               run: npm run java:jar:prod
             - name: Upload artifact
-              if: github.event_name == == 'push' && github.ref == 'refs/heads/master'
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               uses: actions/upload-artifact@v2
               with:
                 name: jar-deliverable
