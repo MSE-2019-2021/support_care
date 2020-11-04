@@ -17,7 +17,7 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Table(name = "therapeutic_regime")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @GeneratedByJHipster
-public class TherapeuticRegime implements Serializable {
+public class TherapeuticRegime extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

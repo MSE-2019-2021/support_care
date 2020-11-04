@@ -15,7 +15,7 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Table(name = "notice")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @GeneratedByJHipster
-public class Notice implements Serializable {
+public class Notice extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -58,6 +58,7 @@ public class CacheConfiguration {
             createCache(cm, uc.dei.mse.supportivecare.domain.Treatment.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName() + ".drugs");
+            createCache(cm, uc.dei.mse.supportivecare.domain.EntityAuditEvent.class.getName());
             // jhipster-needle-caffeine-add-entry
         };
     }

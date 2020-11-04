@@ -12,7 +12,7 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
  */
 @ApiModel(description = "Observação.")
 @GeneratedByJHipster
-public class NoticeDTO implements Serializable {
+public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

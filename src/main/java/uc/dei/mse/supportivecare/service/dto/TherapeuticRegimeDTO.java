@@ -14,7 +14,7 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
  */
 @ApiModel(description = "Regime terapêutico.")
 @GeneratedByJHipster
-public class TherapeuticRegimeDTO implements Serializable {
+public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 
