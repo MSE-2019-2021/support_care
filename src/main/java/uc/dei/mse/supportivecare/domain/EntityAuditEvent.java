@@ -1,22 +1,21 @@
 package uc.dei.mse.supportivecare.domain;
 
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
-import java.util.Objects;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "jhi_entity_audit_event")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class EntityAuditEvent implements Serializable{
+public class EntityAuditEvent implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -32,7 +31,7 @@ public class EntityAuditEvent implements Serializable{
     private String entityType;
 
     @NotNull
-    @Size(max=20)
+    @Size(max = 20)
     @Column(name = "action", length = 20, nullable = false)
     private String action;
 
@@ -50,8 +49,7 @@ public class EntityAuditEvent implements Serializable{
     @NotNull
     @Column(name = "modified_date", nullable = false)
     private Instant modifiedDate;
-    
-    
+
     public Long getId() {
         return id;
     }
@@ -135,18 +133,32 @@ public class EntityAuditEvent implements Serializable{
 
     @Override
     public String toString() {
-        return "EntityAuditEvent{" +
-            "id=" + id +
-            ", entityId='" + entityId + "'" +
-            ", entityType='" + entityType + "'" +
-            ", action='" + action + "'" +
-            ", entityValue='" + entityValue + "'" +
-            ", commitVersion='" + commitVersion + "'" +
-            ", modifiedBy='" + modifiedBy + "'" +
-            ", modifiedDate='" + modifiedDate + "'" +
-            '}';
+        return (
+            "EntityAuditEvent{" +
+            "id=" +
+            id +
+            ", entityId='" +
+            entityId +
+            "'" +
+            ", entityType='" +
+            entityType +
+            "'" +
+            ", action='" +
+            action +
+            "'" +
+            ", entityValue='" +
+            entityValue +
+            "'" +
+            ", commitVersion='" +
+            commitVersion +
+            "'" +
+            ", modifiedBy='" +
+            modifiedBy +
+            "'" +
+            ", modifiedDate='" +
+            modifiedDate +
+            "'" +
+            '}'
+        );
     }
-
-    
-
 }

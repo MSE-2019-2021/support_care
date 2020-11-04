@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.service;
 
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import io.github.jhipster.service.QueryService;
-
-import uc.dei.mse.supportivecare.domain.Administration;
+import tech.jhipster.service.QueryService;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
+import uc.dei.mse.supportivecare.domain.Administration;
 import uc.dei.mse.supportivecare.repository.AdministrationRepository;
 import uc.dei.mse.supportivecare.service.dto.AdministrationCriteria;
 import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
@@ -29,6 +26,7 @@ import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class AdministrationQueryService extends QueryService<Administration> {
 
     private final Logger log = LoggerFactory.getLogger(AdministrationQueryService.class);
@@ -64,8 +62,7 @@ public class AdministrationQueryService extends QueryService<Administration> {
     public Page<AdministrationDTO> findByCriteria(AdministrationCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Administration> specification = createSpecification(criteria);
-        return administrationRepository.findAll(specification, page)
-            .map(administrationMapper::toDto);
+        return administrationRepository.findAll(specification, page).map(administrationMapper::toDto);
     }
 
     /**
@@ -95,8 +92,10 @@ public class AdministrationQueryService extends QueryService<Administration> {
                 specification = specification.and(buildStringSpecification(criteria.getType(), Administration_.type));
             }
             if (criteria.getDrugId() != null) {
-                specification = specification.and(buildSpecification(criteria.getDrugId(),
-                    root -> root.join(Administration_.drugs, JoinType.LEFT).get(Drug_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getDrugId(), root -> root.join(Administration_.drugs, JoinType.LEFT).get(Drug_.id))
+                    );
             }
         }
         return specification;

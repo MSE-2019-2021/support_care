@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.service;
 
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import io.github.jhipster.service.QueryService;
-
-import uc.dei.mse.supportivecare.domain.Treatment;
+import tech.jhipster.service.QueryService;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
+import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TreatmentRepository;
 import uc.dei.mse.supportivecare.service.dto.TreatmentCriteria;
 import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
@@ -29,6 +26,7 @@ import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class TreatmentQueryService extends QueryService<Treatment> {
 
     private final Logger log = LoggerFactory.getLogger(TreatmentQueryService.class);
@@ -64,8 +62,7 @@ public class TreatmentQueryService extends QueryService<Treatment> {
     public Page<TreatmentDTO> findByCriteria(TreatmentCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Treatment> specification = createSpecification(criteria);
-        return treatmentRepository.findAll(specification, page)
-            .map(treatmentMapper::toDto);
+        return treatmentRepository.findAll(specification, page).map(treatmentMapper::toDto);
     }
 
     /**
@@ -95,8 +92,13 @@ public class TreatmentQueryService extends QueryService<Treatment> {
                 specification = specification.and(buildStringSpecification(criteria.getType(), Treatment_.type));
             }
             if (criteria.getTherapeuticRegimeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getTherapeuticRegimeId(),
-                    root -> root.join(Treatment_.therapeuticRegimes, JoinType.LEFT).get(TherapeuticRegime_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getTherapeuticRegimeId(),
+                            root -> root.join(Treatment_.therapeuticRegimes, JoinType.LEFT).get(TherapeuticRegime_.id)
+                        )
+                    );
             }
         }
         return specification;

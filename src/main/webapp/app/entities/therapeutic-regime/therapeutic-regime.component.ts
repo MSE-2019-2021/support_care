@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
 
@@ -17,8 +17,9 @@ import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-del
 export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   therapeuticRegimes: ITherapeuticRegime[];
   eventSubscriber?: Subscription;
+  isLoading = false;
   itemsPerPage: number;
-  links: any;
+  links: { [key: string]: number };
   page: number;
   predicate: string;
   ascending: boolean;
@@ -40,13 +41,23 @@ export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    this.isLoading = true;
+
     this.therapeuticRegimeService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<ITherapeuticRegime[]>) => this.paginateTherapeuticRegimes(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<ITherapeuticRegime[]>) => {
+          this.isLoading = false;
+          this.paginateTherapeuticRegimes(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 
   reset(): void {
@@ -58,6 +69,10 @@ export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
+  }
+
+  handleSyncList(): void {
+    this.reset();
   }
 
   ngOnInit(): void {
@@ -72,7 +87,6 @@ export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: ITherapeuticRegime): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 

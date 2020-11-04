@@ -1,13 +1,16 @@
 package uc.dei.mse.supportivecare.service.dto;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.web.rest.TestUtil;
 
-public class DrugDTOTest {
+@GeneratedByJHipster
+class DrugDTOTest {
 
     @Test
-    public void dtoEqualsVerifier() throws Exception {
+    void dtoEqualsVerifier() throws Exception {
         TestUtil.equalsVerifier(DrugDTO.class);
         DrugDTO drugDTO1 = new DrugDTO();
         drugDTO1.setId(1L);

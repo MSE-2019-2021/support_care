@@ -1,9 +1,8 @@
-import { TestBed, async, tick, fakeAsync, inject } from '@angular/core/testing';
+import { TestBed, waitForAsync, tick, fakeAsync, inject } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
-import { MockActivatedRoute } from '../../../helpers/mock-route.service';
 import { ActivateService } from 'app/account/activate/activate.service';
 import { ActivateComponent } from 'app/account/activate/activate.component';
 
@@ -11,20 +10,22 @@ describe('Component Tests', () => {
   describe('ActivateComponent', () => {
     let comp: ActivateComponent;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [ActivateComponent],
-        providers: [
-          {
-            provide: ActivatedRoute,
-            useValue: new MockActivatedRoute({ key: 'ABC123' }),
-          },
-        ],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [ActivateComponent],
+          providers: [
+            {
+              provide: ActivatedRoute,
+              useValue: { queryParams: of({ key: 'ABC123' }) },
+            },
+          ],
+        })
+          .overrideTemplate(ActivateComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(ActivateComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       const fixture = TestBed.createComponent(ActivateComponent);

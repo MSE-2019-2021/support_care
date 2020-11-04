@@ -3,6 +3,7 @@
     "drug": {
       "home": {
         "title": "Drugs",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Drug",
         "createOrEditLabel": "Create or edit a Drug",
         "notFound": "No Drugs found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Drug"
       },
+      "id": "ID",
       "name": "Name",
       "description": "Description",
       "notice": "Notice",

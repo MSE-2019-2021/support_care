@@ -1,13 +1,12 @@
 package uc.dei.mse.supportivecare.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
-import java.io.Serializable;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Observação.
@@ -15,6 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "notice")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@GeneratedByJHipster
 public class Notice extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,7 +47,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "notices", allowSetters = true)
+    @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
     private Drug drug;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -57,6 +57,11 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Notice id(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getDescription() {
@@ -110,6 +115,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     public void setDrug(Drug drug) {
         this.drug = drug;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

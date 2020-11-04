@@ -1,14 +1,11 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.service.NoticeService;
-import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
-import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
-import uc.dei.mse.supportivecare.service.dto.NoticeCriteria;
-import uc.dei.mse.supportivecare.service.NoticeQueryService;
-
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,21 +13,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import tech.jhipster.web.util.HeaderUtil;
+import tech.jhipster.web.util.PaginationUtil;
+import tech.jhipster.web.util.ResponseUtil;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.service.NoticeQueryService;
+import uc.dei.mse.supportivecare.service.NoticeService;
+import uc.dei.mse.supportivecare.service.dto.NoticeCriteria;
+import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
+import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
 /**
  * REST controller for managing {@link uc.dei.mse.supportivecare.domain.Notice}.
  */
 @RestController
 @RequestMapping("/api")
+@GeneratedByJHipster
 public class NoticeResource {
 
     private final Logger log = LoggerFactory.getLogger(NoticeResource.class);
@@ -63,7 +64,8 @@ public class NoticeResource {
             throw new BadRequestAlertException("A new notice cannot already have an ID", ENTITY_NAME, "idexists");
         }
         NoticeDTO result = noticeService.save(noticeDTO);
-        return ResponseEntity.created(new URI("/api/notices/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/notices/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -84,9 +86,35 @@ public class NoticeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         NoticeDTO result = noticeService.save(noticeDTO);
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, noticeDTO.getId().toString()))
             .body(result);
+    }
+
+    /**
+     * {@code PATCH  /notices} : Updates given fields of an existing notice.
+     *
+     * @param noticeDTO the noticeDTO to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated noticeDTO,
+     * or with status {@code 400 (Bad Request)} if the noticeDTO is not valid,
+     * or with status {@code 404 (Not Found)} if the noticeDTO is not found,
+     * or with status {@code 500 (Internal Server Error)} if the noticeDTO couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PatchMapping(value = "/notices", consumes = "application/merge-patch+json")
+    public ResponseEntity<NoticeDTO> partialUpdateNotice(@NotNull @RequestBody NoticeDTO noticeDTO) throws URISyntaxException {
+        log.debug("REST request to update Notice partially : {}", noticeDTO);
+        if (noticeDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+
+        Optional<NoticeDTO> result = Optional.ofNullable(noticeService.partialUpdate(noticeDTO));
+
+        return ResponseUtil.wrapOrNotFound(
+            result,
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, noticeDTO.getId().toString())
+        );
     }
 
     /**
@@ -139,6 +167,9 @@ public class NoticeResource {
     public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
         log.debug("REST request to delete Notice : {}", id);
         noticeService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }

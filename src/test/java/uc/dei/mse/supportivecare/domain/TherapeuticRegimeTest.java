@@ -1,13 +1,16 @@
 package uc.dei.mse.supportivecare.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.web.rest.TestUtil;
 
-public class TherapeuticRegimeTest {
+@GeneratedByJHipster
+class TherapeuticRegimeTest {
 
     @Test
-    public void equalsVerifier() throws Exception {
+    void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(TherapeuticRegime.class);
         TherapeuticRegime therapeuticRegime1 = new TherapeuticRegime();
         therapeuticRegime1.setId(1L);

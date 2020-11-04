@@ -1,7 +1,9 @@
 package uc.dei.mse.supportivecare.web.rest.errors;
 
 import java.net.URI;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
+@GeneratedByJHipster
 public final class ErrorConstants {
 
     public static final String ERR_CONCURRENCY_FAILURE = "error.concurrencyFailure";
@@ -13,6 +15,5 @@ public final class ErrorConstants {
     public static final URI EMAIL_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/email-already-used");
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
 
-    private ErrorConstants() {
-    }
+    private ErrorConstants() {}
 }

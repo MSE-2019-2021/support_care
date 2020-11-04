@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync, inject, fakeAsync, tick } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { SupportivecareTestModule } from '../../../test.module';
+import { Authority } from 'app/core/user/authority.model';
 import { UserManagementUpdateComponent } from 'app/admin/user-management/user-management-update.component';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
@@ -15,30 +15,31 @@ describe('Component Tests', () => {
     let comp: UserManagementUpdateComponent;
     let fixture: ComponentFixture<UserManagementUpdateComponent>;
     let service: UserService;
-    const route: ActivatedRoute = ({
-      data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', [Authority.USER], 'admin') }),
-    } as any) as ActivatedRoute;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [UserManagementUpdateComponent],
-        providers: [
-          FormBuilder,
-          {
-            provide: ActivatedRoute,
-            useValue: route,
-          },
-        ],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [UserManagementUpdateComponent],
+          providers: [
+            FormBuilder,
+            {
+              provide: ActivatedRoute,
+              useValue: {
+                data: of({ user: new User(123, 'user', 'first', 'last', 'first@last.com', true, 'en', [Authority.USER], 'admin') }),
+              },
+            },
+          ],
+        })
+          .overrideTemplate(UserManagementUpdateComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(UserManagementUpdateComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(UserManagementUpdateComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(UserService);
+      service = TestBed.inject(UserService);
     });
 
     describe('OnInit', () => {

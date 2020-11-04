@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed, async, inject, tick, fakeAsync } from '@angular/core/testing';
+jest.mock('ng-jhipster');
+
+import { ComponentFixture, TestBed, waitForAsync, inject, tick, fakeAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { MockLanguageService } from '../../../helpers/mock-language.service';
-import { SupportivecareTestModule } from '../../../test.module';
-import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared/constants/error.constants';
+import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/core/config/error.constants';
 import { RegisterService } from 'app/account/register/register.service';
 import { RegisterComponent } from 'app/account/register/register.component';
 
@@ -14,15 +15,17 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<RegisterComponent>;
     let comp: RegisterComponent;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [RegisterComponent],
-        providers: [FormBuilder],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [RegisterComponent],
+          providers: [FormBuilder, JhiLanguageService],
+        })
+          .overrideTemplate(RegisterComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(RegisterComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(RegisterComponent);
@@ -42,8 +45,9 @@ describe('Component Tests', () => {
 
     it('should update success to true after creating an account', inject(
       [RegisterService, JhiLanguageService],
-      fakeAsync((service: RegisterService, mockTranslate: MockLanguageService) => {
+      fakeAsync((service: RegisterService, mockLanguageService: JhiLanguageService) => {
         spyOn(service, 'save').and.returnValue(of({}));
+        spyOn(mockLanguageService, 'getCurrentLanguage').and.returnValue('pt-pt');
         comp.registerForm.patchValue({
           password: 'password',
           confirmPassword: 'password',
@@ -59,7 +63,7 @@ describe('Component Tests', () => {
           langKey: 'pt-pt',
         });
         expect(comp.success).toBe(true);
-        expect(mockTranslate.getCurrentLanguageSpy).toHaveBeenCalled();
+        expect(mockLanguageService.getCurrentLanguage).toHaveBeenCalled();
         expect(comp.errorUserExists).toBe(false);
         expect(comp.errorEmailExists).toBe(false);
         expect(comp.error).toBe(false);

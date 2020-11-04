@@ -1,13 +1,13 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
+import java.util.*;
+import java.util.stream.Collectors;
+import org.mapstruct.*;
+import org.springframework.stereotype.Service;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
-
-import org.springframework.stereotype.Service;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Mapper for the entity {@link User} and its DTO called {@link UserDTO}.
@@ -16,13 +16,11 @@ import java.util.stream.Collectors;
  * support is still in beta, and requires a manual step with an IDE.
  */
 @Service
+@GeneratedByJHipster
 public class UserMapper {
 
     public List<UserDTO> usersToUserDTOs(List<User> users) {
-        return users.stream()
-            .filter(Objects::nonNull)
-            .map(this::userToUserDTO)
-            .collect(Collectors.toList());
+        return users.stream().filter(Objects::nonNull).map(this::userToUserDTO).collect(Collectors.toList());
     }
 
     public UserDTO userToUserDTO(User user) {
@@ -30,10 +28,7 @@ public class UserMapper {
     }
 
     public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
-        return userDTOs.stream()
-            .filter(Objects::nonNull)
-            .map(this::userDTOToUser)
-            .collect(Collectors.toList());
+        return userDTOs.stream().filter(Objects::nonNull).map(this::userDTOToUser).collect(Collectors.toList());
     }
 
     public User userDTOToUser(UserDTO userDTO) {
@@ -55,16 +50,21 @@ public class UserMapper {
         }
     }
 
-
     private Set<Authority> authoritiesFromStrings(Set<String> authoritiesAsString) {
         Set<Authority> authorities = new HashSet<>();
 
         if (authoritiesAsString != null) {
-            authorities = authoritiesAsString.stream().map(string -> {
-                Authority auth = new Authority();
-                auth.setName(string);
-                return auth;
-            }).collect(Collectors.toSet());
+            authorities =
+                authoritiesAsString
+                    .stream()
+                    .map(
+                        string -> {
+                            Authority auth = new Authority();
+                            auth.setName(string);
+                            return auth;
+                        }
+                    )
+                    .collect(Collectors.toSet());
         }
 
         return authorities;
@@ -77,5 +77,31 @@ public class UserMapper {
         User user = new User();
         user.setId(id);
         return user;
+    }
+
+    @Named("id")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    public UserDTO toDtoId(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDTO userDto = new UserDTO();
+        userDto.setId(user.getId());
+        return userDto;
+    }
+
+    @Named("login")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "login", source = "login")
+    public UserDTO toDtoLogin(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDTO userDto = new UserDTO();
+        userDto.setId(user.getId());
+        userDto.setLogin(user.getLogin());
+        return userDto;
     }
 }

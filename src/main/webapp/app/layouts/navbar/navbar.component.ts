@@ -4,10 +4,9 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
-import { LANGUAGES } from 'app/core/language/language.constants';
+import { LANGUAGES } from 'app/core/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
-import { LoginModalService } from 'app/core/login/login-modal.service';
-import { LoginService } from 'app/core/login/login.service';
+import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 
 @Component({
@@ -19,7 +18,7 @@ export class NavbarComponent implements OnInit {
   inProduction?: boolean;
   isNavbarCollapsed = true;
   languages = LANGUAGES;
-  swaggerEnabled?: boolean;
+  openAPIEnabled?: boolean;
   version: string;
 
   constructor(
@@ -27,7 +26,6 @@ export class NavbarComponent implements OnInit {
     private languageService: JhiLanguageService,
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
-    private loginModalService: LoginModalService,
     private profileService: ProfileService,
     private router: Router
   ) {
@@ -37,7 +35,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
-      this.swaggerEnabled = profileInfo.swaggerEnabled;
+      this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
   }
 
@@ -55,7 +53,7 @@ export class NavbarComponent implements OnInit {
   }
 
   login(): void {
-    this.loginModalService.open();
+    this.router.navigate(['/login']);
   }
 
   logout(): void {

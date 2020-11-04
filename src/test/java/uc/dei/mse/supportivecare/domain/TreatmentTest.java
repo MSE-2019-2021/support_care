@@ -1,13 +1,16 @@
 package uc.dei.mse.supportivecare.domain;
 
-import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.web.rest.TestUtil;
 
-public class TreatmentTest {
+@GeneratedByJHipster
+class TreatmentTest {
 
     @Test
-    public void equalsVerifier() throws Exception {
+    void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Treatment.class);
         Treatment treatment1 = new Treatment();
         treatment1.setId(1L);

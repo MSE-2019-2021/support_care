@@ -1,11 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DrugService } from 'app/entities/drug/drug.service';
 import { IDrug, Drug } from 'app/shared/model/drug.model';
 
 describe('Service Tests', () => {
   describe('Drug Service', () => {
-    let injector: TestBed;
     let service: DrugService;
     let httpMock: HttpTestingController;
     let elemDefault: IDrug;
@@ -16,9 +15,8 @@ describe('Service Tests', () => {
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      injector = getTestBed();
-      service = injector.get(DrugService);
-      httpMock = injector.get(HttpTestingController);
+      service = TestBed.inject(DrugService);
+      httpMock = TestBed.inject(HttpTestingController);
 
       elemDefault = new Drug(0, 'AAAAAAA', 'AAAAAAA');
     });
@@ -54,6 +52,7 @@ describe('Service Tests', () => {
       it('should update a Drug', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
           },
@@ -72,6 +71,7 @@ describe('Service Tests', () => {
       it('should return a list of Drug', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
           },

@@ -1,11 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TreatmentService } from 'app/entities/treatment/treatment.service';
 import { ITreatment, Treatment } from 'app/shared/model/treatment.model';
 
 describe('Service Tests', () => {
   describe('Treatment Service', () => {
-    let injector: TestBed;
     let service: TreatmentService;
     let httpMock: HttpTestingController;
     let elemDefault: ITreatment;
@@ -16,9 +15,8 @@ describe('Service Tests', () => {
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      injector = getTestBed();
-      service = injector.get(TreatmentService);
-      httpMock = injector.get(HttpTestingController);
+      service = TestBed.inject(TreatmentService);
+      httpMock = TestBed.inject(HttpTestingController);
 
       elemDefault = new Treatment(0, 'AAAAAAA');
     });
@@ -54,6 +52,7 @@ describe('Service Tests', () => {
       it('should update a Treatment', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             type: 'BBBBBB',
           },
           elemDefault
@@ -71,6 +70,7 @@ describe('Service Tests', () => {
       it('should return a list of Treatment', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             type: 'BBBBBB',
           },
           elemDefault

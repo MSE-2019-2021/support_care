@@ -1,17 +1,12 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.domain.Notice;
-import uc.dei.mse.supportivecare.domain.Administration;
-import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
-import uc.dei.mse.supportivecare.repository.DrugRepository;
-import uc.dei.mse.supportivecare.service.DrugService;
-import uc.dei.mse.supportivecare.service.dto.DrugDTO;
-import uc.dei.mse.supportivecare.service.mapper.DrugMapper;
-import uc.dei.mse.supportivecare.service.dto.DrugCriteria;
-import uc.dei.mse.supportivecare.service.DrugQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +16,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.domain.Administration;
+import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.domain.Notice;
+import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
+import uc.dei.mse.supportivecare.repository.DrugRepository;
+import uc.dei.mse.supportivecare.service.DrugQueryService;
+import uc.dei.mse.supportivecare.service.dto.DrugCriteria;
+import uc.dei.mse.supportivecare.service.dto.DrugDTO;
+import uc.dei.mse.supportivecare.service.mapper.DrugMapper;
 
 /**
  * Integration tests for the {@link DrugResource} REST controller.
@@ -35,7 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-public class DrugResourceIT {
+@GeneratedByJHipster
+class DrugResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -48,9 +48,6 @@ public class DrugResourceIT {
 
     @Autowired
     private DrugMapper drugMapper;
-
-    @Autowired
-    private DrugService drugService;
 
     @Autowired
     private DrugQueryService drugQueryService;
@@ -70,9 +67,7 @@ public class DrugResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Drug createEntity(EntityManager em) {
-        Drug drug = new Drug()
-            .name(DEFAULT_NAME)
-            .description(DEFAULT_DESCRIPTION);
+        Drug drug = new Drug().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION);
         // Add required entity
         Administration administration;
         if (TestUtil.findAll(em, Administration.class).isEmpty()) {
@@ -85,6 +80,7 @@ public class DrugResourceIT {
         drug.setAdministration(administration);
         return drug;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -92,9 +88,7 @@ public class DrugResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Drug createUpdatedEntity(EntityManager em) {
-        Drug drug = new Drug()
-            .name(UPDATED_NAME)
-            .description(UPDATED_DESCRIPTION);
+        Drug drug = new Drug().name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
         // Add required entity
         Administration administration;
         if (TestUtil.findAll(em, Administration.class).isEmpty()) {
@@ -115,13 +109,12 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void createDrug() throws Exception {
+    void createDrug() throws Exception {
         int databaseSizeBeforeCreate = drugRepository.findAll().size();
         // Create the Drug
         DrugDTO drugDTO = drugMapper.toDto(drug);
-        restDrugMockMvc.perform(post("/api/drugs")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(drugDTO)))
+        restDrugMockMvc
+            .perform(post("/api/drugs").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(drugDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Drug in the database
@@ -134,7 +127,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void createDrugWithExistingId() throws Exception {
+    void createDrugWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = drugRepository.findAll().size();
 
         // Create the Drug with an existing ID
@@ -142,9 +135,8 @@ public class DrugResourceIT {
         DrugDTO drugDTO = drugMapper.toDto(drug);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restDrugMockMvc.perform(post("/api/drugs")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(drugDTO)))
+        restDrugMockMvc
+            .perform(post("/api/drugs").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(drugDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Drug in the database
@@ -152,10 +144,9 @@ public class DrugResourceIT {
         assertThat(drugList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void checkNameIsRequired() throws Exception {
+    void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = drugRepository.findAll().size();
         // set the field null
         drug.setName(null);
@@ -163,10 +154,8 @@ public class DrugResourceIT {
         // Create the Drug, which fails.
         DrugDTO drugDTO = drugMapper.toDto(drug);
 
-
-        restDrugMockMvc.perform(post("/api/drugs")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(drugDTO)))
+        restDrugMockMvc
+            .perform(post("/api/drugs").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(drugDTO)))
             .andExpect(status().isBadRequest());
 
         List<Drug> drugList = drugRepository.findAll();
@@ -175,27 +164,29 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugs() throws Exception {
+    void getAllDrugs() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
         // Get all the drugList
-        restDrugMockMvc.perform(get("/api/drugs?sort=id,desc"))
+        restDrugMockMvc
+            .perform(get("/api/drugs?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(drug.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
     }
-    
+
     @Test
     @Transactional
-    public void getDrug() throws Exception {
+    void getDrug() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
         // Get the drug
-        restDrugMockMvc.perform(get("/api/drugs/{id}", drug.getId()))
+        restDrugMockMvc
+            .perform(get("/api/drugs/{id}", drug.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(drug.getId().intValue()))
@@ -203,10 +194,9 @@ public class DrugResourceIT {
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
     }
 
-
     @Test
     @Transactional
-    public void getDrugsByIdFiltering() throws Exception {
+    void getDrugsByIdFiltering() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -222,10 +212,9 @@ public class DrugResourceIT {
         defaultDrugShouldNotBeFound("id.lessThan=" + id);
     }
 
-
     @Test
     @Transactional
-    public void getAllDrugsByNameIsEqualToSomething() throws Exception {
+    void getAllDrugsByNameIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -238,7 +227,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByNameIsNotEqualToSomething() throws Exception {
+    void getAllDrugsByNameIsNotEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -251,7 +240,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByNameIsInShouldWork() throws Exception {
+    void getAllDrugsByNameIsInShouldWork() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -264,7 +253,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByNameIsNullOrNotNull() throws Exception {
+    void getAllDrugsByNameIsNullOrNotNull() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -274,9 +263,10 @@ public class DrugResourceIT {
         // Get all the drugList where name is null
         defaultDrugShouldNotBeFound("name.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllDrugsByNameContainsSomething() throws Exception {
+    void getAllDrugsByNameContainsSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -289,7 +279,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByNameNotContainsSomething() throws Exception {
+    void getAllDrugsByNameNotContainsSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -300,10 +290,9 @@ public class DrugResourceIT {
         defaultDrugShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
     }
 
-
     @Test
     @Transactional
-    public void getAllDrugsByDescriptionIsEqualToSomething() throws Exception {
+    void getAllDrugsByDescriptionIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -316,7 +305,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByDescriptionIsNotEqualToSomething() throws Exception {
+    void getAllDrugsByDescriptionIsNotEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -329,7 +318,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByDescriptionIsInShouldWork() throws Exception {
+    void getAllDrugsByDescriptionIsInShouldWork() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -342,7 +331,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByDescriptionIsNullOrNotNull() throws Exception {
+    void getAllDrugsByDescriptionIsNullOrNotNull() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -352,9 +341,10 @@ public class DrugResourceIT {
         // Get all the drugList where description is null
         defaultDrugShouldNotBeFound("description.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllDrugsByDescriptionContainsSomething() throws Exception {
+    void getAllDrugsByDescriptionContainsSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -367,7 +357,7 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByDescriptionNotContainsSomething() throws Exception {
+    void getAllDrugsByDescriptionNotContainsSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -378,10 +368,9 @@ public class DrugResourceIT {
         defaultDrugShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
     }
 
-
     @Test
     @Transactional
-    public void getAllDrugsByNoticeIsEqualToSomething() throws Exception {
+    void getAllDrugsByNoticeIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
         Notice notice = NoticeResourceIT.createEntity(em);
@@ -398,12 +387,15 @@ public class DrugResourceIT {
         defaultDrugShouldNotBeFound("noticeId.equals=" + (noticeId + 1));
     }
 
-
     @Test
     @Transactional
-    public void getAllDrugsByAdministrationIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Administration administration = drug.getAdministration();
+    void getAllDrugsByAdministrationIsEqualToSomething() throws Exception {
+        // Initialize the database
+        drugRepository.saveAndFlush(drug);
+        Administration administration = AdministrationResourceIT.createEntity(em);
+        em.persist(administration);
+        em.flush();
+        drug.setAdministration(administration);
         drugRepository.saveAndFlush(drug);
         Long administrationId = administration.getId();
 
@@ -414,10 +406,9 @@ public class DrugResourceIT {
         defaultDrugShouldNotBeFound("administrationId.equals=" + (administrationId + 1));
     }
 
-
     @Test
     @Transactional
-    public void getAllDrugsByTherapeuticRegimeIsEqualToSomething() throws Exception {
+    void getAllDrugsByTherapeuticRegimeIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
         TherapeuticRegime therapeuticRegime = TherapeuticRegimeResourceIT.createEntity(em);
@@ -438,7 +429,8 @@ public class DrugResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultDrugShouldBeFound(String filter) throws Exception {
-        restDrugMockMvc.perform(get("/api/drugs?sort=id,desc&" + filter))
+        restDrugMockMvc
+            .perform(get("/api/drugs?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(drug.getId().intValue())))
@@ -446,7 +438,8 @@ public class DrugResourceIT {
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
 
         // Check, that the count call also returns 1
-        restDrugMockMvc.perform(get("/api/drugs/count?sort=id,desc&" + filter))
+        restDrugMockMvc
+            .perform(get("/api/drugs/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -456,14 +449,16 @@ public class DrugResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultDrugShouldNotBeFound(String filter) throws Exception {
-        restDrugMockMvc.perform(get("/api/drugs?sort=id,desc&" + filter))
+        restDrugMockMvc
+            .perform(get("/api/drugs?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restDrugMockMvc.perform(get("/api/drugs/count?sort=id,desc&" + filter))
+        restDrugMockMvc
+            .perform(get("/api/drugs/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -471,15 +466,14 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingDrug() throws Exception {
+    void getNonExistingDrug() throws Exception {
         // Get the drug
-        restDrugMockMvc.perform(get("/api/drugs/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restDrugMockMvc.perform(get("/api/drugs/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateDrug() throws Exception {
+    void updateDrug() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
@@ -489,14 +483,11 @@ public class DrugResourceIT {
         Drug updatedDrug = drugRepository.findById(drug.getId()).get();
         // Disconnect from session so that the updates on updatedDrug are not directly saved in db
         em.detach(updatedDrug);
-        updatedDrug
-            .name(UPDATED_NAME)
-            .description(UPDATED_DESCRIPTION);
+        updatedDrug.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
         DrugDTO drugDTO = drugMapper.toDto(updatedDrug);
 
-        restDrugMockMvc.perform(put("/api/drugs")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(drugDTO)))
+        restDrugMockMvc
+            .perform(put("/api/drugs").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(drugDTO)))
             .andExpect(status().isOk());
 
         // Validate the Drug in the database
@@ -509,16 +500,15 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingDrug() throws Exception {
+    void updateNonExistingDrug() throws Exception {
         int databaseSizeBeforeUpdate = drugRepository.findAll().size();
 
         // Create the Drug
         DrugDTO drugDTO = drugMapper.toDto(drug);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restDrugMockMvc.perform(put("/api/drugs")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(drugDTO)))
+        restDrugMockMvc
+            .perform(put("/api/drugs").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(drugDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Drug in the database
@@ -528,15 +518,90 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void deleteDrug() throws Exception {
+    void partialUpdateDrugWithPatch() throws Exception {
+        // Initialize the database
+        drugRepository.saveAndFlush(drug);
+
+        int databaseSizeBeforeUpdate = drugRepository.findAll().size();
+
+        // Update the drug using partial update
+        Drug partialUpdatedDrug = new Drug();
+        partialUpdatedDrug.setId(drug.getId());
+
+        partialUpdatedDrug.description(UPDATED_DESCRIPTION);
+
+        restDrugMockMvc
+            .perform(
+                patch("/api/drugs")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedDrug))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Drug in the database
+        List<Drug> drugList = drugRepository.findAll();
+        assertThat(drugList).hasSize(databaseSizeBeforeUpdate);
+        Drug testDrug = drugList.get(drugList.size() - 1);
+        assertThat(testDrug.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testDrug.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateDrugWithPatch() throws Exception {
+        // Initialize the database
+        drugRepository.saveAndFlush(drug);
+
+        int databaseSizeBeforeUpdate = drugRepository.findAll().size();
+
+        // Update the drug using partial update
+        Drug partialUpdatedDrug = new Drug();
+        partialUpdatedDrug.setId(drug.getId());
+
+        partialUpdatedDrug.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+
+        restDrugMockMvc
+            .perform(
+                patch("/api/drugs")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedDrug))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Drug in the database
+        List<Drug> drugList = drugRepository.findAll();
+        assertThat(drugList).hasSize(databaseSizeBeforeUpdate);
+        Drug testDrug = drugList.get(drugList.size() - 1);
+        assertThat(testDrug.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testDrug.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateDrugShouldThrown() throws Exception {
+        // Update the drug without id should throw
+        Drug partialUpdatedDrug = new Drug();
+
+        restDrugMockMvc
+            .perform(
+                patch("/api/drugs")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedDrug))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void deleteDrug() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
 
         int databaseSizeBeforeDelete = drugRepository.findAll().size();
 
         // Delete the drug
-        restDrugMockMvc.perform(delete("/api/drugs/{id}", drug.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restDrugMockMvc
+            .perform(delete("/api/drugs/{id}", drug.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

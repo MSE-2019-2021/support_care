@@ -13,7 +13,9 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ therapeuticRegime }) => (this.therapeuticRegime = therapeuticRegime));
+    this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
+      this.therapeuticRegime = therapeuticRegime;
+    });
   }
 
   previousState(): void {

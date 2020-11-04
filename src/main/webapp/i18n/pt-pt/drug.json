@@ -3,6 +3,7 @@
     "drug": {
       "home": {
         "title": "Medicamentos",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Criar novo(a) medicamento",
         "createOrEditLabel": "Criar ou editar medicamento",
         "notFound": "Nenhum medicamento encontrado"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Medicamento"
       },
+      "id": "ID",
       "name": "Nome",
       "description": "Descrição",
       "administration": "Administração",

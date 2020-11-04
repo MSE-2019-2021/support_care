@@ -20,7 +20,7 @@
     "prodDatabaseType": "postgresql",
     "searchEngine": false,
     "skipClient": false,
-    "testFrameworks": ["protractor"],
+    "testFrameworks": ["cypress"],
     "websocket": false,
     "applicationType": "monolith",
     "packageName": "uc.dei.mse.supportivecare",
@@ -28,21 +28,25 @@
     "clientPackageManager": "npm",
     "useSass": true,
     "jhipsterVersion": "6.10.4",
-    "creationTimestamp": 1604499780580,
     "skipServer": false,
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "jwtSecretKey": "Mzc1ODQ2NWU4MmQ4YjU0M2FiNTQzMTIzNjk0NWMyODMxNWVmY2YxZTIzNmJiOWI0YzA1ZTZiMmVlNTEzZWI5Y2Y5MTE3NTdmOTAxMDA2YjMzOWM5Njk2YjRhZTNkZTFlZDEzNjE5M2VhMWJlZjBiN2I3MDI0NzljZjFiYzVlNjc=",
-    "embeddableLaunchScript": false,
+    "entities": ["Administration", "Notice", "Drug", "Treatment", "TherapeuticRegime"],
+    "skipCheckLengthOfIdentifier": false,
+    "skipFakeData": false,
     "entitySuffix": "",
     "dtoSuffix": "DTO",
+    "reactive": false,
+    "blueprints": [],
     "otherModules": [],
-    "blueprints": []
+    "pages": [],
+    "creationTimestamp": 1604518477442,
+    "jwtSecretKey": "NWRhMmU4Mzk4YzJmMzUwYmE5ZWFjODY1YTc3MDk0NjI1ZWMwOTVhYTEyODAyNGQwN2Y4MDQzNTMwMDFkMWVhMjlhNGIxYzAyYzg1NGQ3ZGU0MTVhODk3MzlhNTJlNjUxNTZkZDExMzIxZWIwNDQ2ODliZjRiYjk5NGMzNTZmZmM=",
+    "lastLiquibaseTimestamp": 1604518777000
   },
-  "entities": ["Administration", "Notice", "Drug", "Treatment", "TherapeuticRegime"],
   "generator-jhipster-entity-audit": {
     "auditFramework": "custom",
     "auditPage": false,
-    "lastLiquibaseTimestamp": 1604501851000
+    "lastLiquibaseTimestamp": 1604519327000
   }
 }

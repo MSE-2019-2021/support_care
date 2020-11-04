@@ -1,13 +1,12 @@
 import { ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed, inject, tick, fakeAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../../test.module';
 import { PasswordResetFinishComponent } from 'app/account/password-reset/finish/password-reset-finish.component';
 import { PasswordResetFinishService } from 'app/account/password-reset/finish/password-reset-finish.service';
-import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
 
 describe('Component Tests', () => {
   describe('PasswordResetFinishComponent', () => {
@@ -16,13 +15,13 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       fixture = TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
+        imports: [HttpClientTestingModule],
         declarations: [PasswordResetFinishComponent],
         providers: [
           FormBuilder,
           {
             provide: ActivatedRoute,
-            useValue: new MockActivatedRoute({ key: 'XYZPDQ' }),
+            useValue: { queryParams: of({ key: 'XYZPDQ' }) },
           },
         ],
       })
@@ -43,10 +42,9 @@ describe('Component Tests', () => {
 
     it('sets focus after the view has been initialized', () => {
       const node = {
-        focus(): void {},
+        focus: jest.fn(),
       };
       comp.newPassword = new ElementRef(node);
-      spyOn(node, 'focus');
 
       comp.ngAfterViewInit();
 

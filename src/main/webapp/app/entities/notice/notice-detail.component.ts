@@ -13,7 +13,9 @@ export class NoticeDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ notice }) => (this.notice = notice));
+    this.activatedRoute.data.subscribe(({ notice }) => {
+      this.notice = notice;
+    });
   }
 
   previousState(): void {

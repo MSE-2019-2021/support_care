@@ -1,11 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { ITherapeuticRegime, TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
 describe('Service Tests', () => {
   describe('TherapeuticRegime Service', () => {
-    let injector: TestBed;
     let service: TherapeuticRegimeService;
     let httpMock: HttpTestingController;
     let elemDefault: ITherapeuticRegime;
@@ -16,9 +15,8 @@ describe('Service Tests', () => {
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      injector = getTestBed();
-      service = injector.get(TherapeuticRegimeService);
-      httpMock = injector.get(HttpTestingController);
+      service = TestBed.inject(TherapeuticRegimeService);
+      httpMock = TestBed.inject(HttpTestingController);
 
       elemDefault = new TherapeuticRegime(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
@@ -54,6 +52,7 @@ describe('Service Tests', () => {
       it('should update a TherapeuticRegime', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             name: 'BBBBBB',
             acronym: 'BBBBBB',
             purpose: 'BBBBBB',
@@ -78,6 +77,7 @@ describe('Service Tests', () => {
       it('should return a list of TherapeuticRegime', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             name: 'BBBBBB',
             acronym: 'BBBBBB',
             purpose: 'BBBBBB',

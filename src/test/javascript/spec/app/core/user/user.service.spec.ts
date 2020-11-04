@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { JhiDateUtils } from 'ng-jhipster';
 
-import { Authority } from 'app/shared/constants/authority.constants';
+import { Authority } from 'app/core/user/authority.model';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
 import { SERVER_API_URL } from 'app/app.constants';
@@ -16,11 +15,10 @@ describe('Service Tests', () => {
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        providers: [JhiDateUtils],
       });
 
-      service = TestBed.get(UserService);
-      httpMock = TestBed.get(HttpTestingController);
+      service = TestBed.inject(UserService);
+      httpMock = TestBed.inject(HttpTestingController);
     });
 
     afterEach(() => {
@@ -44,7 +42,7 @@ describe('Service Tests', () => {
         });
 
         const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(new User(1, 'user'));
+        req.flush(new User(123, 'user'));
         expect(expectedResult).toEqual('user');
       });
 
@@ -63,8 +61,8 @@ describe('Service Tests', () => {
       it('should propagate not found response', () => {
         let expectedResult = 0;
 
-        service.find('user').subscribe(null, (error: HttpErrorResponse) => {
-          expectedResult = error.status;
+        service.find('user').subscribe({
+          error: (error: HttpErrorResponse) => (expectedResult = error.status),
         });
 
         const req = httpMock.expectOne({ method: 'GET' });

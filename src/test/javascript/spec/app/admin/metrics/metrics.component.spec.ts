@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { MetricsComponent } from 'app/admin/metrics/metrics.component';
 import { MetricsService } from 'app/admin/metrics/metrics.service';
 
@@ -11,19 +11,21 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<MetricsComponent>;
     let service: MetricsService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [MetricsComponent],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [MetricsComponent],
+        })
+          .overrideTemplate(MetricsComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(MetricsComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(MetricsComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(MetricsService);
+      service = TestBed.inject(MetricsService);
     });
 
     describe('refresh', () => {

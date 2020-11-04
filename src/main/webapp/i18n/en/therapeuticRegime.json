@@ -3,6 +3,7 @@
     "therapeuticRegime": {
       "home": {
         "title": "Therapeutic Regimes",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Therapeutic Regime",
         "createOrEditLabel": "Create or edit a Therapeutic Regime",
         "notFound": "No Therapeutic Regimes found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Therapeutic Regime"
       },
+      "id": "ID",
       "name": "Name",
       "acronym": "Acronym",
       "purpose": "Purpose",

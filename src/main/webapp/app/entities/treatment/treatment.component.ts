@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITreatment } from 'app/shared/model/treatment.model';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { TreatmentService } from './treatment.service';
 import { TreatmentDeleteDialogComponent } from './treatment-delete-dialog.component';
 
@@ -17,8 +17,9 @@ import { TreatmentDeleteDialogComponent } from './treatment-delete-dialog.compon
 export class TreatmentComponent implements OnInit, OnDestroy {
   treatments: ITreatment[];
   eventSubscriber?: Subscription;
+  isLoading = false;
   itemsPerPage: number;
-  links: any;
+  links: { [key: string]: number };
   page: number;
   predicate: string;
   ascending: boolean;
@@ -40,13 +41,23 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    this.isLoading = true;
+
     this.treatmentService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<ITreatment[]>) => this.paginateTreatments(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<ITreatment[]>) => {
+          this.isLoading = false;
+          this.paginateTreatments(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 
   reset(): void {
@@ -58,6 +69,10 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
+  }
+
+  handleSyncList(): void {
+    this.reset();
   }
 
   ngOnInit(): void {
@@ -72,7 +87,6 @@ export class TreatmentComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: ITreatment): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 

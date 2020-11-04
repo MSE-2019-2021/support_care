@@ -1,19 +1,17 @@
 package uc.dei.mse.supportivecare.repository;
 
-import uc.dei.mse.supportivecare.domain.EntityAuditEvent;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
+import uc.dei.mse.supportivecare.domain.EntityAuditEvent;
 
 /**
  * Spring Data JPA repository for the EntityAuditEvent entity.
  */
 public interface EntityAuditEventRepository extends JpaRepository<EntityAuditEvent, Long> {
-
     List<EntityAuditEvent> findAllByEntityTypeAndEntityId(String entityType, Long entityId);
 
     @Query("SELECT max(a.commitVersion) FROM EntityAuditEvent a where a.entityType = :type and a.entityId = :entityId")
@@ -24,9 +22,14 @@ public interface EntityAuditEventRepository extends JpaRepository<EntityAuditEve
 
     Page<EntityAuditEvent> findAllByEntityType(String entityType, Pageable pageRequest);
 
-    @Query("SELECT ae FROM EntityAuditEvent ae where ae.entityType = :type and ae.entityId = :entityId and " +
+    @Query(
+        "SELECT ae FROM EntityAuditEvent ae where ae.entityType = :type and ae.entityId = :entityId and " +
         "ae.commitVersion =(SELECT max(a.commitVersion) FROM EntityAuditEvent a where a.entityType = :type and " +
-        "a.entityId = :entityId and a.commitVersion < :commitVersion)")
-    EntityAuditEvent findOneByEntityTypeAndEntityIdAndCommitVersion(@Param("type") String type, @Param("entityId")
-    Long entityId, @Param("commitVersion") Integer commitVersion);
+        "a.entityId = :entityId and a.commitVersion < :commitVersion)"
+    )
+    EntityAuditEvent findOneByEntityTypeAndEntityIdAndCommitVersion(
+        @Param("type") String type,
+        @Param("entityId") Long entityId,
+        @Param("commitVersion") Integer commitVersion
+    );
 }

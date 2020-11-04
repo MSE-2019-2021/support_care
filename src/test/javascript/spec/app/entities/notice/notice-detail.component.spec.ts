@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { NoticeDetailComponent } from 'app/entities/notice/notice-detail.component';
 import { Notice } from 'app/shared/model/notice.model';
 
@@ -10,13 +9,16 @@ describe('Component Tests', () => {
   describe('Notice Management Detail Component', () => {
     let comp: NoticeDetailComponent;
     let fixture: ComponentFixture<NoticeDetailComponent>;
-    const route = ({ data: of({ notice: new Notice(123) }) } as any) as ActivatedRoute;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
         declarations: [NoticeDetailComponent],
-        providers: [{ provide: ActivatedRoute, useValue: route }],
+        providers: [
+          {
+            provide: ActivatedRoute,
+            useValue: { data: of({ notice: new Notice(123) }) },
+          },
+        ],
       })
         .overrideTemplate(NoticeDetailComponent, '')
         .compileComponents();

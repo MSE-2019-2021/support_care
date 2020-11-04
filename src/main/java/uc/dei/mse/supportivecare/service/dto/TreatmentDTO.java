@@ -2,15 +2,18 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
+import javax.validation.constraints.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Treatment} entity.
  */
 @ApiModel(description = "Tratamento.")
+@GeneratedByJHipster
 public class TreatmentDTO extends AbstractAuditingDTO implements Serializable {
-    
+
     private Long id;
 
     /**
@@ -20,7 +23,6 @@ public class TreatmentDTO extends AbstractAuditingDTO implements Serializable {
     @ApiModelProperty(value = "Tipo de Tratamento.", required = true)
     private String type;
 
-    
     public Long getId() {
         return id;
     }
@@ -46,12 +48,16 @@ public class TreatmentDTO extends AbstractAuditingDTO implements Serializable {
             return false;
         }
 
-        return id != null && id.equals(((TreatmentDTO) o).id);
+        TreatmentDTO treatmentDTO = (TreatmentDTO) o;
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, treatmentDTO.id);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(this.id);
     }
 
     // prettier-ignore

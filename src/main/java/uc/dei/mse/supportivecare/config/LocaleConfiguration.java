@@ -1,14 +1,15 @@
 package uc.dei.mse.supportivecare.config;
 
-import io.github.jhipster.config.locale.AngularCookieLocaleResolver;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import tech.jhipster.config.locale.AngularCookieLocaleResolver;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
+@GeneratedByJHipster
 public class LocaleConfiguration implements WebMvcConfigurer {
 
     @Bean

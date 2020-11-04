@@ -1,11 +1,14 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+jest.mock('app/core/auth/account.service');
+
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { PasswordComponent } from 'app/account/password/password.component';
 import { PasswordService } from 'app/account/password/password.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 describe('Component Tests', () => {
   describe('PasswordComponent', () => {
@@ -13,20 +16,22 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<PasswordComponent>;
     let service: PasswordService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [PasswordComponent],
-        providers: [FormBuilder],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [PasswordComponent],
+          providers: [FormBuilder, AccountService],
+        })
+          .overrideTemplate(PasswordComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(PasswordComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(PasswordComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(PasswordService);
+      service = TestBed.inject(PasswordService);
     });
 
     it('should show error if passwords do not match', () => {

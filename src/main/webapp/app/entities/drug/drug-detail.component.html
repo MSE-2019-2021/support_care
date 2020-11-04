@@ -1,13 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="drug">
-            <h2><span jhiTranslate="supportivecareApp.drug.detail.title">Drug</span> {{ drug.id }}</h2>
+            <h2 data-cy="drugDetailsHeading"><span jhiTranslate="supportivecareApp.drug.detail.title">Drug</span></h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
 
+            <jhi-alert></jhi-alert>
+
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="supportivecareApp.drug.id">ID</span></dt>
+                <dd>
+                    <span>{{ drug.id }}</span>
+                </dd>
                 <dt><span jhiTranslate="supportivecareApp.drug.name" [ngbTooltip]="'supportivecareApp.drug.help.name' | translate">Name</span></dt>
                 <dd>
                     <span>{{ drug.name }}</span>
@@ -18,15 +24,16 @@
                 </dd>
                 <dt><span jhiTranslate="supportivecareApp.drug.administration">Administration</span></dt>
                 <dd>
-                    <div *ngIf="drug.administrationId">
-                        <a [routerLink]="['/administration', drug.administrationId, 'view']">{{ drug.administrationType }}</a>
+                    <div *ngIf="drug.administration">
+                        <a [routerLink]="['/administration', drug.administration?.id, 'view']">{{ drug.administration?.type }}</a>
                     </div>
                 </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    class="btn btn-info"
+                    data-cy="entityDetailsBackButton">
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 

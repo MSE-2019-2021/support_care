@@ -1,14 +1,14 @@
 package uc.dei.mse.supportivecare.repository;
 
-import uc.dei.mse.supportivecare.domain.Treatment;
-
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.domain.Treatment;
 
 /**
- * Spring Data  repository for the Treatment entity.
+ * Spring Data SQL repository for the Treatment entity.
  */
 @SuppressWarnings("unused")
 @Repository
-public interface TreatmentRepository extends JpaRepository<Treatment, Long>, JpaSpecificationExecutor<Treatment> {
-}
+@GeneratedByJHipster
+public interface TreatmentRepository extends JpaRepository<Treatment, Long>, JpaSpecificationExecutor<Treatment> {}

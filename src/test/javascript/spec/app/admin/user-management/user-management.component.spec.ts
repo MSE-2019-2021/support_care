@@ -1,31 +1,54 @@
-import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { of } from 'rxjs';
+jest.mock('@angular/router');
+jest.mock('ng-jhipster');
+jest.mock('app/core/auth/account.service');
 
-import { SupportivecareTestModule } from '../../../test.module';
+import { ComponentFixture, TestBed, waitForAsync, inject, fakeAsync, tick } from '@angular/core/testing';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { JhiEventManager } from 'ng-jhipster';
+
 import { UserManagementComponent } from 'app/admin/user-management/user-management.component';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
+import { AccountService } from 'app/core/auth/account.service';
 
 describe('Component Tests', () => {
   describe('User Management Component', () => {
     let comp: UserManagementComponent;
     let fixture: ComponentFixture<UserManagementComponent>;
     let service: UserService;
-
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [UserManagementComponent],
+    let mockAccountService: AccountService;
+    const data = of({
+      defaultSort: 'id,asc',
+    });
+    const queryParamMap = of(
+      jest.requireActual('@angular/router').convertToParamMap({
+        page: '1',
+        size: '1',
+        sort: 'id,desc',
       })
-        .overrideTemplate(UserManagementComponent, '')
-        .compileComponents();
-    }));
+    );
+
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [UserManagementComponent],
+          providers: [JhiEventManager, Router, { provide: ActivatedRoute, useValue: { data, queryParamMap } }, AccountService],
+        })
+          .overrideTemplate(UserManagementComponent, '')
+          .compileComponents();
+      })
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(UserManagementComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(UserService);
+      service = TestBed.inject(UserService);
+      mockAccountService = TestBed.inject(AccountService);
+      mockAccountService.identity = jest.fn(() => of(null));
     });
 
     describe('OnInit', () => {
@@ -49,7 +72,7 @@ describe('Component Tests', () => {
 
           // THEN
           expect(service.query).toHaveBeenCalled();
-          expect(comp.users && comp.users[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+          expect(comp.users?.[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         })
       ));
     });
@@ -78,7 +101,7 @@ describe('Component Tests', () => {
           // THEN
           expect(service.update).toHaveBeenCalledWith({ ...user, activated: true });
           expect(service.query).toHaveBeenCalled();
-          expect(comp.users && comp.users[0]).toEqual(jasmine.objectContaining({ id: 123 }));
+          expect(comp.users?.[0]).toEqual(jasmine.objectContaining({ id: 123 }));
         })
       ));
     });

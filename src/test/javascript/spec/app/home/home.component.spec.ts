@@ -1,31 +1,38 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+jest.mock('app/core/auth/account.service');
+jest.mock('@angular/router');
 
-import { SupportivecareTestModule } from '../../test.module';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+
 import { HomeComponent } from 'app/home/home.component';
 import { AccountService } from 'app/core/auth/account.service';
-import { LoginModalService } from 'app/core/login/login-modal.service';
 
 describe('Component Tests', () => {
   describe('Home Component', () => {
     let comp: HomeComponent;
     let fixture: ComponentFixture<HomeComponent>;
-    let accountService: AccountService;
-    let loginModalService: LoginModalService;
+    let mockAccountService: AccountService;
+    let mockRouter: Router;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [HomeComponent],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [HomeComponent],
+          providers: [AccountService, Router],
+        })
+          .overrideTemplate(HomeComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(HomeComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(HomeComponent);
       comp = fixture.componentInstance;
-      accountService = TestBed.get(AccountService);
-      loginModalService = TestBed.get(LoginModalService);
+      mockAccountService = TestBed.inject(AccountService);
+      mockAccountService.identity = jest.fn(() => of(null));
+      mockAccountService.getAuthenticationState = jest.fn(() => of(null));
+      mockRouter = TestBed.inject(Router);
     });
 
     it('Should call accountService.getAuthenticationState on init', () => {
@@ -33,7 +40,7 @@ describe('Component Tests', () => {
       comp.ngOnInit();
 
       // THEN
-      expect(accountService.getAuthenticationState).toHaveBeenCalled();
+      expect(mockAccountService.getAuthenticationState).toHaveBeenCalled();
     });
 
     it('Should call accountService.isAuthenticated when it checks authentication', () => {
@@ -41,15 +48,15 @@ describe('Component Tests', () => {
       comp.isAuthenticated();
 
       // THEN
-      expect(accountService.isAuthenticated).toHaveBeenCalled();
+      expect(mockAccountService.isAuthenticated).toHaveBeenCalled();
     });
 
-    it('Should call loginModalService.open on login', () => {
+    it('Should navigate to /login on login', () => {
       // WHEN
       comp.login();
 
       // THEN
-      expect(loginModalService.open).toHaveBeenCalled();
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
     });
   });
 });

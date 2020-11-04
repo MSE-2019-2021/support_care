@@ -1,15 +1,12 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.Notice;
-import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.repository.NoticeRepository;
-import uc.dei.mse.supportivecare.service.NoticeService;
-import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
-import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
-import uc.dei.mse.supportivecare.service.dto.NoticeCriteria;
-import uc.dei.mse.supportivecare.service.NoticeQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +16,15 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.domain.Notice;
+import uc.dei.mse.supportivecare.repository.NoticeRepository;
+import uc.dei.mse.supportivecare.service.NoticeQueryService;
+import uc.dei.mse.supportivecare.service.dto.NoticeCriteria;
+import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
+import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
 
 /**
  * Integration tests for the {@link NoticeResource} REST controller.
@@ -33,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-public class NoticeResourceIT {
+@GeneratedByJHipster
+class NoticeResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
@@ -49,9 +49,6 @@ public class NoticeResourceIT {
 
     @Autowired
     private NoticeMapper noticeMapper;
-
-    @Autowired
-    private NoticeService noticeService;
 
     @Autowired
     private NoticeQueryService noticeQueryService;
@@ -71,10 +68,7 @@ public class NoticeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Notice createEntity(EntityManager em) {
-        Notice notice = new Notice()
-            .description(DEFAULT_DESCRIPTION)
-            .evaluation(DEFAULT_EVALUATION)
-            .intervention(DEFAULT_INTERVENTION);
+        Notice notice = new Notice().description(DEFAULT_DESCRIPTION).evaluation(DEFAULT_EVALUATION).intervention(DEFAULT_INTERVENTION);
         // Add required entity
         Drug drug;
         if (TestUtil.findAll(em, Drug.class).isEmpty()) {
@@ -87,6 +81,7 @@ public class NoticeResourceIT {
         notice.setDrug(drug);
         return notice;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -94,10 +89,7 @@ public class NoticeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Notice createUpdatedEntity(EntityManager em) {
-        Notice notice = new Notice()
-            .description(UPDATED_DESCRIPTION)
-            .evaluation(UPDATED_EVALUATION)
-            .intervention(UPDATED_INTERVENTION);
+        Notice notice = new Notice().description(UPDATED_DESCRIPTION).evaluation(UPDATED_EVALUATION).intervention(UPDATED_INTERVENTION);
         // Add required entity
         Drug drug;
         if (TestUtil.findAll(em, Drug.class).isEmpty()) {
@@ -118,13 +110,12 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void createNotice() throws Exception {
+    void createNotice() throws Exception {
         int databaseSizeBeforeCreate = noticeRepository.findAll().size();
         // Create the Notice
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
-        restNoticeMockMvc.perform(post("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(post("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isCreated());
 
         // Validate the Notice in the database
@@ -138,7 +129,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void createNoticeWithExistingId() throws Exception {
+    void createNoticeWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = noticeRepository.findAll().size();
 
         // Create the Notice with an existing ID
@@ -146,9 +137,8 @@ public class NoticeResourceIT {
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restNoticeMockMvc.perform(post("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(post("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Notice in the database
@@ -156,10 +146,9 @@ public class NoticeResourceIT {
         assertThat(noticeList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void checkDescriptionIsRequired() throws Exception {
+    void checkDescriptionIsRequired() throws Exception {
         int databaseSizeBeforeTest = noticeRepository.findAll().size();
         // set the field null
         notice.setDescription(null);
@@ -167,10 +156,8 @@ public class NoticeResourceIT {
         // Create the Notice, which fails.
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
 
-
-        restNoticeMockMvc.perform(post("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(post("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Notice> noticeList = noticeRepository.findAll();
@@ -179,7 +166,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void checkEvaluationIsRequired() throws Exception {
+    void checkEvaluationIsRequired() throws Exception {
         int databaseSizeBeforeTest = noticeRepository.findAll().size();
         // set the field null
         notice.setEvaluation(null);
@@ -187,10 +174,8 @@ public class NoticeResourceIT {
         // Create the Notice, which fails.
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
 
-
-        restNoticeMockMvc.perform(post("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(post("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Notice> noticeList = noticeRepository.findAll();
@@ -199,7 +184,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void checkInterventionIsRequired() throws Exception {
+    void checkInterventionIsRequired() throws Exception {
         int databaseSizeBeforeTest = noticeRepository.findAll().size();
         // set the field null
         notice.setIntervention(null);
@@ -207,10 +192,8 @@ public class NoticeResourceIT {
         // Create the Notice, which fails.
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
 
-
-        restNoticeMockMvc.perform(post("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(post("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isBadRequest());
 
         List<Notice> noticeList = noticeRepository.findAll();
@@ -219,12 +202,13 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNotices() throws Exception {
+    void getAllNotices() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
         // Get all the noticeList
-        restNoticeMockMvc.perform(get("/api/notices?sort=id,desc"))
+        restNoticeMockMvc
+            .perform(get("/api/notices?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(notice.getId().intValue())))
@@ -232,15 +216,16 @@ public class NoticeResourceIT {
             .andExpect(jsonPath("$.[*].evaluation").value(hasItem(DEFAULT_EVALUATION)))
             .andExpect(jsonPath("$.[*].intervention").value(hasItem(DEFAULT_INTERVENTION)));
     }
-    
+
     @Test
     @Transactional
-    public void getNotice() throws Exception {
+    void getNotice() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
         // Get the notice
-        restNoticeMockMvc.perform(get("/api/notices/{id}", notice.getId()))
+        restNoticeMockMvc
+            .perform(get("/api/notices/{id}", notice.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(notice.getId().intValue()))
@@ -249,10 +234,9 @@ public class NoticeResourceIT {
             .andExpect(jsonPath("$.intervention").value(DEFAULT_INTERVENTION));
     }
 
-
     @Test
     @Transactional
-    public void getNoticesByIdFiltering() throws Exception {
+    void getNoticesByIdFiltering() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -268,10 +252,9 @@ public class NoticeResourceIT {
         defaultNoticeShouldNotBeFound("id.lessThan=" + id);
     }
 
-
     @Test
     @Transactional
-    public void getAllNoticesByDescriptionIsEqualToSomething() throws Exception {
+    void getAllNoticesByDescriptionIsEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -284,7 +267,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByDescriptionIsNotEqualToSomething() throws Exception {
+    void getAllNoticesByDescriptionIsNotEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -297,7 +280,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByDescriptionIsInShouldWork() throws Exception {
+    void getAllNoticesByDescriptionIsInShouldWork() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -310,7 +293,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByDescriptionIsNullOrNotNull() throws Exception {
+    void getAllNoticesByDescriptionIsNullOrNotNull() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -320,9 +303,10 @@ public class NoticeResourceIT {
         // Get all the noticeList where description is null
         defaultNoticeShouldNotBeFound("description.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllNoticesByDescriptionContainsSomething() throws Exception {
+    void getAllNoticesByDescriptionContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -335,7 +319,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByDescriptionNotContainsSomething() throws Exception {
+    void getAllNoticesByDescriptionNotContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -346,10 +330,9 @@ public class NoticeResourceIT {
         defaultNoticeShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
     }
 
-
     @Test
     @Transactional
-    public void getAllNoticesByEvaluationIsEqualToSomething() throws Exception {
+    void getAllNoticesByEvaluationIsEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -362,7 +345,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByEvaluationIsNotEqualToSomething() throws Exception {
+    void getAllNoticesByEvaluationIsNotEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -375,7 +358,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByEvaluationIsInShouldWork() throws Exception {
+    void getAllNoticesByEvaluationIsInShouldWork() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -388,7 +371,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByEvaluationIsNullOrNotNull() throws Exception {
+    void getAllNoticesByEvaluationIsNullOrNotNull() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -398,9 +381,10 @@ public class NoticeResourceIT {
         // Get all the noticeList where evaluation is null
         defaultNoticeShouldNotBeFound("evaluation.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllNoticesByEvaluationContainsSomething() throws Exception {
+    void getAllNoticesByEvaluationContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -413,7 +397,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByEvaluationNotContainsSomething() throws Exception {
+    void getAllNoticesByEvaluationNotContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -424,10 +408,9 @@ public class NoticeResourceIT {
         defaultNoticeShouldBeFound("evaluation.doesNotContain=" + UPDATED_EVALUATION);
     }
 
-
     @Test
     @Transactional
-    public void getAllNoticesByInterventionIsEqualToSomething() throws Exception {
+    void getAllNoticesByInterventionIsEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -440,7 +423,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByInterventionIsNotEqualToSomething() throws Exception {
+    void getAllNoticesByInterventionIsNotEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -453,7 +436,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByInterventionIsInShouldWork() throws Exception {
+    void getAllNoticesByInterventionIsInShouldWork() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -466,7 +449,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByInterventionIsNullOrNotNull() throws Exception {
+    void getAllNoticesByInterventionIsNullOrNotNull() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -476,9 +459,10 @@ public class NoticeResourceIT {
         // Get all the noticeList where intervention is null
         defaultNoticeShouldNotBeFound("intervention.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllNoticesByInterventionContainsSomething() throws Exception {
+    void getAllNoticesByInterventionContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -491,7 +475,7 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getAllNoticesByInterventionNotContainsSomething() throws Exception {
+    void getAllNoticesByInterventionNotContainsSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -502,12 +486,15 @@ public class NoticeResourceIT {
         defaultNoticeShouldBeFound("intervention.doesNotContain=" + UPDATED_INTERVENTION);
     }
 
-
     @Test
     @Transactional
-    public void getAllNoticesByDrugIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Drug drug = notice.getDrug();
+    void getAllNoticesByDrugIsEqualToSomething() throws Exception {
+        // Initialize the database
+        noticeRepository.saveAndFlush(notice);
+        Drug drug = DrugResourceIT.createEntity(em);
+        em.persist(drug);
+        em.flush();
+        notice.setDrug(drug);
         noticeRepository.saveAndFlush(notice);
         Long drugId = drug.getId();
 
@@ -522,7 +509,8 @@ public class NoticeResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultNoticeShouldBeFound(String filter) throws Exception {
-        restNoticeMockMvc.perform(get("/api/notices?sort=id,desc&" + filter))
+        restNoticeMockMvc
+            .perform(get("/api/notices?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(notice.getId().intValue())))
@@ -531,7 +519,8 @@ public class NoticeResourceIT {
             .andExpect(jsonPath("$.[*].intervention").value(hasItem(DEFAULT_INTERVENTION)));
 
         // Check, that the count call also returns 1
-        restNoticeMockMvc.perform(get("/api/notices/count?sort=id,desc&" + filter))
+        restNoticeMockMvc
+            .perform(get("/api/notices/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -541,14 +530,16 @@ public class NoticeResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultNoticeShouldNotBeFound(String filter) throws Exception {
-        restNoticeMockMvc.perform(get("/api/notices?sort=id,desc&" + filter))
+        restNoticeMockMvc
+            .perform(get("/api/notices?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restNoticeMockMvc.perform(get("/api/notices/count?sort=id,desc&" + filter))
+        restNoticeMockMvc
+            .perform(get("/api/notices/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -556,15 +547,14 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingNotice() throws Exception {
+    void getNonExistingNotice() throws Exception {
         // Get the notice
-        restNoticeMockMvc.perform(get("/api/notices/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restNoticeMockMvc.perform(get("/api/notices/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateNotice() throws Exception {
+    void updateNotice() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
@@ -574,15 +564,11 @@ public class NoticeResourceIT {
         Notice updatedNotice = noticeRepository.findById(notice.getId()).get();
         // Disconnect from session so that the updates on updatedNotice are not directly saved in db
         em.detach(updatedNotice);
-        updatedNotice
-            .description(UPDATED_DESCRIPTION)
-            .evaluation(UPDATED_EVALUATION)
-            .intervention(UPDATED_INTERVENTION);
+        updatedNotice.description(UPDATED_DESCRIPTION).evaluation(UPDATED_EVALUATION).intervention(UPDATED_INTERVENTION);
         NoticeDTO noticeDTO = noticeMapper.toDto(updatedNotice);
 
-        restNoticeMockMvc.perform(put("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(put("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isOk());
 
         // Validate the Notice in the database
@@ -596,16 +582,15 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingNotice() throws Exception {
+    void updateNonExistingNotice() throws Exception {
         int databaseSizeBeforeUpdate = noticeRepository.findAll().size();
 
         // Create the Notice
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restNoticeMockMvc.perform(put("/api/notices")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
+        restNoticeMockMvc
+            .perform(put("/api/notices").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(noticeDTO)))
             .andExpect(status().isBadRequest());
 
         // Validate the Notice in the database
@@ -615,15 +600,92 @@ public class NoticeResourceIT {
 
     @Test
     @Transactional
-    public void deleteNotice() throws Exception {
+    void partialUpdateNoticeWithPatch() throws Exception {
+        // Initialize the database
+        noticeRepository.saveAndFlush(notice);
+
+        int databaseSizeBeforeUpdate = noticeRepository.findAll().size();
+
+        // Update the notice using partial update
+        Notice partialUpdatedNotice = new Notice();
+        partialUpdatedNotice.setId(notice.getId());
+
+        partialUpdatedNotice.description(UPDATED_DESCRIPTION).evaluation(UPDATED_EVALUATION).intervention(UPDATED_INTERVENTION);
+
+        restNoticeMockMvc
+            .perform(
+                patch("/api/notices")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedNotice))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Notice in the database
+        List<Notice> noticeList = noticeRepository.findAll();
+        assertThat(noticeList).hasSize(databaseSizeBeforeUpdate);
+        Notice testNotice = noticeList.get(noticeList.size() - 1);
+        assertThat(testNotice.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testNotice.getEvaluation()).isEqualTo(UPDATED_EVALUATION);
+        assertThat(testNotice.getIntervention()).isEqualTo(UPDATED_INTERVENTION);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateNoticeWithPatch() throws Exception {
+        // Initialize the database
+        noticeRepository.saveAndFlush(notice);
+
+        int databaseSizeBeforeUpdate = noticeRepository.findAll().size();
+
+        // Update the notice using partial update
+        Notice partialUpdatedNotice = new Notice();
+        partialUpdatedNotice.setId(notice.getId());
+
+        partialUpdatedNotice.description(UPDATED_DESCRIPTION).evaluation(UPDATED_EVALUATION).intervention(UPDATED_INTERVENTION);
+
+        restNoticeMockMvc
+            .perform(
+                patch("/api/notices")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedNotice))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Notice in the database
+        List<Notice> noticeList = noticeRepository.findAll();
+        assertThat(noticeList).hasSize(databaseSizeBeforeUpdate);
+        Notice testNotice = noticeList.get(noticeList.size() - 1);
+        assertThat(testNotice.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testNotice.getEvaluation()).isEqualTo(UPDATED_EVALUATION);
+        assertThat(testNotice.getIntervention()).isEqualTo(UPDATED_INTERVENTION);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateNoticeShouldThrown() throws Exception {
+        // Update the notice without id should throw
+        Notice partialUpdatedNotice = new Notice();
+
+        restNoticeMockMvc
+            .perform(
+                patch("/api/notices")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedNotice))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void deleteNotice() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
         int databaseSizeBeforeDelete = noticeRepository.findAll().size();
 
         // Delete the notice
-        restNoticeMockMvc.perform(delete("/api/notices/{id}", notice.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restNoticeMockMvc
+            .perform(delete("/api/notices/{id}", notice.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

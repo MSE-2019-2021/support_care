@@ -1,11 +1,12 @@
+jest.mock('ng-jhipster');
+jest.mock('@ng-bootstrap/ng-bootstrap');
+
 import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { SupportivecareTestModule } from '../../../test.module';
-import { MockEventManager } from '../../../helpers/mock-event-manager.service';
-import { MockActiveModal } from '../../../helpers/mock-active-modal.service';
 import { TreatmentDeleteDialogComponent } from 'app/entities/treatment/treatment-delete-dialog.component';
 import { TreatmentService } from 'app/entities/treatment/treatment.service';
 
@@ -14,21 +15,22 @@ describe('Component Tests', () => {
     let comp: TreatmentDeleteDialogComponent;
     let fixture: ComponentFixture<TreatmentDeleteDialogComponent>;
     let service: TreatmentService;
-    let mockEventManager: MockEventManager;
-    let mockActiveModal: MockActiveModal;
+    let mockEventManager: JhiEventManager;
+    let mockActiveModal: NgbActiveModal;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
+        imports: [HttpClientTestingModule],
         declarations: [TreatmentDeleteDialogComponent],
+        providers: [NgbActiveModal, JhiEventManager],
       })
         .overrideTemplate(TreatmentDeleteDialogComponent, '')
         .compileComponents();
       fixture = TestBed.createComponent(TreatmentDeleteDialogComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(TreatmentService);
-      mockEventManager = TestBed.get(JhiEventManager);
-      mockActiveModal = TestBed.get(NgbActiveModal);
+      service = TestBed.inject(TreatmentService);
+      mockEventManager = TestBed.inject(JhiEventManager);
+      mockActiveModal = TestBed.inject(NgbActiveModal);
     });
 
     describe('confirmDelete', () => {
@@ -44,8 +46,8 @@ describe('Component Tests', () => {
 
           // THEN
           expect(service.delete).toHaveBeenCalledWith(123);
-          expect(mockActiveModal.closeSpy).toHaveBeenCalled();
-          expect(mockEventManager.broadcastSpy).toHaveBeenCalled();
+          expect(mockActiveModal.close).toHaveBeenCalled();
+          expect(mockEventManager.broadcast).toHaveBeenCalled();
         })
       ));
 
@@ -58,7 +60,7 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.delete).not.toHaveBeenCalled();
-        expect(mockActiveModal.dismissSpy).toHaveBeenCalled();
+        expect(mockActiveModal.dismiss).toHaveBeenCalled();
       });
     });
   });

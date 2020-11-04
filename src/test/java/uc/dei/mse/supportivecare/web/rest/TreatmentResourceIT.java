@@ -1,15 +1,12 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.Treatment;
-import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
-import uc.dei.mse.supportivecare.repository.TreatmentRepository;
-import uc.dei.mse.supportivecare.service.TreatmentService;
-import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
-import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
-import uc.dei.mse.supportivecare.service.dto.TreatmentCriteria;
-import uc.dei.mse.supportivecare.service.TreatmentQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +16,15 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
+import uc.dei.mse.supportivecare.domain.Treatment;
+import uc.dei.mse.supportivecare.repository.TreatmentRepository;
+import uc.dei.mse.supportivecare.service.TreatmentQueryService;
+import uc.dei.mse.supportivecare.service.dto.TreatmentCriteria;
+import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
+import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
 
 /**
  * Integration tests for the {@link TreatmentResource} REST controller.
@@ -33,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-public class TreatmentResourceIT {
+@GeneratedByJHipster
+class TreatmentResourceIT {
 
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE = "BBBBBBBBBB";
@@ -43,9 +43,6 @@ public class TreatmentResourceIT {
 
     @Autowired
     private TreatmentMapper treatmentMapper;
-
-    @Autowired
-    private TreatmentService treatmentService;
 
     @Autowired
     private TreatmentQueryService treatmentQueryService;
@@ -65,10 +62,10 @@ public class TreatmentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Treatment createEntity(EntityManager em) {
-        Treatment treatment = new Treatment()
-            .type(DEFAULT_TYPE);
+        Treatment treatment = new Treatment().type(DEFAULT_TYPE);
         return treatment;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -76,8 +73,7 @@ public class TreatmentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Treatment createUpdatedEntity(EntityManager em) {
-        Treatment treatment = new Treatment()
-            .type(UPDATED_TYPE);
+        Treatment treatment = new Treatment().type(UPDATED_TYPE);
         return treatment;
     }
 
@@ -88,13 +84,14 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void createTreatment() throws Exception {
+    void createTreatment() throws Exception {
         int databaseSizeBeforeCreate = treatmentRepository.findAll().size();
         // Create the Treatment
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(treatment);
-        restTreatmentMockMvc.perform(post("/api/treatments")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(treatmentDTO)))
+        restTreatmentMockMvc
+            .perform(
+                post("/api/treatments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(treatmentDTO))
+            )
             .andExpect(status().isCreated());
 
         // Validate the Treatment in the database
@@ -106,7 +103,7 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void createTreatmentWithExistingId() throws Exception {
+    void createTreatmentWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = treatmentRepository.findAll().size();
 
         // Create the Treatment with an existing ID
@@ -114,9 +111,10 @@ public class TreatmentResourceIT {
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(treatment);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restTreatmentMockMvc.perform(post("/api/treatments")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(treatmentDTO)))
+        restTreatmentMockMvc
+            .perform(
+                post("/api/treatments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(treatmentDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Treatment in the database
@@ -124,10 +122,9 @@ public class TreatmentResourceIT {
         assertThat(treatmentList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void checkTypeIsRequired() throws Exception {
+    void checkTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = treatmentRepository.findAll().size();
         // set the field null
         treatment.setType(null);
@@ -135,10 +132,10 @@ public class TreatmentResourceIT {
         // Create the Treatment, which fails.
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(treatment);
 
-
-        restTreatmentMockMvc.perform(post("/api/treatments")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(treatmentDTO)))
+        restTreatmentMockMvc
+            .perform(
+                post("/api/treatments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(treatmentDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<Treatment> treatmentList = treatmentRepository.findAll();
@@ -147,36 +144,37 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getAllTreatments() throws Exception {
+    void getAllTreatments() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
         // Get all the treatmentList
-        restTreatmentMockMvc.perform(get("/api/treatments?sort=id,desc"))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(treatment.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
     }
-    
+
     @Test
     @Transactional
-    public void getTreatment() throws Exception {
+    void getTreatment() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
         // Get the treatment
-        restTreatmentMockMvc.perform(get("/api/treatments/{id}", treatment.getId()))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments/{id}", treatment.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(treatment.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE));
     }
 
-
     @Test
     @Transactional
-    public void getTreatmentsByIdFiltering() throws Exception {
+    void getTreatmentsByIdFiltering() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -192,10 +190,9 @@ public class TreatmentResourceIT {
         defaultTreatmentShouldNotBeFound("id.lessThan=" + id);
     }
 
-
     @Test
     @Transactional
-    public void getAllTreatmentsByTypeIsEqualToSomething() throws Exception {
+    void getAllTreatmentsByTypeIsEqualToSomething() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -208,7 +205,7 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getAllTreatmentsByTypeIsNotEqualToSomething() throws Exception {
+    void getAllTreatmentsByTypeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -221,7 +218,7 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getAllTreatmentsByTypeIsInShouldWork() throws Exception {
+    void getAllTreatmentsByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -234,7 +231,7 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getAllTreatmentsByTypeIsNullOrNotNull() throws Exception {
+    void getAllTreatmentsByTypeIsNullOrNotNull() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -244,9 +241,10 @@ public class TreatmentResourceIT {
         // Get all the treatmentList where type is null
         defaultTreatmentShouldNotBeFound("type.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTreatmentsByTypeContainsSomething() throws Exception {
+    void getAllTreatmentsByTypeContainsSomething() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -259,7 +257,7 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getAllTreatmentsByTypeNotContainsSomething() throws Exception {
+    void getAllTreatmentsByTypeNotContainsSomething() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -270,10 +268,9 @@ public class TreatmentResourceIT {
         defaultTreatmentShouldBeFound("type.doesNotContain=" + UPDATED_TYPE);
     }
 
-
     @Test
     @Transactional
-    public void getAllTreatmentsByTherapeuticRegimeIsEqualToSomething() throws Exception {
+    void getAllTreatmentsByTherapeuticRegimeIsEqualToSomething() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
         TherapeuticRegime therapeuticRegime = TherapeuticRegimeResourceIT.createEntity(em);
@@ -294,14 +291,16 @@ public class TreatmentResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultTreatmentShouldBeFound(String filter) throws Exception {
-        restTreatmentMockMvc.perform(get("/api/treatments?sort=id,desc&" + filter))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(treatment.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
 
         // Check, that the count call also returns 1
-        restTreatmentMockMvc.perform(get("/api/treatments/count?sort=id,desc&" + filter))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -311,14 +310,16 @@ public class TreatmentResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultTreatmentShouldNotBeFound(String filter) throws Exception {
-        restTreatmentMockMvc.perform(get("/api/treatments?sort=id,desc&" + filter))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restTreatmentMockMvc.perform(get("/api/treatments/count?sort=id,desc&" + filter))
+        restTreatmentMockMvc
+            .perform(get("/api/treatments/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -326,15 +327,14 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingTreatment() throws Exception {
+    void getNonExistingTreatment() throws Exception {
         // Get the treatment
-        restTreatmentMockMvc.perform(get("/api/treatments/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restTreatmentMockMvc.perform(get("/api/treatments/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateTreatment() throws Exception {
+    void updateTreatment() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
@@ -344,13 +344,13 @@ public class TreatmentResourceIT {
         Treatment updatedTreatment = treatmentRepository.findById(treatment.getId()).get();
         // Disconnect from session so that the updates on updatedTreatment are not directly saved in db
         em.detach(updatedTreatment);
-        updatedTreatment
-            .type(UPDATED_TYPE);
+        updatedTreatment.type(UPDATED_TYPE);
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(updatedTreatment);
 
-        restTreatmentMockMvc.perform(put("/api/treatments")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(treatmentDTO)))
+        restTreatmentMockMvc
+            .perform(
+                put("/api/treatments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(treatmentDTO))
+            )
             .andExpect(status().isOk());
 
         // Validate the Treatment in the database
@@ -362,16 +362,17 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingTreatment() throws Exception {
+    void updateNonExistingTreatment() throws Exception {
         int databaseSizeBeforeUpdate = treatmentRepository.findAll().size();
 
         // Create the Treatment
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(treatment);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restTreatmentMockMvc.perform(put("/api/treatments")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(treatmentDTO)))
+        restTreatmentMockMvc
+            .perform(
+                put("/api/treatments").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(treatmentDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Treatment in the database
@@ -381,15 +382,88 @@ public class TreatmentResourceIT {
 
     @Test
     @Transactional
-    public void deleteTreatment() throws Exception {
+    void partialUpdateTreatmentWithPatch() throws Exception {
+        // Initialize the database
+        treatmentRepository.saveAndFlush(treatment);
+
+        int databaseSizeBeforeUpdate = treatmentRepository.findAll().size();
+
+        // Update the treatment using partial update
+        Treatment partialUpdatedTreatment = new Treatment();
+        partialUpdatedTreatment.setId(treatment.getId());
+
+        partialUpdatedTreatment.type(UPDATED_TYPE);
+
+        restTreatmentMockMvc
+            .perform(
+                patch("/api/treatments")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTreatment))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Treatment in the database
+        List<Treatment> treatmentList = treatmentRepository.findAll();
+        assertThat(treatmentList).hasSize(databaseSizeBeforeUpdate);
+        Treatment testTreatment = treatmentList.get(treatmentList.size() - 1);
+        assertThat(testTreatment.getType()).isEqualTo(UPDATED_TYPE);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateTreatmentWithPatch() throws Exception {
+        // Initialize the database
+        treatmentRepository.saveAndFlush(treatment);
+
+        int databaseSizeBeforeUpdate = treatmentRepository.findAll().size();
+
+        // Update the treatment using partial update
+        Treatment partialUpdatedTreatment = new Treatment();
+        partialUpdatedTreatment.setId(treatment.getId());
+
+        partialUpdatedTreatment.type(UPDATED_TYPE);
+
+        restTreatmentMockMvc
+            .perform(
+                patch("/api/treatments")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTreatment))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Treatment in the database
+        List<Treatment> treatmentList = treatmentRepository.findAll();
+        assertThat(treatmentList).hasSize(databaseSizeBeforeUpdate);
+        Treatment testTreatment = treatmentList.get(treatmentList.size() - 1);
+        assertThat(testTreatment.getType()).isEqualTo(UPDATED_TYPE);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateTreatmentShouldThrown() throws Exception {
+        // Update the treatment without id should throw
+        Treatment partialUpdatedTreatment = new Treatment();
+
+        restTreatmentMockMvc
+            .perform(
+                patch("/api/treatments")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTreatment))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void deleteTreatment() throws Exception {
         // Initialize the database
         treatmentRepository.saveAndFlush(treatment);
 
         int databaseSizeBeforeDelete = treatmentRepository.findAll().size();
 
         // Delete the treatment
-        restTreatmentMockMvc.perform(delete("/api/treatments/{id}", treatment.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restTreatmentMockMvc
+            .perform(delete("/api/treatments/{id}", treatment.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

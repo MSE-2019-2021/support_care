@@ -1,10 +1,11 @@
+import { IDrug } from 'app/shared/model/drug.model';
+
 export interface INotice {
   id?: number;
   description?: string;
   evaluation?: string;
   intervention?: string;
-  drugName?: string;
-  drugId?: number;
+  drug?: IDrug;
 }
 
 export class Notice implements INotice {
@@ -13,7 +14,6 @@ export class Notice implements INotice {
     public description?: string,
     public evaluation?: string,
     public intervention?: string,
-    public drugName?: string,
-    public drugId?: number
+    public drug?: IDrug
   ) {}
 }

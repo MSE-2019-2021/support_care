@@ -1,16 +1,15 @@
 package uc.dei.mse.supportivecare.config.audit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uc.dei.mse.supportivecare.domain.AbstractAuditingEntity;
-import uc.dei.mse.supportivecare.domain.EntityAuditEvent;
-import uc.dei.mse.supportivecare.repository.EntityAuditEventRepository;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
+import uc.dei.mse.supportivecare.domain.AbstractAuditingEntity;
+import uc.dei.mse.supportivecare.domain.EntityAuditEvent;
+import uc.dei.mse.supportivecare.repository.EntityAuditEventRepository;
 
 /**
  * Async Entity Audit Event writer
@@ -67,8 +66,7 @@ public class AsyncEntityAuditEventWriter {
             entityId = (Long) privateLongField.get(entity);
             privateLongField.setAccessible(false);
             entityData = objectMapper.writeValueAsString(entity);
-        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException |
-            IOException e) {
+        } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException | IOException e) {
             log.error("Exception while getting entity ID and content {}", e);
             // returning null as we don't want to raise an application exception here
             return null;
@@ -91,10 +89,12 @@ public class AsyncEntityAuditEventWriter {
 
     private void calculateVersion(EntityAuditEvent auditedEntity) {
         log.trace("Version calculation. for update/remove");
-        Integer lastCommitVersion = auditingEntityRepository.findMaxCommitVersion(auditedEntity
-            .getEntityType(), auditedEntity.getEntityId());
+        Integer lastCommitVersion = auditingEntityRepository.findMaxCommitVersion(
+            auditedEntity.getEntityType(),
+            auditedEntity.getEntityId()
+        );
         log.trace("Last commit version of entity => {}", lastCommitVersion);
-        if(lastCommitVersion!=null && lastCommitVersion != 0){
+        if (lastCommitVersion != null && lastCommitVersion != 0) {
             log.trace("Present. Adding version..");
             auditedEntity.setCommitVersion(lastCommitVersion + 1);
         } else {

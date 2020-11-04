@@ -13,10 +13,10 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "drug",
       "otherEntityRelationshipName": "administration",
-      "relationshipName": "drug"
+      "relationshipName": "drug",
+      "otherEntityField": "id"
     }
   ],
-  "changelogDate": "20201104142443",
   "javadoc": "Administração.",
   "entityTableName": "administration",
   "dto": "mapstruct",
@@ -26,7 +26,7 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "clientRootFolder": "",
   "applications": ["supportivecare"],
+  "changelogDate": "20201104193537",
   "enableEntityAudit": true
 }

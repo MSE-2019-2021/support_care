@@ -18,7 +18,8 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "notice",
       "otherEntityRelationshipName": "drug",
-      "relationshipName": "notice"
+      "relationshipName": "notice",
+      "otherEntityField": "id"
     },
     {
       "relationshipType": "many-to-one",
@@ -37,7 +38,6 @@
       "ownerSide": false
     }
   ],
-  "changelogDate": "20201104142643",
   "javadoc": "Medicamento.",
   "entityTableName": "drug",
   "dto": "mapstruct",
@@ -47,7 +47,7 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "clientRootFolder": "",
   "applications": ["supportivecare"],
+  "changelogDate": "20201104193737",
   "enableEntityAudit": true
 }

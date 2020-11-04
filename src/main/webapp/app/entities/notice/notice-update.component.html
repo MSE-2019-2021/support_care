@@ -1,19 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-notice-heading" jhiTranslate="supportivecareApp.notice.home.createOrEditLabel">Create or edit a Notice</h2>
+            <h2 id="jhi-notice-heading" data-cy="NoticeCreateUpdateHeading" jhiTranslate="supportivecareApp.notice.home.createOrEditLabel">Create or edit a Notice</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.notice.id" for="field_id">ID</label>
+                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id"
+                           formControlName="id" readonly/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.notice.description" for="field_description" [ngbTooltip]="'supportivecareApp.notice.help.description' | translate">Description</label>
-                    <input type="text" class="form-control" name="description" id="field_description"
+                    <input type="text" class="form-control" name="description" id="field_description" data-cy="description"
                            formControlName="description"/>
                     <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
                         <small class="form-text text-danger"
@@ -25,7 +27,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.notice.evaluation" for="field_evaluation" [ngbTooltip]="'supportivecareApp.notice.help.evaluation' | translate">Evaluation</label>
-                    <input type="text" class="form-control" name="evaluation" id="field_evaluation"
+                    <input type="text" class="form-control" name="evaluation" id="field_evaluation" data-cy="evaluation"
                            formControlName="evaluation"/>
                     <div *ngIf="editForm.get('evaluation')!.invalid && (editForm.get('evaluation')!.dirty || editForm.get('evaluation')!.touched)">
                         <small class="form-text text-danger"
@@ -37,7 +39,7 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.notice.intervention" for="field_intervention" [ngbTooltip]="'supportivecareApp.notice.help.intervention' | translate">Intervention</label>
-                    <input type="text" class="form-control" name="intervention" id="field_intervention"
+                    <input type="text" class="form-control" name="intervention" id="field_intervention" data-cy="intervention"
                            formControlName="intervention"/>
                     <div *ngIf="editForm.get('intervention')!.invalid && (editForm.get('intervention')!.dirty || editForm.get('intervention')!.touched)">
                         <small class="form-text text-danger"
@@ -49,14 +51,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.notice.drug" for="field_drug">Drug</label>
-                    <select class="form-control" id="field_drug" name="drug" formControlName="drugId">
-                        <option *ngIf="!editForm.get('drugId')!.value" [ngValue]="null" selected></option>
-                        <option [ngValue]="drugOption.id" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
+                    <select class="form-control" id="field_drug" data-cy="drug" name="drug" formControlName="drug">
+                        <option *ngIf="!editForm.get('drug')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="drugOption.id === editForm.get('drug')!.value?.id ? editForm.get('drug')!.value : drugOption" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('drugId')!.invalid && (editForm.get('drugId')!.dirty || editForm.get('drugId')!.touched)">
+                <div *ngIf="editForm.get(['drug'])!.invalid && (editForm.get(['drug'])!.dirty || editForm.get(['drug'])!.touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('drugId')?.errors?.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get(['drug'])?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>
@@ -67,7 +69,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

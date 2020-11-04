@@ -1,19 +1,22 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+jest.mock('ng-jhipster');
+jest.mock('app/core/auth/account.service');
+
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { throwError, of } from 'rxjs';
+import { JhiLanguageService } from 'ng-jhipster';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { SettingsComponent } from 'app/account/settings/settings.component';
-import { MockAccountService } from '../../../helpers/mock-account.service';
 
 describe('Component Tests', () => {
   describe('SettingsComponent', () => {
     let comp: SettingsComponent;
     let fixture: ComponentFixture<SettingsComponent>;
-    let mockAuth: MockAccountService;
-    const accountValues: Account = {
+    let mockAccountService: AccountService;
+    const account: Account = {
       firstName: 'John',
       lastName: 'Doe',
       activated: true,
@@ -24,26 +27,29 @@ describe('Component Tests', () => {
       imageUrl: '',
     };
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [SettingsComponent],
-        providers: [FormBuilder],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [SettingsComponent],
+          providers: [FormBuilder, JhiLanguageService, AccountService],
+        })
+          .overrideTemplate(SettingsComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(SettingsComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(SettingsComponent);
       comp = fixture.componentInstance;
-      mockAuth = TestBed.get(AccountService);
-      mockAuth.setIdentityResponse(accountValues);
+      mockAccountService = TestBed.inject(AccountService);
+      mockAccountService.identity = jest.fn(() => of(account));
+      mockAccountService.getAuthenticationState = jest.fn(() => of(account));
     });
 
     it('should send the current identity upon save', () => {
       // GIVEN
-      mockAuth.saveSpy.and.returnValue(of({}));
+      mockAccountService.save = jest.fn(() => of({}));
       const settingsFormValues = {
         firstName: 'John',
         lastName: 'Doe',
@@ -56,15 +62,15 @@ describe('Component Tests', () => {
       comp.save();
 
       // THEN
-      expect(mockAuth.identitySpy).toHaveBeenCalled();
-      expect(mockAuth.saveSpy).toHaveBeenCalledWith(accountValues);
-      expect(mockAuth.authenticateSpy).toHaveBeenCalledWith(accountValues);
+      expect(mockAccountService.identity).toHaveBeenCalled();
+      expect(mockAccountService.save).toHaveBeenCalledWith(account);
+      expect(mockAccountService.authenticate).toHaveBeenCalledWith(account);
       expect(comp.settingsForm.value).toEqual(settingsFormValues);
     });
 
     it('should notify of success upon successful save', () => {
       // GIVEN
-      mockAuth.saveSpy.and.returnValue(of({}));
+      mockAccountService.save = jest.fn(() => of({}));
 
       // WHEN
       comp.ngOnInit();
@@ -76,7 +82,7 @@ describe('Component Tests', () => {
 
     it('should notify of error upon failed save', () => {
       // GIVEN
-      mockAuth.saveSpy.and.returnValue(throwError('ERROR'));
+      mockAccountService.save = jest.fn(() => throwError('ERROR'));
 
       // WHEN
       comp.ngOnInit();

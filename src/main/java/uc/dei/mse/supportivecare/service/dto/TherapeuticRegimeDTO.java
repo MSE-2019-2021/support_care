@@ -2,17 +2,20 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import javax.validation.constraints.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
  */
 @ApiModel(description = "Regime terapêutico.")
+@GeneratedByJHipster
 public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
-    
+
     private Long id;
 
     /**
@@ -70,10 +73,8 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
 
     private Set<DrugDTO> drugs = new HashSet<>();
 
-    private Long treatmentId;
+    private TreatmentDTO treatment;
 
-    private String treatmentType;
-    
     public Long getId() {
         return id;
     }
@@ -154,20 +155,12 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
         this.drugs = drugs;
     }
 
-    public Long getTreatmentId() {
-        return treatmentId;
+    public TreatmentDTO getTreatment() {
+        return treatment;
     }
 
-    public void setTreatmentId(Long treatmentId) {
-        this.treatmentId = treatmentId;
-    }
-
-    public String getTreatmentType() {
-        return treatmentType;
-    }
-
-    public void setTreatmentType(String treatmentType) {
-        this.treatmentType = treatmentType;
+    public void setTreatment(TreatmentDTO treatment) {
+        this.treatment = treatment;
     }
 
     @Override
@@ -179,12 +172,16 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
             return false;
         }
 
-        return id != null && id.equals(((TherapeuticRegimeDTO) o).id);
+        TherapeuticRegimeDTO therapeuticRegimeDTO = (TherapeuticRegimeDTO) o;
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, therapeuticRegimeDTO.id);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(this.id);
     }
 
     // prettier-ignore
@@ -200,9 +197,8 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
             ", indication='" + getIndication() + "'" +
             ", criteria='" + getCriteria() + "'" +
             ", notice='" + getNotice() + "'" +
-            ", drugs='" + getDrugs() + "'" +
-            ", treatmentId=" + getTreatmentId() +
-            ", treatmentType='" + getTreatmentType() + "'" +
+            ", drugs=" + getDrugs() +
+            ", treatment=" + getTreatment() +
             "}";
     }
 }
