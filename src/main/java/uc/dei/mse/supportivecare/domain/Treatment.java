@@ -1,14 +1,14 @@
 package uc.dei.mse.supportivecare.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Tratamento.
@@ -16,7 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "treatment")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Treatment extends AbstractAuditingEntity implements Serializable {
+@GeneratedByJHipster
+public class Treatment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +35,7 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     @OneToMany(mappedBy = "treatment")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "drugs", "treatment" }, allowSetters = true)
     private Set<TherapeuticRegime> therapeuticRegimes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -43,6 +45,11 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Treatment id(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getType() {
@@ -82,6 +89,7 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
     public void setTherapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
         this.therapeuticRegimes = therapeuticRegimes;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

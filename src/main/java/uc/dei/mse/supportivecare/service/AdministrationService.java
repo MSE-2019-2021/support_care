@@ -1,24 +1,24 @@
 package uc.dei.mse.supportivecare.service;
 
-import uc.dei.mse.supportivecare.domain.Administration;
-import uc.dei.mse.supportivecare.repository.AdministrationRepository;
-import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
-import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.domain.Administration;
+import uc.dei.mse.supportivecare.repository.AdministrationRepository;
+import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
+import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
 
 /**
  * Service Implementation for managing {@link Administration}.
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class AdministrationService {
 
     private final Logger log = LoggerFactory.getLogger(AdministrationService.class);
@@ -46,6 +46,31 @@ public class AdministrationService {
     }
 
     /**
+     * Partially udpates a administration.
+     *
+     * @param administrationDTO the entity to update partially.
+     * @return the persisted entity.
+     */
+    public AdministrationDTO partialUpdate(AdministrationDTO administrationDTO) {
+        log.debug("Request to partially update Administration : {}", administrationDTO);
+
+        return administrationRepository
+            .findById(administrationDTO.getId())
+            .map(
+                existingAdministration -> {
+                    if (administrationDTO.getType() != null) {
+                        existingAdministration.setType(administrationDTO.getType());
+                    }
+
+                    return existingAdministration;
+                }
+            )
+            .map(administrationRepository::save)
+            .map(administrationMapper::toDto)
+            .get();
+    }
+
+    /**
      * Get all the administrations.
      *
      * @param pageable the pagination information.
@@ -54,10 +79,8 @@ public class AdministrationService {
     @Transactional(readOnly = true)
     public Page<AdministrationDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Administrations");
-        return administrationRepository.findAll(pageable)
-            .map(administrationMapper::toDto);
+        return administrationRepository.findAll(pageable).map(administrationMapper::toDto);
     }
-
 
     /**
      * Get one administration by id.
@@ -68,8 +91,7 @@ public class AdministrationService {
     @Transactional(readOnly = true)
     public Optional<AdministrationDTO> findOne(Long id) {
         log.debug("Request to get Administration : {}", id);
-        return administrationRepository.findById(id)
-            .map(administrationMapper::toDto);
+        return administrationRepository.findById(id).map(administrationMapper::toDto);
     }
 
     /**

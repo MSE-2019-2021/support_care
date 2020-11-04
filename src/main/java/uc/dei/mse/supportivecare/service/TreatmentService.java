@@ -1,24 +1,24 @@
 package uc.dei.mse.supportivecare.service;
 
-import uc.dei.mse.supportivecare.domain.Treatment;
-import uc.dei.mse.supportivecare.repository.TreatmentRepository;
-import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
-import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.domain.Treatment;
+import uc.dei.mse.supportivecare.repository.TreatmentRepository;
+import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
+import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
 
 /**
  * Service Implementation for managing {@link Treatment}.
  */
 @Service
 @Transactional
+@GeneratedByJHipster
 public class TreatmentService {
 
     private final Logger log = LoggerFactory.getLogger(TreatmentService.class);
@@ -46,6 +46,31 @@ public class TreatmentService {
     }
 
     /**
+     * Partially udpates a treatment.
+     *
+     * @param treatmentDTO the entity to update partially.
+     * @return the persisted entity.
+     */
+    public TreatmentDTO partialUpdate(TreatmentDTO treatmentDTO) {
+        log.debug("Request to partially update Treatment : {}", treatmentDTO);
+
+        return treatmentRepository
+            .findById(treatmentDTO.getId())
+            .map(
+                existingTreatment -> {
+                    if (treatmentDTO.getType() != null) {
+                        existingTreatment.setType(treatmentDTO.getType());
+                    }
+
+                    return existingTreatment;
+                }
+            )
+            .map(treatmentRepository::save)
+            .map(treatmentMapper::toDto)
+            .get();
+    }
+
+    /**
      * Get all the treatments.
      *
      * @param pageable the pagination information.
@@ -54,10 +79,8 @@ public class TreatmentService {
     @Transactional(readOnly = true)
     public Page<TreatmentDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Treatments");
-        return treatmentRepository.findAll(pageable)
-            .map(treatmentMapper::toDto);
+        return treatmentRepository.findAll(pageable).map(treatmentMapper::toDto);
     }
-
 
     /**
      * Get one treatment by id.
@@ -68,8 +91,7 @@ public class TreatmentService {
     @Transactional(readOnly = true)
     public Optional<TreatmentDTO> findOne(Long id) {
         log.debug("Request to get Treatment : {}", id);
-        return treatmentRepository.findById(id)
-            .map(treatmentMapper::toDto);
+        return treatmentRepository.findById(id).map(treatmentMapper::toDto);
     }
 
     /**

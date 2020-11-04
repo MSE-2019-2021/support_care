@@ -1,4 +1,5 @@
 import { IDrug } from 'app/shared/model/drug.model';
+import { ITreatment } from 'app/shared/model/treatment.model';
 
 export interface ITherapeuticRegime {
   id?: number;
@@ -11,8 +12,7 @@ export interface ITherapeuticRegime {
   criteria?: string;
   notice?: string;
   drugs?: IDrug[];
-  treatmentType?: string;
-  treatmentId?: number;
+  treatment?: ITreatment;
 }
 
 export class TherapeuticRegime implements ITherapeuticRegime {
@@ -27,7 +27,6 @@ export class TherapeuticRegime implements ITherapeuticRegime {
     public criteria?: string,
     public notice?: string,
     public drugs?: IDrug[],
-    public treatmentType?: string,
-    public treatmentId?: number
+    public treatment?: ITreatment
   ) {}
 }

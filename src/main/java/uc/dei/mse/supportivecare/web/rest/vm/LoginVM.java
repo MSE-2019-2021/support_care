@@ -2,10 +2,12 @@ package uc.dei.mse.supportivecare.web.rest.vm;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * View Model object for storing a user's credentials.
  */
+@GeneratedByJHipster
 public class LoginVM {
 
     @NotNull
@@ -16,7 +18,7 @@ public class LoginVM {
     @Size(min = 4, max = 100)
     private String password;
 
-    private Boolean rememberMe;
+    private boolean rememberMe;
 
     public String getUsername() {
         return username;
@@ -34,11 +36,11 @@ public class LoginVM {
         this.password = password;
     }
 
-    public Boolean isRememberMe() {
+    public boolean isRememberMe() {
         return rememberMe;
     }
 
-    public void setRememberMe(Boolean rememberMe) {
+    public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
     }
 

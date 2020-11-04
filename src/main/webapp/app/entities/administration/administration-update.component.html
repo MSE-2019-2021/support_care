@@ -1,19 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-administration-heading" jhiTranslate="supportivecareApp.administration.home.createOrEditLabel">Create or edit a Administration</h2>
+            <h2 id="jhi-administration-heading" data-cy="AdministrationCreateUpdateHeading" jhiTranslate="supportivecareApp.administration.home.createOrEditLabel">Create or edit a Administration</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.administration.id" for="field_id">ID</label>
+                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id"
+                           formControlName="id" readonly/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.administration.type" for="field_type" [ngbTooltip]="'supportivecareApp.administration.help.type' | translate">Type</label>
-                    <input type="text" class="form-control" name="type" id="field_type"
+                    <input type="text" class="form-control" name="type" id="field_type" data-cy="type"
                            formControlName="type"/>
                     <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
                         <small class="form-text text-danger"
@@ -29,7 +31,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

@@ -1,16 +1,14 @@
 package uc.dei.mse.supportivecare.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Medicamento.
@@ -18,7 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "drug")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Drug extends AbstractAuditingEntity implements Serializable {
+@GeneratedByJHipster
+public class Drug implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,16 +41,17 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
 
     @OneToMany(mappedBy = "drug")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "drug" }, allowSetters = true)
     private Set<Notice> notices = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "drugs", allowSetters = true)
+    @JsonIgnoreProperties(value = { "drugs" }, allowSetters = true)
     private Administration administration;
 
     @ManyToMany(mappedBy = "drugs")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnore
+    @JsonIgnoreProperties(value = { "drugs", "treatment" }, allowSetters = true)
     private Set<TherapeuticRegime> therapeuticRegimes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -61,6 +61,11 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Drug id(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
@@ -151,6 +156,7 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     public void setTherapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
         this.therapeuticRegimes = therapeuticRegimes;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

@@ -1,11 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { NoticeService } from 'app/entities/notice/notice.service';
 import { INotice, Notice } from 'app/shared/model/notice.model';
 
 describe('Service Tests', () => {
   describe('Notice Service', () => {
-    let injector: TestBed;
     let service: NoticeService;
     let httpMock: HttpTestingController;
     let elemDefault: INotice;
@@ -16,9 +15,8 @@ describe('Service Tests', () => {
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      injector = getTestBed();
-      service = injector.get(NoticeService);
-      httpMock = injector.get(HttpTestingController);
+      service = TestBed.inject(NoticeService);
+      httpMock = TestBed.inject(HttpTestingController);
 
       elemDefault = new Notice(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
@@ -54,6 +52,7 @@ describe('Service Tests', () => {
       it('should update a Notice', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             description: 'BBBBBB',
             evaluation: 'BBBBBB',
             intervention: 'BBBBBB',
@@ -73,6 +72,7 @@ describe('Service Tests', () => {
       it('should return a list of Notice', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             description: 'BBBBBB',
             evaluation: 'BBBBBB',
             intervention: 'BBBBBB',

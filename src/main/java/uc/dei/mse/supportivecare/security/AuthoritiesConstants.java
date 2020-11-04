@@ -1,8 +1,11 @@
 package uc.dei.mse.supportivecare.security;
 
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+
 /**
  * Constants for Spring Security authorities.
  */
+@GeneratedByJHipster
 public final class AuthoritiesConstants {
 
     public static final String ADMIN = "ROLE_ADMIN";
@@ -11,6 +14,5 @@ public final class AuthoritiesConstants {
 
     public static final String ANONYMOUS = "ROLE_ANONYMOUS";
 
-    private AuthoritiesConstants() {
-    }
+    private AuthoritiesConstants() {}
 }

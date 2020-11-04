@@ -30,7 +30,6 @@
       "otherEntityField": "name"
     }
   ],
-  "changelogDate": "20201104142543",
   "javadoc": "Observação.",
   "entityTableName": "notice",
   "dto": "mapstruct",
@@ -40,7 +39,6 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "clientRootFolder": "",
   "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "changelogDate": "20201104193637"
 }

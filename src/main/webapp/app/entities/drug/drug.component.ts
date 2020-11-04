@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDrug } from 'app/shared/model/drug.model';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { DrugService } from './drug.service';
 import { DrugDeleteDialogComponent } from './drug-delete-dialog.component';
 
@@ -17,8 +17,9 @@ import { DrugDeleteDialogComponent } from './drug-delete-dialog.component';
 export class DrugComponent implements OnInit, OnDestroy {
   drugs: IDrug[];
   eventSubscriber?: Subscription;
+  isLoading = false;
   itemsPerPage: number;
-  links: any;
+  links: { [key: string]: number };
   page: number;
   predicate: string;
   ascending: boolean;
@@ -40,13 +41,23 @@ export class DrugComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    this.isLoading = true;
+
     this.drugService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<IDrug[]>) => this.paginateDrugs(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<IDrug[]>) => {
+          this.isLoading = false;
+          this.paginateDrugs(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 
   reset(): void {
@@ -58,6 +69,10 @@ export class DrugComponent implements OnInit, OnDestroy {
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
+  }
+
+  handleSyncList(): void {
+    this.reset();
   }
 
   ngOnInit(): void {
@@ -72,7 +87,6 @@ export class DrugComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: IDrug): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 

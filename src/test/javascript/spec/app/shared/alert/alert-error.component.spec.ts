@@ -1,38 +1,35 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
+import { JhiAlertService, JhiAlert, JhiEventManager } from 'ng-jhipster';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { AlertErrorComponent } from 'app/shared/alert/alert-error.component';
-import { MockAlertService } from '../../../helpers/mock-alert.service';
 
 describe('Component Tests', () => {
   describe('Alert Error Component', () => {
     let comp: AlertErrorComponent;
     let fixture: ComponentFixture<AlertErrorComponent>;
     let eventManager: JhiEventManager;
+    let alertService: JhiAlertService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule, TranslateModule.forRoot()],
-        declarations: [AlertErrorComponent],
-        providers: [
-          JhiEventManager,
-          {
-            provide: JhiAlertService,
-            useClass: MockAlertService,
-          },
-        ],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [TranslateModule.forRoot()],
+          declarations: [AlertErrorComponent],
+          providers: [JhiEventManager, JhiAlertService],
+        })
+          .overrideTemplate(AlertErrorComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(AlertErrorComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(AlertErrorComponent);
       comp = fixture.componentInstance;
-      eventManager = fixture.debugElement.injector.get(JhiEventManager);
+      eventManager = TestBed.inject(JhiEventManager);
+      alertService = TestBed.inject(JhiAlertService);
+      alertService.addAlert = (alert: JhiAlert) => alert;
     });
 
     describe('Error Handling', () => {

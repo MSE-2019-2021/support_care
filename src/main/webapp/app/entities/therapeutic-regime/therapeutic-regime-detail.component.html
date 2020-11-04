@@ -1,13 +1,19 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="therapeuticRegime">
-            <h2><span jhiTranslate="supportivecareApp.therapeuticRegime.detail.title">Therapeutic Regime</span> {{ therapeuticRegime.id }}</h2>
+            <h2 data-cy="therapeuticRegimeDetailsHeading"><span jhiTranslate="supportivecareApp.therapeuticRegime.detail.title">Therapeutic Regime</span></h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
 
+            <jhi-alert></jhi-alert>
+
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.id">ID</span></dt>
+                <dd>
+                    <span>{{ therapeuticRegime.id }}</span>
+                </dd>
                 <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.name" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.name' | translate">Name</span></dt>
                 <dd>
                     <span>{{ therapeuticRegime.name }}</span>
@@ -48,15 +54,16 @@
                 </dd>
                 <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
                 <dd>
-                    <div *ngIf="therapeuticRegime.treatmentId">
-                        <a [routerLink]="['/treatment', therapeuticRegime.treatmentId, 'view']">{{ therapeuticRegime.treatmentType }}</a>
+                    <div *ngIf="therapeuticRegime.treatment">
+                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
                     </div>
                 </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info">
+                    class="btn btn-info"
+                    data-cy="entityDetailsBackButton">
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 

@@ -1,33 +1,46 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { of } from 'rxjs';
+jest.mock('@angular/router');
+jest.mock('ngx-webstorage');
+jest.mock('ng-jhipster');
+jest.mock('app/core/auth/account.service');
+jest.mock('app/login/login.service');
 
-import { SupportivecareTestModule } from '../../../test.module';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { SessionStorageService } from 'ngx-webstorage';
+import { JhiLanguageService } from 'ng-jhipster';
+
 import { ProfileInfo } from 'app/layouts/profiles/profile-info.model';
 import { NavbarComponent } from 'app/layouts/navbar/navbar.component';
 import { AccountService } from 'app/core/auth/account.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { LoginService } from 'app/login/login.service';
 
 describe('Component Tests', () => {
   describe('Navbar Component', () => {
     let comp: NavbarComponent;
     let fixture: ComponentFixture<NavbarComponent>;
-    let accountService: AccountService;
+    let mockAccountService: AccountService;
     let profileService: ProfileService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [NavbarComponent],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [NavbarComponent],
+          providers: [AccountService, SessionStorageService, JhiLanguageService, Router, LoginService],
+        })
+          .overrideTemplate(NavbarComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(NavbarComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(NavbarComponent);
       comp = fixture.componentInstance;
-      accountService = TestBed.get(AccountService);
-      profileService = TestBed.get(ProfileService);
+      mockAccountService = TestBed.inject(AccountService);
+      profileService = TestBed.inject(ProfileService);
     });
 
     it('Should call profileService.getProfileInfo on init', () => {
@@ -46,7 +59,7 @@ describe('Component Tests', () => {
       comp.isAuthenticated();
 
       // THEN
-      expect(accountService.isAuthenticated).toHaveBeenCalled();
+      expect(mockAccountService.isAuthenticated).toHaveBeenCalled();
     });
   });
 });

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IAdministration, Administration } from 'app/shared/model/administration.model';
 import { AdministrationService } from './administration.service';
@@ -20,9 +20,17 @@ export class AdministrationUpdateComponent implements OnInit {
     type: [null, [Validators.required]],
   });
 
-  constructor(protected administrationService: AdministrationService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected administrationService: AdministrationService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    @Optional() public activeModal?: NgbActiveModal
+  ) {}
 
   ngOnInit(): void {
+    if (this.activeModal) {
+      return;
+    }
     this.activatedRoute.data.subscribe(({ administration }) => {
       this.updateForm(administration);
     });
@@ -36,7 +44,11 @@ export class AdministrationUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    window.history.back();
+    if (this.activeModal) {
+      this.activeModal.close();
+    } else {
+      window.history.back();
+    }
   }
 
   save(): void {

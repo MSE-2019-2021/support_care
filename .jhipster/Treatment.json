@@ -13,10 +13,10 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "therapeuticRegime",
       "otherEntityRelationshipName": "treatment",
-      "relationshipName": "therapeuticRegime"
+      "relationshipName": "therapeuticRegime",
+      "otherEntityField": "id"
     }
   ],
-  "changelogDate": "20201104142743",
   "javadoc": "Tratamento.",
   "entityTableName": "treatment",
   "dto": "mapstruct",
@@ -26,7 +26,6 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "clientRootFolder": "",
   "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "changelogDate": "20201104193837"
 }

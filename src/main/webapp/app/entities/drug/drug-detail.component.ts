@@ -13,7 +13,9 @@ export class DrugDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ drug }) => (this.drug = drug));
+    this.activatedRoute.data.subscribe(({ drug }) => {
+      this.drug = drug;
+    });
   }
 
   previousState(): void {

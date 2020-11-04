@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
 
-import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
+import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { SettingsComponent } from './settings.component';
-import { Authority } from 'app/shared/constants/authority.constants';
+import { Authority } from 'app/core/user/authority.model';
 
 export const settingsRoute: Route = {
   path: 'settings',

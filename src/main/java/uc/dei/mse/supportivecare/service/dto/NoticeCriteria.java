@@ -2,14 +2,15 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import io.github.jhipster.service.Criteria;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
+import tech.jhipster.service.Criteria;
+import tech.jhipster.service.filter.BooleanFilter;
+import tech.jhipster.service.filter.DoubleFilter;
+import tech.jhipster.service.filter.Filter;
+import tech.jhipster.service.filter.FloatFilter;
+import tech.jhipster.service.filter.IntegerFilter;
+import tech.jhipster.service.filter.LongFilter;
+import tech.jhipster.service.filter.StringFilter;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Criteria class for the {@link uc.dei.mse.supportivecare.domain.Notice} entity. This class is used
@@ -20,6 +21,7 @@ import io.github.jhipster.service.filter.StringFilter;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@GeneratedByJHipster
 public class NoticeCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
@@ -34,8 +36,7 @@ public class NoticeCriteria implements Serializable, Criteria {
 
     private LongFilter drugId;
 
-    public NoticeCriteria() {
-    }
+    public NoticeCriteria() {}
 
     public NoticeCriteria(NoticeCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
@@ -90,7 +91,6 @@ public class NoticeCriteria implements Serializable, Criteria {
         this.drugId = drugId;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -100,23 +100,18 @@ public class NoticeCriteria implements Serializable, Criteria {
             return false;
         }
         final NoticeCriteria that = (NoticeCriteria) o;
-        return
+        return (
             Objects.equals(id, that.id) &&
             Objects.equals(description, that.description) &&
             Objects.equals(evaluation, that.evaluation) &&
             Objects.equals(intervention, that.intervention) &&
-            Objects.equals(drugId, that.drugId);
+            Objects.equals(drugId, that.drugId)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-        id,
-        description,
-        evaluation,
-        intervention,
-        drugId
-        );
+        return Objects.hash(id, description, evaluation, intervention, drugId);
     }
 
     // prettier-ignore
@@ -130,5 +125,4 @@ public class NoticeCriteria implements Serializable, Criteria {
                 (drugId != null ? "drugId=" + drugId + ", " : "") +
             "}";
     }
-
 }

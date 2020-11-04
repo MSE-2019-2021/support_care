@@ -37,18 +37,18 @@ export class AlertErrorComponent implements OnDestroy {
 
         case 400: {
           const arr = httpErrorResponse.headers.keys();
-          let errorHeader = null;
-          let entityKey = null;
-          arr.forEach(entry => {
+          let errorHeader: string | null = null;
+          let entityKey: string | null = null;
+          for (const entry of arr) {
             if (entry.toLowerCase().endsWith('app-error')) {
               errorHeader = httpErrorResponse.headers.get(entry);
             } else if (entry.toLowerCase().endsWith('app-params')) {
               entityKey = httpErrorResponse.headers.get(entry);
             }
-          });
+          }
           if (errorHeader) {
-            const entityName = translateService.instant('global.menu.entities.' + entityKey);
-            this.addErrorAlert(errorHeader, errorHeader, { entityName });
+            const alertData = entityKey ? { entityName: translateService.instant(`global.menu.entities.${entityKey}`) } : undefined;
+            this.addErrorAlert(errorHeader, errorHeader, alertData);
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.fieldErrors) {
             const fieldErrors = httpErrorResponse.error.fieldErrors;
             for (const fieldError of fieldErrors) {
@@ -56,9 +56,9 @@ export class AlertErrorComponent implements OnDestroy {
                 fieldError.message = 'Size';
               }
               // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
-              const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
-              const fieldName = translateService.instant('supportivecareApp.' + fieldError.objectName + '.' + convertedField);
-              this.addErrorAlert('Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
+              const convertedField: string = fieldError.field.replace(/\[\d*\]/g, '[]');
+              const fieldName: string = translateService.instant(`supportivecareApp.${fieldError.objectName as string}.${convertedField}`);
+              this.addErrorAlert(`Error on field "${fieldName}"`, `error.${fieldError.message as string}`, { fieldName });
             }
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
             this.addErrorAlert(httpErrorResponse.error.message, httpErrorResponse.error.message, httpErrorResponse.error.params);
@@ -91,20 +91,18 @@ export class AlertErrorComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.errorListener) {
-      this.eventManager.destroy(this.errorListener);
-    }
-    if (this.httpErrorListener) {
-      this.eventManager.destroy(this.httpErrorListener);
-    }
+    this.eventManager.destroy(this.errorListener);
+    this.eventManager.destroy(this.httpErrorListener);
   }
 
-  addErrorAlert(message: string, key?: string, data?: any): void {
-    message = key && key !== null ? key : message;
+  close(alert: JhiAlert): void {
+    alert.close?.(this.alerts);
+  }
 
+  private addErrorAlert(message: string, key?: string, data?: { [key: string]: unknown }): void {
     const newAlert: JhiAlert = {
       type: 'danger',
-      msg: message,
+      msg: key ?? message,
       params: data,
       timeout: 5000,
       toast: this.alertService.isToast(),
@@ -112,10 +110,5 @@ export class AlertErrorComponent implements OnDestroy {
     };
 
     this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
-  }
-
-  close(alert: JhiAlert): void {
-    // NOSONAR can be removed after https://github.com/SonarSource/SonarJS/issues/1930 is resolved
-    alert.close?.(this.alerts); // NOSONAR
   }
 }

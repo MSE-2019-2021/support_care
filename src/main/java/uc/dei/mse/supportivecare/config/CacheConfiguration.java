@@ -3,23 +3,24 @@ package uc.dei.mse.supportivecare.config;
 import com.github.benmanes.caffeine.jcache.configuration.CaffeineConfiguration;
 import java.util.OptionalLong;
 import java.util.concurrent.TimeUnit;
-
 import org.hibernate.cache.jcache.ConfigSettings;
-import io.github.jhipster.config.JHipsterProperties;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
-import org.springframework.cache.interceptor.KeyGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import io.github.jhipster.config.cache.PrefixedKeyGenerator;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.*;
+import tech.jhipster.config.JHipsterProperties;
+import tech.jhipster.config.cache.PrefixedKeyGenerator;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
 @EnableCaching
+@GeneratedByJHipster
 public class CacheConfiguration {
+
     private GitProperties gitProperties;
     private BuildProperties buildProperties;
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
@@ -57,14 +58,15 @@ public class CacheConfiguration {
             createCache(cm, uc.dei.mse.supportivecare.domain.Treatment.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName() + ".drugs");
-            createCache(cm, uc.dei.mse.supportivecare.domain.EntityAuditEvent.class.getName());
             // jhipster-needle-caffeine-add-entry
         };
     }
 
     private void createCache(javax.cache.CacheManager cm, String cacheName) {
         javax.cache.Cache<Object, Object> cache = cm.getCache(cacheName);
-        if (cache == null) {
+        if (cache != null) {
+            cache.clear();
+        } else {
             cm.createCache(cacheName, jcacheConfiguration);
         }
     }

@@ -2,14 +2,15 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
-import io.github.jhipster.service.Criteria;
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.DoubleFilter;
-import io.github.jhipster.service.filter.Filter;
-import io.github.jhipster.service.filter.FloatFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
-import io.github.jhipster.service.filter.LongFilter;
-import io.github.jhipster.service.filter.StringFilter;
+import tech.jhipster.service.Criteria;
+import tech.jhipster.service.filter.BooleanFilter;
+import tech.jhipster.service.filter.DoubleFilter;
+import tech.jhipster.service.filter.Filter;
+import tech.jhipster.service.filter.FloatFilter;
+import tech.jhipster.service.filter.IntegerFilter;
+import tech.jhipster.service.filter.LongFilter;
+import tech.jhipster.service.filter.StringFilter;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Criteria class for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity. This class is used
@@ -20,6 +21,7 @@ import io.github.jhipster.service.filter.StringFilter;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
+@GeneratedByJHipster
 public class TherapeuticRegimeCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +48,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
 
     private LongFilter treatmentId;
 
-    public TherapeuticRegimeCriteria() {
-    }
+    public TherapeuticRegimeCriteria() {}
 
     public TherapeuticRegimeCriteria(TherapeuticRegimeCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
@@ -156,7 +157,6 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.treatmentId = treatmentId;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -166,7 +166,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
             return false;
         }
         final TherapeuticRegimeCriteria that = (TherapeuticRegimeCriteria) o;
-        return
+        return (
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
             Objects.equals(acronym, that.acronym) &&
@@ -177,24 +177,13 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
             Objects.equals(criteria, that.criteria) &&
             Objects.equals(notice, that.notice) &&
             Objects.equals(drugId, that.drugId) &&
-            Objects.equals(treatmentId, that.treatmentId);
+            Objects.equals(treatmentId, that.treatmentId)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-        id,
-        name,
-        acronym,
-        purpose,
-        condition,
-        timing,
-        indication,
-        criteria,
-        notice,
-        drugId,
-        treatmentId
-        );
+        return Objects.hash(id, name, acronym, purpose, condition, timing, indication, criteria, notice, drugId, treatmentId);
     }
 
     // prettier-ignore
@@ -214,5 +203,4 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
                 (treatmentId != null ? "treatmentId=" + treatmentId + ", " : "") +
             "}";
     }
-
 }

@@ -1,22 +1,14 @@
 import { NgModule } from '@angular/core';
-import { SupportivecareSharedLibsModule } from './shared-libs.module';
-import { FindLanguageFromKeyPipe } from './language/find-language-from-key.pipe';
+import { SharedLibsModule } from './shared-libs.module';
+import { FindLanguageFromKeyPipe } from './find-language-from-key.pipe';
 import { AlertComponent } from './alert/alert.component';
 import { AlertErrorComponent } from './alert/alert-error.component';
-import { LoginModalComponent } from './login/login.component';
-import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
+import { HasAnyAuthorityDirective } from './has-any-authority.directive';
+import { DurationPipe } from './duration.pipe';
 
 @NgModule({
-  imports: [SupportivecareSharedLibsModule],
-  declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, LoginModalComponent, HasAnyAuthorityDirective],
-  entryComponents: [LoginModalComponent],
-  exports: [
-    SupportivecareSharedLibsModule,
-    FindLanguageFromKeyPipe,
-    AlertComponent,
-    AlertErrorComponent,
-    LoginModalComponent,
-    HasAnyAuthorityDirective,
-  ],
+  imports: [SharedLibsModule],
+  declarations: [FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, HasAnyAuthorityDirective, DurationPipe],
+  exports: [SharedLibsModule, FindLanguageFromKeyPipe, AlertComponent, AlertErrorComponent, HasAnyAuthorityDirective, DurationPipe],
 })
-export class SupportivecareSharedModule {}
+export class SharedModule {}

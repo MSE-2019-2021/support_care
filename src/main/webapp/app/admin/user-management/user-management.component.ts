@@ -2,10 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, combineLatest } from 'rxjs';
-import { ActivatedRoute, ParamMap, Router, Data } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { UserService } from 'app/core/user/user.service';
@@ -20,6 +20,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   currentAccount: Account | null = null;
   users: User[] | null = null;
   userListSubscription?: Subscription;
+  isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
   page!: number;
@@ -51,13 +52,17 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.userService.update({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
   }
 
-  trackIdentity(index: number, item: User): any {
-    return item.id;
+  trackIdentity(index: number, item: User): number {
+    return item.id!;
   }
 
   deleteUser(user: User): void {
     const modalRef = this.modalService.open(UserManagementDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.user = user;
+  }
+
+  handleSyncList(): void {
+    this.loadAll();
   }
 
   transition(): void {
@@ -71,24 +76,31 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   private handleNavigation(): void {
-    combineLatest(this.activatedRoute.data, this.activatedRoute.queryParamMap, (data: Data, params: ParamMap) => {
+    combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {
       const page = params.get('page');
       this.page = page !== null ? +page : 1;
       const sort = (params.get('sort') ?? data['defaultSort']).split(',');
       this.predicate = sort[0];
       this.ascending = sort[1] === 'asc';
       this.loadAll();
-    }).subscribe();
+    });
   }
 
   private loadAll(): void {
+    this.isLoading = true;
     this.userService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<User[]>) => this.onSuccess(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<User[]>) => {
+          this.isLoading = false;
+          this.onSuccess(res.body, res.headers);
+        },
+        () => (this.isLoading = false)
+      );
   }
 
   private sort(): string[] {

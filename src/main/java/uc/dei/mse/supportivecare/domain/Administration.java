@@ -1,14 +1,14 @@
 package uc.dei.mse.supportivecare.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Administração.
@@ -16,7 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "administration")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Administration extends AbstractAuditingEntity implements Serializable {
+@GeneratedByJHipster
+public class Administration implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +35,7 @@ public class Administration extends AbstractAuditingEntity implements Serializab
 
     @OneToMany(mappedBy = "administration")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
     private Set<Drug> drugs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -43,6 +45,11 @@ public class Administration extends AbstractAuditingEntity implements Serializab
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Administration id(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getType() {
@@ -82,6 +89,7 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     public void setDrugs(Set<Drug> drugs) {
         this.drugs = drugs;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

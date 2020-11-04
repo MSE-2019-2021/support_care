@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Configure the converters to use the ISO format for dates by default.
  */
 @Configuration
+@GeneratedByJHipster
 public class DateTimeFormatConfiguration implements WebMvcConfigurer {
 
     @Override

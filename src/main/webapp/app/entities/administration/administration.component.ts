@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IAdministration } from 'app/shared/model/administration.model';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { AdministrationService } from './administration.service';
 import { AdministrationDeleteDialogComponent } from './administration-delete-dialog.component';
 
@@ -17,8 +17,9 @@ import { AdministrationDeleteDialogComponent } from './administration-delete-dia
 export class AdministrationComponent implements OnInit, OnDestroy {
   administrations: IAdministration[];
   eventSubscriber?: Subscription;
+  isLoading = false;
   itemsPerPage: number;
-  links: any;
+  links: { [key: string]: number };
   page: number;
   predicate: string;
   ascending: boolean;
@@ -40,13 +41,23 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    this.isLoading = true;
+
     this.administrationService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<IAdministration[]>) => this.paginateAdministrations(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<IAdministration[]>) => {
+          this.isLoading = false;
+          this.paginateAdministrations(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 
   reset(): void {
@@ -58,6 +69,10 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
+  }
+
+  handleSyncList(): void {
+    this.reset();
   }
 
   ngOnInit(): void {
@@ -72,7 +87,6 @@ export class AdministrationComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: IAdministration): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 

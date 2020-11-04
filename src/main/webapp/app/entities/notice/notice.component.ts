@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { INotice } from 'app/shared/model/notice.model';
 
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { NoticeService } from './notice.service';
 import { NoticeDeleteDialogComponent } from './notice-delete-dialog.component';
 
@@ -17,8 +17,9 @@ import { NoticeDeleteDialogComponent } from './notice-delete-dialog.component';
 export class NoticeComponent implements OnInit, OnDestroy {
   notices: INotice[];
   eventSubscriber?: Subscription;
+  isLoading = false;
   itemsPerPage: number;
-  links: any;
+  links: { [key: string]: number };
   page: number;
   predicate: string;
   ascending: boolean;
@@ -40,13 +41,23 @@ export class NoticeComponent implements OnInit, OnDestroy {
   }
 
   loadAll(): void {
+    this.isLoading = true;
+
     this.noticeService
       .query({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
-      .subscribe((res: HttpResponse<INotice[]>) => this.paginateNotices(res.body, res.headers));
+      .subscribe(
+        (res: HttpResponse<INotice[]>) => {
+          this.isLoading = false;
+          this.paginateNotices(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
   }
 
   reset(): void {
@@ -58,6 +69,10 @@ export class NoticeComponent implements OnInit, OnDestroy {
   loadPage(page: number): void {
     this.page = page;
     this.loadAll();
+  }
+
+  handleSyncList(): void {
+    this.reset();
   }
 
   ngOnInit(): void {
@@ -72,7 +87,6 @@ export class NoticeComponent implements OnInit, OnDestroy {
   }
 
   trackId(index: number, item: INotice): number {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }
 

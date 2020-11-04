@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { ConfigurationComponent } from 'app/admin/configuration/configuration.component';
-import { ConfigurationService, Bean, PropertySource } from 'app/admin/configuration/configuration.service';
+import { ConfigurationService } from 'app/admin/configuration/configuration.service';
+import { Bean, PropertySource } from 'app/admin/configuration/configuration.model';
 
 describe('Component Tests', () => {
   describe('ConfigurationComponent', () => {
@@ -11,20 +12,22 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<ConfigurationComponent>;
     let service: ConfigurationService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [ConfigurationComponent],
-        providers: [ConfigurationService],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [ConfigurationComponent],
+          providers: [ConfigurationService],
+        })
+          .overrideTemplate(ConfigurationComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(ConfigurationComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(ConfigurationComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(ConfigurationService);
+      service = TestBed.inject(ConfigurationService);
     });
 
     describe('OnInit', () => {

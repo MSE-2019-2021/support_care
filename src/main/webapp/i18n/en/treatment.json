@@ -3,6 +3,7 @@
     "treatment": {
       "home": {
         "title": "Treatments",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Treatment",
         "createOrEditLabel": "Create or edit a Treatment",
         "notFound": "No Treatments found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Treatment"
       },
+      "id": "ID",
       "type": "Type",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {

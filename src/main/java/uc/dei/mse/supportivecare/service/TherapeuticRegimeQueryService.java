@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.service;
 
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import io.github.jhipster.service.QueryService;
-
-import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
+import tech.jhipster.service.QueryService;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
+import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
 import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeCriteria;
 import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
@@ -29,6 +26,7 @@ import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegime> {
 
     private final Logger log = LoggerFactory.getLogger(TherapeuticRegimeQueryService.class);
@@ -37,7 +35,10 @@ public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegim
 
     private final TherapeuticRegimeMapper therapeuticRegimeMapper;
 
-    public TherapeuticRegimeQueryService(TherapeuticRegimeRepository therapeuticRegimeRepository, TherapeuticRegimeMapper therapeuticRegimeMapper) {
+    public TherapeuticRegimeQueryService(
+        TherapeuticRegimeRepository therapeuticRegimeRepository,
+        TherapeuticRegimeMapper therapeuticRegimeMapper
+    ) {
         this.therapeuticRegimeRepository = therapeuticRegimeRepository;
         this.therapeuticRegimeMapper = therapeuticRegimeMapper;
     }
@@ -64,8 +65,7 @@ public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegim
     public Page<TherapeuticRegimeDTO> findByCriteria(TherapeuticRegimeCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<TherapeuticRegime> specification = createSpecification(criteria);
-        return therapeuticRegimeRepository.findAll(specification, page)
-            .map(therapeuticRegimeMapper::toDto);
+        return therapeuticRegimeRepository.findAll(specification, page).map(therapeuticRegimeMapper::toDto);
     }
 
     /**
@@ -116,12 +116,19 @@ public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegim
                 specification = specification.and(buildStringSpecification(criteria.getNotice(), TherapeuticRegime_.notice));
             }
             if (criteria.getDrugId() != null) {
-                specification = specification.and(buildSpecification(criteria.getDrugId(),
-                    root -> root.join(TherapeuticRegime_.drugs, JoinType.LEFT).get(Drug_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getDrugId(), root -> root.join(TherapeuticRegime_.drugs, JoinType.LEFT).get(Drug_.id))
+                    );
             }
             if (criteria.getTreatmentId() != null) {
-                specification = specification.and(buildSpecification(criteria.getTreatmentId(),
-                    root -> root.join(TherapeuticRegime_.treatment, JoinType.LEFT).get(Treatment_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getTreatmentId(),
+                            root -> root.join(TherapeuticRegime_.treatment, JoinType.LEFT).get(Treatment_.id)
+                        )
+                    );
             }
         }
         return specification;

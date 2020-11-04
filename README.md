@@ -22,10 +22,7 @@ Run the following commands in two separate terminals to create a blissful develo
 auto-refreshes when files change on your hard drive.
 
 ```
-
 ./mvnw
-
-
 npm start
 ```
 
@@ -109,20 +106,14 @@ update src/main/webapp/app/app.module.ts
 To build the final jar and optimize the supportivecare application for production, run:
 
 ```
-
 ./mvnw -Pprod clean verify
-
-
 ```
 
 This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
 To ensure everything worked, run:
 
 ```
-
 java -jar target/*.jar
-
-
 ```
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
@@ -134,10 +125,7 @@ Refer to [Using JHipster in production][] for more details.
 To package your application as a war in order to deploy it to an application server, run:
 
 ```
-
 ./mvnw -Pprod,war clean verify
-
-
 ```
 
 ## Testing
@@ -226,7 +214,6 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [code quality page]: https://www.jhipster.tech/documentation-archive/v6.10.4/code-quality/
 [setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.10.4/setting-up-ci/
 [node.js]: https://nodejs.org/
-[yarn]: https://yarnpkg.org/
 [webpack]: https://webpack.github.io/
 [angular cli]: https://cli.angular.io/
 [browsersync]: https://www.browsersync.io/

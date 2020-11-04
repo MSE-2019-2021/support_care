@@ -3,6 +3,7 @@
     "administration": {
       "home": {
         "title": "Administrations",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Criar novo(a) Administration",
         "createOrEditLabel": "Criar ou editar Administration",
         "notFound": "Nenhum Administrations encontrado"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Administration"
       },
+      "id": "ID",
       "type": "Type",
       "drug": "Drug",
       "help": {

@@ -2,25 +2,27 @@
   "supportivecareApp": {
     "drug": {
       "home": {
-        "title": "Medicamentos",
-        "createLabel": "Criar novo(a) medicamento",
-        "createOrEditLabel": "Criar ou editar medicamento",
-        "notFound": "Nenhum medicamento encontrado"
+        "title": "Drugs",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Criar novo(a) Drug",
+        "createOrEditLabel": "Criar ou editar Drug",
+        "notFound": "Nenhum Drugs encontrado"
       },
-      "created": "Um novo medicamento foi criado com o identificador {{ param }}",
-      "updated": "Medicamento com identificador {{ param }} foi actualizado",
-      "deleted": "Medicamento com identificador {{ param }} foi eliminado",
+      "created": "Um novo Drug foi criado com o identificador {{ param }}",
+      "updated": "Drug com identificador {{ param }} foi actualizado",
+      "deleted": "Drug com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o medicamento {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o(a) Drug {{ id }}?"
       },
       "detail": {
-        "title": "Medicamento"
+        "title": "Drug"
       },
-      "name": "Nome",
-      "description": "Descrição",
-      "administration": "Administração",
-      "notice": "Aviso",
-      "therapeuticRegime": "Regime Terapêutico",
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "notice": "Notice",
+      "administration": "Administration",
+      "therapeuticRegime": "Therapeutic Regime",
       "help": {
         "name": "Nome do medicamento.",
         "description": "Descrição."

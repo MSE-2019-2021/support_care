@@ -2,15 +2,18 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
+import javax.validation.constraints.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Notice} entity.
  */
 @ApiModel(description = "Observação.")
-public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
-    
+@GeneratedByJHipster
+public class NoticeDTO implements Serializable {
+
     private Long id;
 
     /**
@@ -34,11 +37,8 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
     @ApiModelProperty(value = "Intervenção.", required = true)
     private String intervention;
 
+    private DrugDTO drug;
 
-    private Long drugId;
-
-    private String drugName;
-    
     public Long getId() {
         return id;
     }
@@ -71,20 +71,12 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
         this.intervention = intervention;
     }
 
-    public Long getDrugId() {
-        return drugId;
+    public DrugDTO getDrug() {
+        return drug;
     }
 
-    public void setDrugId(Long drugId) {
-        this.drugId = drugId;
-    }
-
-    public String getDrugName() {
-        return drugName;
-    }
-
-    public void setDrugName(String drugName) {
-        this.drugName = drugName;
+    public void setDrug(DrugDTO drug) {
+        this.drug = drug;
     }
 
     @Override
@@ -96,12 +88,16 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
             return false;
         }
 
-        return id != null && id.equals(((NoticeDTO) o).id);
+        NoticeDTO noticeDTO = (NoticeDTO) o;
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, noticeDTO.id);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(this.id);
     }
 
     // prettier-ignore
@@ -112,8 +108,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", evaluation='" + getEvaluation() + "'" +
             ", intervention='" + getIntervention() + "'" +
-            ", drugId=" + getDrugId() +
-            ", drugName='" + getDrugName() + "'" +
+            ", drug=" + getDrug() +
             "}";
     }
 }

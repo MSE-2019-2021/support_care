@@ -1,11 +1,10 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AdministrationService } from 'app/entities/administration/administration.service';
 import { IAdministration, Administration } from 'app/shared/model/administration.model';
 
 describe('Service Tests', () => {
   describe('Administration Service', () => {
-    let injector: TestBed;
     let service: AdministrationService;
     let httpMock: HttpTestingController;
     let elemDefault: IAdministration;
@@ -16,9 +15,8 @@ describe('Service Tests', () => {
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      injector = getTestBed();
-      service = injector.get(AdministrationService);
-      httpMock = injector.get(HttpTestingController);
+      service = TestBed.inject(AdministrationService);
+      httpMock = TestBed.inject(HttpTestingController);
 
       elemDefault = new Administration(0, 'AAAAAAA');
     });
@@ -54,6 +52,7 @@ describe('Service Tests', () => {
       it('should update a Administration', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             type: 'BBBBBB',
           },
           elemDefault
@@ -71,6 +70,7 @@ describe('Service Tests', () => {
       it('should return a list of Administration', () => {
         const returnedFromService = Object.assign(
           {
+            id: 1,
             type: 'BBBBBB',
           },
           elemDefault

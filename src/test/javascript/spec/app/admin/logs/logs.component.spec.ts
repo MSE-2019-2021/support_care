@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { LogsComponent } from 'app/admin/logs/logs.component';
 import { LogsService } from 'app/admin/logs/logs.service';
 import { Log } from 'app/admin/logs/log.model';
@@ -12,27 +12,29 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<LogsComponent>;
     let service: LogsService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [LogsComponent],
-        providers: [LogsService],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [LogsComponent],
+          providers: [LogsService],
+        })
+          .overrideTemplate(LogsComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(LogsComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(LogsComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(LogsService);
+      service = TestBed.inject(LogsService);
     });
 
     describe('OnInit', () => {
       it('should set all default values correctly', () => {
         expect(comp.filter).toBe('');
         expect(comp.orderProp).toBe('name');
-        expect(comp.reverse).toBe(false);
+        expect(comp.ascending).toBe(true);
       });
 
       it('Should call load all on init', () => {
@@ -53,7 +55,7 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.findAll).toHaveBeenCalled();
-        expect(comp.loggers && comp.loggers[0]).toEqual(jasmine.objectContaining(log));
+        expect(comp.loggers?.[0]).toEqual(jasmine.objectContaining(log));
       });
     });
 
@@ -78,7 +80,7 @@ describe('Component Tests', () => {
         // THEN
         expect(service.changeLevel).toHaveBeenCalled();
         expect(service.findAll).toHaveBeenCalled();
-        expect(comp.loggers && comp.loggers[0]).toEqual(jasmine.objectContaining(log));
+        expect(comp.loggers?.[0]).toEqual(jasmine.objectContaining(log));
       });
     });
   });

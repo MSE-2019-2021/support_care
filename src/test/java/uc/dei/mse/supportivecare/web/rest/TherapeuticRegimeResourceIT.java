@@ -1,20 +1,18 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
-import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.domain.Treatment;
-import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
-import uc.dei.mse.supportivecare.service.TherapeuticRegimeService;
-import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
-import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
-import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeCriteria;
-import uc.dei.mse.supportivecare.service.TherapeuticRegimeQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -25,15 +23,17 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
+import uc.dei.mse.supportivecare.domain.Treatment;
+import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
+import uc.dei.mse.supportivecare.service.TherapeuticRegimeQueryService;
+import uc.dei.mse.supportivecare.service.TherapeuticRegimeService;
+import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeCriteria;
+import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
+import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
 
 /**
  * Integration tests for the {@link TherapeuticRegimeResource} REST controller.
@@ -42,7 +42,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
-public class TherapeuticRegimeResourceIT {
+@GeneratedByJHipster
+class TherapeuticRegimeResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -79,9 +80,6 @@ public class TherapeuticRegimeResourceIT {
 
     @Mock
     private TherapeuticRegimeService therapeuticRegimeServiceMock;
-
-    @Autowired
-    private TherapeuticRegimeService therapeuticRegimeService;
 
     @Autowired
     private TherapeuticRegimeQueryService therapeuticRegimeQueryService;
@@ -122,6 +120,7 @@ public class TherapeuticRegimeResourceIT {
         therapeuticRegime.setTreatment(treatment);
         return therapeuticRegime;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -158,13 +157,16 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void createTherapeuticRegime() throws Exception {
+    void createTherapeuticRegime() throws Exception {
         int databaseSizeBeforeCreate = therapeuticRegimeRepository.findAll().size();
         // Create the TherapeuticRegime
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isCreated());
 
         // Validate the TherapeuticRegime in the database
@@ -183,7 +185,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void createTherapeuticRegimeWithExistingId() throws Exception {
+    void createTherapeuticRegimeWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = therapeuticRegimeRepository.findAll().size();
 
         // Create the TherapeuticRegime with an existing ID
@@ -191,9 +193,12 @@ public class TherapeuticRegimeResourceIT {
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the TherapeuticRegime in the database
@@ -201,10 +206,9 @@ public class TherapeuticRegimeResourceIT {
         assertThat(therapeuticRegimeList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void checkNameIsRequired() throws Exception {
+    void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = therapeuticRegimeRepository.findAll().size();
         // set the field null
         therapeuticRegime.setName(null);
@@ -212,10 +216,12 @@ public class TherapeuticRegimeResourceIT {
         // Create the TherapeuticRegime, which fails.
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
-
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
@@ -224,7 +230,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void checkPurposeIsRequired() throws Exception {
+    void checkPurposeIsRequired() throws Exception {
         int databaseSizeBeforeTest = therapeuticRegimeRepository.findAll().size();
         // set the field null
         therapeuticRegime.setPurpose(null);
@@ -232,10 +238,12 @@ public class TherapeuticRegimeResourceIT {
         // Create the TherapeuticRegime, which fails.
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
-
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
@@ -244,7 +252,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void checkConditionIsRequired() throws Exception {
+    void checkConditionIsRequired() throws Exception {
         int databaseSizeBeforeTest = therapeuticRegimeRepository.findAll().size();
         // set the field null
         therapeuticRegime.setCondition(null);
@@ -252,10 +260,12 @@ public class TherapeuticRegimeResourceIT {
         // Create the TherapeuticRegime, which fails.
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
-
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
@@ -264,7 +274,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void checkIndicationIsRequired() throws Exception {
+    void checkIndicationIsRequired() throws Exception {
         int databaseSizeBeforeTest = therapeuticRegimeRepository.findAll().size();
         // set the field null
         therapeuticRegime.setIndication(null);
@@ -272,10 +282,12 @@ public class TherapeuticRegimeResourceIT {
         // Create the TherapeuticRegime, which fails.
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
-
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
@@ -284,7 +296,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void checkCriteriaIsRequired() throws Exception {
+    void checkCriteriaIsRequired() throws Exception {
         int databaseSizeBeforeTest = therapeuticRegimeRepository.findAll().size();
         // set the field null
         therapeuticRegime.setCriteria(null);
@@ -292,10 +304,12 @@ public class TherapeuticRegimeResourceIT {
         // Create the TherapeuticRegime, which fails.
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
-
-        restTherapeuticRegimeMockMvc.perform(post("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                post("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
@@ -304,12 +318,13 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimes() throws Exception {
+    void getAllTherapeuticRegimes() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
         // Get all the therapeuticRegimeList
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?sort=id,desc"))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(therapeuticRegime.getId().intValue())))
@@ -322,35 +337,34 @@ public class TherapeuticRegimeResourceIT {
             .andExpect(jsonPath("$.[*].criteria").value(hasItem(DEFAULT_CRITERIA)))
             .andExpect(jsonPath("$.[*].notice").value(hasItem(DEFAULT_NOTICE)));
     }
-    
-    @SuppressWarnings({"unchecked"})
-    public void getAllTherapeuticRegimesWithEagerRelationshipsIsEnabled() throws Exception {
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllTherapeuticRegimesWithEagerRelationshipsIsEnabled() throws Exception {
         when(therapeuticRegimeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true"))
-            .andExpect(status().isOk());
+        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true")).andExpect(status().isOk());
 
         verify(therapeuticRegimeServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
-    @SuppressWarnings({"unchecked"})
-    public void getAllTherapeuticRegimesWithEagerRelationshipsIsNotEnabled() throws Exception {
+    @SuppressWarnings({ "unchecked" })
+    void getAllTherapeuticRegimesWithEagerRelationshipsIsNotEnabled() throws Exception {
         when(therapeuticRegimeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
 
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true"))
-            .andExpect(status().isOk());
+        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true")).andExpect(status().isOk());
 
         verify(therapeuticRegimeServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
     @Transactional
-    public void getTherapeuticRegime() throws Exception {
+    void getTherapeuticRegime() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
         // Get the therapeuticRegime
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes/{id}", therapeuticRegime.getId()))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes/{id}", therapeuticRegime.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(therapeuticRegime.getId().intValue()))
@@ -364,10 +378,9 @@ public class TherapeuticRegimeResourceIT {
             .andExpect(jsonPath("$.notice").value(DEFAULT_NOTICE));
     }
 
-
     @Test
     @Transactional
-    public void getTherapeuticRegimesByIdFiltering() throws Exception {
+    void getTherapeuticRegimesByIdFiltering() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -383,10 +396,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldNotBeFound("id.lessThan=" + id);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByNameIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -399,7 +411,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByNameIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -412,7 +424,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByNameIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -425,7 +437,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByNameIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -435,9 +447,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where name is null
         defaultTherapeuticRegimeShouldNotBeFound("name.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByNameContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -450,7 +463,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNameNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByNameNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -461,10 +474,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByAcronymIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -477,7 +489,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByAcronymIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -490,7 +502,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByAcronymIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -503,7 +515,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByAcronymIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -513,9 +525,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where acronym is null
         defaultTherapeuticRegimeShouldNotBeFound("acronym.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByAcronymContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -528,7 +541,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByAcronymNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByAcronymNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -539,10 +552,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("acronym.doesNotContain=" + UPDATED_ACRONYM);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByPurposeIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -555,7 +567,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByPurposeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -568,7 +580,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByPurposeIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -581,7 +593,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByPurposeIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -591,9 +603,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where purpose is null
         defaultTherapeuticRegimeShouldNotBeFound("purpose.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByPurposeContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -606,7 +619,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByPurposeNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByPurposeNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -617,10 +630,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("purpose.doesNotContain=" + UPDATED_PURPOSE);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByConditionIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -633,7 +645,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByConditionIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -646,7 +658,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByConditionIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -659,7 +671,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByConditionIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -669,9 +681,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where condition is null
         defaultTherapeuticRegimeShouldNotBeFound("condition.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByConditionContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -684,7 +697,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByConditionNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByConditionNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -695,10 +708,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("condition.doesNotContain=" + UPDATED_CONDITION);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByTimingIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -711,7 +723,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByTimingIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -724,7 +736,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByTimingIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -737,7 +749,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByTimingIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -747,9 +759,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where timing is null
         defaultTherapeuticRegimeShouldNotBeFound("timing.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByTimingContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -762,7 +775,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTimingNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByTimingNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -773,10 +786,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("timing.doesNotContain=" + UPDATED_TIMING);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByIndicationIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -789,7 +801,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByIndicationIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -802,7 +814,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByIndicationIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -815,7 +827,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByIndicationIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -825,9 +837,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where indication is null
         defaultTherapeuticRegimeShouldNotBeFound("indication.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByIndicationContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -840,7 +853,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByIndicationNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByIndicationNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -851,10 +864,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("indication.doesNotContain=" + UPDATED_INDICATION);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -867,7 +879,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -880,7 +892,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -893,7 +905,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -903,9 +915,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where criteria is null
         defaultTherapeuticRegimeShouldNotBeFound("criteria.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -918,7 +931,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByCriteriaNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByCriteriaNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -929,10 +942,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("criteria.doesNotContain=" + UPDATED_CRITERIA);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByNoticeIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -945,7 +957,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeIsNotEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByNoticeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -958,7 +970,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeIsInShouldWork() throws Exception {
+    void getAllTherapeuticRegimesByNoticeIsInShouldWork() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -971,7 +983,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeIsNullOrNotNull() throws Exception {
+    void getAllTherapeuticRegimesByNoticeIsNullOrNotNull() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -981,9 +993,10 @@ public class TherapeuticRegimeResourceIT {
         // Get all the therapeuticRegimeList where notice is null
         defaultTherapeuticRegimeShouldNotBeFound("notice.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByNoticeContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -996,7 +1009,7 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByNoticeNotContainsSomething() throws Exception {
+    void getAllTherapeuticRegimesByNoticeNotContainsSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -1007,10 +1020,9 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldBeFound("notice.doesNotContain=" + UPDATED_NOTICE);
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByDrugIsEqualToSomething() throws Exception {
+    void getAllTherapeuticRegimesByDrugIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
         Drug drug = DrugResourceIT.createEntity(em);
@@ -1027,12 +1039,15 @@ public class TherapeuticRegimeResourceIT {
         defaultTherapeuticRegimeShouldNotBeFound("drugId.equals=" + (drugId + 1));
     }
 
-
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTreatmentIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Treatment treatment = therapeuticRegime.getTreatment();
+    void getAllTherapeuticRegimesByTreatmentIsEqualToSomething() throws Exception {
+        // Initialize the database
+        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
+        Treatment treatment = TreatmentResourceIT.createEntity(em);
+        em.persist(treatment);
+        em.flush();
+        therapeuticRegime.setTreatment(treatment);
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
         Long treatmentId = treatment.getId();
 
@@ -1047,7 +1062,8 @@ public class TherapeuticRegimeResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultTherapeuticRegimeShouldBeFound(String filter) throws Exception {
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?sort=id,desc&" + filter))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(therapeuticRegime.getId().intValue())))
@@ -1061,7 +1077,8 @@ public class TherapeuticRegimeResourceIT {
             .andExpect(jsonPath("$.[*].notice").value(hasItem(DEFAULT_NOTICE)));
 
         // Check, that the count call also returns 1
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes/count?sort=id,desc&" + filter))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -1071,14 +1088,16 @@ public class TherapeuticRegimeResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultTherapeuticRegimeShouldNotBeFound(String filter) throws Exception {
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?sort=id,desc&" + filter))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes/count?sort=id,desc&" + filter))
+        restTherapeuticRegimeMockMvc
+            .perform(get("/api/therapeutic-regimes/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -1086,15 +1105,14 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingTherapeuticRegime() throws Exception {
+    void getNonExistingTherapeuticRegime() throws Exception {
         // Get the therapeuticRegime
-        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateTherapeuticRegime() throws Exception {
+    void updateTherapeuticRegime() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
@@ -1115,9 +1133,12 @@ public class TherapeuticRegimeResourceIT {
             .notice(UPDATED_NOTICE);
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(updatedTherapeuticRegime);
 
-        restTherapeuticRegimeMockMvc.perform(put("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                put("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isOk());
 
         // Validate the TherapeuticRegime in the database
@@ -1136,16 +1157,19 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingTherapeuticRegime() throws Exception {
+    void updateNonExistingTherapeuticRegime() throws Exception {
         int databaseSizeBeforeUpdate = therapeuticRegimeRepository.findAll().size();
 
         // Create the TherapeuticRegime
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restTherapeuticRegimeMockMvc.perform(put("/api/therapeutic-regimes")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO)))
+        restTherapeuticRegimeMockMvc
+            .perform(
+                put("/api/therapeutic-regimes")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(therapeuticRegimeDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the TherapeuticRegime in the database
@@ -1155,15 +1179,110 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void deleteTherapeuticRegime() throws Exception {
+    void partialUpdateTherapeuticRegimeWithPatch() throws Exception {
+        // Initialize the database
+        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
+
+        int databaseSizeBeforeUpdate = therapeuticRegimeRepository.findAll().size();
+
+        // Update the therapeuticRegime using partial update
+        TherapeuticRegime partialUpdatedTherapeuticRegime = new TherapeuticRegime();
+        partialUpdatedTherapeuticRegime.setId(therapeuticRegime.getId());
+
+        partialUpdatedTherapeuticRegime.timing(UPDATED_TIMING).indication(UPDATED_INDICATION).notice(UPDATED_NOTICE);
+
+        restTherapeuticRegimeMockMvc
+            .perform(
+                patch("/api/therapeutic-regimes")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTherapeuticRegime))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the TherapeuticRegime in the database
+        List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
+        assertThat(therapeuticRegimeList).hasSize(databaseSizeBeforeUpdate);
+        TherapeuticRegime testTherapeuticRegime = therapeuticRegimeList.get(therapeuticRegimeList.size() - 1);
+        assertThat(testTherapeuticRegime.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testTherapeuticRegime.getAcronym()).isEqualTo(DEFAULT_ACRONYM);
+        assertThat(testTherapeuticRegime.getPurpose()).isEqualTo(DEFAULT_PURPOSE);
+        assertThat(testTherapeuticRegime.getCondition()).isEqualTo(DEFAULT_CONDITION);
+        assertThat(testTherapeuticRegime.getTiming()).isEqualTo(UPDATED_TIMING);
+        assertThat(testTherapeuticRegime.getIndication()).isEqualTo(UPDATED_INDICATION);
+        assertThat(testTherapeuticRegime.getCriteria()).isEqualTo(DEFAULT_CRITERIA);
+        assertThat(testTherapeuticRegime.getNotice()).isEqualTo(UPDATED_NOTICE);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateTherapeuticRegimeWithPatch() throws Exception {
+        // Initialize the database
+        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
+
+        int databaseSizeBeforeUpdate = therapeuticRegimeRepository.findAll().size();
+
+        // Update the therapeuticRegime using partial update
+        TherapeuticRegime partialUpdatedTherapeuticRegime = new TherapeuticRegime();
+        partialUpdatedTherapeuticRegime.setId(therapeuticRegime.getId());
+
+        partialUpdatedTherapeuticRegime
+            .name(UPDATED_NAME)
+            .acronym(UPDATED_ACRONYM)
+            .purpose(UPDATED_PURPOSE)
+            .condition(UPDATED_CONDITION)
+            .timing(UPDATED_TIMING)
+            .indication(UPDATED_INDICATION)
+            .criteria(UPDATED_CRITERIA)
+            .notice(UPDATED_NOTICE);
+
+        restTherapeuticRegimeMockMvc
+            .perform(
+                patch("/api/therapeutic-regimes")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTherapeuticRegime))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the TherapeuticRegime in the database
+        List<TherapeuticRegime> therapeuticRegimeList = therapeuticRegimeRepository.findAll();
+        assertThat(therapeuticRegimeList).hasSize(databaseSizeBeforeUpdate);
+        TherapeuticRegime testTherapeuticRegime = therapeuticRegimeList.get(therapeuticRegimeList.size() - 1);
+        assertThat(testTherapeuticRegime.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testTherapeuticRegime.getAcronym()).isEqualTo(UPDATED_ACRONYM);
+        assertThat(testTherapeuticRegime.getPurpose()).isEqualTo(UPDATED_PURPOSE);
+        assertThat(testTherapeuticRegime.getCondition()).isEqualTo(UPDATED_CONDITION);
+        assertThat(testTherapeuticRegime.getTiming()).isEqualTo(UPDATED_TIMING);
+        assertThat(testTherapeuticRegime.getIndication()).isEqualTo(UPDATED_INDICATION);
+        assertThat(testTherapeuticRegime.getCriteria()).isEqualTo(UPDATED_CRITERIA);
+        assertThat(testTherapeuticRegime.getNotice()).isEqualTo(UPDATED_NOTICE);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateTherapeuticRegimeShouldThrown() throws Exception {
+        // Update the therapeuticRegime without id should throw
+        TherapeuticRegime partialUpdatedTherapeuticRegime = new TherapeuticRegime();
+
+        restTherapeuticRegimeMockMvc
+            .perform(
+                patch("/api/therapeutic-regimes")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedTherapeuticRegime))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void deleteTherapeuticRegime() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
 
         int databaseSizeBeforeDelete = therapeuticRegimeRepository.findAll().size();
 
         // Delete the therapeuticRegime
-        restTherapeuticRegimeMockMvc.perform(delete("/api/therapeutic-regimes/{id}", therapeuticRegime.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restTherapeuticRegimeMockMvc
+            .perform(delete("/api/therapeutic-regimes/{id}", therapeuticRegime.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

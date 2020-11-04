@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { INotice, Notice } from 'app/shared/model/notice.model';
 import { NoticeService } from './notice.service';
@@ -23,21 +23,25 @@ export class NoticeUpdateComponent implements OnInit {
     description: [null, [Validators.required]],
     evaluation: [null, [Validators.required]],
     intervention: [null, [Validators.required]],
-    drugId: [null, Validators.required],
+    drug: [null, Validators.required],
   });
 
   constructor(
     protected noticeService: NoticeService,
     protected drugService: DrugService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Optional() public activeModal?: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
+    if (this.activeModal) {
+      return;
+    }
     this.activatedRoute.data.subscribe(({ notice }) => {
       this.updateForm(notice);
 
-      this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body || []));
+      this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body ?? []));
     });
   }
 
@@ -47,12 +51,16 @@ export class NoticeUpdateComponent implements OnInit {
       description: notice.description,
       evaluation: notice.evaluation,
       intervention: notice.intervention,
-      drugId: notice.drugId,
+      drug: notice.drug,
     });
   }
 
   previousState(): void {
-    window.history.back();
+    if (this.activeModal) {
+      this.activeModal.close();
+    } else {
+      window.history.back();
+    }
   }
 
   save(): void {
@@ -72,7 +80,7 @@ export class NoticeUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       evaluation: this.editForm.get(['evaluation'])!.value,
       intervention: this.editForm.get(['intervention'])!.value,
-      drugId: this.editForm.get(['drugId'])!.value,
+      drug: this.editForm.get(['drug'])!.value,
     };
   }
 
@@ -92,7 +100,7 @@ export class NoticeUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: IDrug): any {
-    return item.id;
+  trackById(index: number, item: IDrug): number {
+    return item.id!;
   }
 }

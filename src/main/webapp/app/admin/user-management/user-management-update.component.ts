@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { LANGUAGES } from 'app/core/language/language.constants';
+import { LANGUAGES } from 'app/core/config/language.constants';
 import { User } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 
@@ -47,9 +47,7 @@ export class UserManagementUpdateComponent implements OnInit {
         this.updateForm(user);
       }
     });
-    this.userService.authorities().subscribe(authorities => {
-      this.authorities = authorities;
-    });
+    this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
   }
 
   previousState(): void {

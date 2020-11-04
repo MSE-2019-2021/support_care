@@ -1,15 +1,12 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.Administration;
-import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.repository.AdministrationRepository;
-import uc.dei.mse.supportivecare.service.AdministrationService;
-import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
-import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
-import uc.dei.mse.supportivecare.service.dto.AdministrationCriteria;
-import uc.dei.mse.supportivecare.service.AdministrationQueryService;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +16,15 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
+import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.domain.Administration;
+import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.repository.AdministrationRepository;
+import uc.dei.mse.supportivecare.service.AdministrationQueryService;
+import uc.dei.mse.supportivecare.service.dto.AdministrationCriteria;
+import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
+import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
 
 /**
  * Integration tests for the {@link AdministrationResource} REST controller.
@@ -33,7 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-public class AdministrationResourceIT {
+@GeneratedByJHipster
+class AdministrationResourceIT {
 
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TYPE = "BBBBBBBBBB";
@@ -43,9 +43,6 @@ public class AdministrationResourceIT {
 
     @Autowired
     private AdministrationMapper administrationMapper;
-
-    @Autowired
-    private AdministrationService administrationService;
 
     @Autowired
     private AdministrationQueryService administrationQueryService;
@@ -65,10 +62,10 @@ public class AdministrationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Administration createEntity(EntityManager em) {
-        Administration administration = new Administration()
-            .type(DEFAULT_TYPE);
+        Administration administration = new Administration().type(DEFAULT_TYPE);
         return administration;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -76,8 +73,7 @@ public class AdministrationResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Administration createUpdatedEntity(EntityManager em) {
-        Administration administration = new Administration()
-            .type(UPDATED_TYPE);
+        Administration administration = new Administration().type(UPDATED_TYPE);
         return administration;
     }
 
@@ -88,13 +84,16 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void createAdministration() throws Exception {
+    void createAdministration() throws Exception {
         int databaseSizeBeforeCreate = administrationRepository.findAll().size();
         // Create the Administration
         AdministrationDTO administrationDTO = administrationMapper.toDto(administration);
-        restAdministrationMockMvc.perform(post("/api/administrations")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(administrationDTO)))
+        restAdministrationMockMvc
+            .perform(
+                post("/api/administrations")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(administrationDTO))
+            )
             .andExpect(status().isCreated());
 
         // Validate the Administration in the database
@@ -106,7 +105,7 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void createAdministrationWithExistingId() throws Exception {
+    void createAdministrationWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = administrationRepository.findAll().size();
 
         // Create the Administration with an existing ID
@@ -114,9 +113,12 @@ public class AdministrationResourceIT {
         AdministrationDTO administrationDTO = administrationMapper.toDto(administration);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restAdministrationMockMvc.perform(post("/api/administrations")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(administrationDTO)))
+        restAdministrationMockMvc
+            .perform(
+                post("/api/administrations")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(administrationDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Administration in the database
@@ -124,10 +126,9 @@ public class AdministrationResourceIT {
         assertThat(administrationList).hasSize(databaseSizeBeforeCreate);
     }
 
-
     @Test
     @Transactional
-    public void checkTypeIsRequired() throws Exception {
+    void checkTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = administrationRepository.findAll().size();
         // set the field null
         administration.setType(null);
@@ -135,10 +136,12 @@ public class AdministrationResourceIT {
         // Create the Administration, which fails.
         AdministrationDTO administrationDTO = administrationMapper.toDto(administration);
 
-
-        restAdministrationMockMvc.perform(post("/api/administrations")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(administrationDTO)))
+        restAdministrationMockMvc
+            .perform(
+                post("/api/administrations")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(administrationDTO))
+            )
             .andExpect(status().isBadRequest());
 
         List<Administration> administrationList = administrationRepository.findAll();
@@ -147,36 +150,37 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getAllAdministrations() throws Exception {
+    void getAllAdministrations() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
         // Get all the administrationList
-        restAdministrationMockMvc.perform(get("/api/administrations?sort=id,desc"))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(administration.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
     }
-    
+
     @Test
     @Transactional
-    public void getAdministration() throws Exception {
+    void getAdministration() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
         // Get the administration
-        restAdministrationMockMvc.perform(get("/api/administrations/{id}", administration.getId()))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations/{id}", administration.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(administration.getId().intValue()))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE));
     }
 
-
     @Test
     @Transactional
-    public void getAdministrationsByIdFiltering() throws Exception {
+    void getAdministrationsByIdFiltering() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -192,10 +196,9 @@ public class AdministrationResourceIT {
         defaultAdministrationShouldNotBeFound("id.lessThan=" + id);
     }
 
-
     @Test
     @Transactional
-    public void getAllAdministrationsByTypeIsEqualToSomething() throws Exception {
+    void getAllAdministrationsByTypeIsEqualToSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -208,7 +211,7 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getAllAdministrationsByTypeIsNotEqualToSomething() throws Exception {
+    void getAllAdministrationsByTypeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -221,7 +224,7 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getAllAdministrationsByTypeIsInShouldWork() throws Exception {
+    void getAllAdministrationsByTypeIsInShouldWork() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -234,7 +237,7 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getAllAdministrationsByTypeIsNullOrNotNull() throws Exception {
+    void getAllAdministrationsByTypeIsNullOrNotNull() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -244,9 +247,10 @@ public class AdministrationResourceIT {
         // Get all the administrationList where type is null
         defaultAdministrationShouldNotBeFound("type.specified=false");
     }
-                @Test
+
+    @Test
     @Transactional
-    public void getAllAdministrationsByTypeContainsSomething() throws Exception {
+    void getAllAdministrationsByTypeContainsSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -259,7 +263,7 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getAllAdministrationsByTypeNotContainsSomething() throws Exception {
+    void getAllAdministrationsByTypeNotContainsSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -270,10 +274,9 @@ public class AdministrationResourceIT {
         defaultAdministrationShouldBeFound("type.doesNotContain=" + UPDATED_TYPE);
     }
 
-
     @Test
     @Transactional
-    public void getAllAdministrationsByDrugIsEqualToSomething() throws Exception {
+    void getAllAdministrationsByDrugIsEqualToSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
         Drug drug = DrugResourceIT.createEntity(em);
@@ -294,14 +297,16 @@ public class AdministrationResourceIT {
      * Executes the search, and checks that the default entity is returned.
      */
     private void defaultAdministrationShouldBeFound(String filter) throws Exception {
-        restAdministrationMockMvc.perform(get("/api/administrations?sort=id,desc&" + filter))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(administration.getId().intValue())))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE)));
 
         // Check, that the count call also returns 1
-        restAdministrationMockMvc.perform(get("/api/administrations/count?sort=id,desc&" + filter))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("1"));
@@ -311,14 +316,16 @@ public class AdministrationResourceIT {
      * Executes the search, and checks that the default entity is not returned.
      */
     private void defaultAdministrationShouldNotBeFound(String filter) throws Exception {
-        restAdministrationMockMvc.perform(get("/api/administrations?sort=id,desc&" + filter))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$").isArray())
             .andExpect(jsonPath("$").isEmpty());
 
         // Check, that the count call also returns 0
-        restAdministrationMockMvc.perform(get("/api/administrations/count?sort=id,desc&" + filter))
+        restAdministrationMockMvc
+            .perform(get("/api/administrations/count?sort=id,desc&" + filter))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(content().string("0"));
@@ -326,15 +333,14 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void getNonExistingAdministration() throws Exception {
+    void getNonExistingAdministration() throws Exception {
         // Get the administration
-        restAdministrationMockMvc.perform(get("/api/administrations/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restAdministrationMockMvc.perform(get("/api/administrations/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
     @Transactional
-    public void updateAdministration() throws Exception {
+    void updateAdministration() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
@@ -344,13 +350,15 @@ public class AdministrationResourceIT {
         Administration updatedAdministration = administrationRepository.findById(administration.getId()).get();
         // Disconnect from session so that the updates on updatedAdministration are not directly saved in db
         em.detach(updatedAdministration);
-        updatedAdministration
-            .type(UPDATED_TYPE);
+        updatedAdministration.type(UPDATED_TYPE);
         AdministrationDTO administrationDTO = administrationMapper.toDto(updatedAdministration);
 
-        restAdministrationMockMvc.perform(put("/api/administrations")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(administrationDTO)))
+        restAdministrationMockMvc
+            .perform(
+                put("/api/administrations")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(administrationDTO))
+            )
             .andExpect(status().isOk());
 
         // Validate the Administration in the database
@@ -362,16 +370,19 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void updateNonExistingAdministration() throws Exception {
+    void updateNonExistingAdministration() throws Exception {
         int databaseSizeBeforeUpdate = administrationRepository.findAll().size();
 
         // Create the Administration
         AdministrationDTO administrationDTO = administrationMapper.toDto(administration);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restAdministrationMockMvc.perform(put("/api/administrations")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(administrationDTO)))
+        restAdministrationMockMvc
+            .perform(
+                put("/api/administrations")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(administrationDTO))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Administration in the database
@@ -381,15 +392,86 @@ public class AdministrationResourceIT {
 
     @Test
     @Transactional
-    public void deleteAdministration() throws Exception {
+    void partialUpdateAdministrationWithPatch() throws Exception {
+        // Initialize the database
+        administrationRepository.saveAndFlush(administration);
+
+        int databaseSizeBeforeUpdate = administrationRepository.findAll().size();
+
+        // Update the administration using partial update
+        Administration partialUpdatedAdministration = new Administration();
+        partialUpdatedAdministration.setId(administration.getId());
+
+        restAdministrationMockMvc
+            .perform(
+                patch("/api/administrations")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedAdministration))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Administration in the database
+        List<Administration> administrationList = administrationRepository.findAll();
+        assertThat(administrationList).hasSize(databaseSizeBeforeUpdate);
+        Administration testAdministration = administrationList.get(administrationList.size() - 1);
+        assertThat(testAdministration.getType()).isEqualTo(DEFAULT_TYPE);
+    }
+
+    @Test
+    @Transactional
+    void fullUpdateAdministrationWithPatch() throws Exception {
+        // Initialize the database
+        administrationRepository.saveAndFlush(administration);
+
+        int databaseSizeBeforeUpdate = administrationRepository.findAll().size();
+
+        // Update the administration using partial update
+        Administration partialUpdatedAdministration = new Administration();
+        partialUpdatedAdministration.setId(administration.getId());
+
+        partialUpdatedAdministration.type(UPDATED_TYPE);
+
+        restAdministrationMockMvc
+            .perform(
+                patch("/api/administrations")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedAdministration))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Administration in the database
+        List<Administration> administrationList = administrationRepository.findAll();
+        assertThat(administrationList).hasSize(databaseSizeBeforeUpdate);
+        Administration testAdministration = administrationList.get(administrationList.size() - 1);
+        assertThat(testAdministration.getType()).isEqualTo(UPDATED_TYPE);
+    }
+
+    @Test
+    @Transactional
+    void partialUpdateAdministrationShouldThrown() throws Exception {
+        // Update the administration without id should throw
+        Administration partialUpdatedAdministration = new Administration();
+
+        restAdministrationMockMvc
+            .perform(
+                patch("/api/administrations")
+                    .contentType("application/merge-patch+json")
+                    .content(TestUtil.convertObjectToJsonBytes(partialUpdatedAdministration))
+            )
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void deleteAdministration() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
 
         int databaseSizeBeforeDelete = administrationRepository.findAll().size();
 
         // Delete the administration
-        restAdministrationMockMvc.perform(delete("/api/administrations/{id}", administration.getId())
-            .accept(MediaType.APPLICATION_JSON))
+        restAdministrationMockMvc
+            .perform(delete("/api/administrations/{id}", administration.getId()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

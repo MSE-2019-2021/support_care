@@ -1,15 +1,14 @@
 package uc.dei.mse.supportivecare.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Regime terapêutico.
@@ -17,7 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "therapeutic_regime")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TherapeuticRegime extends AbstractAuditingEntity implements Serializable {
+@GeneratedByJHipster
+public class TherapeuticRegime implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -81,14 +81,17 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(name = "therapeutic_regime_drug",
-               joinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"))
+    @JoinTable(
+        name = "therapeutic_regime_drug",
+        joinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id")
+    )
+    @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
     private Set<Drug> drugs = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "therapeuticRegimes", allowSetters = true)
+    @JsonIgnoreProperties(value = { "therapeuticRegimes" }, allowSetters = true)
     private Treatment treatment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -98,6 +101,11 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public TherapeuticRegime id(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
@@ -241,6 +249,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

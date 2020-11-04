@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
-import { ConfigurationService, ConfigProps, Env, Bean, PropertySource } from 'app/admin/configuration/configuration.service';
+import { ConfigurationService } from 'app/admin/configuration/configuration.service';
+import { Bean, ConfigProps, Env, PropertySource } from 'app/admin/configuration/configuration.model';
 import { SERVER_API_URL } from 'app/app.constants';
 
 describe('Service Tests', () => {
@@ -16,8 +17,8 @@ describe('Service Tests', () => {
       });
 
       expectedResult = null;
-      service = TestBed.get(ConfigurationService);
-      httpMock = TestBed.get(HttpTestingController);
+      service = TestBed.inject(ConfigurationService);
+      httpMock = TestBed.inject(HttpTestingController);
     });
 
     afterEach(() => {
@@ -46,7 +47,7 @@ describe('Service Tests', () => {
           contexts: {
             jhipster: {
               beans: {
-                'io.github.jhipster.config.JHipsterProperties': bean,
+                'tech.jhipster.config.JHipsterProperties': bean,
               },
             },
           },

@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.service;
 
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import io.github.jhipster.service.QueryService;
-
-import uc.dei.mse.supportivecare.domain.Drug;
+import tech.jhipster.service.QueryService;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
+import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.repository.DrugRepository;
 import uc.dei.mse.supportivecare.service.dto.DrugCriteria;
 import uc.dei.mse.supportivecare.service.dto.DrugDTO;
@@ -29,6 +26,7 @@ import uc.dei.mse.supportivecare.service.mapper.DrugMapper;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class DrugQueryService extends QueryService<Drug> {
 
     private final Logger log = LoggerFactory.getLogger(DrugQueryService.class);
@@ -64,8 +62,7 @@ public class DrugQueryService extends QueryService<Drug> {
     public Page<DrugDTO> findByCriteria(DrugCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Drug> specification = createSpecification(criteria);
-        return drugRepository.findAll(specification, page)
-            .map(drugMapper::toDto);
+        return drugRepository.findAll(specification, page).map(drugMapper::toDto);
     }
 
     /**
@@ -98,16 +95,28 @@ public class DrugQueryService extends QueryService<Drug> {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Drug_.description));
             }
             if (criteria.getNoticeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getNoticeId(),
-                    root -> root.join(Drug_.notices, JoinType.LEFT).get(Notice_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getNoticeId(), root -> root.join(Drug_.notices, JoinType.LEFT).get(Notice_.id))
+                    );
             }
             if (criteria.getAdministrationId() != null) {
-                specification = specification.and(buildSpecification(criteria.getAdministrationId(),
-                    root -> root.join(Drug_.administration, JoinType.LEFT).get(Administration_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getAdministrationId(),
+                            root -> root.join(Drug_.administration, JoinType.LEFT).get(Administration_.id)
+                        )
+                    );
             }
             if (criteria.getTherapeuticRegimeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getTherapeuticRegimeId(),
-                    root -> root.join(Drug_.therapeuticRegimes, JoinType.LEFT).get(TherapeuticRegime_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getTherapeuticRegimeId(),
+                            root -> root.join(Drug_.therapeuticRegimes, JoinType.LEFT).get(TherapeuticRegime_.id)
+                        )
+                    );
             }
         }
         return specification;

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Optional } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDrug, Drug } from 'app/shared/model/drug.model';
 import { DrugService } from './drug.service';
@@ -22,21 +22,25 @@ export class DrugUpdateComponent implements OnInit {
     id: [],
     name: [null, [Validators.required]],
     description: [],
-    administrationId: [null, Validators.required],
+    administration: [null, Validators.required],
   });
 
   constructor(
     protected drugService: DrugService,
     protected administrationService: AdministrationService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Optional() public activeModal?: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
+    if (this.activeModal) {
+      return;
+    }
     this.activatedRoute.data.subscribe(({ drug }) => {
       this.updateForm(drug);
 
-      this.administrationService.query().subscribe((res: HttpResponse<IAdministration[]>) => (this.administrations = res.body || []));
+      this.administrationService.query().subscribe((res: HttpResponse<IAdministration[]>) => (this.administrations = res.body ?? []));
     });
   }
 
@@ -45,12 +49,16 @@ export class DrugUpdateComponent implements OnInit {
       id: drug.id,
       name: drug.name,
       description: drug.description,
-      administrationId: drug.administrationId,
+      administration: drug.administration,
     });
   }
 
   previousState(): void {
-    window.history.back();
+    if (this.activeModal) {
+      this.activeModal.close();
+    } else {
+      window.history.back();
+    }
   }
 
   save(): void {
@@ -69,7 +77,7 @@ export class DrugUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
-      administrationId: this.editForm.get(['administrationId'])!.value,
+      administration: this.editForm.get(['administration'])!.value,
     };
   }
 
@@ -89,7 +97,7 @@ export class DrugUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: IAdministration): any {
-    return item.id;
+  trackById(index: number, item: IAdministration): number {
+    return item.id!;
   }
 }

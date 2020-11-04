@@ -1,9 +1,12 @@
+jest.mock('@angular/router');
+
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { NoticeUpdateComponent } from 'app/entities/notice/notice-update.component';
 import { NoticeService } from 'app/entities/notice/notice.service';
 import { Notice } from 'app/shared/model/notice.model';
@@ -16,16 +19,16 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
+        imports: [HttpClientTestingModule],
         declarations: [NoticeUpdateComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ActivatedRoute],
       })
         .overrideTemplate(NoticeUpdateComponent, '')
         .compileComponents();
 
       fixture = TestBed.createComponent(NoticeUpdateComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(NoticeService);
+      service = TestBed.inject(NoticeService);
     });
 
     describe('save', () => {

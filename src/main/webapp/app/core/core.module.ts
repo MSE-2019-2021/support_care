@@ -1,24 +1,19 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { DatePipe, registerLocaleData } from '@angular/common';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import locale from '@angular/common/locales/pt-PT';
 import { Title } from '@angular/platform-browser';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { CookieService } from 'ngx-cookie-service';
 import { TranslateModule, TranslateLoader, MissingTranslationHandler } from '@ngx-translate/core';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { NgJhipsterModule, translatePartialLoader, missingTranslationHandler, JhiConfigService, JhiLanguageService } from 'ng-jhipster';
-import locale from '@angular/common/locales/pt-PT';
-
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDateMomentAdapter } from 'app/shared/util/datepicker-adapter';
 
-import { AuthInterceptor } from 'app/blocks/interceptor/auth.interceptor';
-import { AuthExpiredInterceptor } from 'app/blocks/interceptor/auth-expired.interceptor';
-import { ErrorHandlerInterceptor } from 'app/blocks/interceptor/errorhandler.interceptor';
-import { NotificationInterceptor } from 'app/blocks/interceptor/notification.interceptor';
-
-import { fontAwesomeIcons } from './icons/font-awesome-icons';
+import { NgbDateDayjsAdapter } from 'app/core/config/datepicker-adapter';
+import { fontAwesomeIcons } from 'app/core/config/font-awesome-icons';
+import { httpInterceptorProviders } from './interceptor/index';
 
 @NgModule({
   imports: [
@@ -51,35 +46,16 @@ import { fontAwesomeIcons } from './icons/font-awesome-icons';
       provide: LOCALE_ID,
       useValue: 'pt-PT',
     },
-    { provide: NgbDateAdapter, useClass: NgbDateMomentAdapter },
+    { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     DatePipe,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthExpiredInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: NotificationInterceptor,
-      multi: true,
-    },
+    httpInterceptorProviders,
   ],
 })
-export class SupportivecareCoreModule {
+export class CoreModule {
   constructor(iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig, languageService: JhiLanguageService) {
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
-    dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
+    dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
     languageService.init();
   }
 }

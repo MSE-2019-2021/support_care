@@ -1,6 +1,7 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
 import java.util.List;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Contract for a generic dto to entity mapper.
@@ -9,13 +10,13 @@ import java.util.List;
  * @param <E> - Entity type parameter.
  */
 
-public interface EntityMapper <D, E> {
-
+@GeneratedByJHipster
+public interface EntityMapper<D, E> {
     E toEntity(D dto);
 
     D toDto(E entity);
 
-    List <E> toEntity(List<D> dtoList);
+    List<E> toEntity(List<D> dtoList);
 
-    List <D> toDto(List<E> entityList);
+    List<D> toDto(List<E> entityList);
 }

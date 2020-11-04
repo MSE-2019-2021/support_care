@@ -1,43 +1,58 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+jest.mock('app/core/auth/account.service');
+
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, RouterEvent, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { Subject, of } from 'rxjs';
 import { TranslateModule, TranslateService, LangChangeEvent } from '@ngx-translate/core';
 
 import { MainComponent } from 'app/layouts/main/main.component';
-import { SupportivecareTestModule } from '../../../test.module';
-import { MockRouter } from '../../../helpers/mock-route.service';
+import { AccountService } from 'app/core/auth/account.service';
 
 describe('Component Tests', () => {
   describe('MainComponent', () => {
     let comp: MainComponent;
     let fixture: ComponentFixture<MainComponent>;
-    let router: MockRouter;
-    const routerEventsSubject = new Subject<RouterEvent>();
     let titleService: Title;
     let translateService: TranslateService;
+    let mockAccountService: AccountService;
+    const routerEventsSubject = new Subject<RouterEvent>();
+    const routerState: any = { snapshot: { root: { data: {} } } };
+    class MockRouter {
+      events = routerEventsSubject;
+      routerState = routerState;
+    }
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule, TranslateModule.forRoot()],
-        declarations: [MainComponent],
-        providers: [Title],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [TranslateModule.forRoot()],
+          declarations: [MainComponent],
+          providers: [
+            Title,
+            AccountService,
+            {
+              provide: Router,
+              useClass: MockRouter,
+            },
+          ],
+        })
+          .overrideTemplate(MainComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(MainComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(MainComponent);
       comp = fixture.componentInstance;
-      router = TestBed.get(Router);
-      router.setEvents(routerEventsSubject.asObservable());
-      titleService = TestBed.get(Title);
-      translateService = TestBed.get(TranslateService);
+      titleService = TestBed.inject(Title);
+      translateService = TestBed.inject(TranslateService);
+      mockAccountService = TestBed.inject(AccountService);
+      mockAccountService.identity = jest.fn(() => of(null));
+      mockAccountService.getAuthenticationState = jest.fn(() => of(null));
     });
 
     describe('page title', () => {
-      let routerState: any;
       const defaultPageTitle = 'global.title';
       const parentRoutePageTitle = 'parentTitle';
       const childRoutePageTitle = 'childTitle';
@@ -45,11 +60,8 @@ describe('Component Tests', () => {
       const langChangeEvent: LangChangeEvent = { lang: 'pt-pt', translations: null };
 
       beforeEach(() => {
-        routerState = { snapshot: { root: {} } };
-        router.setRouterState(routerState);
-        spyOn(translateService, 'get').and.callFake((key: string) => {
-          return of(key + ' translated');
-        });
+        routerState.snapshot.root = { data: {} };
+        spyOn(translateService, 'get').and.callFake((key: string) => of(key + ' translated'));
         translateService.currentLang = 'pt-pt';
         spyOn(titleService, 'setTitle');
         comp.ngOnInit();
@@ -102,19 +114,6 @@ describe('Component Tests', () => {
           expect(translateService.get).toHaveBeenCalledWith(parentRoutePageTitle);
           expect(titleService.setTitle).toHaveBeenCalledWith(parentRoutePageTitle + ' translated');
         });
-
-        it('should set page title to parent route pageTitle if child routes exists but data is not set for child route', () => {
-          // GIVEN
-          routerState.snapshot.root.data = { pageTitle: parentRoutePageTitle };
-          routerState.snapshot.root.firstChild = {};
-
-          // WHEN
-          routerEventsSubject.next(navigationEnd);
-
-          // THEN
-          expect(translateService.get).toHaveBeenCalledWith(parentRoutePageTitle);
-          expect(titleService.setTitle).toHaveBeenCalledWith(parentRoutePageTitle + ' translated');
-        });
       });
 
       describe('language change', () => {
@@ -156,19 +155,6 @@ describe('Component Tests', () => {
           // GIVEN
           routerState.snapshot.root.data = { pageTitle: parentRoutePageTitle };
           routerState.snapshot.root.firstChild = { data: {} };
-
-          // WHEN
-          translateService.onLangChange.emit(langChangeEvent);
-
-          // THEN
-          expect(translateService.get).toHaveBeenCalledWith(parentRoutePageTitle);
-          expect(titleService.setTitle).toHaveBeenCalledWith(parentRoutePageTitle + ' translated');
-        });
-
-        it('should set page title to parent route pageTitle if child routes exists but data is not set for child route', () => {
-          // GIVEN
-          routerState.snapshot.root.data = { pageTitle: parentRoutePageTitle };
-          routerState.snapshot.root.firstChild = {};
 
           // WHEN
           translateService.onLangChange.emit(langChangeEvent);

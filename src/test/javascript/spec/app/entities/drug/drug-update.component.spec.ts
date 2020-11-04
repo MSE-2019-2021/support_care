@@ -1,9 +1,12 @@
+jest.mock('@angular/router');
+
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { DrugUpdateComponent } from 'app/entities/drug/drug-update.component';
 import { DrugService } from 'app/entities/drug/drug.service';
 import { Drug } from 'app/shared/model/drug.model';
@@ -16,16 +19,16 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
+        imports: [HttpClientTestingModule],
         declarations: [DrugUpdateComponent],
-        providers: [FormBuilder],
+        providers: [FormBuilder, ActivatedRoute],
       })
         .overrideTemplate(DrugUpdateComponent, '')
         .compileComponents();
 
       fixture = TestBed.createComponent(DrugUpdateComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(DrugService);
+      service = TestBed.inject(DrugService);
     });
 
     describe('save', () => {

@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.service;
 
 import java.util.List;
-
 import javax.persistence.criteria.JoinType;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -11,11 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import io.github.jhipster.service.QueryService;
-
-import uc.dei.mse.supportivecare.domain.Notice;
+import tech.jhipster.service.QueryService;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
+import uc.dei.mse.supportivecare.domain.Notice;
 import uc.dei.mse.supportivecare.repository.NoticeRepository;
 import uc.dei.mse.supportivecare.service.dto.NoticeCriteria;
 import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
@@ -29,6 +26,7 @@ import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
  */
 @Service
 @Transactional(readOnly = true)
+@GeneratedByJHipster
 public class NoticeQueryService extends QueryService<Notice> {
 
     private final Logger log = LoggerFactory.getLogger(NoticeQueryService.class);
@@ -64,8 +62,7 @@ public class NoticeQueryService extends QueryService<Notice> {
     public Page<NoticeDTO> findByCriteria(NoticeCriteria criteria, Pageable page) {
         log.debug("find by criteria : {}, page: {}", criteria, page);
         final Specification<Notice> specification = createSpecification(criteria);
-        return noticeRepository.findAll(specification, page)
-            .map(noticeMapper::toDto);
+        return noticeRepository.findAll(specification, page).map(noticeMapper::toDto);
     }
 
     /**
@@ -101,8 +98,10 @@ public class NoticeQueryService extends QueryService<Notice> {
                 specification = specification.and(buildStringSpecification(criteria.getIntervention(), Notice_.intervention));
             }
             if (criteria.getDrugId() != null) {
-                specification = specification.and(buildSpecification(criteria.getDrugId(),
-                    root -> root.join(Notice_.drug, JoinType.LEFT).get(Drug_.id)));
+                specification =
+                    specification.and(
+                        buildSpecification(criteria.getDrugId(), root -> root.join(Notice_.drug, JoinType.LEFT).get(Drug_.id))
+                    );
             }
         }
         return specification;

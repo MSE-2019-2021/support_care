@@ -1,4 +1,5 @@
 import { INotice } from 'app/shared/model/notice.model';
+import { IAdministration } from 'app/shared/model/administration.model';
 import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
 export interface IDrug {
@@ -6,8 +7,7 @@ export interface IDrug {
   name?: string;
   description?: string;
   notices?: INotice[];
-  administrationType?: string;
-  administrationId?: number;
+  administration?: IAdministration;
   therapeuticRegimes?: ITherapeuticRegime[];
 }
 
@@ -17,8 +17,7 @@ export class Drug implements IDrug {
     public name?: string,
     public description?: string,
     public notices?: INotice[],
-    public administrationType?: string,
-    public administrationId?: number,
+    public administration?: IAdministration,
     public therapeuticRegimes?: ITherapeuticRegime[]
   ) {}
 }

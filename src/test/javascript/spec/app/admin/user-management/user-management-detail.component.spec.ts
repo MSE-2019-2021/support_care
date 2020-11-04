@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
-import { Authority } from 'app/shared/constants/authority.constants';
-import { SupportivecareTestModule } from '../../../test.module';
+import { Authority } from 'app/core/user/authority.model';
 import { UserManagementDetailComponent } from 'app/admin/user-management/user-management-detail.component';
 import { User } from 'app/core/user/user.model';
 
@@ -11,24 +10,24 @@ describe('Component Tests', () => {
   describe('User Management Detail Component', () => {
     let comp: UserManagementDetailComponent;
     let fixture: ComponentFixture<UserManagementDetailComponent>;
-    const route: ActivatedRoute = ({
-      data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', [Authority.USER], 'admin') }),
-    } as any) as ActivatedRoute;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [UserManagementDetailComponent],
-        providers: [
-          {
-            provide: ActivatedRoute,
-            useValue: route,
-          },
-        ],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          declarations: [UserManagementDetailComponent],
+          providers: [
+            {
+              provide: ActivatedRoute,
+              useValue: {
+                data: of({ user: new User(123, 'user', 'first', 'last', 'first@last.com', true, 'en', [Authority.USER], 'admin') }),
+              },
+            },
+          ],
+        })
+          .overrideTemplate(UserManagementDetailComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(UserManagementDetailComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(UserManagementDetailComponent);
@@ -45,7 +44,7 @@ describe('Component Tests', () => {
         // THEN
         expect(comp.user).toEqual(
           jasmine.objectContaining({
-            id: 1,
+            id: 123,
             login: 'user',
             firstName: 'first',
             lastName: 'last',

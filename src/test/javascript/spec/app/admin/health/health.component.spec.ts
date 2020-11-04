@@ -1,10 +1,11 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
 
-import { SupportivecareTestModule } from '../../../test.module';
 import { HealthComponent } from 'app/admin/health/health.component';
-import { HealthService, Health } from 'app/admin/health/health.service';
+import { HealthService } from 'app/admin/health/health.service';
+import { Health } from 'app/admin/health/health.model';
 
 describe('Component Tests', () => {
   describe('HealthComponent', () => {
@@ -12,19 +13,21 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<HealthComponent>;
     let service: HealthService;
 
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [SupportivecareTestModule],
-        declarations: [HealthComponent],
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [HttpClientTestingModule],
+          declarations: [HealthComponent],
+        })
+          .overrideTemplate(HealthComponent, '')
+          .compileComponents();
       })
-        .overrideTemplate(HealthComponent, '')
-        .compileComponents();
-    }));
+    );
 
     beforeEach(() => {
       fixture = TestBed.createComponent(HealthComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(HealthService);
+      service = TestBed.inject(HealthService);
     });
 
     describe('getBadgeClass', () => {
@@ -39,7 +42,7 @@ describe('Component Tests', () => {
     describe('refresh', () => {
       it('should call refresh on init', () => {
         // GIVEN
-        const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: 'mailDetails' } } };
+        const health: Health = { status: 'UP', components: { mail: { status: 'UP', details: { mailDetail: 'mail' } } } };
         spyOn(service, 'checkHealth').and.returnValue(of(health));
 
         // WHEN
@@ -52,7 +55,7 @@ describe('Component Tests', () => {
 
       it('should handle a 503 on refreshing health data', () => {
         // GIVEN
-        const health: Health = { status: 'DOWN', components: { mail: { status: 'DOWN', details: 'mailDetails' } } };
+        const health: Health = { status: 'DOWN', components: { mail: { status: 'DOWN' } } };
         spyOn(service, 'checkHealth').and.returnValue(throwError(new HttpErrorResponse({ status: 503, error: health })));
 
         // WHEN

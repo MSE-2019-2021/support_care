@@ -31,7 +31,7 @@ spring:
     serialization:
       write-durations-as-timestamps: false
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+    database-platform: tech.jhipster.domain.util.FixedH2Dialect
     open-in-view: false
     show-sql: false
     hibernate:
@@ -97,14 +97,9 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: Mzc1ODQ2NWU4MmQ4YjU0M2FiNTQzMTIzNjk0NWMyODMxNWVmY2YxZTIzNmJiOWI0YzA1ZTZiMmVlNTEzZWI5Y2Y5MTE3NTdmOTAxMDA2YjMzOWM5Njk2YjRhZTNkZTFlZDEzNjE5M2VhMWJlZjBiN2I3MDI0NzljZjFiYzVlNjc=
+        base64-secret: NWRhMmU4Mzk4YzJmMzUwYmE5ZWFjODY1YTc3MDk0NjI1ZWMwOTVhYTEyODAyNGQwN2Y4MDQzNTMwMDFkMWVhMjlhNGIxYzAyYzg1NGQ3ZGU0MTVhODk3MzlhNTJlNjUxNTZkZDExMzIxZWIwNDQ2ODliZjRiYjk5NGMzNTZmZmM=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
-  metrics:
-    logs: # Reports metrics in the logs
-      enabled: true
-      report-frequency: 60 # in seconds
-
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

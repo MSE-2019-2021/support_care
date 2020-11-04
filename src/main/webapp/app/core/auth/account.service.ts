@@ -5,8 +5,8 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Observable, ReplaySubject, of } from 'rxjs';
 import { shareReplay, tap, catchError } from 'rxjs/operators';
-import { StateStorageService } from 'app/core/auth/state-storage.service';
 
+import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
 
@@ -34,7 +34,7 @@ export class AccountService {
   }
 
   hasAnyAuthority(authorities: string[] | string): boolean {
-    if (!this.userIdentity || !this.userIdentity.authorities) {
+    if (!this.userIdentity) {
       return false;
     }
     if (!Array.isArray(authorities)) {
@@ -46,16 +46,14 @@ export class AccountService {
   identity(force?: boolean): Observable<Account | null> {
     if (!this.accountCache$ || force || !this.isAuthenticated()) {
       this.accountCache$ = this.fetch().pipe(
-        catchError(() => {
-          return of(null);
-        }),
+        catchError(() => of(null)),
         tap((account: Account | null) => {
           this.authenticate(account);
 
           // After retrieve the account info, the language will be changed to
           // the user's preferred language configured in the account setting
-          if (account && account.langKey) {
-            const langKey = this.sessionStorage.retrieve('locale') || account.langKey;
+          if (account?.langKey) {
+            const langKey = this.sessionStorage.retrieve('locale') ?? account.langKey;
             this.languageService.changeLanguage(langKey);
           }
 

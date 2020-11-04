@@ -3,6 +3,7 @@
     "notice": {
       "home": {
         "title": "Notices",
+        "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Notice",
         "createOrEditLabel": "Create or edit a Notice",
         "notFound": "No Notices found"
@@ -16,6 +17,7 @@
       "detail": {
         "title": "Notice"
       },
+      "id": "ID",
       "description": "Description",
       "evaluation": "Evaluation",
       "intervention": "Intervention",

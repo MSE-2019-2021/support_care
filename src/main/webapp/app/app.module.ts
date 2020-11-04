@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import './vendor';
-import { SupportivecareSharedModule } from 'app/shared/shared.module';
-import { SupportivecareCoreModule } from 'app/core/core.module';
-import { SupportivecareAppRoutingModule } from './app-routing.module';
-import { SupportivecareHomeModule } from './home/home.module';
-import { SupportivecareEntityModule } from './entities/entity.module';
+import { SharedModule } from 'app/shared/shared.module';
+import { CoreModule } from 'app/core/core.module';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeModule } from './home/home.module';
+import { EntityRoutingModule } from './entities/entity-routing.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -18,14 +19,16 @@ import { ErrorComponent } from './layouts/error/error.component';
 @NgModule({
   imports: [
     BrowserModule,
-    SupportivecareSharedModule,
-    SupportivecareCoreModule,
-    SupportivecareHomeModule,
+    SharedModule,
+    CoreModule,
+    HomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
-    SupportivecareEntityModule,
-    SupportivecareAppRoutingModule,
+    EntityRoutingModule,
+    AppRoutingModule,
+    // Set this to true to enable service worker (PWA)
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
   ],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent],
 })
-export class SupportivecareAppModule {}
+export class AppModule {}

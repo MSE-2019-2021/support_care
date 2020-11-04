@@ -65,7 +65,6 @@
       "otherEntityField": "type"
     }
   ],
-  "changelogDate": "20201104142843",
   "javadoc": "Regime terapêutico.",
   "entityTableName": "therapeutic_regime",
   "dto": "mapstruct",
@@ -75,7 +74,6 @@
   "fluentMethods": true,
   "readOnly": false,
   "embedded": false,
-  "clientRootFolder": "",
   "applications": ["supportivecare"],
-  "enableEntityAudit": true
+  "changelogDate": "20201104193937"
 }

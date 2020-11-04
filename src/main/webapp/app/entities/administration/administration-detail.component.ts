@@ -13,7 +13,9 @@ export class AdministrationDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ administration }) => (this.administration = administration));
+    this.activatedRoute.data.subscribe(({ administration }) => {
+      this.administration = administration;
+    });
   }
 
   previousState(): void {

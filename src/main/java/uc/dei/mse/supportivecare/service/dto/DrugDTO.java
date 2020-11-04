@@ -2,15 +2,18 @@ package uc.dei.mse.supportivecare.service.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
+import javax.validation.constraints.*;
+import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Drug} entity.
  */
 @ApiModel(description = "Medicamento.")
-public class DrugDTO extends AbstractAuditingDTO implements Serializable {
-    
+@GeneratedByJHipster
+public class DrugDTO implements Serializable {
+
     private Long id;
 
     /**
@@ -26,11 +29,8 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
+    private AdministrationDTO administration;
 
-    private Long administrationId;
-
-    private String administrationType;
-    
     public Long getId() {
         return id;
     }
@@ -55,20 +55,12 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
         this.description = description;
     }
 
-    public Long getAdministrationId() {
-        return administrationId;
+    public AdministrationDTO getAdministration() {
+        return administration;
     }
 
-    public void setAdministrationId(Long administrationId) {
-        this.administrationId = administrationId;
-    }
-
-    public String getAdministrationType() {
-        return administrationType;
-    }
-
-    public void setAdministrationType(String administrationType) {
-        this.administrationType = administrationType;
+    public void setAdministration(AdministrationDTO administration) {
+        this.administration = administration;
     }
 
     @Override
@@ -80,12 +72,16 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
             return false;
         }
 
-        return id != null && id.equals(((DrugDTO) o).id);
+        DrugDTO drugDTO = (DrugDTO) o;
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, drugDTO.id);
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hash(this.id);
     }
 
     // prettier-ignore
@@ -95,8 +91,7 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", administrationId=" + getAdministrationId() +
-            ", administrationType='" + getAdministrationType() + "'" +
+            ", administration=" + getAdministration() +
             "}";
     }
 }
