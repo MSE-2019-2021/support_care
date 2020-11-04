@@ -29,14 +29,14 @@
       "drug": "Drug",
       "treatment": "Treatment",
       "help": {
-        "name": "Nome.",
-        "acronym": "Acrónimo.",
-        "purpose": "Propósito.",
-        "condition": "Condição para administração.",
-        "timing": "Calendarização.",
-        "indication": "Indicação para prescrição.",
-        "criteria": "Critério de redução de dose.",
-        "notice": "Outras informações."
+        "name": "Name",
+        "acronym": "Acronym.",
+        "purpose": "Purpose.",
+        "condition": "Administration condition.",
+        "timing": "Timing",
+        "indication": "Prescription indication",
+        "criteria": "Dose reduction criteria",
+        "notice": "Other information's"
       }
     }
   }
