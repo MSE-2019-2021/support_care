@@ -10,11 +10,9 @@ export interface ITherapeuticRegime {
   indication?: string;
   criteria?: string;
   notice?: string;
+  drugs?: IDrug[];
   treatmentType?: string;
   treatmentId?: number;
-  drugs?: IDrug[];
-  diagnosticName?: string;
-  diagnosticId?: number;
 }
 
 export class TherapeuticRegime implements ITherapeuticRegime {
@@ -28,10 +26,8 @@ export class TherapeuticRegime implements ITherapeuticRegime {
     public indication?: string,
     public criteria?: string,
     public notice?: string,
-    public treatmentType?: string,
-    public treatmentId?: number,
     public drugs?: IDrug[],
-    public diagnosticName?: string,
-    public diagnosticId?: number
+    public treatmentType?: string,
+    public treatmentId?: number
   ) {}
 }

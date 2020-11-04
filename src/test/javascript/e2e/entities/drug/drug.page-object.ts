@@ -33,7 +33,6 @@ export class DrugUpdatePage {
   descriptionInput = element(by.id('field_description'));
 
   administrationSelect = element(by.id('field_administration'));
-  therapeuticRegimeSelect = element(by.id('field_therapeuticRegime'));
 
   async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -69,22 +68,6 @@ export class DrugUpdatePage {
 
   async getAdministrationSelectedOption(): Promise<string> {
     return await this.administrationSelect.element(by.css('option:checked')).getText();
-  }
-
-  async therapeuticRegimeSelectLastOption(): Promise<void> {
-    await this.therapeuticRegimeSelect.all(by.tagName('option')).last().click();
-  }
-
-  async therapeuticRegimeSelectOption(option: string): Promise<void> {
-    await this.therapeuticRegimeSelect.sendKeys(option);
-  }
-
-  getTherapeuticRegimeSelect(): ElementFinder {
-    return this.therapeuticRegimeSelect;
-  }
-
-  async getTherapeuticRegimeSelectedOption(): Promise<string> {
-    return await this.therapeuticRegimeSelect.element(by.css('option:checked')).getText();
   }
 
   async save(): Promise<void> {

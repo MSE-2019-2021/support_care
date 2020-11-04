@@ -21,7 +21,7 @@
     <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="acronym"><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon></th>
@@ -32,11 +32,10 @@
                     <th scope="col"  jhiSortBy="criteria"><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="treatmentType"><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="diagnosticName"><span jhiTranslate="supportivecareApp.therapeuticRegime.diagnostic">Diagnostic</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let therapeuticRegime of therapeuticRegimes ;trackBy: trackId">
                     <td><a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">{{ therapeuticRegime.id }}</a></td>
                     <td>{{ therapeuticRegime.name }}</td>
@@ -50,11 +49,6 @@
                     <td>
                         <div *ngIf="therapeuticRegime.treatmentId">
                             <a [routerLink]="['/treatment', therapeuticRegime.treatmentId , 'view']" >{{ therapeuticRegime.treatmentType }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="therapeuticRegime.diagnosticId">
-                            <a [routerLink]="['/diagnostic', therapeuticRegime.diagnosticId , 'view']" >{{ therapeuticRegime.diagnosticName }}</a>
                         </div>
                     </td>
                     <td class="text-right">
@@ -83,15 +77,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
-        </div>
     </div>
 </div>

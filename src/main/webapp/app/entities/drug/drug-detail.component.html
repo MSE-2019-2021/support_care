@@ -22,12 +22,6 @@
                         <a [routerLink]="['/administration', drug.administrationId, 'view']">{{ drug.administrationType }}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="supportivecareApp.drug.therapeuticRegime">Therapeutic Regime</span></dt>
-                <dd>
-                    <div *ngIf="drug.therapeuticRegimeId">
-                        <a [routerLink]="['/therapeutic-regime', drug.therapeuticRegimeId, 'view']">{{ drug.therapeuticRegimeName }}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

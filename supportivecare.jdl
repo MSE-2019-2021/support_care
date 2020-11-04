@@ -110,33 +110,18 @@ entity TherapeuticRegime {
     notice String
 }
 
-/**
-* Sintoma (Efeito secundário).
-*/
-entity Diagnostic {
-	/**
-	* Nome.
-	*/
-	name String required,
-	/**
-	* Informação ao enfermeiro.
-	*/
-	notice String
-}
-
-relationship OneToOne {
-	Drug{administration(type) required} to Administration,
-	TherapeuticRegime{treatment(type) required} to Treatment
-}
-
 relationship OneToMany {
+	Administration to Drug{administration(type) required},
 	Drug to Notice{drug(name) required},
-	TherapeuticRegime to Drug{therapeuticRegime(name)},
-    Diagnostic to TherapeuticRegime{diagnostic(name)}
+    Treatment to TherapeuticRegime{treatment(type) required}
+}
+
+relationship ManyToMany {
+	TherapeuticRegime{drug(name)} to Drug{therapeuticRegime(name)}
 }
 
 filter *
 
-paginate * with pagination
+paginate * with infinite-scroll
 
 dto * with mapstruct

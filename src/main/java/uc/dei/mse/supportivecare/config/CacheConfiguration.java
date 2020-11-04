@@ -48,14 +48,15 @@ public class CacheConfiguration {
             createCache(cm, uc.dei.mse.supportivecare.domain.Authority.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.User.class.getName() + ".authorities");
             createCache(cm, uc.dei.mse.supportivecare.domain.Administration.class.getName());
+            createCache(cm, uc.dei.mse.supportivecare.domain.Administration.class.getName() + ".drugs");
             createCache(cm, uc.dei.mse.supportivecare.domain.Notice.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.Drug.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.Drug.class.getName() + ".notices");
+            createCache(cm, uc.dei.mse.supportivecare.domain.Drug.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.Treatment.class.getName());
+            createCache(cm, uc.dei.mse.supportivecare.domain.Treatment.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.TherapeuticRegime.class.getName() + ".drugs");
-            createCache(cm, uc.dei.mse.supportivecare.domain.Diagnostic.class.getName());
-            createCache(cm, uc.dei.mse.supportivecare.domain.Diagnostic.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.EntityAuditEvent.class.getName());
             // jhipster-needle-caffeine-add-entry
         };

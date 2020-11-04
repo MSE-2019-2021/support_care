@@ -7,7 +7,7 @@
     <!--
         Added the entity EntityAuditEvent.
     -->
-    <changeSet id="20201026010734" author="jhipster">
+    <changeSet id="20201104145731" author="jhipster">
         <createTable tableName="jhi_entity_audit_event">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>

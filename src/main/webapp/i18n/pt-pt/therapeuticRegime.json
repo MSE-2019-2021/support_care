@@ -24,9 +24,8 @@
       "indication": "Indication",
       "criteria": "Criteria",
       "notice": "Notice",
-      "treatment": "Treatment",
       "drug": "Drug",
-      "diagnostic": "Diagnostic",
+      "treatment": "Treatment",
       "help": {
         "name": "Nome.",
         "acronym": "Acrónimo.",

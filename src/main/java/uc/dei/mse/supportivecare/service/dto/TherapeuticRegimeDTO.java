@@ -4,6 +4,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
@@ -66,14 +68,11 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
     @ApiModelProperty(value = "Outras informações.")
     private String notice;
 
+    private Set<DrugDTO> drugs = new HashSet<>();
 
     private Long treatmentId;
 
     private String treatmentType;
-
-    private Long diagnosticId;
-
-    private String diagnosticName;
     
     public Long getId() {
         return id;
@@ -147,6 +146,14 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
         this.notice = notice;
     }
 
+    public Set<DrugDTO> getDrugs() {
+        return drugs;
+    }
+
+    public void setDrugs(Set<DrugDTO> drugs) {
+        this.drugs = drugs;
+    }
+
     public Long getTreatmentId() {
         return treatmentId;
     }
@@ -161,22 +168,6 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
 
     public void setTreatmentType(String treatmentType) {
         this.treatmentType = treatmentType;
-    }
-
-    public Long getDiagnosticId() {
-        return diagnosticId;
-    }
-
-    public void setDiagnosticId(Long diagnosticId) {
-        this.diagnosticId = diagnosticId;
-    }
-
-    public String getDiagnosticName() {
-        return diagnosticName;
-    }
-
-    public void setDiagnosticName(String diagnosticName) {
-        this.diagnosticName = diagnosticName;
     }
 
     @Override
@@ -209,10 +200,9 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
             ", indication='" + getIndication() + "'" +
             ", criteria='" + getCriteria() + "'" +
             ", notice='" + getNotice() + "'" +
+            ", drugs='" + getDrugs() + "'" +
             ", treatmentId=" + getTreatmentId() +
             ", treatmentType='" + getTreatmentType() + "'" +
-            ", diagnosticId=" + getDiagnosticId() +
-            ", diagnosticName='" + getDiagnosticName() + "'" +
             "}";
     }
 }

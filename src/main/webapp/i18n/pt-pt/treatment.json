@@ -17,6 +17,7 @@
         "title": "Treatment"
       },
       "type": "Type",
+      "therapeuticRegime": "Therapeutic Regime",
       "help": {
         "type": "Tipo de Tratamento."
       }

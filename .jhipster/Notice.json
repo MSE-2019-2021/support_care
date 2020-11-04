@@ -30,11 +30,11 @@
       "otherEntityField": "name"
     }
   ],
-  "changelogDate": "20201026005752",
+  "changelogDate": "20201104142543",
   "javadoc": "Observação.",
   "entityTableName": "notice",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,

@@ -48,7 +48,6 @@ describe('Drug e2e test', () => {
             drugUpdatePage.setNameInput('name'),
             drugUpdatePage.setDescriptionInput('description'),
             drugUpdatePage.administrationSelectLastOption(),
-            drugUpdatePage.therapeuticRegimeSelectLastOption(),
         ]);
 
         expect(await drugUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');

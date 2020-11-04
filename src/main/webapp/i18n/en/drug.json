@@ -18,8 +18,8 @@
       },
       "name": "Name",
       "description": "Description",
-      "administration": "Administration",
       "notice": "Notice",
+      "administration": "Administration",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {
         "name": "Drug Name",

@@ -4,16 +4,15 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { ITherapeuticRegime, TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
+import { IDrug } from 'app/shared/model/drug.model';
+import { DrugService } from 'app/entities/drug/drug.service';
 import { ITreatment } from 'app/shared/model/treatment.model';
 import { TreatmentService } from 'app/entities/treatment/treatment.service';
-import { IDiagnostic } from 'app/shared/model/diagnostic.model';
-import { DiagnosticService } from 'app/entities/diagnostic/diagnostic.service';
 
-type SelectableEntity = ITreatment | IDiagnostic;
+type SelectableEntity = IDrug | ITreatment;
 
 @Component({
   selector: 'jhi-therapeutic-regime-update',
@@ -21,8 +20,8 @@ type SelectableEntity = ITreatment | IDiagnostic;
 })
 export class TherapeuticRegimeUpdateComponent implements OnInit {
   isSaving = false;
+  drugs: IDrug[] = [];
   treatments: ITreatment[] = [];
-  diagnostics: IDiagnostic[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -34,14 +33,14 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     indication: [null, [Validators.required]],
     criteria: [null, [Validators.required]],
     notice: [],
+    drugs: [],
     treatmentId: [null, Validators.required],
-    diagnosticId: [],
   });
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
+    protected drugService: DrugService,
     protected treatmentService: TreatmentService,
-    protected diagnosticService: DiagnosticService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -50,29 +49,9 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
       this.updateForm(therapeuticRegime);
 
-      this.treatmentService
-        .query({ 'therapeuticRegimeId.specified': 'false' })
-        .pipe(
-          map((res: HttpResponse<ITreatment[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ITreatment[]) => {
-          if (!therapeuticRegime.treatmentId) {
-            this.treatments = resBody;
-          } else {
-            this.treatmentService
-              .find(therapeuticRegime.treatmentId)
-              .pipe(
-                map((subRes: HttpResponse<ITreatment>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ITreatment[]) => (this.treatments = concatRes));
-          }
-        });
+      this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body || []));
 
-      this.diagnosticService.query().subscribe((res: HttpResponse<IDiagnostic[]>) => (this.diagnostics = res.body || []));
+      this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body || []));
     });
   }
 
@@ -87,8 +66,8 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
       indication: therapeuticRegime.indication,
       criteria: therapeuticRegime.criteria,
       notice: therapeuticRegime.notice,
+      drugs: therapeuticRegime.drugs,
       treatmentId: therapeuticRegime.treatmentId,
-      diagnosticId: therapeuticRegime.diagnosticId,
     });
   }
 
@@ -118,8 +97,8 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
       indication: this.editForm.get(['indication'])!.value,
       criteria: this.editForm.get(['criteria'])!.value,
       notice: this.editForm.get(['notice'])!.value,
+      drugs: this.editForm.get(['drugs'])!.value,
       treatmentId: this.editForm.get(['treatmentId'])!.value,
-      diagnosticId: this.editForm.get(['diagnosticId'])!.value,
     };
   }
 
@@ -141,5 +120,16 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
 
   trackById(index: number, item: SelectableEntity): any {
     return item.id;
+  }
+
+  getSelected(selectedVals: IDrug[], option: IDrug): IDrug {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

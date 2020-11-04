@@ -60,6 +60,15 @@ public class TherapeuticRegimeService {
 
 
     /**
+     * Get all the therapeuticRegimes with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<TherapeuticRegimeDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return therapeuticRegimeRepository.findAllWithEagerRelationships(pageable).map(therapeuticRegimeMapper::toDto);
+    }
+
+    /**
      * Get one therapeuticRegime by id.
      *
      * @param id the id of the entity.
@@ -68,7 +77,7 @@ public class TherapeuticRegimeService {
     @Transactional(readOnly = true)
     public Optional<TherapeuticRegimeDTO> findOne(Long id) {
         log.debug("Request to get TherapeuticRegime : {}", id);
-        return therapeuticRegimeRepository.findById(id)
+        return therapeuticRegimeRepository.findOneWithEagerRelationships(id)
             .map(therapeuticRegimeMapper::toDto);
     }
 

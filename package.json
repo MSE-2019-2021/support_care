@@ -31,8 +31,7 @@
     "rxjs": "6.5.5",
     "swagger-ui-dist": "3.25.1",
     "tslib": "2.0.0",
-    "zone.js": "0.10.3",
-    "ng-diff-match-patch": "3.0.1"
+    "zone.js": "0.10.3"
   },
   "devDependencies": {
     "@angular/cli": "10.0.0",

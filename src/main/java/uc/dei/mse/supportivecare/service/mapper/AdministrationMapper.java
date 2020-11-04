@@ -13,6 +13,9 @@ import org.mapstruct.*;
 public interface AdministrationMapper extends EntityMapper<AdministrationDTO, Administration> {
 
 
+    @Mapping(target = "drugs", ignore = true)
+    @Mapping(target = "removeDrug", ignore = true)
+    Administration toEntity(AdministrationDTO administrationDTO);
 
     default Administration fromId(Long id) {
         if (id == null) {

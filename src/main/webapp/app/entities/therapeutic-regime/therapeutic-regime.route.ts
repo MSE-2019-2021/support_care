@@ -40,7 +40,6 @@ export const therapeuticRegimeRoute: Routes = [
     component: TherapeuticRegimeComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],

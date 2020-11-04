@@ -49,33 +49,27 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-one",
+      "relationshipType": "many-to-many",
+      "otherEntityName": "drug",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipName": "drug",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
       "otherEntityName": "treatment",
       "otherEntityRelationshipName": "therapeuticRegime",
       "relationshipValidateRules": "required",
       "relationshipName": "treatment",
-      "otherEntityField": "type",
-      "ownerSide": true
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "drug",
-      "otherEntityRelationshipName": "therapeuticRegime",
-      "relationshipName": "drug"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "diagnostic",
-      "otherEntityRelationshipName": "therapeuticRegime",
-      "relationshipName": "diagnostic",
-      "otherEntityField": "name"
+      "otherEntityField": "type"
     }
   ],
-  "changelogDate": "20201026010052",
+  "changelogDate": "20201104142843",
   "javadoc": "Regime terapêutico.",
   "entityTableName": "therapeutic_regime",
   "dto": "mapstruct",
-  "pagination": "pagination",
+  "pagination": "infinite-scroll",
   "service": "serviceClass",
   "jpaMetamodelFiltering": true,
   "fluentMethods": true,

@@ -40,7 +40,6 @@ export const administrationRoute: Routes = [
     component: AdministrationComponent,
     data: {
       authorities: [Authority.USER],
-      defaultSort: 'id,asc',
       pageTitle: 'supportivecareApp.administration.home.title',
     },
     canActivate: [UserRouteAccessService],

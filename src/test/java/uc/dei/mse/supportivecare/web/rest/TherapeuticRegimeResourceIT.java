@@ -2,9 +2,8 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
-import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.domain.Diagnostic;
+import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
 import uc.dei.mse.supportivecare.service.TherapeuticRegimeService;
 import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
@@ -14,18 +13,25 @@ import uc.dei.mse.supportivecare.service.TherapeuticRegimeQueryService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -33,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link TherapeuticRegimeResource} REST controller.
  */
 @SpringBootTest(classes = SupportivecareApp.class)
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 public class TherapeuticRegimeResourceIT {
@@ -64,8 +71,14 @@ public class TherapeuticRegimeResourceIT {
     @Autowired
     private TherapeuticRegimeRepository therapeuticRegimeRepository;
 
+    @Mock
+    private TherapeuticRegimeRepository therapeuticRegimeRepositoryMock;
+
     @Autowired
     private TherapeuticRegimeMapper therapeuticRegimeMapper;
+
+    @Mock
+    private TherapeuticRegimeService therapeuticRegimeServiceMock;
 
     @Autowired
     private TherapeuticRegimeService therapeuticRegimeService;
@@ -310,6 +323,26 @@ public class TherapeuticRegimeResourceIT {
             .andExpect(jsonPath("$.[*].notice").value(hasItem(DEFAULT_NOTICE)));
     }
     
+    @SuppressWarnings({"unchecked"})
+    public void getAllTherapeuticRegimesWithEagerRelationshipsIsEnabled() throws Exception {
+        when(therapeuticRegimeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(therapeuticRegimeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({"unchecked"})
+    public void getAllTherapeuticRegimesWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(therapeuticRegimeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restTherapeuticRegimeMockMvc.perform(get("/api/therapeutic-regimes?eagerload=true"))
+            .andExpect(status().isOk());
+
+        verify(therapeuticRegimeServiceMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     public void getTherapeuticRegime() throws Exception {
@@ -977,22 +1010,6 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByTreatmentIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Treatment treatment = therapeuticRegime.getTreatment();
-        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
-        Long treatmentId = treatment.getId();
-
-        // Get all the therapeuticRegimeList where treatment equals to treatmentId
-        defaultTherapeuticRegimeShouldBeFound("treatmentId.equals=" + treatmentId);
-
-        // Get all the therapeuticRegimeList where treatment equals to treatmentId + 1
-        defaultTherapeuticRegimeShouldNotBeFound("treatmentId.equals=" + (treatmentId + 1));
-    }
-
-
-    @Test
-    @Transactional
     public void getAllTherapeuticRegimesByDrugIsEqualToSomething() throws Exception {
         // Initialize the database
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
@@ -1013,21 +1030,17 @@ public class TherapeuticRegimeResourceIT {
 
     @Test
     @Transactional
-    public void getAllTherapeuticRegimesByDiagnosticIsEqualToSomething() throws Exception {
-        // Initialize the database
+    public void getAllTherapeuticRegimesByTreatmentIsEqualToSomething() throws Exception {
+        // Get already existing entity
+        Treatment treatment = therapeuticRegime.getTreatment();
         therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
-        Diagnostic diagnostic = DiagnosticResourceIT.createEntity(em);
-        em.persist(diagnostic);
-        em.flush();
-        therapeuticRegime.setDiagnostic(diagnostic);
-        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
-        Long diagnosticId = diagnostic.getId();
+        Long treatmentId = treatment.getId();
 
-        // Get all the therapeuticRegimeList where diagnostic equals to diagnosticId
-        defaultTherapeuticRegimeShouldBeFound("diagnosticId.equals=" + diagnosticId);
+        // Get all the therapeuticRegimeList where treatment equals to treatmentId
+        defaultTherapeuticRegimeShouldBeFound("treatmentId.equals=" + treatmentId);
 
-        // Get all the therapeuticRegimeList where diagnostic equals to diagnosticId + 1
-        defaultTherapeuticRegimeShouldNotBeFound("diagnosticId.equals=" + (diagnosticId + 1));
+        // Get all the therapeuticRegimeList where treatment equals to treatmentId + 1
+        defaultTherapeuticRegimeShouldNotBeFound("treatmentId.equals=" + (treatmentId + 1));
     }
 
     /**

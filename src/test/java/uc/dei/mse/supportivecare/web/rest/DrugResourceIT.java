@@ -2,8 +2,8 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Drug;
-import uc.dei.mse.supportivecare.domain.Administration;
 import uc.dei.mse.supportivecare.domain.Notice;
+import uc.dei.mse.supportivecare.domain.Administration;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.repository.DrugRepository;
 import uc.dei.mse.supportivecare.service.DrugService;
@@ -381,22 +381,6 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
-    public void getAllDrugsByAdministrationIsEqualToSomething() throws Exception {
-        // Get already existing entity
-        Administration administration = drug.getAdministration();
-        drugRepository.saveAndFlush(drug);
-        Long administrationId = administration.getId();
-
-        // Get all the drugList where administration equals to administrationId
-        defaultDrugShouldBeFound("administrationId.equals=" + administrationId);
-
-        // Get all the drugList where administration equals to administrationId + 1
-        defaultDrugShouldNotBeFound("administrationId.equals=" + (administrationId + 1));
-    }
-
-
-    @Test
-    @Transactional
     public void getAllDrugsByNoticeIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
@@ -417,13 +401,29 @@ public class DrugResourceIT {
 
     @Test
     @Transactional
+    public void getAllDrugsByAdministrationIsEqualToSomething() throws Exception {
+        // Get already existing entity
+        Administration administration = drug.getAdministration();
+        drugRepository.saveAndFlush(drug);
+        Long administrationId = administration.getId();
+
+        // Get all the drugList where administration equals to administrationId
+        defaultDrugShouldBeFound("administrationId.equals=" + administrationId);
+
+        // Get all the drugList where administration equals to administrationId + 1
+        defaultDrugShouldNotBeFound("administrationId.equals=" + (administrationId + 1));
+    }
+
+
+    @Test
+    @Transactional
     public void getAllDrugsByTherapeuticRegimeIsEqualToSomething() throws Exception {
         // Initialize the database
         drugRepository.saveAndFlush(drug);
         TherapeuticRegime therapeuticRegime = TherapeuticRegimeResourceIT.createEntity(em);
         em.persist(therapeuticRegime);
         em.flush();
-        drug.setTherapeuticRegime(therapeuticRegime);
+        drug.addTherapeuticRegime(therapeuticRegime);
         drugRepository.saveAndFlush(drug);
         Long therapeuticRegimeId = therapeuticRegime.getId();
 

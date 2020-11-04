@@ -97,17 +97,17 @@ public class DrugQueryService extends QueryService<Drug> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Drug_.description));
             }
-            if (criteria.getAdministrationId() != null) {
-                specification = specification.and(buildSpecification(criteria.getAdministrationId(),
-                    root -> root.join(Drug_.administration, JoinType.LEFT).get(Administration_.id)));
-            }
             if (criteria.getNoticeId() != null) {
                 specification = specification.and(buildSpecification(criteria.getNoticeId(),
                     root -> root.join(Drug_.notices, JoinType.LEFT).get(Notice_.id)));
             }
+            if (criteria.getAdministrationId() != null) {
+                specification = specification.and(buildSpecification(criteria.getAdministrationId(),
+                    root -> root.join(Drug_.administration, JoinType.LEFT).get(Administration_.id)));
+            }
             if (criteria.getTherapeuticRegimeId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTherapeuticRegimeId(),
-                    root -> root.join(Drug_.therapeuticRegime, JoinType.LEFT).get(TherapeuticRegime_.id)));
+                    root -> root.join(Drug_.therapeuticRegimes, JoinType.LEFT).get(TherapeuticRegime_.id)));
             }
         }
         return specification;
