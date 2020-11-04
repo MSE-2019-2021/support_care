@@ -33,7 +33,7 @@ jobs:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               run: |
-                  if [ -n $SONAR_TOKEN ]; then
+                  if [ ! -z "$SONAR_TOKEN" ]; then
                       ./mvnw -ntp initialize sonar:sonar -Dsonar.organization=MSE-2019-2021 -Dsonar.host.url=https://sonarcloud.io
                   else
                       echo No SONAR_TOKEN, skipping...
@@ -41,7 +41,7 @@ jobs:
             - name: Package application
               run: npm run java:jar:prod
             - name: Upload artifact
-              if: github.event_name == == 'push' && github.ref == 'refs/heads/master'
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               uses: actions/upload-artifact@v2
               with:
                 name: jar-deliverable
@@ -52,11 +52,13 @@ jobs:
               env:
                   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
               run: |
-                  if [ -n $HEROKU_API_KEY ]; then
+                  if [ ! -z "$HEROKU_API_KEY" ]; then
                       ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=supportivecare
                   else
                       echo No HEROKU_API_KEY, skipping...
                   fi
+            - name: 'E2E: Package'
+              run: npm run ci:e2e:package
             - name: 'E2E: Prepare'
               run: npm run ci:e2e:prepare
             - name: 'E2E: Run'
