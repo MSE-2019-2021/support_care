@@ -40,6 +40,9 @@ jobs:
                   fi
             - name: Package application
               run: npm run java:jar:prod
+            - name: Generate frontend documentation
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+              run: npm run ci:frontend:doc
             - name: Commit frontend documentation
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               uses: EndBug/add-and-commit@v5
