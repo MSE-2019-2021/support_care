@@ -42,7 +42,10 @@
     "pages": [],
     "creationTimestamp": 1604518477442,
     "jwtSecretKey": "NWRhMmU4Mzk4YzJmMzUwYmE5ZWFjODY1YTc3MDk0NjI1ZWMwOTVhYTEyODAyNGQwN2Y4MDQzNTMwMDFkMWVhMjlhNGIxYzAyYzg1NGQ3ZGU0MTVhODk3MzlhNTJlNjUxNTZkZDExMzIxZWIwNDQ2ODliZjRiYjk5NGMzNTZmZmM=",
-    "lastLiquibaseTimestamp": 1604518777000
+    "lastLiquibaseTimestamp": 1604518777000,
+    "herokuAppName": "supportivecare",
+    "herokuDeployType": "jar",
+    "herokuJavaVersion": "11"
   },
   "generator-jhipster-entity-audit": {
     "auditFramework": "custom",
