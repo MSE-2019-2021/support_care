@@ -37,6 +37,9 @@
     "e2e:dev": "concurrently -k -s first \"./mvnw\" \"e2e:run\"",
     "pree2e:headless": "npm run ci:server:await",
     "e2e:headless": "npm run e2e:cypress:headless",
+    "frontend:doc": "npm run frontend:doc:generate && frontend:doc:update",
+    "frontend:doc:generate": "compodoc -d $npm_package_config_frontend_doc -p ./tsconfig.json",
+    "frontend:doc:update": "git add $npm_package_config_frontend_doc && git commit -m 'Update docs' && git push",
     "java:docker": "./mvnw -ntp verify -DskipTests jib:dockerBuild",
     "java:docker:dev": "npm run java:docker -- -Pdev,webpack",
     "java:docker:prod": "npm run java:docker -- -Pprod",
@@ -67,7 +70,8 @@
   "config": {
     "backend_port": "8080",
     "default_environment": "prod",
-    "packaging": "jar"
+    "packaging": "jar",
+    "frontend_doc": "./docs/"
   },
   "dependencies": {
     "@angular/common": "10.2.2",
@@ -102,6 +106,7 @@
     "@angular/cli": "10.2.0",
     "@angular/compiler-cli": "10.2.2",
     "@angular/service-worker": "10.2.2",
+    "@compodoc/compodoc": "1.1.11",
     "@openapitools/openapi-generator-cli": "1.0.13-4.3.1",
     "@types/jest": "26.0.10",
     "@types/node": "13.13.4",
