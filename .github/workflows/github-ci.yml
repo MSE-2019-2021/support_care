@@ -40,6 +40,9 @@ jobs:
                   fi
             - name: Package application
               run: npm run java:jar:prod
+            - name: Run frontend doc
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+              run: npm run ci:frontend:doc
             - name: Upload artifact
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               uses: actions/upload-artifact@v2
