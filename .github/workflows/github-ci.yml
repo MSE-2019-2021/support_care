@@ -40,9 +40,16 @@ jobs:
                   fi
             - name: Package application
               run: npm run java:jar:prod
-            - name: Run frontend doc
+            - name: Commit frontend documentation
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-              run: npm run ci:frontend:doc
+              uses: EndBug/add-and-commit@v5
+              with:
+                  add: './docs'
+                  author_name: DanielFran
+                  author_email: dandrfranco@gmail.com
+                  message: 'Update angular docs'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             - name: Upload artifact
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               uses: actions/upload-artifact@v2
