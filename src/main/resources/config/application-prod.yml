@@ -45,8 +45,6 @@ spring:
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
-    default-schema: supportivecare
-    liquibase-schema: liquibase
   mail:
     host: localhost
     port: 25
