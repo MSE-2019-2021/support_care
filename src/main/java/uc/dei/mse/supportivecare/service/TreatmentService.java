@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TreatmentRepository;
 import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
@@ -18,7 +17,6 @@ import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
  */
 @Service
 @Transactional
-@GeneratedByJHipster
 public class TreatmentService {
 
     private final Logger log = LoggerFactory.getLogger(TreatmentService.class);

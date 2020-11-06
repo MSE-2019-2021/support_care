@@ -1,8 +1,5 @@
 package uc.dei.mse.supportivecare.web.rest.errors;
 
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
-
-@GeneratedByJHipster
 public class LoginAlreadyUsedException extends BadRequestAlertException {
 
     private static final long serialVersionUID = 1L;

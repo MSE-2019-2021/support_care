@@ -11,13 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /*
  * Configures the console and Logstash log appenders from the app properties
  */
 @Configuration
-@GeneratedByJHipster
 public class LoggingConfiguration {
 
     public LoggingConfiguration(

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IAdministration } from 'app/shared/model/administration.model';
 
 @Component({
-  selector: 'jhi-administration-detail',
+  selector: 'custom-administration-detail',
   templateUrl: './administration-detail.component.html',
 })
 export class AdministrationDetailComponent implements OnInit {

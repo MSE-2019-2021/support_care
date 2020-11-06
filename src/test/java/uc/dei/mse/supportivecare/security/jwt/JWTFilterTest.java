@@ -16,10 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.util.ReflectionTestUtils;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.security.AuthoritiesConstants;
 
-@GeneratedByJHipster
 class JWTFilterTest {
 
     private TokenProvider tokenProvider;

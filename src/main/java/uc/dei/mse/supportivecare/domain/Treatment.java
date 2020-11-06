@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Tratamento.
@@ -16,7 +15,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Entity
 @Table(name = "treatment")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GeneratedByJHipster
 public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,7 +33,7 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     @OneToMany(mappedBy = "treatment")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "drugs", "treatment" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "drugs", "treatment", "symptoms" }, allowSetters = true)
     private Set<TherapeuticRegime> therapeuticRegimes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.mapstruct.*;
 import org.springframework.stereotype.Service;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
@@ -16,7 +15,6 @@ import uc.dei.mse.supportivecare.service.dto.UserDTO;
  * support is still in beta, and requires a manual step with an IDE.
  */
 @Service
-@GeneratedByJHipster
 public class UserMapper {
 
     public List<UserDTO> usersToUserDTOs(List<User> users) {

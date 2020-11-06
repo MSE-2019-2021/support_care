@@ -11,7 +11,7 @@ import { TherapeuticRegimeService } from './therapeutic-regime.service';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-therapeutic-regime',
+  selector: 'custom-therapeutic-regime',
   templateUrl: './therapeutic-regime.component.html',
 })
 export class TherapeuticRegimeComponent implements OnInit, OnDestroy {

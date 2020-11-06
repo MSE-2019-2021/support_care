@@ -7,11 +7,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.config.java.AbstractCloudConfig;
 import org.springframework.context.annotation.*;
 import tech.jhipster.config.JHipsterConstants;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
-@GeneratedByJHipster
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
 
     private final Logger log = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);

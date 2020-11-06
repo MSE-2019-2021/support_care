@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.service.AdministrationQueryService;
 import uc.dei.mse.supportivecare.service.AdministrationService;
 import uc.dei.mse.supportivecare.service.dto.AdministrationCriteria;
@@ -31,7 +30,6 @@ import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
  */
 @RestController
 @RequestMapping("/api")
-@GeneratedByJHipster
 public class AdministrationResource {
 
     private final Logger log = LoggerFactory.getLogger(AdministrationResource.class);

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 
 @Component({
-  selector: 'jhi-therapeutic-regime-detail',
+  selector: 'custom-therapeutic-regime-detail',
   templateUrl: './therapeutic-regime-detail.component.html',
 })
 export class TherapeuticRegimeDetailComponent implements OnInit {

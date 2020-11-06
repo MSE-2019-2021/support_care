@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Medicamento.
@@ -16,7 +15,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Entity
 @Table(name = "drug")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GeneratedByJHipster
 public class Drug extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,9 +37,14 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "drug")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "drug" }, allowSetters = true)
+    @JoinTable(
+        name = "drug_notice",
+        joinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "notice_id", referencedColumnName = "id")
+    )
+    @JsonIgnoreProperties(value = { "drugs" }, allowSetters = true)
     private Set<Notice> notices = new HashSet<>();
 
     @ManyToOne(optional = false)
@@ -51,7 +54,7 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
 
     @ManyToMany(mappedBy = "drugs")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "drugs", "treatment" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "drugs", "treatment", "symptoms" }, allowSetters = true)
     private Set<TherapeuticRegime> therapeuticRegimes = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -105,13 +108,13 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
 
     public Drug addNotice(Notice notice) {
         this.notices.add(notice);
-        notice.setDrug(this);
+        notice.getDrugs().add(this);
         return this;
     }
 
     public Drug removeNotice(Notice notice) {
         this.notices.remove(notice);
-        notice.setDrug(null);
+        notice.getDrugs().remove(this);
         return this;
     }
 

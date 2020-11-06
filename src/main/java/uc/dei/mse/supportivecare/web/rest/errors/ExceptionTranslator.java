@@ -31,14 +31,12 @@ import org.zalando.problem.spring.web.advice.security.SecurityAdviceTrait;
 import org.zalando.problem.violations.ConstraintViolationProblem;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.web.util.HeaderUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Controller advice to translate the server side exceptions to client-friendly json structures.
  * The error response follows RFC7807 - Problem Details for HTTP APIs (https://tools.ietf.org/html/rfc7807).
  */
 @ControllerAdvice
-@GeneratedByJHipster
 public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait {
 
     private static final String FIELD_ERRORS_KEY = "fieldErrors";

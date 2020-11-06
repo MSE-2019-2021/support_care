@@ -23,9 +23,9 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.domain.Symptom;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
@@ -42,7 +42,6 @@ import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
-@GeneratedByJHipster
 class TherapeuticRegimeResourceIT {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -1056,6 +1055,25 @@ class TherapeuticRegimeResourceIT {
 
         // Get all the therapeuticRegimeList where treatment equals to treatmentId + 1
         defaultTherapeuticRegimeShouldNotBeFound("treatmentId.equals=" + (treatmentId + 1));
+    }
+
+    @Test
+    @Transactional
+    void getAllTherapeuticRegimesBySymptomIsEqualToSomething() throws Exception {
+        // Initialize the database
+        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
+        Symptom symptom = SymptomResourceIT.createEntity(em);
+        em.persist(symptom);
+        em.flush();
+        therapeuticRegime.addSymptom(symptom);
+        therapeuticRegimeRepository.saveAndFlush(therapeuticRegime);
+        Long symptomId = symptom.getId();
+
+        // Get all the therapeuticRegimeList where symptom equals to symptomId
+        defaultTherapeuticRegimeShouldBeFound("symptomId.equals=" + symptomId);
+
+        // Get all the therapeuticRegimeList where symptom equals to symptomId + 1
+        defaultTherapeuticRegimeShouldNotBeFound("symptomId.equals=" + (symptomId + 1));
     }
 
     /**

@@ -7,13 +7,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
  */
 @ApiModel(description = "Regime terapêutico.")
-@GeneratedByJHipster
 public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;

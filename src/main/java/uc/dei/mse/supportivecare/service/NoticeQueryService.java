@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.service.QueryService;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
 import uc.dei.mse.supportivecare.domain.Notice;
 import uc.dei.mse.supportivecare.repository.NoticeRepository;
@@ -26,7 +25,6 @@ import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
  */
 @Service
 @Transactional(readOnly = true)
-@GeneratedByJHipster
 public class NoticeQueryService extends QueryService<Notice> {
 
     private final Logger log = LoggerFactory.getLogger(NoticeQueryService.class);
@@ -100,7 +98,7 @@ public class NoticeQueryService extends QueryService<Notice> {
             if (criteria.getDrugId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getDrugId(), root -> root.join(Notice_.drug, JoinType.LEFT).get(Drug_.id))
+                        buildSpecification(criteria.getDrugId(), root -> root.join(Notice_.drugs, JoinType.LEFT).get(Drug_.id))
                     );
             }
         }

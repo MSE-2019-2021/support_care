@@ -11,7 +11,7 @@ import { DrugService } from './drug.service';
 import { DrugDeleteDialogComponent } from './drug-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-drug',
+  selector: 'custom-drug',
   templateUrl: './drug.component.html',
 })
 export class DrugComponent implements OnInit, OnDestroy {

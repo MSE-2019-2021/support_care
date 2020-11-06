@@ -21,7 +21,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
@@ -37,7 +36,6 @@ import uc.dei.mse.supportivecare.web.rest.vm.ManagedUserVM;
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
 @SpringBootTest(classes = SupportivecareApp.class)
-@GeneratedByJHipster
 class UserResourceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

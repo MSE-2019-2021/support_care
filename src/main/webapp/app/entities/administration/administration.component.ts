@@ -11,7 +11,7 @@ import { AdministrationService } from './administration.service';
 import { AdministrationDeleteDialogComponent } from './administration-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-administration',
+  selector: 'custom-administration',
   templateUrl: './administration.component.html',
 })
 export class AdministrationComponent implements OnInit, OnDestroy {

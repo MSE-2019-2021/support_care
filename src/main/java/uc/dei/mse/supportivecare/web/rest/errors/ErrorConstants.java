@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.web.rest.errors;
 
 import java.net.URI;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
-@GeneratedByJHipster
 public final class ErrorConstants {
 
     public static final String ERR_CONCURRENCY_FAILURE = "error.concurrencyFailure";

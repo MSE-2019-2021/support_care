@@ -19,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.service.TreatmentQueryService;
 import uc.dei.mse.supportivecare.service.TreatmentService;
 import uc.dei.mse.supportivecare.service.dto.TreatmentCriteria;
@@ -31,7 +30,6 @@ import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
  */
 @RestController
 @RequestMapping("/api")
-@GeneratedByJHipster
 public class TreatmentResource {
 
     private final Logger log = LoggerFactory.getLogger(TreatmentResource.class);

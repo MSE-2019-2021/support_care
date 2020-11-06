@@ -2,12 +2,10 @@ package uc.dei.mse.supportivecare.web.rest.vm;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * View Model object for storing a user's credentials.
  */
-@GeneratedByJHipster
 public class LoginVM {
 
     @NotNull

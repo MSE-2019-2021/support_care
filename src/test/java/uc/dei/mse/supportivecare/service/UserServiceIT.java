@@ -20,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.security.RandomUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.User;
@@ -32,7 +31,6 @@ import uc.dei.mse.supportivecare.service.dto.UserDTO;
  */
 @SpringBootTest(classes = SupportivecareApp.class)
 @Transactional
-@GeneratedByJHipster
 class UserServiceIT {
 
     private static final String DEFAULT_LOGIN = "johndoe";

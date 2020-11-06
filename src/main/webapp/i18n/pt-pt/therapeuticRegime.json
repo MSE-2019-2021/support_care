@@ -28,6 +28,7 @@
       "notice": "Notice",
       "drug": "Drug",
       "treatment": "Treatment",
+      "symptom": "Symptom",
       "help": {
         "name": "Nome.",
         "acronym": "Acrónimo.",

@@ -1,12 +1,10 @@
 package uc.dei.mse.supportivecare.security;
 
 import org.springframework.security.core.AuthenticationException;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * This exception is thrown in case of a not activated user trying to authenticate.
  */
-@GeneratedByJHipster
 public class UserNotActivatedException extends AuthenticationException {
 
     private static final long serialVersionUID = 1L;

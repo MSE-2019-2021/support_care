@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.service.QueryService;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
@@ -26,7 +25,6 @@ import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
  */
 @Service
 @Transactional(readOnly = true)
-@GeneratedByJHipster
 public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegime> {
 
     private final Logger log = LoggerFactory.getLogger(TherapeuticRegimeQueryService.class);
@@ -127,6 +125,15 @@ public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegim
                         buildSpecification(
                             criteria.getTreatmentId(),
                             root -> root.join(TherapeuticRegime_.treatment, JoinType.LEFT).get(Treatment_.id)
+                        )
+                    );
+            }
+            if (criteria.getSymptomId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getSymptomId(),
+                            root -> root.join(TherapeuticRegime_.symptoms, JoinType.LEFT).get(Symptom_.id)
                         )
                     );
             }

@@ -2,7 +2,6 @@ package uc.dei.mse.supportivecare.repository;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Treatment;
 
 /**
@@ -10,5 +9,4 @@ import uc.dei.mse.supportivecare.domain.Treatment;
  */
 @SuppressWarnings("unused")
 @Repository
-@GeneratedByJHipster
 public interface TreatmentRepository extends JpaRepository<Treatment, Long>, JpaSpecificationExecutor<Treatment> {}

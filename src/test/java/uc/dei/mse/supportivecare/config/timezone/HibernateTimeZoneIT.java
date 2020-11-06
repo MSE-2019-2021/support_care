@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.repository.timezone.DateTimeWrapper;
 import uc.dei.mse.supportivecare.repository.timezone.DateTimeWrapperRepository;
@@ -22,7 +21,6 @@ import uc.dei.mse.supportivecare.repository.timezone.DateTimeWrapperRepository;
  * Integration tests for the ZoneId Hibernate configuration.
  */
 @SpringBootTest(classes = SupportivecareApp.class)
-@GeneratedByJHipster
 class HibernateTimeZoneIT {
 
     @Autowired
@@ -151,7 +149,7 @@ class HibernateTimeZoneIT {
     }
 
     private String generateSqlRequest(String fieldName, long id) {
-        return format("SELECT %s FROM jhi_date_time_wrapper where id=%d", fieldName, id);
+        return format("SELECT %s FROM custom_date_time_wrapper where id=%d", fieldName, id);
     }
 
     private void assertThatDateStoredValueIsEqualToInsertDateValueOnGMTTimeZone(SqlRowSet sqlRowSet, String expectedValue) {

@@ -22,12 +22,13 @@
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
       "otherEntityName": "drug",
       "otherEntityRelationshipName": "notice",
       "relationshipValidateRules": "required",
       "relationshipName": "drug",
-      "otherEntityField": "name"
+      "otherEntityField": "name",
+      "ownerSide": false
     }
   ],
   "javadoc": "Observação.",
@@ -40,6 +41,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201104193637",
+  "changelogDate": "20201106162050",
   "enableEntityAudit": true
 }

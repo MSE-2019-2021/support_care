@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { INotice } from 'app/shared/model/notice.model';
 
 @Component({
-  selector: 'jhi-notice-detail',
+  selector: 'custom-notice-detail',
   templateUrl: './notice-detail.component.html',
 })
 export class NoticeDetailComponent implements OnInit {

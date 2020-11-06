@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
@@ -28,7 +27,6 @@ import uc.dei.mse.supportivecare.web.rest.vm.LoginVM;
  */
 @AutoConfigureMockMvc
 @SpringBootTest(classes = SupportivecareApp.class)
-@GeneratedByJHipster
 class UserJWTControllerIT {
 
     @Autowired

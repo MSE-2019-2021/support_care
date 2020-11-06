@@ -15,11 +15,12 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
       "otherEntityName": "notice",
       "otherEntityRelationshipName": "drug",
       "relationshipName": "notice",
-      "otherEntityField": "id"
+      "otherEntityField": "description",
+      "ownerSide": true
     },
     {
       "relationshipType": "many-to-one",
@@ -48,6 +49,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201104193737",
+  "changelogDate": "20201106162150",
   "enableEntityAudit": true
 }

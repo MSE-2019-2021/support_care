@@ -7,11 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @RestController
 @RequestMapping("/api/exception-translator-test")
-@GeneratedByJHipster
 public class ExceptionTranslatorTestController {
 
     @GetMapping("/concurrency-failure")
@@ -48,7 +46,6 @@ public class ExceptionTranslatorTestController {
         throw new RuntimeException();
     }
 
-    @GeneratedByJHipster
     public static class TestDTO {
 
         @NotNull
@@ -65,6 +62,5 @@ public class ExceptionTranslatorTestController {
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "test response status")
     @SuppressWarnings("serial")
-    @GeneratedByJHipster
     public static class TestResponseStatusException extends RuntimeException {}
 }

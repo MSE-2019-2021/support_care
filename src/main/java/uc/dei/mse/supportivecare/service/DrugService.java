@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.repository.DrugRepository;
 import uc.dei.mse.supportivecare.service.dto.DrugDTO;
@@ -18,7 +17,6 @@ import uc.dei.mse.supportivecare.service.mapper.DrugMapper;
  */
 @Service
 @Transactional
-@GeneratedByJHipster
 public class DrugService {
 
     private final Logger log = LoggerFactory.getLogger(DrugService.class);
@@ -87,6 +85,15 @@ public class DrugService {
     }
 
     /**
+     * Get all the drugs with eager load of many-to-many relationships.
+     *
+     * @return the list of entities.
+     */
+    public Page<DrugDTO> findAllWithEagerRelationships(Pageable pageable) {
+        return drugRepository.findAllWithEagerRelationships(pageable).map(drugMapper::toDto);
+    }
+
+    /**
      * Get one drug by id.
      *
      * @param id the id of the entity.
@@ -95,7 +102,7 @@ public class DrugService {
     @Transactional(readOnly = true)
     public Optional<DrugDTO> findOne(Long id) {
         log.debug("Request to get Drug : {}", id);
-        return drugRepository.findById(id).map(drugMapper::toDto);
+        return drugRepository.findOneWithEagerRelationships(id).map(drugMapper::toDto);
     }
 
     /**

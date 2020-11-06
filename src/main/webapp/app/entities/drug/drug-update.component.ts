@@ -7,26 +7,33 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IDrug, Drug } from 'app/shared/model/drug.model';
 import { DrugService } from './drug.service';
+import { INotice } from 'app/shared/model/notice.model';
+import { NoticeService } from 'app/entities/notice/notice.service';
 import { IAdministration } from 'app/shared/model/administration.model';
 import { AdministrationService } from 'app/entities/administration/administration.service';
 
+type SelectableEntity = INotice | IAdministration;
+
 @Component({
-  selector: 'jhi-drug-update',
+  selector: 'custom-drug-update',
   templateUrl: './drug-update.component.html',
 })
 export class DrugUpdateComponent implements OnInit {
   isSaving = false;
+  notices: INotice[] = [];
   administrations: IAdministration[] = [];
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required]],
     description: [],
+    notices: [],
     administration: [null, Validators.required],
   });
 
   constructor(
     protected drugService: DrugService,
+    protected noticeService: NoticeService,
     protected administrationService: AdministrationService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
@@ -40,6 +47,8 @@ export class DrugUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ drug }) => {
       this.updateForm(drug);
 
+      this.noticeService.query().subscribe((res: HttpResponse<INotice[]>) => (this.notices = res.body ?? []));
+
       this.administrationService.query().subscribe((res: HttpResponse<IAdministration[]>) => (this.administrations = res.body ?? []));
     });
   }
@@ -49,6 +58,7 @@ export class DrugUpdateComponent implements OnInit {
       id: drug.id,
       name: drug.name,
       description: drug.description,
+      notices: drug.notices,
       administration: drug.administration,
     });
   }
@@ -77,6 +87,7 @@ export class DrugUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
+      notices: this.editForm.get(['notices'])!.value,
       administration: this.editForm.get(['administration'])!.value,
     };
   }
@@ -97,7 +108,18 @@ export class DrugUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: IAdministration): number {
+  trackById(index: number, item: SelectableEntity): number {
     return item.id!;
+  }
+
+  getSelected(option: INotice, selectedVals?: INotice[]): INotice {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }

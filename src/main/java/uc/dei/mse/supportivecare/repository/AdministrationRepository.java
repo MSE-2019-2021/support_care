@@ -2,7 +2,6 @@ package uc.dei.mse.supportivecare.repository;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Administration;
 
 /**
@@ -10,5 +9,4 @@ import uc.dei.mse.supportivecare.domain.Administration;
  */
 @SuppressWarnings("unused")
 @Repository
-@GeneratedByJHipster
 public interface AdministrationRepository extends JpaRepository<Administration, Long>, JpaSpecificationExecutor<Administration> {}

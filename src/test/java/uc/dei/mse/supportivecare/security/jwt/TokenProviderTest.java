@@ -16,10 +16,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.util.ReflectionTestUtils;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.security.AuthoritiesConstants;
 
-@GeneratedByJHipster
 class TokenProviderTest {
 
     private static final long ONE_MINUTE = 60000;

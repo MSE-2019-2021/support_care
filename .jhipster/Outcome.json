@@ -1,0 +1,45 @@
+{
+  "name": "Outcome",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Descrição."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "document",
+      "otherEntityRelationshipName": "outcome",
+      "relationshipName": "document",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "symptom",
+      "otherEntityRelationshipName": "outcome",
+      "relationshipName": "symptom",
+      "otherEntityField": "name",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "PROM.",
+  "entityTableName": "outcome",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201106162650",
+  "enableEntityAudit": true
+}

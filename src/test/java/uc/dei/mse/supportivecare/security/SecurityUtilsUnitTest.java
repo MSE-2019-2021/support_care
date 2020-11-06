@@ -11,12 +11,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Test class for the {@link SecurityUtils} utility class.
  */
-@GeneratedByJHipster
 class SecurityUtilsUnitTest {
 
     @Test

@@ -1,0 +1,52 @@
+{
+  "name": "Document",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "javadoc": "Título.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "size",
+      "fieldType": "Long",
+      "javadoc": "Tamanho.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mimeType",
+      "fieldType": "String",
+      "javadoc": "Tipo de ficheiro."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "content",
+      "otherEntityRelationshipName": "document",
+      "relationshipName": "content",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "outcome",
+      "otherEntityRelationshipName": "document",
+      "relationshipValidateRules": "required",
+      "relationshipName": "outcome",
+      "otherEntityField": "name"
+    }
+  ],
+  "javadoc": "Documento.",
+  "entityTableName": "document",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201106162450",
+  "enableEntityAudit": true
+}

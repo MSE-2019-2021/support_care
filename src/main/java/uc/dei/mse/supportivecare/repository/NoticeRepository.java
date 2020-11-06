@@ -2,7 +2,6 @@ package uc.dei.mse.supportivecare.repository;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Notice;
 
 /**
@@ -10,5 +9,4 @@ import uc.dei.mse.supportivecare.domain.Notice;
  */
 @SuppressWarnings("unused")
 @Repository
-@GeneratedByJHipster
 public interface NoticeRepository extends JpaRepository<Notice, Long>, JpaSpecificationExecutor<Notice> {}

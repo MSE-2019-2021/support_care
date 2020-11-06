@@ -1,0 +1,54 @@
+{
+  "name": "Symptom",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "notice",
+      "fieldType": "String",
+      "javadoc": "Informação ao enfermeiro."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "symptom",
+      "relationshipName": "therapeuticRegime",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "outcome",
+      "otherEntityRelationshipName": "symptom",
+      "relationshipName": "outcome",
+      "otherEntityField": "name",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "toxicityRate",
+      "otherEntityRelationshipName": "symptom",
+      "relationshipName": "toxicityRate",
+      "otherEntityField": "name",
+      "ownerSide": true
+    }
+  ],
+  "javadoc": "Sintoma (Efeito secundário).",
+  "entityTableName": "symptom",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201106162850",
+  "enableEntityAudit": true
+}

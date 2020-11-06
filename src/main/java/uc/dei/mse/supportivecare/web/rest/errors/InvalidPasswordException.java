@@ -2,9 +2,7 @@ package uc.dei.mse.supportivecare.web.rest.errors;
 
 import org.zalando.problem.AbstractThrowableProblem;
 import org.zalando.problem.Status;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
-@GeneratedByJHipster
 public class InvalidPasswordException extends AbstractThrowableProblem {
 
     private static final long serialVersionUID = 1L;

@@ -63,6 +63,14 @@
       "relationshipValidateRules": "required",
       "relationshipName": "treatment",
       "otherEntityField": "type"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "symptom",
+      "otherEntityRelationshipName": "therapeuticRegime",
+      "relationshipName": "symptom",
+      "otherEntityField": "name",
+      "ownerSide": false
     }
   ],
   "javadoc": "Regime terapêutico.",
@@ -75,6 +83,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201104193937",
+  "changelogDate": "20201106162350",
   "enableEntityAudit": true
 }

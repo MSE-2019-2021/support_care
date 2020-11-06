@@ -13,12 +13,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Unit tests for the {@link ClientForwardController} REST controller.
  */
-@GeneratedByJHipster
 class ClientForwardControllerTest {
 
     private MockMvc restMockMvc;
@@ -50,7 +48,6 @@ class ClientForwardControllerTest {
     }
 
     @RestController
-    @GeneratedByJHipster
     public static class TestController {
 
         @RequestMapping(value = "/test")

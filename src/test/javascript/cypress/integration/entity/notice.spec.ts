@@ -104,8 +104,6 @@ describe('Notice e2e test', () => {
 
     cy.get(`[data-cy="intervention"]`).type('Toalhas middleware', { force: true }).invoke('val').should('match', new RegExp('Toalhas middleware'));
 
-    cy.setFieldSelectToLastOfEntity('drug');
-
     cy.get(entityCreateSaveButtonSelector).click({force: true});
     cy.scrollTo('top', {ensureScrollable: false});
     cy.get(entityCreateSaveButtonSelector).should('not.exist');

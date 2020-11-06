@@ -31,7 +31,6 @@ import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.User;
@@ -40,7 +39,6 @@ import uc.dei.mse.supportivecare.domain.User;
  * Integration tests for {@link MailService}.
  */
 @SpringBootTest(classes = SupportivecareApp.class)
-@GeneratedByJHipster
 class MailServiceIT {
 
     private static final String[] languages = {

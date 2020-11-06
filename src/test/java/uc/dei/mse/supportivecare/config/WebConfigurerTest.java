@@ -23,12 +23,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Unit tests for the {@link WebConfigurer} class.
  */
-@GeneratedByJHipster
 class WebConfigurerTest {
 
     private WebConfigurer webConfigurer;

@@ -2,11 +2,12 @@ package uc.dei.mse.supportivecare.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Observação.
@@ -14,7 +15,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Entity
 @Table(name = "notice")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GeneratedByJHipster
 public class Notice extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,10 +45,10 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     @Column(name = "intervention", nullable = false)
     private String intervention;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToMany(mappedBy = "notices")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
-    private Drug drug;
+    private Set<Drug> drugs = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -103,17 +103,29 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
         this.intervention = intervention;
     }
 
-    public Drug getDrug() {
-        return drug;
+    public Set<Drug> getDrugs() {
+        return drugs;
     }
 
-    public Notice drug(Drug drug) {
-        this.drug = drug;
+    public Notice drugs(Set<Drug> drugs) {
+        this.drugs = drugs;
         return this;
     }
 
-    public void setDrug(Drug drug) {
-        this.drug = drug;
+    public Notice addDrug(Drug drug) {
+        this.drugs.add(drug);
+        drug.getNotices().add(this);
+        return this;
+    }
+
+    public Notice removeDrug(Drug drug) {
+        this.drugs.remove(drug);
+        drug.getNotices().remove(this);
+        return this;
+    }
+
+    public void setDrugs(Set<Drug> drugs) {
+        this.drugs = drugs;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

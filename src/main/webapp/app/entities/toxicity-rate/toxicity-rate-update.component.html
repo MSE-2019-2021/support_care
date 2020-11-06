@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="custom-toxicity-rate-heading" data-cy="ToxicityRateCreateUpdateHeading" jhiTranslate="supportivecareApp.toxicityRate.home.createOrEditLabel">Create or edit a Toxicity Rate</h2>
+
+            <div>
+                <custom-alert-error></custom-alert-error>
+
+
+                <div class="form-group" [hidden]="editForm.get('id')?.value == null">
+                    <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id"
+                           formControlName="id" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.name" for="field_name" [ngbTooltip]="'supportivecareApp.toxicityRate.help.name' | translate">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name" data-cy="name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.description" for="field_description" [ngbTooltip]="'supportivecareApp.toxicityRate.help.description' | translate">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description" data-cy="description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.notice" for="field_notice" [ngbTooltip]="'supportivecareApp.toxicityRate.help.notice' | translate">Notice</label>
+                    <input type="text" class="form-control" name="notice" id="field_notice" data-cy="notice"
+                           formControlName="notice"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.autonomousIntervention" for="field_autonomousIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.help.autonomousIntervention' | translate">Autonomous Intervention</label>
+                    <input type="text" class="form-control" name="autonomousIntervention" id="field_autonomousIntervention" data-cy="autonomousIntervention"
+                           formControlName="autonomousIntervention"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.interdependentIntervention" for="field_interdependentIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.help.interdependentIntervention' | translate">Interdependent Intervention</label>
+                    <input type="text" class="form-control" name="interdependentIntervention" id="field_interdependentIntervention" data-cy="interdependentIntervention"
+                           formControlName="interdependentIntervention"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.toxicityRate.selfManagement" for="field_selfManagement" [ngbTooltip]="'supportivecareApp.toxicityRate.help.selfManagement' | translate">Self Management</label>
+                    <input type="text" class="form-control" name="selfManagement" id="field_selfManagement" data-cy="selfManagement"
+                           formControlName="selfManagement"/>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

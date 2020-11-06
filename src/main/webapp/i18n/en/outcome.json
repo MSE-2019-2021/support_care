@@ -1,0 +1,31 @@
+{
+  "supportivecareApp": {
+    "outcome": {
+      "home": {
+        "title": "Outcomes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Outcome",
+        "createOrEditLabel": "Create or edit a Outcome",
+        "notFound": "No Outcomes found"
+      },
+      "created": "A new Outcome is created with identifier {{ param }}",
+      "updated": "A Outcome is updated with identifier {{ param }}",
+      "deleted": "A Outcome is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Outcome {{ id }}?"
+      },
+      "detail": {
+        "title": "Outcome"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "document": "Document",
+      "symptom": "Symptom",
+      "help": {
+        "name": "Nome.",
+        "description": "Descrição."
+      }
+    }
+  }
+}

@@ -7,28 +7,23 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { INotice, Notice } from 'app/shared/model/notice.model';
 import { NoticeService } from './notice.service';
-import { IDrug } from 'app/shared/model/drug.model';
-import { DrugService } from 'app/entities/drug/drug.service';
 
 @Component({
-  selector: 'jhi-notice-update',
+  selector: 'custom-notice-update',
   templateUrl: './notice-update.component.html',
 })
 export class NoticeUpdateComponent implements OnInit {
   isSaving = false;
-  drugs: IDrug[] = [];
 
   editForm = this.fb.group({
     id: [],
     description: [null, [Validators.required]],
     evaluation: [null, [Validators.required]],
     intervention: [null, [Validators.required]],
-    drug: [null, Validators.required],
   });
 
   constructor(
     protected noticeService: NoticeService,
-    protected drugService: DrugService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     @Optional() public activeModal?: NgbActiveModal
@@ -40,8 +35,6 @@ export class NoticeUpdateComponent implements OnInit {
     }
     this.activatedRoute.data.subscribe(({ notice }) => {
       this.updateForm(notice);
-
-      this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body ?? []));
     });
   }
 
@@ -51,7 +44,6 @@ export class NoticeUpdateComponent implements OnInit {
       description: notice.description,
       evaluation: notice.evaluation,
       intervention: notice.intervention,
-      drug: notice.drug,
     });
   }
 
@@ -80,7 +72,6 @@ export class NoticeUpdateComponent implements OnInit {
       description: this.editForm.get(['description'])!.value,
       evaluation: this.editForm.get(['evaluation'])!.value,
       intervention: this.editForm.get(['intervention'])!.value,
-      drug: this.editForm.get(['drug'])!.value,
     };
   }
 
@@ -98,9 +89,5 @@ export class NoticeUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
-  }
-
-  trackById(index: number, item: IDrug): number {
-    return item.id!;
   }
 }

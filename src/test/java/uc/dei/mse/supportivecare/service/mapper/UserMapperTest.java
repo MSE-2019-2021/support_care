@@ -9,14 +9,12 @@ import java.util.Set;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
 
 /**
  * Unit tests for {@link UserMapper}.
  */
-@GeneratedByJHipster
 class UserMapperTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";

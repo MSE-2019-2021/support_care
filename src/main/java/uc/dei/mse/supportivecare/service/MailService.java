@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.User;
 
 /**
@@ -24,7 +23,6 @@ import uc.dei.mse.supportivecare.domain.User;
  * We use the {@link Async} annotation to send emails asynchronously.
  */
 @Service
-@GeneratedByJHipster
 public class MailService {
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);

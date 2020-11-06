@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Regime terapêutico.
@@ -16,7 +15,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Entity
 @Table(name = "therapeutic_regime")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GeneratedByJHipster
 public class TherapeuticRegime extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -93,6 +91,11 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     @NotNull
     @JsonIgnoreProperties(value = { "therapeuticRegimes" }, allowSetters = true)
     private Treatment treatment;
+
+    @ManyToMany(mappedBy = "therapeuticRegimes")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "therapeuticRegimes", "outcomes", "toxicityRates" }, allowSetters = true)
+    private Set<Symptom> symptoms = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -248,6 +251,31 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     public void setTreatment(Treatment treatment) {
         this.treatment = treatment;
+    }
+
+    public Set<Symptom> getSymptoms() {
+        return symptoms;
+    }
+
+    public TherapeuticRegime symptoms(Set<Symptom> symptoms) {
+        this.symptoms = symptoms;
+        return this;
+    }
+
+    public TherapeuticRegime addSymptom(Symptom symptom) {
+        this.symptoms.add(symptom);
+        symptom.getTherapeuticRegimes().add(this);
+        return this;
+    }
+
+    public TherapeuticRegime removeSymptom(Symptom symptom) {
+        this.symptoms.remove(symptom);
+        symptom.getTherapeuticRegimes().remove(this);
+        return this;
+    }
+
+    public void setSymptoms(Set<Symptom> symptoms) {
+        this.symptoms = symptoms;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

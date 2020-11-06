@@ -7,14 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 
 /**
  * Spring Data SQL repository for the TherapeuticRegime entity.
  */
 @Repository
-@GeneratedByJHipster
 public interface TherapeuticRegimeRepository extends JpaRepository<TherapeuticRegime, Long>, JpaSpecificationExecutor<TherapeuticRegime> {
     @Query(
         value = "select distinct therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.drugs",

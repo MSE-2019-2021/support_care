@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 
 @Component({
-  selector: 'jhi-password-strength-bar',
+  selector: 'custom-password-strength-bar',
   template: ` <div id="strength">
     <small jhiTranslate="global.messages.validate.newpassword.strength">Password strength:</small>
     <ul id="strengthBar">

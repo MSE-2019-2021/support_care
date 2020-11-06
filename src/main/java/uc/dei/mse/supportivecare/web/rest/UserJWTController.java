@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.security.jwt.JWTFilter;
 import uc.dei.mse.supportivecare.security.jwt.TokenProvider;
 import uc.dei.mse.supportivecare.web.rest.vm.LoginVM;
@@ -20,7 +19,6 @@ import uc.dei.mse.supportivecare.web.rest.vm.LoginVM;
  */
 @RestController
 @RequestMapping("/api")
-@GeneratedByJHipster
 public class UserJWTController {
 
     private final TokenProvider tokenProvider;
@@ -50,7 +48,6 @@ public class UserJWTController {
     /**
      * Object to return as body in JWT Authentication.
      */
-    @GeneratedByJHipster
     static class JWTToken {
 
         private String idToken;

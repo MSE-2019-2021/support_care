@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.security.RandomUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
@@ -29,7 +28,6 @@ import uc.dei.mse.supportivecare.service.dto.UserDTO;
  */
 @Service
 @Transactional
-@GeneratedByJHipster
 public class UserService {
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);

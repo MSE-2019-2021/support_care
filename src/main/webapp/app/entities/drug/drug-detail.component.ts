@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { IDrug } from 'app/shared/model/drug.model';
 
 @Component({
-  selector: 'jhi-drug-detail',
+  selector: 'custom-drug-detail',
   templateUrl: './drug-detail.component.html',
 })
 export class DrugDetailComponent implements OnInit {
