@@ -91,6 +91,7 @@
         <junit.utReportFolder>${project.testresult.directory}/test</junit.utReportFolder>
         <junit.itReportFolder>${project.testresult.directory}/integrationTest</junit.itReportFolder>
         <!-- jhipster-needle-maven-property -->
+        <spring-banner-plugin.version>1.0</spring-banner-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -858,6 +859,20 @@
 
                 </plugin>
                 <!-- jhipster-needle-maven-add-plugin-management -->
+                <plugin>
+                    <groupId>ch.acanda.maven</groupId>
+                    <artifactId>spring-banner-plugin</artifactId>
+                    <version>${spring-banner-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>generate-spring-banner</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
