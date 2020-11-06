@@ -20,8 +20,8 @@
       "id": "ID",
       "name": "Nome",
       "description": "Descrição",
-      "administration": "Administração",
       "notice": "Aviso",
+      "administration": "Administração",
       "therapeuticRegime": "Regime Terapêutico",
       "help": {
         "name": "Nome do medicamento.",

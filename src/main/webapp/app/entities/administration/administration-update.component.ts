@@ -9,7 +9,7 @@ import { IAdministration, Administration } from 'app/shared/model/administration
 import { AdministrationService } from './administration.service';
 
 @Component({
-  selector: 'jhi-administration-update',
+  selector: 'custom-administration-update',
   templateUrl: './administration-update.component.html',
 })
 export class AdministrationUpdateComponent implements OnInit {

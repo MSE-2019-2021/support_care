@@ -17,10 +17,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Component
-@GeneratedByJHipster
 public class TokenProvider {
 
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);

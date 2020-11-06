@@ -1,9 +1,7 @@
 package uc.dei.mse.supportivecare.web.rest.errors;
 
 import java.io.Serializable;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
-@GeneratedByJHipster
 public class FieldErrorVM implements Serializable {
 
     private static final long serialVersionUID = 1L;

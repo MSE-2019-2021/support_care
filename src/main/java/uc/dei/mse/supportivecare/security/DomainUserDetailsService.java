@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
 
@@ -20,7 +19,6 @@ import uc.dei.mse.supportivecare.repository.UserRepository;
  * Authenticate a user from the database.
  */
 @Component("userDetailsService")
-@GeneratedByJHipster
 public class DomainUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);

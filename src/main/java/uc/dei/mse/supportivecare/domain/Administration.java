@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Administração.
@@ -16,7 +15,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
 @Entity
 @Table(name = "administration")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-@GeneratedByJHipster
 public class Administration extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

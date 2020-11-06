@@ -10,7 +10,6 @@ import tech.jhipster.service.filter.FloatFilter;
 import tech.jhipster.service.filter.IntegerFilter;
 import tech.jhipster.service.filter.LongFilter;
 import tech.jhipster.service.filter.StringFilter;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Criteria class for the {@link uc.dei.mse.supportivecare.domain.Treatment} entity. This class is used
@@ -21,7 +20,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
  * As Spring is unable to properly convert the types, unless specific {@link Filter} class are used, we need to use
  * fix type specific filters.
  */
-@GeneratedByJHipster
 public class TreatmentCriteria implements Serializable, Criteria {
 
     private static final long serialVersionUID = 1L;

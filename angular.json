@@ -100,7 +100,7 @@
           "skipTests": true
         }
       },
-      "prefix": "jhi"
+      "prefix": "custom"
     }
   },
   "defaultProject": "supportivecare",

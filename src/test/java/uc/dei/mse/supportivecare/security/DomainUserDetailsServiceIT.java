@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
@@ -22,7 +21,6 @@ import uc.dei.mse.supportivecare.repository.UserRepository;
  */
 @SpringBootTest(classes = SupportivecareApp.class)
 @Transactional
-@GeneratedByJHipster
 class DomainUserDetailsServiceIT {
 
     private static final String USER_ONE_LOGIN = "test-user-one";

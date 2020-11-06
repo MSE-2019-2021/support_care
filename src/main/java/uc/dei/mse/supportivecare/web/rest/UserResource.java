@@ -21,7 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
@@ -59,7 +58,6 @@ import uc.dei.mse.supportivecare.web.rest.errors.LoginAlreadyUsedException;
  */
 @RestController
 @RequestMapping("/api")
-@GeneratedByJHipster
 public class UserResource {
 
     private static final List<String> ALLOWED_ORDERED_PROPERTIES = Collections.unmodifiableList(

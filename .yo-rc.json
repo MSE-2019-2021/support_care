@@ -13,7 +13,7 @@
     "enableHibernateCache": true,
     "enableSwaggerCodegen": false,
     "enableTranslation": true,
-    "jhiPrefix": "jhi",
+    "jhiPrefix": "custom",
     "languages": ["pt-pt", "en"],
     "messageBroker": false,
     "nativeLanguage": "pt-pt",
@@ -31,18 +31,30 @@
     "skipServer": false,
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "entities": ["Administration", "Notice", "Drug", "Treatment", "TherapeuticRegime"],
+    "entities": [
+      "Administration",
+      "Notice",
+      "Drug",
+      "Treatment",
+      "TherapeuticRegime",
+      "Document",
+      "Content",
+      "Outcome",
+      "ToxicityRate",
+      "Symptom"
+    ],
     "skipCheckLengthOfIdentifier": false,
     "skipFakeData": false,
+    "withGeneratedFlag": false,
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "reactive": false,
     "blueprints": [],
     "otherModules": [],
     "pages": [],
-    "creationTimestamp": 1604518477442,
-    "jwtSecretKey": "NWRhMmU4Mzk4YzJmMzUwYmE5ZWFjODY1YTc3MDk0NjI1ZWMwOTVhYTEyODAyNGQwN2Y4MDQzNTMwMDFkMWVhMjlhNGIxYzAyYzg1NGQ3ZGU0MTVhODk3MzlhNTJlNjUxNTZkZDExMzIxZWIwNDQ2ODliZjRiYjk5NGMzNTZmZmM=",
-    "lastLiquibaseTimestamp": 1604518777000,
+    "creationTimestamp": 1604679530670,
+    "jwtSecretKey": "NmM4Y2M1MTM1MzcwNGZhNTk4NThlN2ZiYzA4ZWY2NzNjN2ZmYTUxMGYwZTliNmQyZGMwYTRkZWU5N2Q3NzUzOTA0ZjhhM2Y4NGZiMTU5YzBhZTgwMmI2MzIzZDc5ODIxZWNhNjkxNWI1M2I1NjkwNzE4YTY0MjgyZTI0NmQzZjI=",
+    "lastLiquibaseTimestamp": 1604680130000,
     "herokuAppName": "supportivecare",
     "herokuDeployType": "jar",
     "herokuJavaVersion": "11"
@@ -50,6 +62,6 @@
   "generator-jhipster-entity-audit": {
     "auditFramework": "custom",
     "auditPage": false,
-    "lastLiquibaseTimestamp": 1604519327000
+    "lastLiquibaseTimestamp": 1604679762000
   }
 }

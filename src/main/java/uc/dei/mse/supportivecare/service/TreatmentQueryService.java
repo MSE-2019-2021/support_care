@@ -10,7 +10,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.service.QueryService;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*; // for static metamodels
 import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TreatmentRepository;
@@ -26,7 +25,6 @@ import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
  */
 @Service
 @Transactional(readOnly = true)
-@GeneratedByJHipster
 public class TreatmentQueryService extends QueryService<Treatment> {
 
     private final Logger log = LoggerFactory.getLogger(TreatmentQueryService.class);

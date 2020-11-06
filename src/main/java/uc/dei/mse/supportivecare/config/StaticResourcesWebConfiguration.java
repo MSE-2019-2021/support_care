@@ -9,11 +9,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
 @Profile({ JHipsterConstants.SPRING_PROFILE_PRODUCTION })
-@GeneratedByJHipster
 public class StaticResourcesWebConfiguration implements WebMvcConfigurer {
 
     protected static final String[] RESOURCE_LOCATIONS = new String[] {

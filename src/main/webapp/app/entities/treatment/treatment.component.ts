@@ -11,7 +11,7 @@ import { TreatmentService } from './treatment.service';
 import { TreatmentDeleteDialogComponent } from './treatment-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-treatment',
+  selector: 'custom-treatment',
   templateUrl: './treatment.component.html',
 })
 export class TreatmentComponent implements OnInit, OnDestroy {

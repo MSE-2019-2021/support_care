@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.domain.Notice;
@@ -32,7 +31,6 @@ import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-@GeneratedByJHipster
 class NoticeResourceIT {
 
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
@@ -78,7 +76,7 @@ class NoticeResourceIT {
         } else {
             drug = TestUtil.findAll(em, Drug.class).get(0);
         }
-        notice.setDrug(drug);
+        notice.getDrugs().add(drug);
         return notice;
     }
 
@@ -99,7 +97,7 @@ class NoticeResourceIT {
         } else {
             drug = TestUtil.findAll(em, Drug.class).get(0);
         }
-        notice.setDrug(drug);
+        notice.getDrugs().add(drug);
         return notice;
     }
 
@@ -494,7 +492,7 @@ class NoticeResourceIT {
         Drug drug = DrugResourceIT.createEntity(em);
         em.persist(drug);
         em.flush();
-        notice.setDrug(drug);
+        notice.addDrug(drug);
         noticeRepository.saveAndFlush(notice);
         Long drugId = drug.getId();
 

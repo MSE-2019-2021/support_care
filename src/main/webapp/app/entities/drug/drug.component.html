@@ -17,9 +17,9 @@
         </div>
     </h2>
 
-    <jhi-alert-error></jhi-alert-error>
+    <custom-alert-error></custom-alert-error>
 
-    <jhi-alert></jhi-alert>
+    <custom-alert></custom-alert>
 
     <div class="alert alert-warning" id="no-result" *ngIf="drugs?.length === 0">
         <span jhiTranslate="supportivecareApp.drug.home.notFound">No drugs found</span>
@@ -29,7 +29,7 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="supportivecareApp.drug.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.drug.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="description"><span jhiTranslate="supportivecareApp.drug.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="administration.type"><span jhiTranslate="supportivecareApp.drug.administration">Administration</span> <fa-icon icon="sort"></fa-icon></th>

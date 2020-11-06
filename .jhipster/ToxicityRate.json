@@ -1,0 +1,58 @@
+{
+  "name": "ToxicityRate",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Descrição."
+    },
+    {
+      "fieldName": "notice",
+      "fieldType": "String",
+      "javadoc": "Informação ao doente."
+    },
+    {
+      "fieldName": "autonomousIntervention",
+      "fieldType": "String",
+      "javadoc": "Intervenção autónoma."
+    },
+    {
+      "fieldName": "interdependentIntervention",
+      "fieldType": "String",
+      "javadoc": "Intervenção interdependente."
+    },
+    {
+      "fieldName": "selfManagement",
+      "fieldType": "String",
+      "javadoc": "Suporte para auto-gestão."
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "symptom",
+      "otherEntityRelationshipName": "toxicityRate",
+      "relationshipName": "symptom",
+      "otherEntityField": "name",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "Grau de Toxicidade.",
+  "entityTableName": "toxicity_rate",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201106162750",
+  "enableEntityAudit": true
+}

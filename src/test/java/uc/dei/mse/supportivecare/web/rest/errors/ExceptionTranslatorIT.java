@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 
 /**
@@ -22,7 +21,6 @@ import uc.dei.mse.supportivecare.SupportivecareApp;
 @WithMockUser
 @AutoConfigureMockMvc
 @SpringBootTest(classes = SupportivecareApp.class)
-@GeneratedByJHipster
 class ExceptionTranslatorIT {
 
     @Autowired

@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import tech.jhipster.config.JHipsterConstants;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Aspect for logging execution of service and repository Spring components.
@@ -20,7 +19,6 @@ import uc.dei.mse.supportivecare.GeneratedByJHipster;
  * By default, it only runs with the "dev" profile.
  */
 @Aspect
-@GeneratedByJHipster
 public class LoggingAspect {
 
     private final Environment env;

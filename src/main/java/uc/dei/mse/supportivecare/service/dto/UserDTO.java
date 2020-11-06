@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
@@ -12,7 +11,6 @@ import uc.dei.mse.supportivecare.domain.User;
 /**
  * A DTO representing a user, with his authorities.
  */
-@GeneratedByJHipster
 public class UserDTO {
 
     private Long id;

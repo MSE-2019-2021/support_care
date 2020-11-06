@@ -3,10 +3,8 @@ package uc.dei.mse.supportivecare.domain;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.web.rest.TestUtil;
 
-@GeneratedByJHipster
 class NoticeTest {
 
     @Test

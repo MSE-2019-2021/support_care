@@ -15,7 +15,7 @@ import { TreatmentService } from 'app/entities/treatment/treatment.service';
 type SelectableEntity = IDrug | ITreatment;
 
 @Component({
-  selector: 'jhi-therapeutic-regime-update',
+  selector: 'custom-therapeutic-regime-update',
   templateUrl: './therapeutic-regime-update.component.html',
 })
 export class TherapeuticRegimeUpdateComponent implements OnInit {

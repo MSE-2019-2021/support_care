@@ -12,6 +12,11 @@
         "drug": "Drug",
         "treatment": "Treatment",
         "therapeuticRegime": "Therapeutic Regime",
+        "document": "Document",
+        "content": "Content",
+        "outcome": "Outcome",
+        "toxicityRate": "Toxicity Rate",
+        "symptom": "Symptom",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
 import uc.dei.mse.supportivecare.security.SecurityUtils;
@@ -25,10 +24,8 @@ import uc.dei.mse.supportivecare.web.rest.vm.ManagedUserVM;
  */
 @RestController
 @RequestMapping("/api")
-@GeneratedByJHipster
 public class AccountResource {
 
-    @GeneratedByJHipster
     private static class AccountResourceException extends RuntimeException {
 
         private AccountResourceException(String message) {

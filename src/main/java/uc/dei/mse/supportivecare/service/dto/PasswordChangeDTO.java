@@ -1,11 +1,8 @@
 package uc.dei.mse.supportivecare.service.dto;
 
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
-
 /**
  * A DTO representing a password change required data - current and new password.
  */
-@GeneratedByJHipster
 public class PasswordChangeDTO {
 
     private String currentPassword;

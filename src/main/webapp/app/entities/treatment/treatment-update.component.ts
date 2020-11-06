@@ -9,7 +9,7 @@ import { ITreatment, Treatment } from 'app/shared/model/treatment.model';
 import { TreatmentService } from './treatment.service';
 
 @Component({
-  selector: 'jhi-treatment-update',
+  selector: 'custom-treatment-update',
   templateUrl: './treatment-update.component.html',
 })
 export class TreatmentUpdateComponent implements OnInit {

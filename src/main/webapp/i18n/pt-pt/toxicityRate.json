@@ -1,0 +1,38 @@
+{
+  "supportivecareApp": {
+    "toxicityRate": {
+      "home": {
+        "title": "Toxicity Rates",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Criar novo(a) Toxicity Rate",
+        "createOrEditLabel": "Criar ou editar Toxicity Rate",
+        "notFound": "Nenhum Toxicity Rates encontrado"
+      },
+      "created": "Um novo Toxicity Rate foi criado com o identificador {{ param }}",
+      "updated": "Toxicity Rate com identificador {{ param }} foi actualizado",
+      "deleted": "Toxicity Rate com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Toxicity Rate {{ id }}?"
+      },
+      "detail": {
+        "title": "Toxicity Rate"
+      },
+      "id": "ID",
+      "name": "Name",
+      "description": "Description",
+      "notice": "Notice",
+      "autonomousIntervention": "Autonomous Intervention",
+      "interdependentIntervention": "Interdependent Intervention",
+      "selfManagement": "Self Management",
+      "symptom": "Symptom",
+      "help": {
+        "name": "Nome.",
+        "description": "Descrição.",
+        "notice": "Informação ao doente.",
+        "autonomousIntervention": "Intervenção autónoma.",
+        "interdependentIntervention": "Intervenção interdependente.",
+        "selfManagement": "Suporte para auto-gestão."
+      }
+    }
+  }
+}

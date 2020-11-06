@@ -5,13 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Administration} entity.
  */
 @ApiModel(description = "Administração.")
-@GeneratedByJHipster
 public class AdministrationDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;

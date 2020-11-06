@@ -7,10 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.zalando.problem.ProblemModule;
 import org.zalando.problem.violations.ConstraintViolationProblemModule;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
-@GeneratedByJHipster
 public class JacksonConfiguration {
 
     /**

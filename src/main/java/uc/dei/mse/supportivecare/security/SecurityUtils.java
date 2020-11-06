@@ -7,12 +7,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Utility class for Spring Security.
  */
-@GeneratedByJHipster
 public final class SecurityUtils {
 
     private SecurityUtils() {}

@@ -5,7 +5,7 @@ export interface INotice {
   description?: string;
   evaluation?: string;
   intervention?: string;
-  drug?: IDrug;
+  drugs?: IDrug[];
 }
 
 export class Notice implements INotice {
@@ -14,6 +14,6 @@ export class Notice implements INotice {
     public description?: string,
     public evaluation?: string,
     public intervention?: string,
-    public drug?: IDrug
+    public drugs?: IDrug[]
   ) {}
 }

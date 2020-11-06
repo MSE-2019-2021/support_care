@@ -24,13 +24,11 @@ import org.springframework.web.filter.CorsFilter;
 import tech.jhipster.config.JHipsterConstants;
 import tech.jhipster.config.JHipsterProperties;
 import tech.jhipster.config.h2.H2ConfigurationHelper;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-@GeneratedByJHipster
 public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
     private final Logger log = LoggerFactory.getLogger(WebConfigurer.class);

@@ -101,6 +101,8 @@ describe('Drug e2e test', () => {
 
     cy.get(`[data-cy="description"]`).type('disintermediate', { force: true }).invoke('val').should('match', new RegExp('disintermediate'));
 
+    cy.setFieldSelectToLastOfEntity('notice');
+
     cy.setFieldSelectToLastOfEntity('administration');
 
     cy.get(entityCreateSaveButtonSelector).click({force: true});

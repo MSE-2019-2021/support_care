@@ -6,11 +6,9 @@ import static org.mockito.Mockito.mock;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.service.MailService;
 
 @Configuration
-@GeneratedByJHipster
 public class NoOpMailConfiguration {
 
     private final MailService mockMailService;

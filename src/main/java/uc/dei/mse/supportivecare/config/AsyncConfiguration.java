@@ -13,12 +13,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import tech.jhipster.async.ExceptionHandlingAsyncTaskExecutor;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 @Configuration
 @EnableAsync
 @EnableScheduling
-@GeneratedByJHipster
 public class AsyncConfiguration implements AsyncConfigurer {
 
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);

@@ -11,7 +11,7 @@ import { NoticeService } from './notice.service';
 import { NoticeDeleteDialogComponent } from './notice-delete-dialog.component';
 
 @Component({
-  selector: 'jhi-notice',
+  selector: 'custom-notice',
   templateUrl: './notice.component.html',
 })
 export class NoticeComponent implements OnInit, OnDestroy {

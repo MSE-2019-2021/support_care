@@ -1,20 +1,17 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
 import org.mapstruct.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.*;
 import uc.dei.mse.supportivecare.service.dto.DrugDTO;
 
 /**
  * Mapper for the entity {@link Drug} and its DTO {@link DrugDTO}.
  */
-@Mapper(componentModel = "spring", uses = { AdministrationMapper.class })
-@GeneratedByJHipster
+@Mapper(componentModel = "spring", uses = { NoticeMapper.class, AdministrationMapper.class })
 public interface DrugMapper extends EntityMapper<DrugDTO, Drug> {
     @Mapping(target = "administration", source = "administration", qualifiedByName = "type")
     DrugDTO toDto(Drug drug);
 
-    @Mapping(target = "notices", ignore = true)
     @Mapping(target = "removeNotice", ignore = true)
     @Mapping(target = "therapeuticRegimes", ignore = true)
     @Mapping(target = "removeTherapeuticRegime", ignore = true)

@@ -5,13 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Notice} entity.
  */
 @ApiModel(description = "Observação.")
-@GeneratedByJHipster
 public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
@@ -36,8 +34,6 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
     @NotNull
     @ApiModelProperty(value = "Intervenção.", required = true)
     private String intervention;
-
-    private DrugDTO drug;
 
     public Long getId() {
         return id;
@@ -71,14 +67,6 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
         this.intervention = intervention;
     }
 
-    public DrugDTO getDrug() {
-        return drug;
-    }
-
-    public void setDrug(DrugDTO drug) {
-        this.drug = drug;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -108,7 +96,6 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", evaluation='" + getEvaluation() + "'" +
             ", intervention='" + getIntervention() + "'" +
-            ", drug=" + getDrug() +
             "}";
     }
 }

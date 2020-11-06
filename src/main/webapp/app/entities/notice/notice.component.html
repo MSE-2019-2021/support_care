@@ -17,9 +17,9 @@
         </div>
     </h2>
 
-    <jhi-alert-error></jhi-alert-error>
+    <custom-alert-error></custom-alert-error>
 
-    <jhi-alert></jhi-alert>
+    <custom-alert></custom-alert>
 
     <div class="alert alert-warning" id="no-result" *ngIf="notices?.length === 0">
         <span jhiTranslate="supportivecareApp.notice.home.notFound">No notices found</span>
@@ -29,11 +29,10 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="supportivecareApp.notice.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="description"><span jhiTranslate="supportivecareApp.notice.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="evaluation"><span jhiTranslate="supportivecareApp.notice.evaluation">Evaluation</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="intervention"><span jhiTranslate="supportivecareApp.notice.intervention">Intervention</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="drug.name"><span jhiTranslate="supportivecareApp.notice.drug">Drug</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -43,11 +42,6 @@
                     <td>{{ notice.description }}</td>
                     <td>{{ notice.evaluation }}</td>
                     <td>{{ notice.intervention }}</td>
-                    <td>
-                        <div *ngIf="notice.drug">
-                            <a [routerLink]="['/drug', notice.drug?.id, 'view']" >{{ notice.drug?.name }}</a>
-                        </div>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

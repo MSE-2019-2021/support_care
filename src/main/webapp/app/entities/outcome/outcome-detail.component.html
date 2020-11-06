@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="outcome">
+            <h2 data-cy="outcomeDetailsHeading"><span jhiTranslate="supportivecareApp.outcome.detail.title">Outcome</span></h2>
+
+            <hr>
+
+            <custom-alert-error></custom-alert-error>
+
+            <custom-alert></custom-alert>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
+                <dd>
+                    <span>{{ outcome.id }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.outcome.name" [ngbTooltip]="'supportivecareApp.outcome.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{ outcome.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="supportivecareApp.outcome.description" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate">Description</span></dt>
+                <dd>
+                    <span>{{ outcome.description }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/outcome', outcome.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

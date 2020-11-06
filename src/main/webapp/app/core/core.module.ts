@@ -18,7 +18,7 @@ import { httpInterceptorProviders } from './interceptor/index';
 @NgModule({
   imports: [
     HttpClientModule,
-    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
+    NgxWebstorageModule.forRoot({ prefix: 'custom', separator: '-' }),
     NgJhipsterModule.forRoot({
       // set below to true to make alerts look like toast
       alertAsToast: false,

@@ -1,11 +1,8 @@
 package uc.dei.mse.supportivecare.web.rest.vm;
 
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
-
 /**
  * View Model object for storing the user's key and password.
  */
-@GeneratedByJHipster
 public class KeyAndPasswordVM {
 
     private String key;

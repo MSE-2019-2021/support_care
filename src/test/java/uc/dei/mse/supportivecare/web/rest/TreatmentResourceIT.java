@@ -16,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.SupportivecareApp;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.domain.Treatment;
@@ -32,7 +31,6 @@ import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
 @SpringBootTest(classes = SupportivecareApp.class)
 @AutoConfigureMockMvc
 @WithMockUser
-@GeneratedByJHipster
 class TreatmentResourceIT {
 
     private static final String DEFAULT_TYPE = "AAAAAAAAAA";

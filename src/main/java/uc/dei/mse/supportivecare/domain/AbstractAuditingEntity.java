@@ -10,7 +10,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.config.audit.EntityAuditEventListener;
 
 /**
@@ -19,7 +18,6 @@ import uc.dei.mse.supportivecare.config.audit.EntityAuditEventListener;
  */
 @MappedSuperclass
 @EntityListeners({ AuditingEntityListener.class, EntityAuditEventListener.class })
-@GeneratedByJHipster
 public abstract class AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -22,12 +22,10 @@ import org.hamcrest.TypeSafeMatcher;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 
 /**
  * Utility class for testing REST controllers.
  */
-@GeneratedByJHipster
 public final class TestUtil {
 
     private static final ObjectMapper mapper = createObjectMapper();
@@ -69,7 +67,6 @@ public final class TestUtil {
     /**
      * A matcher that tests that the examined string represents the same instant as the reference datetime.
      */
-    @GeneratedByJHipster
     public static class ZonedDateTimeMatcher extends TypeSafeDiagnosingMatcher<String> {
 
         private final ZonedDateTime date;
@@ -110,7 +107,6 @@ public final class TestUtil {
     /**
      * A matcher that tests that the examined number represents the same value - it can be Long, Double, etc - as the reference BigDecimal.
      */
-    @GeneratedByJHipster
     public static class NumberMatcher extends TypeSafeMatcher<Number> {
 
         final BigDecimal value;

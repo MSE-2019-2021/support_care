@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.GeneratedByJHipster;
 import uc.dei.mse.supportivecare.domain.Notice;
 import uc.dei.mse.supportivecare.repository.NoticeRepository;
 import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
@@ -18,7 +17,6 @@ import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
  */
 @Service
 @Transactional
-@GeneratedByJHipster
 public class NoticeService {
 
     private final Logger log = LoggerFactory.getLogger(NoticeService.class);

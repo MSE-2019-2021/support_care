@@ -5,12 +5,12 @@
 
             <hr>
 
-            <jhi-alert-error></jhi-alert-error>
+            <custom-alert-error></custom-alert-error>
 
-            <jhi-alert></jhi-alert>
+            <custom-alert></custom-alert>
 
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="supportivecareApp.notice.id">ID</span></dt>
+                <dt><span jhiTranslate="global.field.id">ID</span></dt>
                 <dd>
                     <span>{{ notice.id }}</span>
                 </dd>
@@ -25,12 +25,6 @@
                 <dt><span jhiTranslate="supportivecareApp.notice.intervention" [ngbTooltip]="'supportivecareApp.notice.help.intervention' | translate">Intervention</span></dt>
                 <dd>
                     <span>{{ notice.intervention }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.notice.drug">Drug</span></dt>
-                <dd>
-                    <div *ngIf="notice.drug">
-                        <a [routerLink]="['/drug', notice.drug?.id, 'view']">{{ notice.drug?.name }}</a>
-                    </div>
                 </dd>
             </dl>
 
