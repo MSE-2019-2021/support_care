@@ -8,7 +8,7 @@
                 <span jhiTranslate="supportivecareApp.symptom.home.refreshListLabel">Refresh List</span>
             </button>
 
-            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-symptom" [routerLink]="['/symptom/new']">
+            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-symptom" [routerLink]="['/symptom/new']">
                 <fa-icon icon="plus"></fa-icon>
                 <span  jhiTranslate="supportivecareApp.symptom.home.createLabel">
                 Create a new Symptom
@@ -50,7 +50,8 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <button *customHasAnyAuthority="'ROLE_USER'"
+                                    type="submit"
                                     [routerLink]="['/symptom', symptom.id, 'edit']"
                                     class="btn btn-primary btn-sm"
                                     data-cy="entityEditButton">
@@ -58,7 +59,8 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(symptom)"
+                            <button *customHasAnyAuthority="'ROLE_USER'"
+                                    type="submit" (click)="delete(symptom)"
                                     class="btn btn-danger btn-sm"
                                     data-cy="entityDeleteButton">
                                 <fa-icon icon="times"></fa-icon>

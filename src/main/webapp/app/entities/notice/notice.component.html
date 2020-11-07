@@ -8,7 +8,7 @@
                 <span jhiTranslate="supportivecareApp.notice.home.refreshListLabel">Refresh List</span>
             </button>
 
-            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-notice" [routerLink]="['/notice/new']">
+            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-notice" [routerLink]="['/notice/new']">
                 <fa-icon icon="plus"></fa-icon>
                 <span  jhiTranslate="supportivecareApp.notice.home.createLabel">
                 Create a new Notice
@@ -52,7 +52,8 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <button *customHasAnyAuthority="'ROLE_USER'"
+                                    type="submit"
                                     [routerLink]="['/notice', notice.id, 'edit']"
                                     class="btn btn-primary btn-sm"
                                     data-cy="entityEditButton">
@@ -60,7 +61,8 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
-                            <button type="submit" (click)="delete(notice)"
+                            <button *customHasAnyAuthority="'ROLE_USER'"
+                                    type="submit" (click)="delete(notice)"
                                     class="btn btn-danger btn-sm"
                                     data-cy="entityDeleteButton">
                                 <fa-icon icon="times"></fa-icon>

@@ -14,7 +14,7 @@ const documentRoute: Routes = [
     path: '',
     component: DocumentComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.document.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const documentRoute: Routes = [
       document: DocumentRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.document.home.title',
     },
     canActivate: [UserRouteAccessService],
