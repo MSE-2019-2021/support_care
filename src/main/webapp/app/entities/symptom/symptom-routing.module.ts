@@ -14,7 +14,7 @@ const symptomRoute: Routes = [
     path: '',
     component: SymptomComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.symptom.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const symptomRoute: Routes = [
       symptom: SymptomRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.symptom.home.title',
     },
     canActivate: [UserRouteAccessService],

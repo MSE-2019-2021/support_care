@@ -14,7 +14,7 @@ const contentRoute: Routes = [
     path: '',
     component: ContentComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.content.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const contentRoute: Routes = [
       content: ContentRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.content.home.title',
     },
     canActivate: [UserRouteAccessService],

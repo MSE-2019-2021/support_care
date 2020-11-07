@@ -14,7 +14,7 @@ const noticeRoute: Routes = [
     path: '',
     component: NoticeComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.notice.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const noticeRoute: Routes = [
       notice: NoticeRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.notice.home.title',
     },
     canActivate: [UserRouteAccessService],

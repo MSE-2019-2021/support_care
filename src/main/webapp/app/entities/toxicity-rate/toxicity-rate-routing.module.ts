@@ -14,7 +14,7 @@ const toxicityRateRoute: Routes = [
     path: '',
     component: ToxicityRateComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.toxicityRate.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const toxicityRateRoute: Routes = [
       toxicityRate: ToxicityRateRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.toxicityRate.home.title',
     },
     canActivate: [UserRouteAccessService],

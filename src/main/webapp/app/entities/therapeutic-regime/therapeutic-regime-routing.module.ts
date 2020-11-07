@@ -14,7 +14,7 @@ const therapeuticRegimeRoute: Routes = [
     path: '',
     component: TherapeuticRegimeComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const therapeuticRegimeRoute: Routes = [
       therapeuticRegime: TherapeuticRegimeRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.therapeuticRegime.home.title',
     },
     canActivate: [UserRouteAccessService],

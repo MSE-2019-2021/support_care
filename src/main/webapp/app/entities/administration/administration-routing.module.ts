@@ -14,7 +14,7 @@ const administrationRoute: Routes = [
     path: '',
     component: AdministrationComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.administration.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const administrationRoute: Routes = [
       administration: AdministrationRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.administration.home.title',
     },
     canActivate: [UserRouteAccessService],

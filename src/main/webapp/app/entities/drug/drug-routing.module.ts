@@ -14,7 +14,7 @@ const drugRoute: Routes = [
     path: '',
     component: DrugComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -26,7 +26,7 @@ const drugRoute: Routes = [
       drug: DrugRoutingResolveService,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.VIEWER],
       pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
