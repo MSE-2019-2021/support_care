@@ -2,33 +2,33 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
-        "title": "Therapeutic Regimes",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Therapeutic Regime",
-        "createOrEditLabel": "Criar ou editar Therapeutic Regime",
-        "notFound": "Nenhum Therapeutic Regimes encontrado"
+        "title": "Regimes Terapeuticos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Regime Terapeutico",
+        "createOrEditLabel": "Criar ou editar Regime Terapeutico",
+        "notFound": "Nenhum Regime Terapeutico encontrado"
       },
-      "created": "Um novo Therapeutic Regime foi criado com o identificador {{ param }}",
-      "updated": "Therapeutic Regime com identificador {{ param }} foi actualizado",
-      "deleted": "Therapeutic Regime com identificador {{ param }} foi eliminado",
+      "created": "Um novo Regime Terapeutico foi criado com o identificador {{ param }}",
+      "updated": "Regime Terapeutico com identificador {{ param }} foi actualizado",
+      "deleted": "Regime Terapeutico com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o(a) Regime Terapeutico {{ id }}?"
       },
       "detail": {
-        "title": "Therapeutic Regime"
+        "title": "Regime Terapeutico"
       },
       "id": "ID",
-      "name": "Name",
-      "acronym": "Acronym",
-      "purpose": "Purpose",
-      "condition": "Condition",
-      "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
-      "drug": "Drug",
-      "treatment": "Treatment",
-      "symptom": "Symptom",
+      "name": "Nome",
+      "acronym": "Acrónimos",
+      "purpose": "Propósito",
+      "condition": "Condição",
+      "timing": "Tempo",
+      "indication": "Indicação",
+      "criteria": "Critério",
+      "notice": "Nota",
+      "drug": "Medicação",
+      "treatment": "Tratamento",
+      "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
         "acronym": "Acrónimo.",
