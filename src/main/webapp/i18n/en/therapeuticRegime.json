@@ -2,6 +2,7 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
+        "generalInfo": "General Information",
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Therapeutic Regime",
@@ -21,11 +22,11 @@
       "name": "Name",
       "acronym": "Acronym",
       "purpose": "Purpose",
-      "condition": "Condition",
+      "condition": "Administration condition",
       "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
+      "indication": "Prescription indication",
+      "criteria": "Dose reduction criteria",
+      "notice": "More information",
       "drug": "Drug",
       "treatment": "Treatment",
       "symptom": "Symptom",
@@ -37,7 +38,7 @@
         "timing": "Timing",
         "indication": "Prescription indication",
         "criteria": "Dose reduction criteria",
-        "notice": "Other information's"
+        "notice": "More information"
       }
     }
   }

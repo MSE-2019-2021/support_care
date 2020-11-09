@@ -2,6 +2,7 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
+        "generalInfo": "Informação geral",
         "title": "Regimes Terapeuticos",
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo Regime Terapeutico",
@@ -19,24 +20,24 @@
       },
       "id": "ID",
       "name": "Nome",
-      "acronym": "Acrónimos",
+      "acronym": "Abreviatura",
       "purpose": "Propósito",
-      "condition": "Condição",
-      "timing": "Tempo",
-      "indication": "Indicação",
-      "criteria": "Critério",
-      "notice": "Nota",
-      "drug": "Medicação",
+      "condition": "Condição para administração",
+      "timing": "Calendarização",
+      "indication": "Indicações para prescrição",
+      "criteria": "Critérios de redução da dose",
+      "notice": "Outras informações",
+      "drug": "Medicamentos Associados",
       "treatment": "Tratamento",
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "acronym": "Acrónimo.",
+        "acronym": "Abreviatura.",
         "purpose": "Propósito.",
         "condition": "Condição para administração.",
         "timing": "Calendarização.",
-        "indication": "Indicação para prescrição.",
-        "criteria": "Critério de redução de dose.",
+        "indication": "Indicações para prescrição.",
+        "criteria": "Critérios de redução da dose.",
         "notice": "Outras informações."
       }
     }
