@@ -58,9 +58,9 @@ main menu
   height: 100vh !important;
   margin: 0 !important;
   position: fixed !important;
-  //margin-top: calc(60px - 100vh )  !important;
+  //margin-top: calc(60px - 100vh ) !important;
   //margin-top: calc(100vh - header height )
-  //margin-top: calc(100vh - 60px ) !important;
+  //margin-top: 60px !important;
   z-index: 1001 !important;
   max-height: inherit !important;
   overflow: hidden !important;
@@ -76,11 +76,11 @@ main menu
   background-color: rgba(71, 76, 104, 0.9) !important;
 }
 
-.nav > li.dropdown.open {
+/*.nav > li.dropdown.open {
   overflow: hidden !important;
   position: fixed !important;
   color: #800080 !important;
-}
+}*/
 
 /*body.[aria-hidden="false"] {
   overflow: hidden !important;
@@ -97,6 +97,7 @@ main menu
 .dropdown-main-menu-item.active:visited {
   background: rgba(220, 193, 203, 0.9) !important;
 }
+
 .dropdown-main-menu-item:hover {
   background: rgba(220, 193, 203, 0.9) !important;
 }

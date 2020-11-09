@@ -123,12 +123,11 @@
                     </li>
                 </ul>
             </li>
-
-                <li *customHasAnyAuthority="['ROLE_USER','ROLE_VIEWER']" ngbDropdown class="nav-item dropdown pointer"   display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="toggleLock()">
                     <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
                     </a>
 
-                    <ul class="dropdown-menu main-menu-dropdown"   ngbDropdownMenu aria-labelledby="entity-menu">
+                    <ul class="dropdown-menu main-menu-dropdown" ngbDropdownMenu aria-labelledby="entity-menu" >
                         <li class="text-center" >
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="administration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.administration">Administration</span>
@@ -136,7 +135,7 @@
                         </li>
                         <li class="text-center">
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="notice" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                                <span jhiTranslate="global.menu.entities.notice">Notice</span>
+                                <span jhiTranslate="global.menu.entities.notice" >Notice</span>
                             </a>
                         </li>
                         <li class="text-center">
