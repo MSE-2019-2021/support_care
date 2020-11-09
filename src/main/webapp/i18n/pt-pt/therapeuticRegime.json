@@ -2,41 +2,41 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
-        "title": "Therapeutic Regimes",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Therapeutic Regime",
-        "createOrEditLabel": "Criar ou editar Therapeutic Regime",
-        "notFound": "Nenhum Therapeutic Regimes encontrado"
+        "title": "Regimes Terapêuticos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Regime Terapêutico",
+        "createOrEditLabel": "Criar ou editar Regime Terapêutico",
+        "notFound": "Nenhum Regimes Terapêuticos encontrado"
       },
-      "created": "Um novo Therapeutic Regime foi criado com o identificador {{ param }}",
-      "updated": "Therapeutic Regime com identificador {{ param }} foi actualizado",
-      "deleted": "Therapeutic Regime com identificador {{ param }} foi eliminado",
+      "created": "Um novo Regime Terapêutico foi criado com o identificador {{ param }}",
+      "updated": "Regime Terapêutico com identificador {{ param }} foi actualizado",
+      "deleted": "Regime Terapêutico com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o Regime Terapêutico {{ id }}?"
       },
       "detail": {
-        "title": "Therapeutic Regime"
+        "title": "Regime Terapêutico"
       },
       "id": "ID",
-      "name": "Name",
-      "acronym": "Acronym",
-      "purpose": "Purpose",
-      "condition": "Condition",
-      "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
-      "drug": "Drug",
-      "treatment": "Treatment",
-      "symptom": "Symptom",
+      "name": "Nome",
+      "acronym": "Acrônimo",
+      "purpose": "Propósito",
+      "condition": "Condições para administração",
+      "timing": "Calendarização",
+      "indication": "Indicação para prescrição",
+      "criteria": "Critérios de redução de dose",
+      "notice": "Outras informações",
+      "drug": "Medicamentos associados",
+      "treatment": "Tipo de tratamento",
+      "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
         "acronym": "Acrónimo.",
         "purpose": "Propósito.",
-        "condition": "Condição para administração.",
+        "condition": "Condições para administração.",
         "timing": "Calendarização.",
         "indication": "Indicação para prescrição.",
-        "criteria": "Critério de redução de dose.",
+        "criteria": "Critérios de redução de dose.",
         "notice": "Outras informações."
       }
     }
