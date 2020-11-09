@@ -26,6 +26,12 @@
                 <dd>
                     <span>{{ therapeuticRegime.purpose }}</span>
                 </dd>
+                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
+                <dd>
+                    <div *ngIf="therapeuticRegime.treatment">
+                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.condition" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.condition' | translate">Condition</span></dt>
                 <dd>
                     <span>{{ therapeuticRegime.condition }}</span>
@@ -51,12 +57,6 @@
                     <span *ngFor="let drug of therapeuticRegime.drugs; let last = last">
                         <a [routerLink]="['/drug', drug?.id, 'view']">{{ drug.name }}</a>{{ last ? '' : ', ' }}
                     </span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
-                <dd>
-                    <div *ngIf="therapeuticRegime.treatment">
-                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
-                    </div>
                 </dd>
             </dl>
 
