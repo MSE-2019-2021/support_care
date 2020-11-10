@@ -4,7 +4,7 @@
       "home": {
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Therapeutic Regime",
+        "createLabel": "Criar regime terapêutico",
         "createOrEditLabel": "Criar ou editar Therapeutic Regime",
         "notFound": "Nenhum Therapeutic Regimes encontrado"
       },
@@ -15,7 +15,7 @@
         "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
       },
       "detail": {
-        "title": "Therapeutic Regime"
+        "title": "Regimes terapêuticos disponíveis"
       },
       "id": "ID",
       "name": "Name",

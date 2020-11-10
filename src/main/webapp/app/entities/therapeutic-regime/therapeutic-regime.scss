@@ -1,0 +1,87 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+
+.logo-img {
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  background-size: contain;
+}
+
+.drug-img {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 773px;
+  top: 131px;
+
+  font-family: Font Awesome 5;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 18px;
+
+  color: #ffffff;
+}
+
+.button-create {
+  background-color: #5c88f6 !important;
+  border-color: #5c88f6 !important;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 4px !important;
+}
+
+.h2-color {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: bold;
+
+  color: #5279b0;
+}
+
+.button-letter {
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: normal;
+
+  color: #ffffff;
+}
+
+.table-item {
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.table-item:active {
+  background: #eceffb;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.table-item:hover {
+  background: #eceffb;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.border-style {
+  border-spacing: 5px 15px !important;
+  border-collapse: separate !important;
+}
+
+.list-text-color-bold {
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: bold;
+  color: #5279b0;
+}
+
+.list-text-color {
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  color: #5279b0;
+}

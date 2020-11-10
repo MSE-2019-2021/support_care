@@ -13,6 +13,7 @@ import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-del
 @Component({
   selector: 'custom-therapeutic-regime',
   templateUrl: './therapeutic-regime.component.html',
+  styleUrls: ['therapeutic-regime.scss'],
 })
 export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   therapeuticRegimes: ITherapeuticRegime[];
