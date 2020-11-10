@@ -4,12 +4,14 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
+import { JhiEventWithContent } from 'ng-jhipster/service/event-with-content.model';
 
 @Component({
   templateUrl: './therapeutic-regime-delete-dialog.component.html',
 })
 export class TherapeuticRegimeDeleteDialogComponent {
   therapeuticRegime?: ITherapeuticRegime;
+  eventName?: string;
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
@@ -23,7 +25,9 @@ export class TherapeuticRegimeDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.therapeuticRegimeService.delete(id).subscribe(() => {
-      this.eventManager.broadcast('therapeuticRegimeListModification');
+      if (this.eventName) {
+        this.eventManager.broadcast(this.eventName);
+      }
       this.activeModal.close();
     });
   }
