@@ -19,7 +19,7 @@
         "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
       },
       "detail": {
-        "title": "Regime Terapêutico"
+        "title": "Regime Terapêutico",
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo Regime Terapêutico",
         "createOrEditLabel": "Criar ou editar Regime Terapêutico",
