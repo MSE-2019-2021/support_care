@@ -2,7 +2,24 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
-        "title": "Regimes Terapêuticos",
+        "title": "Regimes Terapeuticos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Regime Terapeutico",
+        "createOrEditLabel": "Criar ou editar Regime Terapeutico",
+        "notFound": "Nenhum Regime Terapeutico encontrado"
+      },
+      "created": "Um novo Regime Terapeutico foi criado com o identificador {{ param }}",
+      "updated": "Regime Terapeutico com identificador {{ param }} foi actualizado",
+      "deleted": "Regime Terapeutico com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o(a) Regime Terapeutico {{ id }}?"
+      },
+      "cancel": {
+        "title": "Deseja sair da criação de um regime terapêutico?",
+        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
+      },
+      "detail": {
+        "title": "Regime Terapêutico"
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo Regime Terapêutico",
         "createOrEditLabel": "Criar ou editar Regime Terapêutico",
@@ -32,7 +49,7 @@
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "acronym": "Acrónimo.",
+        "acronym": "Abreviatura.",
         "purpose": "Propósito.",
         "condition": "Condições para administração.",
         "timing": "Calendarização.",

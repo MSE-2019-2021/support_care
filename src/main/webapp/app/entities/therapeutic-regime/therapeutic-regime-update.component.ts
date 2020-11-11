@@ -1,9 +1,9 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, OnInit, Optional, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITherapeuticRegime, TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
@@ -11,6 +11,10 @@ import { IDrug } from 'app/shared/model/drug.model';
 import { DrugService } from 'app/entities/drug/drug.service';
 import { ITreatment } from 'app/shared/model/treatment.model';
 import { TreatmentService } from 'app/entities/treatment/treatment.service';
+import { Subscription } from 'rxjs';
+import { JhiEventManager} from 'ng-jhipster';
+
+import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
 
 type SelectableEntity = IDrug | ITreatment;
 
@@ -18,10 +22,11 @@ type SelectableEntity = IDrug | ITreatment;
   selector: 'custom-therapeutic-regime-update',
   templateUrl: './therapeutic-regime-update.component.html',
 })
-export class TherapeuticRegimeUpdateComponent implements OnInit {
+export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy{
   isSaving = false;
   drugs: IDrug[] = [];
   treatments: ITreatment[] = [];
+  eventSubscriber?: Subscription;
 
   editForm = this.fb.group({
     id: [],
@@ -42,6 +47,8 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     protected drugService: DrugService,
     protected treatmentService: TreatmentService,
     protected activatedRoute: ActivatedRoute,
+    protected modalService: NgbModal,
+    protected eventManager: JhiEventManager,
     private fb: FormBuilder,
     @Optional() public activeModal?: NgbActiveModal
   ) {}
@@ -57,6 +64,13 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
 
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
     });
+    this.registerChangeInTherapeuticRegimes();
+  }
+
+  ngOnDestroy(): void {
+    if (this.eventSubscriber) {
+      this.eventManager.destroy(this.eventSubscriber);
+    }
   }
 
   updateForm(therapeuticRegime: ITherapeuticRegime): void {
@@ -76,11 +90,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
   }
 
   previousState(): void {
-    if (this.activeModal) {
-      this.activeModal.close();
+   if (this.activeModal) {
+     this.activeModal.close();
     } else {
       window.history.back();
-    }
+   }
   }
 
   save(): void {
@@ -140,4 +154,12 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     }
     return option;
   }
+
+   registerChangeInTherapeuticRegimes(): void {
+      this.eventSubscriber = this.eventManager.subscribe('therapeuticRegimeListUpdate', () => this.previousState());
+    }
+
+    cancel(): void {
+        this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+      }
 }
