@@ -37,7 +37,6 @@
   font-family: 'Work Sans';
   font-style: normal;
   font-weight: bold;
-
   color: #5279b0;
 }
 
@@ -72,7 +71,14 @@
   border-collapse: separate !important;
 }
 
-.list-text-color-bold {
+.title-color {
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  color: #5279b0;
+}
+
+.title-color-bold {
   font-family: Work Sans;
   font-style: normal;
   font-weight: bold;
@@ -83,5 +89,12 @@
   font-family: Work Sans;
   font-style: normal;
   font-weight: normal;
+  color: #5279b0;
+}
+
+.list-text-color-bold {
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: bold;
   color: #5279b0;
 }

@@ -10,6 +10,7 @@ import { TherapeuticRegimeService } from './therapeutic-regime.service';
 })
 export class TherapeuticRegimeDeleteDialogComponent {
   therapeuticRegime?: ITherapeuticRegime;
+  eventName?: string;
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
@@ -23,7 +24,9 @@ export class TherapeuticRegimeDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.therapeuticRegimeService.delete(id).subscribe(() => {
-      this.eventManager.broadcast('therapeuticRegimeListModification');
+      if (this.eventName) {
+        this.eventManager.broadcast(this.eventName);
+      }
       this.activeModal.close();
     });
   }

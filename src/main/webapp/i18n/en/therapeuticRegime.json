@@ -14,30 +14,35 @@
       "delete": {
         "question": "Are you sure you want to delete Therapeutic Regime {{ id }}?"
       },
+      "cancel": {
+        "title": "Deseja sair da criação de um regime terapêutico?",
+        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
+      },
       "detail": {
         "title": "Available Therapeutic Regimes"
       },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
       "acronym": "Acronym",
       "purpose": "Purpose",
-      "condition": "Condition",
-      "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
-      "drug": "Drug",
-      "treatment": "Treatment",
+      "condition": "Conditions for administration",
+      "timing": "Timetable",
+      "indication": "Indication for prescription",
+      "criteria": "Dose reduction criteria",
+      "notice": "Other information",
+      "drug": "Associated drugs",
+      "treatment": "Type of treatment",
       "symptom": "Symptom",
       "help": {
-        "name": "Name",
+        "name": "Name.",
         "acronym": "Acronym.",
         "purpose": "Purpose.",
-        "condition": "Administration condition.",
-        "timing": "Timing",
-        "indication": "Prescription indication",
-        "criteria": "Dose reduction criteria",
-        "notice": "Other information's"
+        "condition": "Conditions for administration.",
+        "timing": "Timetable.",
+        "indication": "Indication for prescription.",
+        "criteria": "Dose reduction criteria.",
+        "notice": "Other information."
       }
     }
   }

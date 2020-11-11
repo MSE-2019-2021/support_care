@@ -2,41 +2,59 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
-        "title": "Therapeutic Regimes",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar regime terapêutico",
-        "createOrEditLabel": "Criar ou editar Therapeutic Regime",
-        "notFound": "Nenhum Therapeutic Regimes encontrado"
+        "title": "Regimes Terapeuticos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Regime Terapeutico",
+        "createOrEditLabel": "Criar ou editar Regime Terapeutico",
+        "notFound": "Nenhum Regime Terapeutico encontrado"
       },
-      "created": "Um novo Therapeutic Regime foi criado com o identificador {{ param }}",
-      "updated": "Therapeutic Regime com identificador {{ param }} foi actualizado",
-      "deleted": "Therapeutic Regime com identificador {{ param }} foi eliminado",
+      "created": "Um novo Regime Terapeutico foi criado com o identificador {{ param }}",
+      "updated": "Regime Terapeutico com identificador {{ param }} foi actualizado",
+      "deleted": "Regime Terapeutico com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Therapeutic Regime {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o(a) Regime Terapeutico {{ id }}?"
+      },
+      "cancel": {
+        "title": "Deseja sair da criação de um regime terapêutico?",
+        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
       },
       "detail": {
-        "title": "Regimes terapêuticos disponíveis"
+        "title": "Regime Terapêutico"
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Regime Terapêutico",
+        "createOrEditLabel": "Criar ou editar Regime Terapêutico",
+        "notFound": "Nenhum Regimes Terapêuticos encontrado"
       },
+      "created": "Um novo Regime Terapêutico foi criado com o identificador {{ param }}",
+      "updated": "Regime Terapêutico com identificador {{ param }} foi actualizado",
+      "deleted": "Regime Terapêutico com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o Regime Terapêutico {{ id }}?"
+      },
+      "detail": {
+        "title": "Regime Terapêutico"
+      },
+      "generalInfo": "Informações gerais",
       "id": "ID",
-      "name": "Name",
-      "acronym": "Acronym",
-      "purpose": "Purpose",
-      "condition": "Condition",
-      "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
-      "drug": "Drug",
-      "treatment": "Treatment",
-      "symptom": "Symptom",
+      "name": "Nome",
+      "acronym": "Acrônimo",
+      "purpose": "Propósito",
+      "condition": "Condições para administração",
+      "timing": "Calendarização",
+      "indication": "Indicação para prescrição",
+      "criteria": "Critérios de redução de dose",
+      "notice": "Outras informações",
+      "drug": "Medicamentos associados",
+      "treatment": "Tipo de tratamento",
+      "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "acronym": "Acrónimo.",
+        "acronym": "Abreviatura.",
         "purpose": "Propósito.",
-        "condition": "Condição para administração.",
+        "condition": "Condições para administração.",
         "timing": "Calendarização.",
         "indication": "Indicação para prescrição.",
-        "criteria": "Critério de redução de dose.",
+        "criteria": "Critérios de redução de dose.",
         "notice": "Outras informações."
       }
     }

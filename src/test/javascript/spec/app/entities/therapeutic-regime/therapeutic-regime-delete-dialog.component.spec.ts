@@ -28,6 +28,7 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeDeleteDialogComponent);
       comp = fixture.componentInstance;
+      comp.eventName = 'myEvent';
       service = TestBed.inject(TherapeuticRegimeService);
       mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
