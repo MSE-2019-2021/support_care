@@ -6,6 +6,7 @@ import { TherapeuticRegimeComponent } from './therapeutic-regime.component';
 import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
+import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule],
@@ -14,8 +15,9 @@ import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-del
     TherapeuticRegimeDetailComponent,
     TherapeuticRegimeUpdateComponent,
     TherapeuticRegimeDeleteDialogComponent,
+    TherapeuticRegimeCancelDialogComponent,
   ],
   exports: [TherapeuticRegimeDetailComponent, TherapeuticRegimeUpdateComponent, TherapeuticRegimeDeleteDialogComponent],
-  entryComponents: [TherapeuticRegimeDeleteDialogComponent],
+  entryComponents: [TherapeuticRegimeDeleteDialogComponent, TherapeuticRegimeCancelDialogComponent],
 })
 export class TherapeuticRegimeModule {}
