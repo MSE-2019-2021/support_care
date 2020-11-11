@@ -6,9 +6,10 @@ import { TherapeuticRegimeComponent } from './therapeutic-regime.component';
 import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  imports: [SharedModule, RouterModule],
+  imports: [SharedModule, RouterModule, FontAwesomeModule],
   declarations: [
     TherapeuticRegimeComponent,
     TherapeuticRegimeDetailComponent,

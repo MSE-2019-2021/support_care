@@ -3,9 +3,8 @@
         <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Available Therapeutic Regimes</span>
 
         <div class="d-flex justify-content-end">
-
             <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime button-create" [routerLink]="['/therapeutic-regime/new']">
-                <fa-icon icon="plus"></fa-icon>
+                <fa-icon [icon]="faPills" slot="start"></fa-icon>
                 <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
                 Create Therapeutic Regime
                 </span>
