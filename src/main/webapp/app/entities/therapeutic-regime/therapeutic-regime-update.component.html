@@ -3,7 +3,7 @@
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 class="text-primary" id="custom-therapeutic-regime-heading" data-cy="TherapeuticRegimeCreateUpdateHeading" jhiTranslate="supportivecareApp.therapeuticRegime.home.createOrEditLabel">Create or edit a Therapeutic Regime</h2>
             <div class="bg-light" >
-                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.home.generalInfo"> >General information</h5>
+                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
                 <custom-alert-error></custom-alert-error>
                 <div class="form-group col-lg-12" [hidden]="editForm.get('id')?.value == null">
                     <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
