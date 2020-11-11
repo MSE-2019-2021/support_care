@@ -17,6 +17,7 @@
       "detail": {
         "title": "Therapeutic Regime"
       },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
       "acronym": "Acronym",
