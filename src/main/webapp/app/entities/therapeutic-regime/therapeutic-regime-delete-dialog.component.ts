@@ -4,7 +4,6 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
-import { JhiEventWithContent } from 'ng-jhipster/service/event-with-content.model';
 
 @Component({
   templateUrl: './therapeutic-regime-delete-dialog.component.html',
