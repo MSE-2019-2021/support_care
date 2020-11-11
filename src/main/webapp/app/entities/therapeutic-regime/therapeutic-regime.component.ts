@@ -97,6 +97,7 @@ export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   delete(therapeuticRegime: ITherapeuticRegime): void {
     const modalRef = this.modalService.open(TherapeuticRegimeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.therapeuticRegime = therapeuticRegime;
+    modalRef.componentInstance.eventName = 'therapeuticRegimeListModification';
   }
 
   sort(): string[] {

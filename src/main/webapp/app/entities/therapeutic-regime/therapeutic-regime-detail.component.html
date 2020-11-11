@@ -1,64 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="therapeuticRegime">
-            <h2 data-cy="therapeuticRegimeDetailsHeading"><span jhiTranslate="supportivecareApp.therapeuticRegime.detail.title">Therapeutic Regime</span></h2>
-
-            <hr>
-
-            <custom-alert-error></custom-alert-error>
-
-            <custom-alert></custom-alert>
-
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="global.field.id">ID</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.id }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.name" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.name' | translate">Name</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.name }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.acronym' | translate">Acronym</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.acronym }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.purpose" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.purpose' | translate">Purpose</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.purpose }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.condition" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.condition' | translate">Condition</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.condition }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.timing" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.timing' | translate">Timing</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.timing }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.indication" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.indication' | translate">Indication</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.indication }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.criteria' | translate">Criteria</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.criteria }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.notice" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.notice' | translate">Notice</span></dt>
-                <dd>
-                    <span>{{ therapeuticRegime.notice }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.drug">Drug</span></dt>
-                <dd>
-                    <span *ngFor="let drug of therapeuticRegime.drugs; let last = last">
-                        <a [routerLink]="['/drug', drug?.id, 'view']">{{ drug.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span></dt>
-                <dd>
-                    <div *ngIf="therapeuticRegime.treatment">
-                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
-                    </div>
-                </dd>
-            </dl>
 
             <button type="submit"
                     (click)="previousState()"
@@ -68,11 +10,66 @@
             </button>
 
             <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="submit" (click)="delete(therapeuticRegime)"
+                    class="btn btn-danger float-right"
+                    data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon> <span jhiTranslate="entity.action.delete">Delete</span>
+            </button>
+
+            <button *customHasAnyAuthority="'ROLE_USER'"
                     type="button"
                     [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']"
-                    class="btn btn-primary">
+                    class="btn btn-primary float-right">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
+
+            <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading"><span class="title-color-bold">{{ therapeuticRegime.name }}</span><span class="title-color"> ({{ therapeuticRegime.acronym }})</span></h2>
+
+            <custom-alert-error></custom-alert-error>
+
+            <custom-alert></custom-alert>
+
+            <div class="bg-light" >
+                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.purpose" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.purpose' | translate">Purpose</label>
+                    <p><span>{{ therapeuticRegime.purpose }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</label>
+                    <div *ngIf="therapeuticRegime.treatment">
+                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
+                    </div>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.condition" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.condition' | translate">Condition</label>
+                    <p><span>{{ therapeuticRegime.condition }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.timing" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.timing' | translate">Timing</label>
+                    <p><span>{{ therapeuticRegime.timing }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.indication" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.indication' | translate">Indication</label>
+                    <p><span>{{ therapeuticRegime.indication }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.criteria" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.criteria' | translate">Criteria</label>
+                    <p><span>{{ therapeuticRegime.criteria }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.notice" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.notice' | translate">Notice</label>
+                    <p><span>{{ therapeuticRegime.notice }}</span></p>
+                </div>
+                <div class="form-group col-lg-9 font-weight-bold">
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.drug">Drug</label>
+                    <p>
+                        <span *ngFor="let drug of therapeuticRegime.drugs; let last = last">
+                            <a [routerLink]="['/drug', drug?.id, 'view']">{{ drug.name }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
