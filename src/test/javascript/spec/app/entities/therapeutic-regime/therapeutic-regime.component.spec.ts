@@ -109,13 +109,13 @@ describe('Component Tests', () => {
       expect(comp.therapeuticRegimes[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
-    it('should calculate the sort attribute for an id', () => {
+    it('should calculate the sort attribute for a name', () => {
       // WHEN
       comp.ngOnInit();
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['id,asc']);
+      expect(result).toEqual(['name,asc', 'id']);
     });
 
     it('should calculate the sort attribute for a non-id attribute', () => {

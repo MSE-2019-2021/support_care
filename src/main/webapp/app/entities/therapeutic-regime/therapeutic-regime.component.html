@@ -1,17 +1,12 @@
 <div>
-    <h2 id="page-heading" data-cy="TherapeuticRegimeHeading">
-        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Therapeutic Regimes</span>
+    <h2 class="h2-color" id="page-heading" data-cy="TherapeuticRegimeHeading">
+        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Available Therapeutic Regimes</span>
 
         <div class="d-flex justify-content-end">
-            <button class="btn btn-info mr-2" (click)="handleSyncList()" [disabled]="isLoading">
-                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-                <span jhiTranslate="supportivecareApp.therapeuticRegime.home.refreshListLabel">Refresh List</span>
-            </button>
-
-            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime" [routerLink]="['/therapeutic-regime/new']">
-                <fa-icon icon="plus"></fa-icon>
+            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime button-create" [routerLink]="['/therapeutic-regime/new']">
+                <fa-icon [icon]="faPills" slot="start"></fa-icon>
                 <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
-                Create a new Therapeutic Regime
+                Create Therapeutic Regime
                 </span>
             </button>
         </div>
@@ -25,66 +20,14 @@
         <span jhiTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="acronym"><span jhiTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="purpose"><span jhiTranslate="supportivecareApp.therapeuticRegime.purpose">Purpose</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="condition"><span jhiTranslate="supportivecareApp.therapeuticRegime.condition">Condition</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="timing"><span jhiTranslate="supportivecareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="indication"><span jhiTranslate="supportivecareApp.therapeuticRegime.indication">Indication</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="criteria"><span jhiTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="treatment.type"><span jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
+    <div class="table-responsive " id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
+        <table class="table table-striped border-style" aria-describedby="page-heading">
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let therapeuticRegime of therapeuticRegimes; trackBy: trackId" data-cy="entityTable">
-                    <td><a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">{{ therapeuticRegime.id }}</a></td>
-                    <td>{{ therapeuticRegime.name }}</td>
-                    <td>{{ therapeuticRegime.acronym }}</td>
-                    <td>{{ therapeuticRegime.purpose }}</td>
-                    <td>{{ therapeuticRegime.condition }}</td>
-                    <td>{{ therapeuticRegime.timing }}</td>
-                    <td>{{ therapeuticRegime.indication }}</td>
-                    <td>{{ therapeuticRegime.criteria }}</td>
-                    <td>{{ therapeuticRegime.notice }}</td>
-                    <td>
-                        <div *ngIf="therapeuticRegime.treatment">
-                            <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']" >{{ therapeuticRegime.treatment?.type }}</a>
-                        </div>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit"
-                                    [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']"
-                                    class="btn btn-info btn-sm"
-                                    data-cy="entityDetailsButton">
-                                <fa-icon icon="eye"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-
-                            <button *customHasAnyAuthority="'ROLE_USER'"
-                                    type="submit"
-                                    [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']"
-                                    class="btn btn-primary btn-sm"
-                                    data-cy="entityEditButton">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-
-                            <button *customHasAnyAuthority="'ROLE_USER'"
-                                    type="submit" (click)="delete(therapeuticRegime)"
-                                    class="btn btn-danger btn-sm"
-                                    data-cy="entityDeleteButton">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
+                    <td class= "table-item">
+                        <a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">
+                        <span class="list-text-color-bold"> {{ therapeuticRegime.name }} </span> <span class="list-text-color"> ({{ therapeuticRegime.acronym }}) </span>
+                        </a>
                     </td>
                 </tr>
             </tbody>
