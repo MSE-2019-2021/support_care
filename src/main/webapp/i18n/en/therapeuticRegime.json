@@ -2,7 +2,6 @@
   "supportivecareApp": {
     "therapeuticRegime": {
       "home": {
-        "generalInfo": "General Information",
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Therapeutic Regime",
