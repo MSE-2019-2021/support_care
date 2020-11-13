@@ -13,10 +13,10 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
         declarations: [DrugDetailComponent],
         providers: [
           {
-            imports: [HttpClientTestingModule],
             provide: ActivatedRoute,
             useValue: { data: of({ drug: new Drug(123) }) },
           },
