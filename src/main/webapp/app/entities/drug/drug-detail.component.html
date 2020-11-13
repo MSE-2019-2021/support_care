@@ -1,6 +1,21 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="drug">
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="button"
+                    [routerLink]="['/drug', drug.id, 'edit']"
+                    class="btn btn-primary float-right">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+
             <h2 data-cy="drugDetailsHeading"><span jhiTranslate="supportivecareApp.drug.detail.title">Drug</span></h2>
 
             <hr>
@@ -35,20 +50,6 @@
                     </div>
                 </dd>
             </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info"
-                    data-cy="entityDetailsBackButton">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
-            <button *customHasAnyAuthority="'ROLE_USER'"
-                    type="button"
-                    [routerLink]="['/drug', drug.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-            </button>
         </div>
     </div>
 </div>
