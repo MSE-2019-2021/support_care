@@ -23,40 +23,33 @@
                 <fa-icon icon="times"></fa-icon> <span jhiTranslate="entity.action.delete">Delete</span>
             </button>
 
-            <h2 data-cy="drugDetailsHeading"><span jhiTranslate="supportivecareApp.drug.detail.title">Drug</span></h2>
-
-            <hr>
+            <h2 class="h2-color" data-cy="drugDetailsHeading"><span class="title-color-bold">{{ drug.name }}</span></h2>
 
             <custom-alert-error></custom-alert-error>
 
             <custom-alert></custom-alert>
 
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="global.field.id">ID</span></dt>
-                <dd>
-                    <span>{{ drug.id }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.drug.name" [ngbTooltip]="'supportivecareApp.drug.help.name' | translate">Name</span></dt>
-                <dd>
-                    <span>{{ drug.name }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</span></dt>
-                <dd>
-                    <span>{{ drug.description }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.drug.notice">Notice</span></dt>
-                <dd>
-                    <span *ngFor="let notice of drug.notices; let last = last">
-                        <a [routerLink]="['/notice', notice?.id, 'view']">{{ notice.description }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.drug.administration">Administration</span></dt>
-                <dd>
+            <div class="bg-light" >
+                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.drug.generalInfo"> >General information</h5>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</label>
+                    <p><span>{{ drug.description }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.administration">Administration</label>
                     <div *ngIf="drug.administration">
                         <a [routerLink]="['/administration', drug.administration?.id, 'view']">{{ drug.administration?.type }}</a>
                     </div>
-                </dd>
-            </dl>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.notice">Notice</label>
+                    <p>
+                        <span *ngFor="let notice of drug.notices; let last = last">
+                            <a [routerLink]="['/notice', notice?.id, 'view']">{{ notice.description }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

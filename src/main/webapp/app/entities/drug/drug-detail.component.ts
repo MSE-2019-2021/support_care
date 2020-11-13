@@ -11,6 +11,7 @@ import { DrugDeleteDialogComponent } from './drug-delete-dialog.component';
 @Component({
   selector: 'custom-drug-detail',
   templateUrl: './drug-detail.component.html',
+  styleUrls: ['drug.scss'],
 })
 export class DrugDetailComponent implements OnInit, OnDestroy {
   drug: IDrug | null = null;
