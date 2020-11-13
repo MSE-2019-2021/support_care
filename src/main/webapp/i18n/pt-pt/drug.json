@@ -17,15 +17,16 @@
       "detail": {
         "title": "Medicamento"
       },
+      "generalInfo": "Informações gerais",
       "id": "ID",
       "name": "Nome",
-      "description": "Descrição",
+      "description": "Descrição geral",
       "notice": "Aviso",
-      "administration": "Administração",
+      "administration": "Tipo de administração",
       "therapeuticRegime": "Regime Terapêutico",
       "help": {
         "name": "Nome do medicamento.",
-        "description": "Descrição."
+        "description": "Descrição geral."
       }
     }
   }
