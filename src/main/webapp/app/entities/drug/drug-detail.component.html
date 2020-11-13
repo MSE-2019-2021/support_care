@@ -41,15 +41,23 @@
                         <a [routerLink]="['/administration', drug.administration?.id, 'view']">{{ drug.administration?.type }}</a>
                     </div>
                 </div>
-                <div class="form-group col-lg-9">
-                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.notice">Notice</label>
-                    <p>
-                        <span *ngFor="let notice of drug.notices; let last = last">
-                            <a [routerLink]="['/notice', notice?.id, 'view']">{{ notice.description }}</a>{{ last ? '' : ', ' }}
-                        </span>
-                    </p>
-                </div>
             </div>
+            <ng-container *ngIf="drug.notices && drug.notices.length > 0">
+                <ngb-accordion>
+                    <ngb-panel title="{{notice.description}}" *ngFor="let notice of drug.notices" id="{{notice.id}}">
+                        <ng-template ngbPanelContent>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.notice.evaluation" [ngbTooltip]="'supportivecareApp.notice.help.evaluation' | translate">Evaluation</label>
+                                <p><span>{{ notice.evaluation }}</span></p>
+                            </div>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.notice.intervention" [ngbTooltip]="'supportivecareApp.notice.help.intervention' | translate">Intervention</label>
+                                <p><span>{{ notice.intervention }}</span></p>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ng-container>
         </div>
     </div>
 </div>
