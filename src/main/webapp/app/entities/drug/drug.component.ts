@@ -97,6 +97,7 @@ export class DrugComponent implements OnInit, OnDestroy {
   delete(drug: IDrug): void {
     const modalRef = this.modalService.open(DrugDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.drug = drug;
+    modalRef.componentInstance.eventName = 'drugListModification';
   }
 
   sort(): string[] {

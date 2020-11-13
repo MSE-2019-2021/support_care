@@ -10,7 +10,7 @@ import { DrugService } from './drug.service';
 })
 export class DrugDeleteDialogComponent {
   drug?: IDrug;
-
+  eventName?: string;
   constructor(protected drugService: DrugService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
 
   cancel(): void {
@@ -19,7 +19,9 @@ export class DrugDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.drugService.delete(id).subscribe(() => {
-      this.eventManager.broadcast('drugListModification');
+      if (this.eventName) {
+        this.eventManager.broadcast(this.eventName);
+      }
       this.activeModal.close();
     });
   }
