@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -15,6 +16,7 @@ describe('Component Tests', () => {
         declarations: [DrugDetailComponent],
         providers: [
           {
+            imports: [HttpClientTestingModule],
             provide: ActivatedRoute,
             useValue: { data: of({ drug: new Drug(123) }) },
           },
