@@ -4,7 +4,7 @@
       "home": {
         "title": "Medicamentos",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) medicamento",
+        "createLabel": "Criar novo medicamento",
         "createOrEditLabel": "Criar ou editar medicamento",
         "notFound": "Nenhum medicamento encontrado"
       },
