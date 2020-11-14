@@ -1,31 +1,6 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
-.logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
-  background-size: contain;
-}
-
-.drug-img {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  left: 773px;
-  top: 131px;
-
-  font-family: Font Awesome 5;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 16px;
-  line-height: 18px;
-
-  color: #ffffff;
-}
-
 .button-create {
   background-color: #5c88f6 !important;
   border-color: #5c88f6 !important;
