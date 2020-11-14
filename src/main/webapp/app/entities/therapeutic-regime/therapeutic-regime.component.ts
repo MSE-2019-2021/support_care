@@ -9,7 +9,6 @@ import { ITherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
 import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
-import { faPills } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'custom-therapeutic-regime',
@@ -25,7 +24,6 @@ export class TherapeuticRegimeComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
-  faPills = faPills;
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
