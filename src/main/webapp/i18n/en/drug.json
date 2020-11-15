@@ -17,15 +17,16 @@
       "detail": {
         "title": "Drug"
       },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
-      "description": "Description",
+      "description": "General description",
       "notice": "Notice",
-      "administration": "Administration",
+      "administration": "Administration type",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {
-        "name": "Drug Name",
-        "description": "Description."
+        "name": "Drug Name.",
+        "description": "General description."
       }
     }
   }
