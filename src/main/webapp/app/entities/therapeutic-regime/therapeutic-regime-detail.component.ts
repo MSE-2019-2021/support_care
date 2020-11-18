@@ -11,7 +11,6 @@ import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic
 @Component({
   selector: 'custom-therapeutic-regime-detail',
   templateUrl: './therapeutic-regime-detail.component.html',
-  styleUrls: ['therapeutic-regime.scss'],
 })
 export class TherapeuticRegimeDetailComponent implements OnInit, OnDestroy {
   therapeuticRegime: ITherapeuticRegime | null = null;

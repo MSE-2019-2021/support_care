@@ -4,33 +4,33 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info"
+                    class="btn button-transparent"
                     data-cy="entityDetailsBackButton">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
-            <button *customHasAnyAuthority="'ROLE_USER'"
-                    type="submit" (click)="delete(therapeuticRegime)"
-                    class="btn btn-danger float-right"
-                    data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon> <span jhiTranslate="entity.action.delete">Delete</span>
+                <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>
             </button>
 
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="button"
                     [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']"
-                    class="btn btn-primary float-right">
+                    class="btn btn-primary float-right button-create">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
 
-            <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading"><span class="title-color-bold">{{ therapeuticRegime.name }}</span><span class="title-color"> ({{ therapeuticRegime.acronym }})</span></h2>
+            <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="submit" (click)="delete(therapeuticRegime)"
+                    class="btn float-right button-transparent "
+                    data-cy="entityDeleteButton">
+                <fa-icon class="red-icon" icon="trash"></fa-icon>
+            </button>
+
+            <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading"> <span class="title-color-bold">{{ therapeuticRegime.name }}</span><span class="title-color"> ({{ therapeuticRegime.acronym }})</span></h2>
 
             <custom-alert-error></custom-alert-error>
 
             <custom-alert></custom-alert>
 
-            <div class="bg-light" >
-                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
+            <div class="bg-light div-detail-spacing" >
+                <h5 class="col-lg-12 mt-4 mb-4 list-text-color-bold"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.purpose" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.purpose' | translate">Purpose</label>
                     <p><span>{{ therapeuticRegime.purpose }}</span></p>
