@@ -5,6 +5,11 @@
             <div class="bg-light" >
                 <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
                 <custom-alert-error></custom-alert-error>
+                <div class="form-group col-lg-12" [hidden]="editForm.get('id')?.value == null">
+                    <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                    <input type="number" class="form-control" name="id" id="field_id" data-cy="id"
+                           formControlName="id" readonly/>
+                </div>
                 <div class="form-group col-lg-9">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.name" for="field_name" >Name</label>
                     <input type="text" class="form-control" name="name" id="field_name" data-cy="name"
@@ -89,12 +94,14 @@
                         <option [ngValue]="getSelected(drugOption, editForm.get('drugs')!.value)" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get(['drugs'])!.invalid && (editForm.get(['drugs'])!.dirty || editForm.get(['drugs'])!.touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get(['drugs'])?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Toppings</mat-label>
+                    <mat-select [formControl]="toppings" multiple>
+                        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
                 <div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get(['treatment'])?.errors?.required" jhiTranslate="entity.validation.required">
@@ -103,15 +110,14 @@
                 </div>
             </div>
             <div>
-                <button  type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid" [routerLink]="['/therapeutic-regime', editForm.get('code'), 'view']" class="btn btn-primary" >
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="cancel()" data-cy="entityCancelButton">
+                <button type="button" id="cancel-save" class="btn btn-secondary" type="submit" (click)="cancel()" data-cy="entityCancelButton">
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
             </div>
         </form>
     </div>
 </div>
-
