@@ -94,6 +94,12 @@
                         <option [ngValue]="getSelected(drugOption, editForm.get('drugs')!.value)" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
                     </select>
                 </div>
+                <div *ngIf="editForm.get(['drugs'])!.invalid && (editForm.get(['drugs'])!.dirty || editForm.get(['drugs'])!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get(['drugs'])?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
                 <div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get(['treatment'])?.errors?.required" jhiTranslate="entity.validation.required">
