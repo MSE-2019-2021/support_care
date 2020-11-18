@@ -128,7 +128,7 @@
                     </a>
 
                     <ul class="dropdown-menu main-menu-dropdown" ngbDropdownMenu aria-labelledby="entity-menu" >
-                        <li class="text-center" >
+                        <!--<li class="text-center" >
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="administration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.administration">Administration</span>
                             </a>
@@ -137,23 +137,13 @@
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="notice" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.notice" >Notice</span>
                             </a>
-                        </li>
-                        <li class="text-center">
-                            <a class="dropdown-item white-text-color dropdown-main-menu-item"  routerLink="drug" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                                <span jhiTranslate="global.menu.entities.drug">Drug</span>
-                            </a>
-                        </li>
-                        <li class="text-center">
+                        </li>-->
+                        <!--<li class="text-center">
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="treatment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.treatment">Treatment</span>
                             </a>
-                        </li>
-                        <li class="text-center">
-                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="therapeutic-regime" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                                <span jhiTranslate="global.menu.entities.therapeuticRegime">Therapeutic Regime</span>
-                            </a>
-                        </li>
-                        <li class="text-center">
+                        </li>-->
+                        <!--<li class="text-center">
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="document" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.document">Document</span>
                             </a>
@@ -164,18 +154,28 @@
                             </a>
                         </li>
                         <li class="text-center">
+                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="toxicity-rate" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <span jhiTranslate="global.menu.entities.toxicityRate">Toxicity Rate</span>
+                            </a>
+                        </li>-->
+                        <li class="text-center">
+                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="symptom" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <span jhiTranslate="global.menu.entities.symptom">Symptom</span>
+                            </a>
+                        </li>
+                        <li class="text-center">
                             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="outcome" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <span jhiTranslate="global.menu.entities.outcome">Outcome</span>
                             </a>
                         </li>
                         <li class="text-center">
-                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="toxicity-rate" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                                <span jhiTranslate="global.menu.entities.toxicityRate">Toxicity Rate</span>
+                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="therapeutic-regime" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <span jhiTranslate="global.menu.entities.therapeuticRegime">Therapeutic Regime</span>
                             </a>
                         </li>
                         <li class="text-center">
-                            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="symptom" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                                <span jhiTranslate="global.menu.entities.symptom">Symptom</span>
+                            <a class="dropdown-item white-text-color dropdown-main-menu-item"  routerLink="drug" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                                <span jhiTranslate="global.menu.entities.drug">Drug</span>
                             </a>
                         </li>
                         <li *ngSwitchCase="true" class="text-center">
