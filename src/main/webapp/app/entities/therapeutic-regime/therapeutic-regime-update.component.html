@@ -102,14 +102,15 @@
                 </div>
             </div>
             <div>
-                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button  type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid" [routerLink]="['/therapeutic-regime', editForm.get('code'), 'view']" class="btn btn-primary" >
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 
-                <button type="button" id="cancel-save" class="btn btn-secondary" type="submit" (click)="cancel()" data-cy="entityCancelButton">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="cancel()" data-cy="entityCancelButton">
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
             </div>
         </form>
     </div>
 </div>
+
