@@ -38,7 +38,7 @@
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</label>
                     <div *ngIf="therapeuticRegime.treatment">
-                        <a [routerLink]="['/treatment', therapeuticRegime.treatment?.id, 'view']">{{ therapeuticRegime.treatment?.type }}</a>
+                        <span>{{ therapeuticRegime.treatment?.type }}</span>
                     </div>
                 </div>
                 <div class="form-group col-lg-9">
