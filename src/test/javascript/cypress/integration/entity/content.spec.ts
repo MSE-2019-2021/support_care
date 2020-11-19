@@ -46,7 +46,7 @@ describe('Content e2e test', () => {
     cy.visit('/');
   });*/
 
-  it('should load details Content page', () => {
+  /* it('should load details Content page', () => {
     cy.server();
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('Content e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load create Content page', () => {
     cy.server();

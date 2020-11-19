@@ -62,7 +62,7 @@ describe('Document e2e test', () => {
     cy.visit('/');
   });*/
 
-  it('should load create Document page', () => {
+  /*it('should load create Document page', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('/');
@@ -72,7 +72,7 @@ describe('Document e2e test', () => {
     cy.getEntityCreateUpdateHeading('Document');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
-  });
+  });*/
 
   it('should load edit Document page', () => {
     cy.server();

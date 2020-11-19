@@ -46,7 +46,7 @@ describe('ToxicityRate e2e test', () => {
     cy.visit('/');
   });*/
 
-  it('should load details ToxicityRate page', () => {
+  /*it('should load details ToxicityRate page', () => {
     cy.server();
     cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('ToxicityRate e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load create ToxicityRate page', () => {
     cy.server();

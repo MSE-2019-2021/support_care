@@ -46,7 +46,7 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });*/
 
-  it('should load details Administration page', () => {
+  /*it('should load details Administration page', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('Administration e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load create Administration page', () => {
     cy.server();
