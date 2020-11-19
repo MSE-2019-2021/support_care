@@ -113,7 +113,6 @@
   },
   "defaultProject": "supportivecare",
   "cli": {
-    "packageManager": "npm",
-    "analytics": "b38c9e1b-1c09-4d04-a615-4b867788106d"
+    "packageManager": "npm"
   }
 }
