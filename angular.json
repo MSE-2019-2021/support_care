@@ -30,16 +30,8 @@
                 "output": "swagger-ui",
                 "ignore": ["**/index.html"]
               },
-              {
-                "glob": "axios.min.js",
-                "input": "./node_modules/axios/dist",
-                "output": "swagger-ui"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/main/webapp/swagger-ui/",
-                "output": "swagger-ui"
-              }
+              { "glob": "axios.min.js", "input": "./node_modules/axios/dist", "output": "swagger-ui" },
+              { "glob": "**/*", "input": "src/main/webapp/swagger-ui/", "output": "swagger-ui" }
             ],
             "styles": ["src/main/webapp/content/scss/global.scss", "src/main/webapp/content/scss/vendor.scss"],
             "scripts": []
@@ -113,7 +105,6 @@
   },
   "defaultProject": "supportivecare",
   "cli": {
-    "packageManager": "npm",
-    "analytics": "b38c9e1b-1c09-4d04-a615-4b867788106d"
+    "packageManager": "npm"
   }
 }
