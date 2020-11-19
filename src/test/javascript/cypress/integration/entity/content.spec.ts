@@ -22,7 +22,7 @@ describe('Content e2e test', () => {
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    // cy.clickOnEntityMenuItem('content');
+    cy.clickOnEntityMenuItem('content');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {

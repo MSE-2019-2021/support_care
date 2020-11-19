@@ -22,7 +22,7 @@ describe('Administration e2e test', () => {
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    //cy.clickOnEntityMenuItem('administration');
+    cy.clickOnEntityMenuItem('administration');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {

@@ -22,7 +22,7 @@ describe('Notice e2e test', () => {
     cy.route('GET', '/api/notices*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    //cy.clickOnEntityMenuItem('notice');
+    cy.clickOnEntityMenuItem('notice');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {

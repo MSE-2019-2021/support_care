@@ -22,7 +22,7 @@ describe('ToxicityRate e2e test', () => {
     cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    // cy.clickOnEntityMenuItem('toxicity-rate');
+    cy.clickOnEntityMenuItem('toxicity-rate');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {

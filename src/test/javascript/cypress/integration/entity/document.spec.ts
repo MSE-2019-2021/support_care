@@ -22,7 +22,7 @@ describe('Document e2e test', () => {
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    // cy.clickOnEntityMenuItem('document');
+    cy.clickOnEntityMenuItem('document');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {
