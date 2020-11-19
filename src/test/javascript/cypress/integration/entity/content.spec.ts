@@ -22,7 +22,7 @@ describe('Content e2e test', () => {
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    cy.clickOnEntityMenuItem('content');
+    // cy.clickOnEntityMenuItem('content');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {
@@ -31,7 +31,7 @@ describe('Content e2e test', () => {
     cy.visit('/');
   });
 
-  /*it('should load Contents', () => {
+  it('should load Contents', () => {
     cy.server();
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('/');
@@ -44,9 +44,9 @@ describe('Content e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });*/
+  });
 
-  /* it('should load details Content page', () => {
+  it('should load details Content page', () => {
     cy.server();
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('Content e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });*/
+  });
 
   it('should load create Content page', () => {
     cy.server();

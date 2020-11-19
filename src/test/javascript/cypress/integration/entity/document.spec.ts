@@ -22,7 +22,7 @@ describe('Document e2e test', () => {
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    cy.clickOnEntityMenuItem('document');
+    // cy.clickOnEntityMenuItem('document');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {
@@ -48,7 +48,7 @@ describe('Document e2e test', () => {
   });
   */
 
-  /*it('should load details Document page', () => {
+  it('should load details Document page', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('/');
@@ -60,9 +60,9 @@ describe('Document e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });*/
+  });
 
-  /*it('should load create Document page', () => {
+  it('should load create Document page', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('/');
@@ -72,7 +72,7 @@ describe('Document e2e test', () => {
     cy.getEntityCreateUpdateHeading('Document');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
-  });*/
+  });
 
   it('should load edit Document page', () => {
     cy.server();

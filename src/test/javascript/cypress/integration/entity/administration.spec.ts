@@ -22,7 +22,7 @@ describe('Administration e2e test', () => {
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    cy.clickOnEntityMenuItem('administration');
+    //cy.clickOnEntityMenuItem('administration');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {
@@ -31,7 +31,7 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });
 
-  /*it('should load Administrations', () => {
+  it('should load Administrations', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
     cy.visit('/');
@@ -44,9 +44,9 @@ describe('Administration e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });*/
+  });
 
-  /*it('should load details Administration page', () => {
+  it('should load details Administration page', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('Administration e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });*/
+  });
 
   it('should load create Administration page', () => {
     cy.server();

@@ -22,7 +22,7 @@ describe('ToxicityRate e2e test', () => {
     cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
-    cy.clickOnEntityMenuItem('toxicity-rate');
+    // cy.clickOnEntityMenuItem('toxicity-rate');
     cy.wait('@entitiesRequest')
       .its('responseBody')
       .then(array => {
@@ -31,7 +31,7 @@ describe('ToxicityRate e2e test', () => {
     cy.visit('/');
   });
 
-  /*it('should load ToxicityRates', () => {
+  it('should load ToxicityRates', () => {
     cy.server();
     cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
     cy.visit('/');
@@ -44,9 +44,9 @@ describe('ToxicityRate e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });*/
+  });
 
-  /*it('should load details ToxicityRate page', () => {
+  it('should load details ToxicityRate page', () => {
     cy.server();
     cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('ToxicityRate e2e test', () => {
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
     cy.visit('/');
-  });*/
+  });
 
   it('should load create ToxicityRate page', () => {
     cy.server();
