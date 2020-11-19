@@ -4,9 +4,9 @@
 
             <button type="submit"
                     (click)="previousState()"
-                    class="btn btn-info"
+                    class="btn button-transparent"
                     data-cy="entityDetailsBackButton">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+                <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>
             </button>
 
             <button *customHasAnyAuthority="'ROLE_USER'"
@@ -18,9 +18,9 @@
 
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="submit" (click)="delete(drug)"
-                    class="btn btn-danger float-right"
+                    class="btn button-transparent float-right"
                     data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon> <span jhiTranslate="entity.action.delete">Delete</span>
+                <fa-icon class="red-icon" icon="trash"></fa-icon>
             </button>
 
             <h2 class="h2-color" data-cy="drugDetailsHeading"><span class="title-color-bold">{{ drug.name }}</span></h2>
@@ -29,8 +29,8 @@
 
             <custom-alert></custom-alert>
 
-            <div class="bg-light" >
-                <h5 class="text-primary col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.drug.generalInfo">General information</h5>
+            <div class="bg-light div-detail-spacing" >
+                <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.drug.generalInfo">General information</h5>
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</label>
                     <p><span>{{ drug.description }}</span></p>
@@ -38,7 +38,7 @@
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.administration">Administration</label>
                     <div *ngIf="drug.administration">
-                        <a [routerLink]="['/administration', drug.administration?.id, 'view']">{{ drug.administration?.type }}</a>
+                        <span>{{ drug.administration?.type }}</span>
                     </div>
                 </div>
             </div>
