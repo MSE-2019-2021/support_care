@@ -12,7 +12,7 @@ import { DrugService } from 'app/entities/drug/drug.service';
 import { ITreatment } from 'app/shared/model/treatment.model';
 import { TreatmentService } from 'app/entities/treatment/treatment.service';
 import { Subscription } from 'rxjs';
-import { JhiEventManager} from 'ng-jhipster';
+import { JhiEventManager } from 'ng-jhipster';
 
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
 
@@ -22,7 +22,7 @@ type SelectableEntity = IDrug | ITreatment;
   selector: 'custom-therapeutic-regime-update',
   templateUrl: './therapeutic-regime-update.component.html',
 })
-export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy{
+export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
   isSaving = false;
   drugs: IDrug[] = [];
   treatments: ITreatment[] = [];
@@ -38,7 +38,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy{
     indication: [null, [Validators.required]],
     criteria: [null, [Validators.required]],
     notice: [],
-    drugs: [],
+    drugs: [null, [Validators.required]],
     treatment: [null, Validators.required],
   });
 
@@ -90,11 +90,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy{
   }
 
   previousState(): void {
-   if (this.activeModal) {
-     this.activeModal.close();
+    if (this.activeModal) {
+      this.activeModal.close();
     } else {
       window.history.back();
-   }
+    }
   }
 
   save(): void {
@@ -155,11 +155,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy{
     return option;
   }
 
-   registerChangeInTherapeuticRegimes(): void {
-      this.eventSubscriber = this.eventManager.subscribe('therapeuticRegimeListUpdate', () => this.previousState());
-    }
+  registerChangeInTherapeuticRegimes(): void {
+    this.eventSubscriber = this.eventManager.subscribe('therapeuticRegimeListUpdate', () => this.previousState());
+  }
 
-    cancel(): void {
-        this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-      }
+  cancel(): void {
+    this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
 }
