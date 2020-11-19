@@ -1,4 +1,6 @@
 # supportivecare
+[![Build Status][github-actions-image]][github-actions-url]
+[![sonar-quality-gate][sonar-quality-gate]][sonar-url] [![sonar-coverage][sonar-coverage]][sonar-url] [![sonar-bugs][sonar-bugs]][sonar-url] [![sonar-vulnerabilities][sonar-vulnerabilities]][sonar-url]
 
 This application was generated using JHipster 6.10.4, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v6.10.4](https://www.jhipster.tech/documentation-archive/v6.10.4).
 
@@ -222,3 +224,11 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: https://leafletjs.com/
 [definitelytyped]: https://definitelytyped.org/
+
+[github-actions-image]: https://github.com/MSE-2019-2021/support_care/workflows/Application%20CI/badge.svg
+[github-actions-url]: https://github.com/MSE-2019-2021/support_care/actions
+[sonar-url]: https://sonarcloud.io/dashboard?id=MSE-2019-2021_support_care
+[sonar-quality-gate]: https://sonarcloud.io/api/project_badges/measure?project=MSE-2019-2021_support_care&metric=alert_status
+[sonar-coverage]: https://sonarcloud.io/api/project_badges/measure?project=MSE-2019-2021_support_care&metric=coverage
+[sonar-bugs]: https://sonarcloud.io/api/project_badges/measure?project=MSE-2019-2021_support_care&metric=bugs
+[sonar-vulnerabilities]: https://sonarcloud.io/api/project_badges/measure?project=MSE-2019-2021_support_care&metric=vulnerabilities
