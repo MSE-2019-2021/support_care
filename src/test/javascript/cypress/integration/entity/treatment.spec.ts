@@ -31,7 +31,7 @@ describe('Treatment e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Treatments', () => {
+  /*it('should load Treatments', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
     cy.visit('/');
@@ -44,7 +44,7 @@ describe('Treatment e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load details Treatment page', () => {
     cy.server();

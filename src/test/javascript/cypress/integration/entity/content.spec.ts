@@ -31,7 +31,7 @@ describe('Content e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Contents', () => {
+  /*it('should load Contents', () => {
     cy.server();
     cy.route('GET', '/api/contents*').as('entitiesRequest');
     cy.visit('/');
@@ -44,7 +44,7 @@ describe('Content e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load details Content page', () => {
     cy.server();

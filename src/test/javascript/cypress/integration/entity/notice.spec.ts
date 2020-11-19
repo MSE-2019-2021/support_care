@@ -31,7 +31,7 @@ describe('Notice e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Notices', () => {
+  /*it('should load Notices', () => {
     cy.server();
     cy.route('GET', '/api/notices*').as('entitiesRequest');
     cy.visit('/');
@@ -44,7 +44,7 @@ describe('Notice e2e test', () => {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
     cy.visit('/');
-  });
+  });*/
 
   it('should load details Notice page', () => {
     cy.server();
