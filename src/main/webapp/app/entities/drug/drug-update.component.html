@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="custom-drug-heading" data-cy="DrugCreateUpdateHeading" jhiTranslate="supportivecareApp.drug.home.createOrEditLabel">Create or edit a Drug</h2>
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="DrugCreateUpdateHeading" jhiTranslate="supportivecareApp.drug.home.createOrEditLabel">Create or edit a Drug</h2>
 
             <div>
                 <custom-alert-error></custom-alert-error>
@@ -54,12 +54,12 @@
             </div>
 
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn button-create button-text text-white">
+                    <fa-icon icon="check"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 
-                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                <button type="button" id="cancel-save" class="btn btn-danger button-text" (click)="previousState()">
+                    <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
             </div>
         </form>
