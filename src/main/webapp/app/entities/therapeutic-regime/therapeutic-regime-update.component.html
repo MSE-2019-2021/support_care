@@ -103,8 +103,8 @@
                 </div>
             </div>
             <div>
-                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn button-create button-text text-white">
-                    <fa-icon icon="check"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                <button  type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid" [routerLink]="['/therapeutic-regime', editForm.get('code'), 'view']" class="btn btn-primary" >
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="cancel()" data-cy="entityCancelButton">
@@ -114,3 +114,4 @@
         </form>
     </div>
 </div>
+
