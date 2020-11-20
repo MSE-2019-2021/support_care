@@ -21,7 +21,7 @@
       "id": "ID",
       "name": "Nome",
       "description": "Descrição geral",
-      "notice": "Aviso",
+      "notice": "Observação",
       "administration": "Tipo de administração",
       "therapeuticRegime": "Regime Terapêutico",
       "help": {
