@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="DrugCreateUpdateHeading" jhiTranslate="supportivecareApp.drug.home.createOrEditLabel">Create or edit a Drug</h2>
+
+            <div>
+                <custom-alert-error></custom-alert-error>
+
+                <div class="bg-light col-lg-12 mt-4 mb-4">
+                    <h5 class="list-text-color-bold "  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
+                    <div class="form-group" [hidden]="editForm.get('id')?.value == null">
+                        <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+                        <input type="number" class="form-control" name="id" id="field_id" data-cy="id"
+                               formControlName="id" readonly/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="supportivecareApp.drug.name" for="field_name" [ngbTooltip]="'supportivecareApp.drug.help.name' | translate">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name" data-cy="name"
+                               formControlName="name"/>
+                        <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                            <small class="form-text text-danger"
+                                   *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="supportivecareApp.drug.description" for="field_description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</label>
+                        <input type="text" class="form-control" name="description" id="field_description" data-cy="description"
+                               formControlName="description"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label jhiTranslate="supportivecareApp.drug.notice" for="field_notices">Notice</label>
+                        <select class="form-control" id="field_notices" data-cy="notice" multiple name="notices" formControlName="notices">
+                            <option [ngValue]="getSelected(noticeOption, editForm.get('notices')!.value)" *ngFor="let noticeOption of notices; trackBy: trackById">{{ noticeOption.description }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="supportivecareApp.drug.administration" for="field_administration">Administration</label>
+                        <select class="form-control" id="field_administration" data-cy="administration" name="administration" formControlName="administration">
+                            <option *ngIf="!editForm.get('administration')!.value" [ngValue]="null" selected></option>
+                            <option [ngValue]="administrationOption.id === editForm.get('administration')!.value?.id ? editForm.get('administration')!.value : administrationOption" *ngFor="let administrationOption of administrations; trackBy: trackById">{{ administrationOption.type }}</option>
+                        </select>
+                    </div>
+                    <div *ngIf="editForm.get(['administration'])!.invalid && (editForm.get(['administration'])!.dirty || editForm.get(['administration'])!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get(['administration'])?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn button-create button-text text-white">
+                    <fa-icon icon="check"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+
+                <button type="button" id="cancel-save" class="btn btn-danger button-text" (click)="previousState()">
+                    <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
