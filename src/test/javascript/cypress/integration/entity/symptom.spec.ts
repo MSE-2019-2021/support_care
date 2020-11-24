@@ -119,6 +119,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
+/***
   it('should delete last instance of Symptom', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
@@ -143,5 +144,5 @@ describe('Symptom e2e test', () => {
         }
         cy.visit('/');
       });
-  });
+  });*/
 });
