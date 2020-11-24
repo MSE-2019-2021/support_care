@@ -20,7 +20,7 @@
     </div>
 
     <div class="modal-footer">
-        <button id="custom-confirm-cancel-therapeuticRegime" data-cy="entityConfirmCancelButton" [routerLink]="['/therapeutic-regime']" (click)="cancel()" type="button" class="btn btn-danger">
+        <button id="custom-confirm-cancel-therapeuticRegime" data-cy="entityConfirmCancelButton" (click)="cancel();goBack()" type="button" class="btn btn-danger">
             <span class="button-text" jhiTranslate="entity.action.leaveCreation">Sair da criação</span>
         </button>
 
