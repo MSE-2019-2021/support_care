@@ -1,19 +1,14 @@
 <div>
-    <h2 id="page-heading" data-cy="SymptomHeading">
+    <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading">
         <span jhiTranslate="supportivecareApp.symptom.home.title">Symptoms</span>
 
         <div class="d-flex justify-content-end">
-            <button class="btn btn-info mr-2" (click)="handleSyncList()" [disabled]="isLoading">
-                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-                <span jhiTranslate="supportivecareApp.symptom.home.refreshListLabel">Refresh List</span>
-            </button>
-
             <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-symptom" [routerLink]="['/symptom/new']">
-                <fa-icon icon="plus"></fa-icon>
-                <span  jhiTranslate="supportivecareApp.symptom.home.createLabel">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="supportivecareApp.symptom.home.createLabel">
                 Create a new Symptom
                 </span>
-            </button>
+        </button>
         </div>
     </h2>
 
@@ -27,49 +22,61 @@
 
     <div class="table-responsive" id="entities" *ngIf="symptoms && symptoms.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.symptom.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.symptom.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <table class="table table-striped border-style" aria-describedby="page-heading">
+                <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                 <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
-                    <td><a [routerLink]="['/symptom', symptom.id, 'view']">{{ symptom.id }}</a></td>
-                    <td>{{ symptom.name }}</td>
-                    <td>{{ symptom.notice }}</td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit"
-                                    [routerLink]="['/symptom', symptom.id, 'view']"
-                                    class="btn btn-info btn-sm"
-                                    data-cy="entityDetailsButton">
-                                <fa-icon icon="eye"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-
-                            <button *customHasAnyAuthority="'ROLE_USER'"
-                                    type="submit"
-                                    [routerLink]="['/symptom', symptom.id, 'edit']"
-                                    class="btn btn-primary btn-sm"
-                                    data-cy="entityEditButton">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-
-                            <button *customHasAnyAuthority="'ROLE_USER'"
-                                    type="submit" (click)="delete(symptom)"
-                                    class="btn btn-danger btn-sm"
-                                    data-cy="entityDeleteButton">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
+                    <td class= "table-item">
+                        <a [routerLink]="['/symptom', symptom.id, 'view']">
+                            <span class="list-text-color-bold"> {{ symptom.name }} </span> <span class="list-text-color"> ({{ symptom.acronym }}) </span>
+                        </a>
                     </td>
                 </tr>
-            </tbody>
+                </tbody>
+            </table>
+
+            <!--            <thead>-->
+            <!--                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">-->
+            <!--                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>-->
+            <!--                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="supportivecareApp.symptom.name">Name</span> <fa-icon icon="sort"></fa-icon></th>-->
+            <!--                    <th scope="col"  jhiSortBy="notice"><span jhiTranslate="supportivecareApp.symptom.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>-->
+            <!--                    <th scope="col"></th>-->
+            <!--                </tr>-->
+            <!--            </thead>-->
+            <!--            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">-->
+            <!--                <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">-->
+            <!--                    <td><a [routerLink]="['/symptom', symptom.id, 'view']">{{ symptom.id }}</a></td>-->
+            <!--                    <td>{{ symptom.name }}</td>-->
+            <!--                    <td>{{ symptom.notice }}</td>-->
+            <!--                    <td class="text-right">-->
+            <!--                        <div class="btn-group">-->
+            <!--                            <button type="submit"-->
+            <!--                                    [routerLink]="['/symptom', symptom.id, 'view']"-->
+            <!--                                    class="btn btn-info btn-sm"-->
+            <!--                                    data-cy="entityDetailsButton">-->
+            <!--                                <fa-icon icon="eye"></fa-icon>-->
+            <!--                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>-->
+            <!--                            </button>-->
+
+            <!--                            <button *customHasAnyAuthority="'ROLE_USER'"-->
+            <!--                                    type="submit"-->
+            <!--                                    [routerLink]="['/symptom', symptom.id, 'edit']"-->
+            <!--                                    class="btn btn-primary btn-sm"-->
+            <!--                                    data-cy="entityEditButton">-->
+            <!--                                <fa-icon icon="pencil-alt"></fa-icon>-->
+            <!--                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+            <!--                            </button>-->
+
+            <!--                            <button *customHasAnyAuthority="'ROLE_USER'"-->
+            <!--                                    type="submit" (click)="delete(symptom)"-->
+            <!--                                    class="btn btn-danger btn-sm"-->
+            <!--                                    data-cy="entityDeleteButton">-->
+            <!--                                <fa-icon icon="times"></fa-icon>-->
+            <!--                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+            <!--                            </button>-->
+            <!--                        </div>-->
+            <!--                    </td>-->
+            <!--                </tr>-->
+            <!--            </tbody>-->
         </table>
     </div>
 </div>
