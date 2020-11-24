@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
+import { Select2Option } from 'ng-select2-component';
 
 type SelectableEntity = IDrug | ITreatment;
 
@@ -27,6 +28,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
   drugs: IDrug[] = [];
   treatments: ITreatment[] = [];
   eventSubscriber?: Subscription;
+  data = Array<Select2Option>();
 
   editForm = this.fb.group({
     id: [],
@@ -65,6 +67,8 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
     });
     this.registerChangeInTherapeuticRegimes();
+
+    this.getSelect2Options(this.drugs);
   }
 
   ngOnDestroy(): void {
@@ -119,7 +123,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       indication: this.editForm.get(['indication'])!.value,
       criteria: this.editForm.get(['criteria'])!.value,
       notice: this.editForm.get(['notice'])!.value,
-      drugs: this.editForm.get(['drugs'])!.value,
+      drugs: this.select2ToDrugEntity(this.editForm.get(['ad'])!.value),
       treatment: this.editForm.get(['treatment'])!.value,
     };
   }
@@ -161,5 +165,24 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   cancel(): void {
     this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+
+  getSelect2Options(options: IDrug[]): Array<Select2Option> {
+    const data = Array<Select2Option>();
+    options.forEach(value => {
+      data.push({
+        id: value.id?.toString(),
+        value: value.name!,
+        label: value.name!,
+      });
+    });
+    return data;
+  }
+  select2ToDrugEntity(options: Array<Select2Option>): IDrug[] {
+    const data: IDrug[] = [];
+    options.forEach(value => {
+      this.drugService.find(+value.id!).subscribe((res: HttpResponse<IDrug>) => data.push(res.body!));
+    });
+    return data;
   }
 }

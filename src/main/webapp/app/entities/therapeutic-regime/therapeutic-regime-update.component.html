@@ -88,19 +88,12 @@
                     <textarea type="text" rows="3"  class="form-control" name="notice" id="field_notice" data-cy="notice"
                               formControlName="notice"></textarea>
                 </div>
-                <div class="form-group col-lg-12">
-                    <label jhiTranslate="supportivecareApp.therapeuticRegime.drug" for="field_drugs">Drug</label>
-                    <select class="form-control" id="field_drugs" data-cy="drug" multiple name="drugs" formControlName="drugs">
-                        <option [ngValue]="getSelected(drugOption, editForm.get('drugs')!.value)" *ngFor="let drugOption of drugs; trackBy: trackById">{{ drugOption.name }}</option>
-                    </select>
-                </div>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Toppings</mat-label>
-                    <mat-select [formControl]="toppings" multiple>
-                        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                <div class="form-group col-lg-12">
+                    <label> Drug </label>
+                <select2 [hideSelectedItems]="true" [multiple]="true" [data]="getSelect2Options(drugs)">
+                </select2>
+                </div>
 
                 <div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
                     <small class="form-text text-danger"
@@ -114,7 +107,7 @@
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 
-                <button type="button" id="cancel-save" class="btn btn-secondary" type="submit" (click)="cancel()" data-cy="entityCancelButton">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="cancel()" data-cy="entityCancelButton">
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
             </div>

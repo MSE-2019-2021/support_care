@@ -7,9 +7,10 @@ import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.co
 import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
 import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
+import { Select2Module } from 'ng-select2-component';
 
 @NgModule({
-  imports: [SharedModule, RouterModule],
+  imports: [SharedModule, RouterModule, Select2Module],
   declarations: [
     TherapeuticRegimeComponent,
     TherapeuticRegimeDetailComponent,
