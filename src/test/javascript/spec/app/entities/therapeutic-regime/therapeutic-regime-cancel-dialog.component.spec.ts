@@ -15,7 +15,6 @@ describe('Component Tests', () => {
   describe('TherapeuticRegime Management Cancel Component', () => {
     let comp: TherapeuticRegimeCancelDialogComponent;
     let fixture: ComponentFixture<TherapeuticRegimeCancelDialogComponent>;
-    //let service: TherapeuticRegimeService;
     let mockEventManager: JhiEventManager;
     let mockActiveModal: NgbActiveModal;
     let mockLocation: Location;
@@ -25,14 +24,14 @@ describe('Component Tests', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         declarations: [TherapeuticRegimeCancelDialogComponent],
-        providers: [NgbActiveModal, JhiEventManager],
+        providers: [NgbActiveModal, JhiEventManager, Location],
       })
         .overrideTemplate(TherapeuticRegimeCancelDialogComponent, '')
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeCancelDialogComponent);
       comp = fixture.componentInstance;
-      comp.eventName = 'myEvent';
-      service = TestBed.inject(TherapeuticRegimeService);
+      //comp.eventName = 'myEvent';
+      //location = TestBed.inject(Location);
       mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
     });
@@ -41,29 +40,23 @@ describe('Component Tests', () => {
       it('Should call cancel service on confirmCancel', inject(
         [],
         fakeAsync(() => {
-          // GIVEN
-          spyOn(service, 'cancel').and.returnValue(of({}));
-
           // WHEN
-          comp.confirmCancel(123);
+          comp.confirmCancel();
           tick();
 
           // THEN
-          expect(service.cancel).toHaveBeenCalledWith(123);
           expect(mockActiveModal.close).toHaveBeenCalled();
           expect(mockEventManager.broadcast).toHaveBeenCalled();
         })
       ));
 
       it('Should not call cancel service on clear', () => {
-        // GIVEN
-        spyOn(service, 'cancel');
+
 
         // WHEN
-        comp.();
+        comp.cancel();
 
         // THEN
-        expect(service.cancel).not.toHaveBeenCalled();
         expect(mockActiveModal.dismiss).toHaveBeenCalled();
       });
     });
