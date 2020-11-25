@@ -15,6 +15,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TherapeuticRegimeCancelDialogComponent>;
     let mockEventManager: JhiEventManager;
     let mockActiveModal: NgbActiveModal;
+    let mockLocation: Location;
 
 
     beforeEach(() => {
@@ -28,13 +29,13 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(TherapeuticRegimeCancelDialogComponent);
       comp = fixture.componentInstance;
       //comp.eventName = 'myEvent';
-      //location = TestBed.inject(Location);
+      mockLocation = TestBed.inject(Location);
       mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
     });
 
     describe('confirmCancel', () => {
-      it('Should call cancel service on confirmCancel', inject(
+      it('Should call cancel on confirmCancel', inject(
         [],
         fakeAsync(() => {
           // WHEN
@@ -47,7 +48,7 @@ describe('Component Tests', () => {
         })
       ));
 
-      it('Should not call cancel service on clear', () => {
+      it('Should not call cancel son confirmCancel', () => {
 
 
         // WHEN
@@ -56,6 +57,20 @@ describe('Component Tests', () => {
         // THEN
         expect(mockActiveModal.dismiss).toHaveBeenCalled();
       });
+    });
+
+    describe('goBack', () => {
+      it('Should go back', inject(
+        [],
+        fakeAsync(() => {
+          // WHEN
+          comp.goBack();
+          tick();
+
+          // THEN
+          expect(mockLocation.back).toHaveReturned();
+        })
+      ));
     });
   });
 });
