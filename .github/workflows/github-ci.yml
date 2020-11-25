@@ -63,13 +63,13 @@ jobs:
                 path: target/*.jar
                 retention-days: 2
                 if-no-files-found: error
-            - name: Deploy to Heroku
+            - name: Deploy to Heroku QA
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
                   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
               run: |
                   if [ ! -z "$HEROKU_API_KEY" ]; then
-                      ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=supportivecare
+                      ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:3.0.4:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=supportivecare-qa -Deureka.instance.hostname=supportivecare-qa.herokuapp.com
                   else
                       echo No HEROKU_API_KEY, skipping...
                   fi
