@@ -6,17 +6,20 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
+import { Location } from '@angular/common';
 
 import { TherapeuticRegimeCancelDialogComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-cancel-dialog.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 
 describe('Component Tests', () => {
-  describe('TherapeuticRegime Management cancel Component', () => {
+  describe('TherapeuticRegime Management Cancel Component', () => {
     let comp: TherapeuticRegimeCancelDialogComponent;
     let fixture: ComponentFixture<TherapeuticRegimeCancelDialogComponent>;
-    let service: TherapeuticRegimeService;
+    //let service: TherapeuticRegimeService;
     let mockEventManager: JhiEventManager;
     let mockActiveModal: NgbActiveModal;
+    let mockLocation: Location;
+
 
     beforeEach(() => {
       TestBed.configureTestingModule({
