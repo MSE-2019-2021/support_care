@@ -3,13 +3,11 @@ jest.mock('@ng-bootstrap/ng-bootstrap');
 
 import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 import { Location } from '@angular/common';
 
 import { TherapeuticRegimeCancelDialogComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-cancel-dialog.component';
-import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Cancel Component', () => {
@@ -17,7 +15,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TherapeuticRegimeCancelDialogComponent>;
     let mockEventManager: JhiEventManager;
     let mockActiveModal: NgbActiveModal;
-    let mockLocation: Location;
 
 
     beforeEach(() => {
