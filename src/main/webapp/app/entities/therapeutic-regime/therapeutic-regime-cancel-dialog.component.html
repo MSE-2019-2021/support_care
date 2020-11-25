@@ -13,9 +13,6 @@
 <!--    </ng-template>-->
     <div class="modal-header">
         <h5 class="modal-title mb-1" data-cy="therapeuticRegimeCancelDialogHeading" jhiTranslate="supportivecareApp.therapeuticRegime.cancel.title">Deseja sair da criação de um regime terapêutico?</h5>
-
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="cancel()">&times;</button>
     </div>
 
     <div class="modal-body">
@@ -23,12 +20,12 @@
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
-            <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        <button id="custom-confirm-cancel-therapeuticRegime" data-cy="entityConfirmCancelButton" (click)="cancel();goBack()" type="button" class="btn btn-danger">
+            <span class="button-text" jhiTranslate="entity.action.leaveCreation">Sair da criação</span>
         </button>
 
-        <button id="custom-confirm-cancel-therapeuticRegime" data-cy="entityConfirmCancelButton" type="submit" class="btn btn-danger">
-            <fa-icon icon="times"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Sair da criação</span>
+        <button type="button" class="btn button-transparent mr-auto" data-dismiss="modal" (click)="cancel()">
+            <span class="button-text list-text-color" jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
     </div>
 </form>
