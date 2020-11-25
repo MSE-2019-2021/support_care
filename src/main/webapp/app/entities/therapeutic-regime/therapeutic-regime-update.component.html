@@ -105,14 +105,14 @@
                         </small>
                     </div>
                 </div>
-
-                <div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
+                <!---<div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get(['treatment'])?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
-                </div>
+                </div>-->
             </div>
+
             <div>
                 <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
