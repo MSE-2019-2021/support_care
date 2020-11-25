@@ -90,9 +90,20 @@
                 </div>
 
                 <div class="form-group col-lg-12">
-                    <label> Drug </label>
-                <select2 [hideSelectedItems]="true" [multiple]="true" [data]="getSelect2Options(drugs)">
-                </select2>
+                    <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.drug" for="field_drugs" >Drugs</label>
+                    <ng-multiselect-dropdown
+                        [placeholder]="'Select Drug...'"
+                        [data]="getSelect2Options(drugs)"
+                        formControlName="drugs"
+                        id="field_drugs"
+                        [settings]="dropdownSettings">
+                    </ng-multiselect-dropdown>
+                    <div *ngIf="editForm.get('drugs')!.invalid && (editForm.get('drugs')!.dirty || editForm.get('drugs')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('drugs')?.errors?.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
                 </div>
 
                 <div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">

@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
-import { Select2Option } from 'ng-select2-component';
 
 type SelectableEntity = IDrug | ITreatment;
 
@@ -28,7 +27,6 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
   drugs: IDrug[] = [];
   treatments: ITreatment[] = [];
   eventSubscriber?: Subscription;
-  data = Array<Select2Option>();
 
   editForm = this.fb.group({
     id: [],
@@ -44,6 +42,9 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     treatment: [null, Validators.required],
   });
 
+  dropdownList: { id: number; text: string }[] = [];
+  dropdownSettings = {};
+
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
     protected drugService: DrugService,
@@ -56,6 +57,16 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+      limitSelection: 5,
+    };
     if (this.activeModal) {
       return;
     }
@@ -123,7 +134,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       indication: this.editForm.get(['indication'])!.value,
       criteria: this.editForm.get(['criteria'])!.value,
       notice: this.editForm.get(['notice'])!.value,
-      drugs: this.select2ToDrugEntity(this.editForm.get(['ad'])!.value),
+      drugs: this.editForm.get(['drugs'])!.value,
       treatment: this.editForm.get(['treatment'])!.value,
     };
   }
@@ -167,22 +178,14 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 
-  getSelect2Options(options: IDrug[]): Array<Select2Option> {
-    const data = Array<Select2Option>();
+  getSelect2Options(options: IDrug[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
     options.forEach(value => {
-      data.push({
-        id: value.id?.toString(),
-        value: value.name!,
-        label: value.name!,
+      dropdownList.push({
+        id: value.id!,
+        text: value.name!,
       });
     });
-    return data;
-  }
-  select2ToDrugEntity(options: Array<Select2Option>): IDrug[] {
-    const data: IDrug[] = [];
-    options.forEach(value => {
-      this.drugService.find(+value.id!).subscribe((res: HttpResponse<IDrug>) => data.push(res.body!));
-    });
-    return data;
+    return dropdownList;
   }
 }
