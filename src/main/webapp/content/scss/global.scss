@@ -373,17 +373,27 @@ global styles
 */
 
 .multiselect-dropdown .dropdown-btn {
-  display: inline-block;
-  border: 1px solid #f00000 !important;
-  width: 50%;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1.1;
+  display: inline-block !important;
+  width: 100% !important;
+  font-weight: 300 !important;
+  line-height: 1.5;
   text-align: left;
   vertical-align: middle;
   cursor: pointer;
   background-image: none;
-  border-radius: 4px;
+  background-color: white !important;
+}
+
+/*<!-------ceta sensual---->*/
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Some browsers will not display the caret when using calc, so we put the fallback first */
+  background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat 98.5% !important; /* !important used for overriding all other customisations */
+  background: url('http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png') white no-repeat calc(100% - 10px) !important; /* Better placement regardless of input width */
+}
+/*For IE*/
+select::-ms-expand {
+  display: none;
 }

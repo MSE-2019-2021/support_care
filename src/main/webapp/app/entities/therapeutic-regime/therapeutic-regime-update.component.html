@@ -40,7 +40,7 @@
                 <div class="form-group col-md-4 order-md-2 mb-4">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.treatment" for="field_treatment">Treatment</label>
                     <select class="form-control" id="field_treatment" data-cy="treatment" name="treatment" formControlName="treatment">
-                        <option *ngIf="!editForm.get('treatment')!.value" [ngValue]="null" selected></option>
+                        <option *ngIf="!editForm.get('treatment')!.value" [ngValue]="null" selected>...</option>
                         <option [ngValue]="treatmentOption.id === editForm.get('treatment')!.value?.id ? editForm.get('treatment')!.value : treatmentOption" *ngFor="let treatmentOption of treatments; trackBy: trackById">{{ treatmentOption.type }}</option>
                     </select>
                 </div>
@@ -89,15 +89,18 @@
                               formControlName="notice"></textarea>
                 </div>
 
-                <div class="form-group col-lg-12">
+                <div class="form-group col-lg-12 ">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.drug" for="field_drugs" >Drugs</label>
+
                     <ng-multiselect-dropdown
-                        [placeholder]="'Select Drug...'"
+                        [placeholder]="'...'"
                         [data]="getSelect2Options(drugs)"
                         formControlName="drugs"
                         id="field_drugs"
+                        data-cy="drugs"
                         [settings]="dropdownSettings">
                     </ng-multiselect-dropdown>
+
                     <div *ngIf="editForm.get('drugs')!.invalid && (editForm.get('drugs')!.dirty || editForm.get('drugs')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('drugs')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -105,6 +108,7 @@
                         </small>
                     </div>
                 </div>
+
                 <!---<div *ngIf="editForm.get(['treatment'])!.invalid && (editForm.get(['treatment'])!.dirty || editForm.get(['treatment'])!.touched)">
                     <small class="form-text text-danger"
                            *ngIf="editForm.get(['treatment'])?.errors?.required" jhiTranslate="entity.validation.required">
