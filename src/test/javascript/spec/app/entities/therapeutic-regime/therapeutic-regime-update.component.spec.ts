@@ -4,12 +4,13 @@ import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testin
 import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 
 import { TherapeuticRegimeUpdateComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-update.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
+import doMock = jest.doMock;
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Update Component', () => {
@@ -17,11 +18,15 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TherapeuticRegimeUpdateComponent>;
     let service: TherapeuticRegimeService;
 
+    let mockRouter = {
+      navigate: jasmine.createSpy('navigate'),
+    };
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         declarations: [TherapeuticRegimeUpdateComponent],
-        providers: [FormBuilder, ActivatedRoute],
+        providers: [FormBuilder, ActivatedRoute, Router, { provide: Router, useValue: mockRouter }],
       })
         .overrideTemplate(TherapeuticRegimeUpdateComponent, '')
         .compileComponents();
@@ -43,6 +48,7 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.update).toHaveBeenCalledWith(entity);
+        expect(mockRouter.navigate).toBeCalledWith(['/therapeutic-regime', 123, 'view']);
         expect(comp.isSaving).toEqual(false);
       }));
 
@@ -57,6 +63,7 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.create).toHaveBeenCalledWith(entity);
+        expect(mockRouter.navigate).toBeCalledWith(['/therapeutic-regime', 123, 'view']);
         expect(comp.isSaving).toEqual(false);
       }));
     });

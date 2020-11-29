@@ -135,7 +135,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   protected onSaveSuccess(id: number | undefined): void {
     this.isSaving = false;
-    this.route.navigate(['/therapeutic-regime', id, 'view'], { relativeTo: this.activatedRoute }).then(res => res);
+    this.route.navigate(['/therapeutic-regime', id, 'view']);
   }
 
   protected onSaveError(): void {
