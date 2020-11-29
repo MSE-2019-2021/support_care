@@ -1,3 +1,5 @@
+import { Drug } from 'app/shared/model/drug.model';
+
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -35,6 +37,7 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new TherapeuticRegime(123);
+        entity.drugs = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -50,6 +53,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new TherapeuticRegime();
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        entity.drugs = [];
         comp.updateForm(entity);
         // WHEN
         comp.save();

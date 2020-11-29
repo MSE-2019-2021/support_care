@@ -78,8 +78,6 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
     });
     this.registerChangeInTherapeuticRegimes();
-
-    this.getSelect2Options(this.drugs);
   }
 
   ngOnDestroy(): void {
@@ -99,7 +97,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       indication: therapeuticRegime.indication,
       criteria: therapeuticRegime.criteria,
       notice: therapeuticRegime.notice,
-      drugs: therapeuticRegime.drugs,
+      drugs: this.getSelect2Options(therapeuticRegime.drugs!),
       treatment: therapeuticRegime.treatment,
     });
   }
@@ -180,6 +178,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   getSelect2Options(options: IDrug[]): { id: number; text: string }[] {
     const dropdownList: { id: number; text: string }[] = [];
+
     options.forEach(value => {
       dropdownList.push({
         id: value.id!,
