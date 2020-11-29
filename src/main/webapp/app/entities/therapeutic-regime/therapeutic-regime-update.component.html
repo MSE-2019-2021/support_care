@@ -1,10 +1,11 @@
-<div class="row justify-content-center">
+<div class="row justify-content-center" >
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 class="list-text-color-bold" id="custom-therapeutic-regime-heading" data-cy="TherapeuticRegimeCreateUpdateHeading" jhiTranslate="supportivecareApp.therapeuticRegime.home.createOrEditLabel">Create or edit a Therapeutic Regime</h2>
             <div class="bg-light" >
                 <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo"> >General information</h5>
                 <custom-alert-error></custom-alert-error>
+
                 <div class="form-group col-lg-9">
                     <label class="form-control-label" jhiTranslate="supportivecareApp.therapeuticRegime.name" for="field_name" >Name</label>
                     <input type="text" class="form-control" name="name" id="field_name" data-cy="name"
@@ -103,7 +104,7 @@
                 </div>
             </div>
             <div>
-                <button  type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid" [routerLink]="['/therapeutic-regime', editForm.get('code'), 'view']" class="btn btn-primary" >
+                <button  type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid" class="btn btn-primary" >
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
 

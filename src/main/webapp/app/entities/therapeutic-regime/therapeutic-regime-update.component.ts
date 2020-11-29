@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
+import { Router } from '@angular/router';
 
 type SelectableEntity = IDrug | ITreatment;
 
@@ -50,6 +51,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected eventManager: JhiEventManager,
     private fb: FormBuilder,
+    private route: Router,
     @Optional() public activeModal?: NgbActiveModal
   ) {}
 
@@ -126,14 +128,14 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITherapeuticRegime>>): void {
     result.subscribe(
-      () => this.onSaveSuccess(),
+      r => this.onSaveSuccess(r.body!.id),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess(): void {
+  protected onSaveSuccess(id: number | undefined): void {
     this.isSaving = false;
-    this.previousState();
+    this.route.navigate(['/therapeutic-regime', id, 'view'], { relativeTo: this.activatedRoute }).then(res => res);
   }
 
   protected onSaveError(): void {
