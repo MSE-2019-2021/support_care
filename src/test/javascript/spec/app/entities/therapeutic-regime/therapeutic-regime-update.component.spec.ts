@@ -10,7 +10,6 @@ import { of } from 'rxjs';
 import { TherapeuticRegimeUpdateComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-update.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
-import doMock = jest.doMock;
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Update Component', () => {
@@ -18,7 +17,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TherapeuticRegimeUpdateComponent>;
     let service: TherapeuticRegimeService;
 
-    let mockRouter = {
+    const mockRouter = {
       navigate: jasmine.createSpy('navigate'),
     };
 
