@@ -34,7 +34,7 @@ describe('Treatment e2e test', () => {
   it('should load Treatments', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest');
     cy.getEntityHeading('Treatment').should('exist');
@@ -43,13 +43,13 @@ describe('Treatment e2e test', () => {
     } else {
       cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
     }
-    cy.visit('/');
+    cy.visit('/symptom');
   });
 
   it('should load details Treatment page', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
@@ -57,25 +57,25 @@ describe('Treatment e2e test', () => {
       cy.getEntityDetailsHeading('treatment');
       cy.get(entityDetailsBackButtonSelector).should('exist');
     }
-    cy.visit('/');
+    cy.visit('/symptom');
   });
 
   it('should load create Treatment page', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
     cy.getEntityCreateUpdateHeading('Treatment');
     cy.get(entityCreateSaveButtonSelector).should('exist');
-    cy.visit('/');
+    cy.visit('/symptom');
   });
 
   it('should load edit Treatment page', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
@@ -83,13 +83,13 @@ describe('Treatment e2e test', () => {
       cy.getEntityCreateUpdateHeading('Treatment');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
-    cy.visit('/');
+    cy.visit('/symptom');
   });
 
   it('should create an instance of Treatment', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
@@ -104,18 +104,18 @@ describe('Treatment e2e test', () => {
     cy.scrollTo('top', { ensureScrollable: false });
     cy.get(entityCreateSaveButtonSelector).should('not.exist');
     cy.route('GET', '/api/treatments*').as('entitiesRequestAfterCreate');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequestAfterCreate');
     cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount + 1);
-    cy.visit('/');
+    cy.visit('/symptom');
   });
 
   it('should delete last instance of Treatment', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
     cy.route('DELETE', '/api/treatments/*').as('deleteEntityRequest');
-    cy.visit('/');
+    cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest')
       .its('responseBody')
@@ -133,7 +133,7 @@ describe('Treatment e2e test', () => {
           cy.wait('@entitiesRequestAfterDelete');
           cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount - 1);
         }
-        cy.visit('/');
+        cy.visit('/symptom');
       });
   });
 });

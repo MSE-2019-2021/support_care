@@ -7,6 +7,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'custom-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })
@@ -31,7 +32,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // if already authenticated then navigate to home page
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
-        this.router.navigate(['']);
+        // TO DO: change this with the route for the correct home page
+        // for now let's keep with the symptoms list
+        this.router.navigate(['/symptom']);
       }
     });
   }
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.authenticationError = false;
           if (!this.router.getCurrentNavigation()) {
             // There were no routing during login (eg from navigationToStoredUrl)
-            this.router.navigate(['']);
+            this.router.navigate(['/symptom']);
           }
         },
         () => (this.authenticationError = true)
