@@ -12,6 +12,7 @@
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="button"
                     [routerLink]="['/drug', drug.id, 'edit']"
+                    data-cy="entityEditButton"
                     class="btn btn-primary float-right">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
