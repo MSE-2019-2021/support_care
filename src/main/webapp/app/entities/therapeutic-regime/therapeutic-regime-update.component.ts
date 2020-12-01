@@ -65,17 +65,16 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true,
-      limitSelection: 5,
     };
     if (this.activeModal) {
       return;
     }
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
-      this.updateForm(therapeuticRegime);
-
       this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body ?? []));
 
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
+
+      this.updateForm(therapeuticRegime);
     });
     this.registerChangeInTherapeuticRegimes();
   }
@@ -178,6 +177,10 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   getSelect2Options(options: IDrug[]): { id: number; text: string }[] {
     const dropdownList: { id: number; text: string }[] = [];
+
+    if (typeof options === 'undefined' || options.length === 0) {
+      return [];
+    }
 
     options.forEach(value => {
       dropdownList.push({
