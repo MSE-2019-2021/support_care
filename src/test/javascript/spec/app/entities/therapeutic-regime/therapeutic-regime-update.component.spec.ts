@@ -47,6 +47,7 @@ describe('Component Tests', () => {
         // THEN
         expect(service.update).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
+        expect(entity).toEqual(jasmine.objectContaining({ id: 123 }));
       }));
 
       it('Should call create service on save for new entity', fakeAsync(() => {
