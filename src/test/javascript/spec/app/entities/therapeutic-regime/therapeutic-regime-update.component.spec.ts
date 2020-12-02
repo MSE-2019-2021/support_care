@@ -29,7 +29,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<TherapeuticRegimeUpdateComponent>;
     let service: TherapeuticRegimeService;
     let modalService: NgbModal;
-    let mockActiveModal: NgbActiveModal;
     let mockModalRef: MockNgbModalRef;
 
     beforeEach(() => {
@@ -45,7 +44,6 @@ describe('Component Tests', () => {
       comp = fixture.componentInstance;
       service = TestBed.inject(TherapeuticRegimeService);
       modalService = TestBed.inject(NgbModal);
-      mockActiveModal = TestBed.inject(NgbActiveModal);
       mockModalRef = new MockNgbModalRef();
     });
 
@@ -63,6 +61,7 @@ describe('Component Tests', () => {
         tick(); // simulate async
 
         // THEN
+        expect(comp.dropdownSettings).toEqual({});
         expect(service.update).toHaveBeenCalledWith(entity);
         expect(translateResult).toEqual([{ id: 12, text: undefined }]);
         expect(comp.isSaving).toEqual(false);
@@ -84,6 +83,25 @@ describe('Component Tests', () => {
         expect(comp.drugs).toEqual([]);
         expect(service.create).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
+      }));
+
+      it('Should fill dropdown Settings object', fakeAsync(() => {
+        // GIVEN
+        comp.dropdownSettings = {};
+        // WHEN
+        comp.ngOnInit();
+        tick(); // simulate async
+
+        // THEN
+        expect(comp.dropdownSettings).toEqual({
+          singleSelection: false,
+          idField: 'id',
+          textField: 'text',
+          selectAllText: 'Select All',
+          unSelectAllText: 'UnSelect All',
+          itemsShowLimit: 3,
+          allowSearchFilter: true,
+        });
       }));
     });
 
