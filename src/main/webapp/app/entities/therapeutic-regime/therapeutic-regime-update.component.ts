@@ -70,11 +70,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       return;
     }
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
+      this.updateForm(therapeuticRegime);
+
       this.drugService.query().subscribe((res: HttpResponse<IDrug[]>) => (this.drugs = res.body ?? []));
 
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
-
-      this.updateForm(therapeuticRegime);
     });
     this.registerChangeInTherapeuticRegimes();
   }
@@ -154,17 +154,6 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   trackById(index: number, item: SelectableEntity): number {
     return item.id!;
-  }
-
-  getSelected(option: IDrug, selectedVals?: IDrug[]): IDrug {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
   }
 
   registerChangeInTherapeuticRegimes(): void {

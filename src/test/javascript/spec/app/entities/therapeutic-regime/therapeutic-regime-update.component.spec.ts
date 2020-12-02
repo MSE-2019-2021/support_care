@@ -37,15 +37,18 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new TherapeuticRegime(123);
-        entity.drugs = [];
+        const drug = new Drug(12);
+        entity.drugs = [drug];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
+        const translateResult = comp.getSelect2Options(entity.drugs);
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
         expect(service.update).toHaveBeenCalledWith(entity);
+        expect(translateResult).toEqual([{ id: 12, text: undefined }]);
         expect(comp.isSaving).toEqual(false);
         expect(entity).toEqual(jasmine.objectContaining({ id: 123 }));
       }));
@@ -56,11 +59,13 @@ describe('Component Tests', () => {
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         entity.drugs = [];
         comp.updateForm(entity);
+        comp.getSelect2Options([]);
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
+        expect(comp.drugs).toEqual([]);
         expect(service.create).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
       }));
