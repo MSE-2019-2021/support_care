@@ -12,18 +12,31 @@ import { of } from 'rxjs';
 import { TherapeuticRegimeUpdateComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-update.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TherapeuticRegimeCancelDialogComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-cancel-dialog.component';
+
+export class MockNgbModalRef {
+  componentInstance = {
+    prompt: undefined,
+    title: undefined,
+  };
+  result: Promise<any> = new Promise((resolve, reject) => resolve(true));
+}
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Update Component', () => {
     let comp: TherapeuticRegimeUpdateComponent;
     let fixture: ComponentFixture<TherapeuticRegimeUpdateComponent>;
     let service: TherapeuticRegimeService;
+    let modalService: NgbModal;
+    let mockActiveModal: NgbActiveModal;
+    let mockModalRef: MockNgbModalRef;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        declarations: [TherapeuticRegimeUpdateComponent],
-        providers: [FormBuilder, ActivatedRoute],
+        declarations: [TherapeuticRegimeUpdateComponent, TherapeuticRegimeCancelDialogComponent],
+        providers: [NgbActiveModal, FormBuilder, ActivatedRoute],
       })
         .overrideTemplate(TherapeuticRegimeUpdateComponent, '')
         .compileComponents();
@@ -31,6 +44,9 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(TherapeuticRegimeUpdateComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(TherapeuticRegimeService);
+      modalService = TestBed.inject(NgbModal);
+      mockActiveModal = TestBed.inject(NgbActiveModal);
+      mockModalRef = new MockNgbModalRef();
     });
 
     describe('save', () => {
@@ -68,6 +84,24 @@ describe('Component Tests', () => {
         expect(comp.drugs).toEqual([]);
         expect(service.create).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
+      }));
+    });
+
+    describe('cancel', () => {
+      it('should open modal', fakeAsync(() => {
+        // GIVEN
+        spyOn(modalService, 'open').and.returnValue(mockModalRef);
+
+        // WHEN
+        comp.cancel();
+        tick(); // simulate async
+
+        // THEN
+        expect(modalService.open).toHaveBeenCalledWith(TherapeuticRegimeCancelDialogComponent, {
+          centered: true,
+          size: 'lg',
+          backdrop: 'static',
+        });
       }));
     });
   });
