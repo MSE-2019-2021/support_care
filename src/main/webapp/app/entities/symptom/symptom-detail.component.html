@@ -1,16 +1,27 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="symptom">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn button-transparent"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="button"
+                    [routerLink]="['/symptom', symptom.id, 'edit']"
+                    class="btn btn-primary float-right">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="submit" (click)="delete(symptom)"
                     class="btn float-right button-transparent "
                     data-cy="entityDeleteButton">
                 <fa-icon class="red-icon" icon="trash"></fa-icon>
             </button>
-            <h2 data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
-
-            <hr>
-
+            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
 
 
             <custom-alert-error></custom-alert-error>
