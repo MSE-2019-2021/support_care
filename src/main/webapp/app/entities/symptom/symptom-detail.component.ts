@@ -18,6 +18,7 @@ export class SymptomDetailComponent implements OnInit {
     });
   }
 
+
   previousState(): void {
     window.history.back();
   }
