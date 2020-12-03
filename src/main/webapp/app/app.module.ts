@@ -28,7 +28,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-    NgMultiSelectDropDownModule,
   ],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent],
