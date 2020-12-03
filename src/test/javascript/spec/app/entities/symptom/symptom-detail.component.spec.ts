@@ -49,7 +49,7 @@ describe('Component Tests', () => {
         comp.ngOnDestroy();
 
         // THEN
-        expect(comp.symptom).toEqual(jasmine.objectContaining({ id: 123 }));
+        expect(comp.symptom).toEqual(jasmine.objectContaining(null));
       });
     });
 
