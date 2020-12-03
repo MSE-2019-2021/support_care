@@ -47,11 +47,10 @@ describe('Component Tests', () => {
           // THEN
           expect(service.delete).toHaveBeenCalledWith(123);
           expect(mockActiveModal.close).toHaveBeenCalled();
-          expect(mockEventManager.broadcast).toHaveBeenCalled();
         })
       ));
 
-      it('Should not call delete service on clear', () => {
+     it('Should not call delete service on clear', () => {
         // GIVEN
         spyOn(service, 'delete');
 
