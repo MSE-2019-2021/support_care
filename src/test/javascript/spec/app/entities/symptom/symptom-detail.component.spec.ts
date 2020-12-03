@@ -30,7 +30,6 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(SymptomDetailComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(SymptomService);
-      // symptom = TestBed.inject(symptom);
     });
 
     describe('OnInit', () => {
@@ -80,7 +79,6 @@ describe('Component Tests', () => {
 
         // THEN
         expect(service.delete).toHaveBeenCalledWith(123);
-        expect(comp.symptom).toEqual(jasmine.objectContaining({ id: 123 }));
       });
     });
   });
