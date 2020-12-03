@@ -19,12 +19,41 @@
                     data-cy="entityDeleteButton">
                 <fa-icon class="red-icon" icon="trash"></fa-icon>
             </button>
-            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
+
+            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">{{ symptom.name }}</span></h2>
 
             <custom-alert-error></custom-alert-error>
 
             <custom-alert></custom-alert>
 
+            <!-- Begin of Therapeutical Regime Information Block -->
+            <div class="bg-light div-detail-spacing" >
+                <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo">General information</h5>
+
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.titleBlock" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.regime' | translate">Assigned Therapeutic Regimes</label>
+
+                    <span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
+                        <a [routerLink]="['/therapeutic-regime', therapeuticRegime?.id, 'view']">{{ therapeuticRegime.name }}</a>{{ last ? '' : ', ' }}
+                    </span>
+
+                </div>
+
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.symptom.help.description' | translate">Description</label>
+                    <p><span>{{ symptom.notice }}</span></p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.administration">Administration</label>
+                    <div *ngIf="drug.administration">
+                        <span>{{ drug.administration?.type }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End of Therapeutical Regime Information Block -->
+
+<!--
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="global.field.id">ID</span></dt>
                 <dd>
@@ -56,7 +85,7 @@
                         <a [routerLink]="['/toxicity-rate', toxicityRate?.id, 'view']">{{ toxicityRate.name }}</a>{{ last ? '' : ', ' }}
                     </span>
                 </dd>
-            </dl>
+            </dl> -->
         </div>
     </div>
 </div>

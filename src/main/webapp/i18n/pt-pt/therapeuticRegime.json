@@ -47,6 +47,7 @@
       "drug": "Medicamentos associados",
       "treatment": "Tipo de tratamento",
       "symptom": "Sintoma",
+      "titleBlock": "Regimes terapêuticos associados",
       "help": {
         "name": "Nome.",
         "acronym": "Abreviatura.",
@@ -55,7 +56,8 @@
         "timing": "Calendarização.",
         "indication": "Indicação para prescrição.",
         "criteria": "Critérios de redução de dose.",
-        "notice": "Outras informações."
+        "notice": "Outras informações.",
+        "regime": "Regimes terapêuticos associados"
       }
     }
   }
