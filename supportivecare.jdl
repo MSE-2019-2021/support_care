@@ -14,8 +14,8 @@ application {
     cacheProvider caffeine,
     enableHibernateCache true,
     clientFramework angularX,
-    useSass true,
     jhiPrefix custom,
+    withAdminUi false,
     testFrameworks [cypress]
   }
   entities *
