@@ -77,7 +77,6 @@ export const classInvalid = 'ng-invalid';
 export const classValid = 'ng-valid';
 
 Cypress.Commands.add('login', (username: string, password: string) => {
-  cy.clickOnLoginItem();
   cy.get(usernameLoginSelector).type(username);
   cy.get(passwordLoginSelector).type(password);
   cy.get(submitLoginSelector).click();

@@ -1,5 +1,5 @@
 
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md navbar-custom ">
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md navbar-custom " *ngIf="isAuthenticated()">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
         <span jhiTranslate="global.title" class="navbar-title">Supportivecare</span> <span class="navbar-version" hidden>{{ version }}</span>

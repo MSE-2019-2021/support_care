@@ -15,7 +15,6 @@ describe('forgot your password', () => {
 
     cy.clearCookies();
     cy.visit('');
-    cy.clickOnLoginItem();
     cy.get(usernameLoginSelector).type('admin');
     cy.get(forgetYourPasswordSelector).click();
   });
