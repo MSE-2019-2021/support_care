@@ -28,6 +28,7 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(SymptomDeleteDialogComponent);
       comp = fixture.componentInstance;
+      comp.eventName = 'myEvent';
       service = TestBed.inject(SymptomService);
       mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
@@ -45,6 +46,7 @@ describe('Component Tests', () => {
           tick();
 
           // THEN
+          expect(mockEventManager.broadcast).toHaveBeenCalled();
           expect(service.delete).toHaveBeenCalledWith(123);
           expect(mockActiveModal.close).toHaveBeenCalled();
         })
