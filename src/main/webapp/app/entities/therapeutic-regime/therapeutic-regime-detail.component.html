@@ -3,7 +3,7 @@
         <div *ngIf="therapeuticRegime">
 
             <button type="submit"
-                    (click)="previousState()"
+                    [routerLink]="['/therapeutic-regime']"
                     class="btn button-transparent"
                     data-cy="entityDetailsBackButton">
                 <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>

@@ -26,7 +26,6 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeCancelDialogComponent);
       comp = fixture.componentInstance;
-      // comp.eventName = 'myEvent';
       mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
     });
@@ -63,7 +62,6 @@ describe('Component Tests', () => {
           tick();
 
           // THEN
-          // expect(mockLocation.back).();
         })
       ));
     });
