@@ -12,7 +12,7 @@ import { of } from 'rxjs';
 import { TherapeuticRegimeUpdateComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-update.component';
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/therapeutic-regime.service';
 import { TherapeuticRegime } from 'app/shared/model/therapeutic-regime.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TherapeuticRegimeCancelDialogComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-cancel-dialog.component';
 
 export class MockNgbModalRef {
@@ -39,7 +39,7 @@ describe('Component Tests', () => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         declarations: [TherapeuticRegimeUpdateComponent, TherapeuticRegimeCancelDialogComponent],
-        providers: [FormBuilder, ActivatedRoute, Router, { provide: Router, useValue: mockRouter }],
+        providers: [NgbActiveModal, FormBuilder, ActivatedRoute, Router, { provide: Router, useValue: mockRouter }],
       })
         .overrideTemplate(TherapeuticRegimeUpdateComponent, '')
         .compileComponents();
