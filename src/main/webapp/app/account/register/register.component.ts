@@ -9,6 +9,7 @@ import { RegisterService } from './register.service';
 @Component({
   selector: 'custom-register',
   templateUrl: './register.component.html',
+  styleUrls: ['./register.scss'],
 })
 export class RegisterComponent implements AfterViewInit {
   @ViewChild('login', { static: false })
