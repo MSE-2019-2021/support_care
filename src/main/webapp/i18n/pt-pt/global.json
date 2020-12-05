@@ -63,7 +63,8 @@
         },
         "register": {
           "noaccount": "Ainda não tem uma conta?",
-          "link": "Crie uma nova conta"
+          "link": "Crie uma nova conta",
+          "goToLogin": "Entre na sua conta"
         }
       },
       "error": {

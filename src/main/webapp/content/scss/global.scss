@@ -318,3 +318,55 @@ global styles
   background-image: none;
   background-color: white !important;
 }
+
+// Logins and Register
+.notLoggedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.logo-img {
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../content/images/logo.png') no-repeat center center;
+  background-size: contain;
+  margin-right: 20px;
+}
+
+.notLoggedWrapper {
+  padding: 40px;
+  background: #f9f9f9;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  min-width: 540px;
+}
+
+.notLoggedTitle {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.appTitle {
+  color: white;
+  font-size: 19px;
+}
+
+.registerButton {
+  width: 100%;
+  margin-top: 40px;
+  height: 50px;
+  background: #5c88f7;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.loginButton {
+  width: 100%;
+  margin-top: 20px;
+  height: 50px;
+  background: #f6f6f6;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}

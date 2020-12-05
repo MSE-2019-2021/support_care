@@ -20,7 +20,7 @@ export class MockNgbModalRef {
     prompt: undefined,
     title: undefined,
   };
-  result: Promise<any> = new Promise((resolve, reject) => resolve(true));
+  result: Promise<any> = new Promise(resolve => resolve(true));
 }
 
 describe('Component Tests', () => {
