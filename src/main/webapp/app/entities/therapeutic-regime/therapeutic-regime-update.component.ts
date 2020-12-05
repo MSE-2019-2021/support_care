@@ -42,6 +42,9 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     treatment: [null, Validators.required],
   });
 
+  dropdownList: { id: number; text: string }[] = [];
+  dropdownSettings = {};
+
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
     protected drugService: DrugService,
@@ -54,6 +57,15 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
     if (this.activeModal) {
       return;
     }
@@ -84,7 +96,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       indication: therapeuticRegime.indication,
       criteria: therapeuticRegime.criteria,
       notice: therapeuticRegime.notice,
-      drugs: therapeuticRegime.drugs,
+      drugs: this.getSelect2Options(therapeuticRegime.drugs!),
       treatment: therapeuticRegime.treatment,
     });
   }
@@ -144,22 +156,27 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     return item.id!;
   }
 
-  getSelected(option: IDrug, selectedVals?: IDrug[]): IDrug {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
-  }
-
   registerChangeInTherapeuticRegimes(): void {
     this.eventSubscriber = this.eventManager.subscribe('therapeuticRegimeListUpdate', () => this.previousState());
   }
 
   cancel(): void {
     this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+
+  getSelect2Options(options: IDrug[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
+
+    if (typeof options === 'undefined' || options.length === 0) {
+      return [];
+    }
+
+    options.forEach(value => {
+      dropdownList.push({
+        id: value.id!,
+        text: value.name!,
+      });
+    });
+    return dropdownList;
   }
 }

@@ -306,3 +306,15 @@ global styles
   font-style: normal;
   font-weight: normal;
 }
+
+.multiselect-dropdown .dropdown-btn {
+  display: inline-block !important;
+  width: 100% !important;
+  font-weight: 300 !important;
+  line-height: 1.5;
+  text-align: left;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  background-color: white !important;
+}
