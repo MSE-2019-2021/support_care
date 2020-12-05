@@ -10,11 +10,17 @@ import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { SymptomService } from './symptom.service';
 import { SymptomDeleteDialogComponent } from './symptom-delete-dialog.component';
 
+// import { Pipe, PipeTransform } from '@angular/core';
+//
+// @Pipe({
+//   name: 'filter'
+// })
+
 @Component({
   selector: 'custom-symptom',
   templateUrl: './symptom.component.html',
 })
-export class SymptomComponent implements OnInit, OnDestroy {
+export class SymptomComponent implements OnInit, OnDestroy/*, PipeTransform */  {
   symptoms: ISymptom[];
   eventSubscriber?: Subscription;
   isLoading = false;
@@ -116,4 +122,18 @@ export class SymptomComponent implements OnInit, OnDestroy {
       }
     }
   }
+  // transform(items: any[], searchText: string): any[] {
+  //
+  //   if (!items) {
+  //     return [];
+  //   }
+  //   if (!searchText) {
+  //     return items;
+  //   }
+  //   searchText = searchText.toLocaleLowerCase();
+  //
+  //   return items.filter(it => {
+  //     return it.toLocaleLowerCase().includes(searchText);
+  //   });
+  // }
 }
