@@ -79,6 +79,8 @@ describe('Symptom e2e test', () => {
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.getEntityDetailsHeading('symptom');
       cy.get(entityEditButtonSelector).first().click({ force: true });
       cy.getEntityCreateUpdateHeading('Symptom');
       cy.get(entityCreateSaveButtonSelector).should('exist');
@@ -119,7 +121,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
-/***
+  /***
   it('should delete last instance of Symptom', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');

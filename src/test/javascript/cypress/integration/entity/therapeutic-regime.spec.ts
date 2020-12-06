@@ -79,6 +79,8 @@ describe('TherapeuticRegime e2e test', () => {
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.getEntityDetailsHeading('therapeuticRegime');
       cy.get(entityEditButtonSelector).first().click({ force: true });
       cy.getEntityCreateUpdateHeading('TherapeuticRegime');
       cy.get(entityCreateSaveButtonSelector).should('exist');

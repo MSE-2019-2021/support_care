@@ -7,6 +7,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { CoreModule } from 'app/core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { EntityRoutingModule } from './entities/entity-routing.module';
+import { NavbarLogoutDialogComponent } from 'app/layouts/navbar/navbar-logout-dialog.component';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -28,7 +29,15 @@ import { LoginModule } from './login/login.module';
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    NavbarLogoutDialogComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {}

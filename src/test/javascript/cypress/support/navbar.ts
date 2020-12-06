@@ -38,7 +38,7 @@ Cypress.Commands.add('clickOnAdminMenuItem', (item: string) => {
     .get(navbarSelector)
     .get(adminMenuSelector)
     .click({ force: true })
-    .get(`.dropdown-item[href="/admin/${item}"]`)
+    .get(`.nav-link[routerLink="admin/${item}"]`)
     .click({ force: true });
 });
 

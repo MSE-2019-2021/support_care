@@ -79,6 +79,8 @@ describe('Drug e2e test', () => {
     cy.clickOnEntityMenuItem('drug');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.getEntityDetailsHeading('drug');
       cy.get(entityEditButtonSelector).first().click({ force: true });
       cy.getEntityCreateUpdateHeading('Drug');
       cy.get(entityCreateSaveButtonSelector).should('exist');

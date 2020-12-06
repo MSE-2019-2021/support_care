@@ -25,7 +25,8 @@
         "password": "Palavra-passe",
         "sessions": "Sessões",
         "login": "Entrar",
-        "logout": "Sair",
+        "leave": "Sair",
+        "logout": "Deseja sair de WikiCare?",
         "register": "Registar"
       },
       "admin": {
