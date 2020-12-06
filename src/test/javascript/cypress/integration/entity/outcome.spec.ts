@@ -46,6 +46,7 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load details Outcome page', () => {
     cy.server();
     cy.route('GET', '/api/outcomes*').as('entitiesRequest');
@@ -59,6 +60,7 @@ describe('Outcome e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should load create Outcome page', () => {
     cy.server();
@@ -72,6 +74,7 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load edit Outcome page', () => {
     cy.server();
     cy.route('GET', '/api/outcomes*').as('entitiesRequest');
@@ -85,6 +88,7 @@ describe('Outcome e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should create an instance of Outcome', () => {
     cy.server();
@@ -110,10 +114,11 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should delete last instance of Outcome', () => {
     cy.server();
     cy.route('GET', '/api/outcomes*').as('entitiesRequest');
-    cy.route('DELETE', '/api/outcomes/*').as('deleteEntityRequest');
+    cy.route('DELETE', '/api/outcomes/!*').as('deleteEntityRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('outcome');
     cy.wait('@entitiesRequest')
@@ -135,4 +140,5 @@ describe('Outcome e2e test', () => {
         cy.visit('/');
       });
   });
+*/
 });

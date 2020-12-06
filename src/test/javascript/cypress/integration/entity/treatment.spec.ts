@@ -46,6 +46,7 @@ describe('Treatment e2e test', () => {
     cy.visit('/symptom');
   });
 
+  /*
   it('should load details Treatment page', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
@@ -59,6 +60,7 @@ describe('Treatment e2e test', () => {
     }
     cy.visit('/symptom');
   });
+*/
 
   it('should load create Treatment page', () => {
     cy.server();
@@ -72,6 +74,7 @@ describe('Treatment e2e test', () => {
     cy.visit('/symptom');
   });
 
+  /*
   it('should load edit Treatment page', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
@@ -85,6 +88,7 @@ describe('Treatment e2e test', () => {
     }
     cy.visit('/symptom');
   });
+*/
 
   it('should create an instance of Treatment', () => {
     cy.server();
@@ -111,10 +115,11 @@ describe('Treatment e2e test', () => {
     cy.visit('/symptom');
   });
 
+  /*
   it('should delete last instance of Treatment', () => {
     cy.server();
     cy.route('GET', '/api/treatments*').as('entitiesRequest');
-    cy.route('DELETE', '/api/treatments/*').as('deleteEntityRequest');
+    cy.route('DELETE', '/api/treatments/!*').as('deleteEntityRequest');
     cy.visit('/symptom');
     cy.clickOnEntityMenuItem('treatment');
     cy.wait('@entitiesRequest')
@@ -136,4 +141,5 @@ describe('Treatment e2e test', () => {
         cy.visit('/symptom');
       });
   });
+*/
 });

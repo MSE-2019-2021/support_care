@@ -46,6 +46,7 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load details Administration page', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
@@ -59,6 +60,7 @@ describe('Administration e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should load create Administration page', () => {
     cy.server();
@@ -72,6 +74,7 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load edit Administration page', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
@@ -85,6 +88,7 @@ describe('Administration e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should create an instance of Administration', () => {
     cy.server();
@@ -108,10 +112,11 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should delete last instance of Administration', () => {
     cy.server();
     cy.route('GET', '/api/administrations*').as('entitiesRequest');
-    cy.route('DELETE', '/api/administrations/*').as('deleteEntityRequest');
+    cy.route('DELETE', '/api/administrations/!*').as('deleteEntityRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('administration');
     cy.wait('@entitiesRequest')
@@ -133,4 +138,5 @@ describe('Administration e2e test', () => {
         cy.visit('/');
       });
   });
+*/
 });

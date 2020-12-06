@@ -46,6 +46,7 @@ describe('Drug e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load details Drug page', () => {
     cy.server();
     cy.route('GET', '/api/drugs*').as('entitiesRequest');
@@ -59,6 +60,7 @@ describe('Drug e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should load create Drug page', () => {
     cy.server();
@@ -72,6 +74,7 @@ describe('Drug e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load edit Drug page', () => {
     cy.server();
     cy.route('GET', '/api/drugs*').as('entitiesRequest');
@@ -85,6 +88,7 @@ describe('Drug e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   /* this test is commented because it contains required relationships
   it('should create an instance of Drug', () => {

@@ -31,6 +31,7 @@ describe('Document e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load Documents', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
@@ -45,6 +46,7 @@ describe('Document e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should load details Document page', () => {
     cy.server();

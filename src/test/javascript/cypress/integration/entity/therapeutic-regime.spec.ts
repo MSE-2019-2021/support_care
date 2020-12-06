@@ -46,6 +46,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load details TherapeuticRegime page', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
@@ -59,6 +60,7 @@ describe('TherapeuticRegime e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   it('should load create TherapeuticRegime page', () => {
     cy.server();
@@ -72,6 +74,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.visit('/');
   });
 
+  /*
   it('should load edit TherapeuticRegime page', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
@@ -85,6 +88,7 @@ describe('TherapeuticRegime e2e test', () => {
     }
     cy.visit('/');
   });
+*/
 
   /* this test is commented because it contains required relationships
   it('should create an instance of TherapeuticRegime', () => {
