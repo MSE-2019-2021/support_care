@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { DocumentComponent } from './document.component';
-import { DocumentDetailComponent } from './document-detail.component';
-import { DocumentUpdateComponent } from './document-update.component';
+import { DocumentComponent } from './list/document.component';
+import { DocumentDetailComponent } from './detail/document-detail.component';
+import { DocumentUpdateComponent } from './update/document-update.component';
 import { DocumentRoutingResolveService } from './document-routing-resolve.service';
 import { DocumentModule } from './document.module';
 
@@ -13,10 +12,6 @@ const documentRoute: Routes = [
   {
     path: '',
     component: DocumentComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.document.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const documentRoute: Routes = [
     component: DocumentDetailComponent,
     resolve: {
       document: DocumentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.document.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const documentRoute: Routes = [
     resolve: {
       document: DocumentRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.document.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const documentRoute: Routes = [
     component: DocumentUpdateComponent,
     resolve: {
       document: DocumentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.document.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

@@ -1,0 +1,42 @@
+<div>
+    <h2 id="page-heading" data-cy="TherapeuticRegimeHeading">
+        <span customTranslate="supportivecareApp.therapeuticRegime.home.title">Therapeutic Regimes</span>
+
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary mr-2 d-none" (click)="reset()" [disabled]="isLoading">
+                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+                <span customTranslate="supportivecareApp.therapeuticRegime.home.refreshListLabel">Refresh List</span>
+            </button>
+
+            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime" [routerLink]="['/therapeutic-regime/new']">
+                <fa-icon icon="pills"></fa-icon>
+                <span  customTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
+                Create a new Therapeutic Regime
+                </span>
+            </button>
+        </div>
+    </h2>
+
+    <custom-alert-error></custom-alert-error>
+
+    <custom-alert></custom-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="therapeuticRegimes?.length === 0">
+        <span customTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col" customSortBy="name,acronym"><span customTranslate="supportivecareApp.therapeuticRegime.name">Name</span> (<span customTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span>) <fa-icon icon="sort"></fa-icon></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let therapeuticRegime of therapeuticRegimes; trackBy: trackId" data-cy="entityTable">
+                    <td><a [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">{{ therapeuticRegime.name }}<span *ngIf="therapeuticRegime.acronym"> ({{ therapeuticRegime.acronym }})</span></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

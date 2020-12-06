@@ -28,19 +28,21 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 250)
+    @Column(name = "name", length = 250, nullable = false)
     private String name;
 
     /**
      * Informação ao enfermeiro.
      */
-    @Column(name = "notice")
+    @Size(max = 1000)
+    @Column(name = "notice", length = 1000)
     private String notice;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "symptom_therapeutic_regime",
+        name = "rel_symptom__therapeutic_regime",
         joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id")
     )
@@ -50,7 +52,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "symptom_outcome",
+        name = "rel_symptom__outcome",
         joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "outcome_id", referencedColumnName = "id")
     )
@@ -60,7 +62,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "symptom_toxicity_rate",
+        name = "rel_symptom__toxicity_rate",
         joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
         inverseJoinColumns = @JoinColumn(name = "toxicity_rate_id", referencedColumnName = "id")
     )
@@ -82,7 +84,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Symptom name(String name) {
@@ -95,7 +97,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getNotice() {
-        return notice;
+        return this.notice;
     }
 
     public Symptom notice(String notice) {
@@ -108,11 +110,11 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<TherapeuticRegime> getTherapeuticRegimes() {
-        return therapeuticRegimes;
+        return this.therapeuticRegimes;
     }
 
     public Symptom therapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
-        this.therapeuticRegimes = therapeuticRegimes;
+        this.setTherapeuticRegimes(therapeuticRegimes);
         return this;
     }
 
@@ -133,11 +135,11 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<Outcome> getOutcomes() {
-        return outcomes;
+        return this.outcomes;
     }
 
     public Symptom outcomes(Set<Outcome> outcomes) {
-        this.outcomes = outcomes;
+        this.setOutcomes(outcomes);
         return this;
     }
 
@@ -158,11 +160,11 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<ToxicityRate> getToxicityRates() {
-        return toxicityRates;
+        return this.toxicityRates;
     }
 
     public Symptom toxicityRates(Set<ToxicityRate> toxicityRates) {
-        this.toxicityRates = toxicityRates;
+        this.setToxicityRates(toxicityRates);
         return this;
     }
 
@@ -197,7 +199,8 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

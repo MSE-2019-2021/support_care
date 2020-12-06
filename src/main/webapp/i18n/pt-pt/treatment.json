@@ -2,26 +2,26 @@
   "supportivecareApp": {
     "treatment": {
       "home": {
-        "title": "Treatments",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Treatment",
-        "createOrEditLabel": "Criar ou editar Treatment",
-        "notFound": "Nenhum Treatments encontrado"
+        "title": "Tratamentos",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Tratamento",
+        "createOrEditLabel": "Criar ou editar Tratamento",
+        "notFound": "Nenhum Tratamento encontrado"
       },
-      "created": "Um novo Treatment foi criado com o identificador {{ param }}",
-      "updated": "Treatment com identificador {{ param }} foi actualizado",
-      "deleted": "Treatment com identificador {{ param }} foi eliminado",
+      "created": "Um novo Tratamento foi criado com o identificador {{ param }}",
+      "updated": "Tratamento com identificador {{ param }} foi actualizado",
+      "deleted": "Tratamento com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Treatment {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o Tratamento {{ id }}?"
       },
       "detail": {
-        "title": "Treatment"
+        "title": "Tratamento"
       },
       "id": "ID",
-      "type": "Type",
-      "therapeuticRegime": "Therapeutic Regime",
+      "type": "Tipo",
+      "therapeuticRegime": "Regime Terapêutico",
       "help": {
-        "type": "Tipo de Tratamento."
+        "type": "Tipo de tratamento."
       }
     }
   }

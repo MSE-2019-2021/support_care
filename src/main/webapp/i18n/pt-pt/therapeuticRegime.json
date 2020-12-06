@@ -15,8 +15,8 @@
         "question": "Tem a certeza que pretende eliminar o(a) Regime Terapêutico {{ id }}?"
       },
       "cancel": {
-        "title": "Deseja sair da criação de um regime terapêutico?",
-        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
+        "title": "Deseja sair da criação de um Regime Terapêutico?",
+        "question": "Ao sair irá perder toda a informação inserida na criação deste Regime Terapêutico."
       },
       "detail": {
         "title": "Regime Terapêutico",
@@ -49,7 +49,7 @@
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "acronym": "Abreviatura.",
+        "acronym": "Acrônimo.",
         "purpose": "Propósito.",
         "condition": "Condições para administração.",
         "timing": "Calendarização.",

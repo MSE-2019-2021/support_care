@@ -3,7 +3,7 @@
     "toxicityRate": {
       "home": {
         "title": "Toxicity Rates",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Toxicity Rate",
         "createOrEditLabel": "Criar ou editar Toxicity Rate",
         "notFound": "Nenhum Toxicity Rates encontrado"

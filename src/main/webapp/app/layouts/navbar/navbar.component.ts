@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
-import { LANGUAGES } from 'app/core/config/language.constants';
+import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 
-const scrollLock = require('scroll-lock');
-
 @Component({
   selector: 'custom-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['navbar.scss'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
@@ -25,7 +23,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private languageService: JhiLanguageService,
+    private translateService: TranslateService,
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
@@ -43,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage(languageKey: string): void {
     this.sessionStorage.store('locale', languageKey);
-    this.languageService.changeLanguage(languageKey);
+    this.translateService.use(languageKey);
   }
 
   collapseNavbar(): void {
@@ -70,14 +68,5 @@ export class NavbarComponent implements OnInit {
 
   getImageUrl(): string {
     return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
-  }
-
-  toggleLock(): void {
-    if (scrollLock.getScrollState()) {
-      scrollLock.disablePageScroll();
-    } else {
-      scrollLock.clearQueueScrollLocks();
-      scrollLock.enablePageScroll();
-    }
   }
 }

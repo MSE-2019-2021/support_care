@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="symptom">
+            <div class="d-flex justify-content-between">
+                <div class="btn-group" role="group">
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-outline-primary"
+                            data-cy="entityDetailsBackButton">
+                        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="submit"
+                            (click)="delete(symptom)"
+                            class="btn btn-outline-danger ml-2"
+                            data-cy="entityDeleteButton">
+                        <fa-icon icon="trash"></fa-icon>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/symptom', symptom.id, 'edit']"
+                            class="btn btn-primary ml-2"
+                            data-cy="entityEditButton">
+                        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+                    </button>
+                </div>
+            </div>
+
+            <h2 data-cy="symptomDetailsHeading"><span [ngbTooltip]="'supportivecareApp.symptom.help.name' | translate">{{ symptom.name }}</span></h2>
+
+            <custom-alert-error></custom-alert-error>
+
+            <custom-alert></custom-alert>
+
+            <div class="bg-light div-detail-spacing">
+                <h5 class="col-lg-12 mt-4 mb-4" customTranslate="supportivecareApp.drug.generalInfo">General information</h5>
+                <div class="form-group col-lg-9 font-weight-bold">
+                    <label class="form-control-label" customTranslate="supportivecareApp.symptom.therapeuticRegime">Therapeutic Regime</label>
+                    <p>
+                        <span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
+                            <a [routerLink]="['/therapeutic-regime', therapeuticRegime?.id, 'view']">{{ therapeuticRegime.name }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </p>
+                </div>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
+                    <p><span>{{ symptom.notice }}</span></p>
+                </div>
+                <div class="form-group col-lg-9 font-weight-bold">
+                    <label class="form-control-label" customTranslate="supportivecareApp.symptom.outcome">Outcome</label>
+                    <p>
+                        <span *ngFor="let outcome of symptom.outcomes; let last = last">
+                            <a [routerLink]="['/outcome', outcome?.id, 'view']">{{ outcome.name }}</a>{{ last ? '' : ', ' }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <ng-container *ngIf="symptom.toxicityRates && symptom.toxicityRates.length > 0">
+                <ngb-accordion [closeOthers]="true" activeIds="{{symptom.toxicityRates[0].id}}">
+                    <ngb-panel *ngFor="let toxicityRate of symptom.toxicityRates" id="{{toxicityRate.id}}">
+                        <ng-template ngbPanelHeader let-opened="opened">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <button ngbPanelToggle class="btn btn-link text-primary m-0">{{ toxicityRate.name }}</button>
+                                <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"></fa-icon>
+                                <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"></fa-icon>
+                            </div>
+                        </ng-template>
+                        <ng-template ngbPanelContent>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.toxicityRate.description" [ngbTooltip]="'supportivecareApp.toxicityRate.help.description' | translate">Description</label>
+                                <p><span>{{ toxicityRate.description }}</span></p>
+                            </div>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.toxicityRate.notice" [ngbTooltip]="'supportivecareApp.toxicityRate.help.notice' | translate">Notice</label>
+                                <p><span>{{ toxicityRate.notice }}</span></p>
+                            </div>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.toxicityRate.autonomousIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.help.autonomousIntervention' | translate">Autonomous Intervention</label>
+                                <p><span>{{ toxicityRate.autonomousIntervention }}</span></p>
+                            </div>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.toxicityRate.interdependentIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.help.interdependentIntervention' | translate">Interdependent Intervention</label>
+                                <p><span>{{ toxicityRate.interdependentIntervention }}</span></p>
+                            </div>
+                            <div class="form-group col-lg-9">
+                                <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.toxicityRate.selfManagement" [ngbTooltip]="'supportivecareApp.toxicityRate.help.selfManagement' | translate">Self Management</label>
+                                <p><span>{{ toxicityRate.selfManagement }}</span></p>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+                </ngb-accordion>
+            </ng-container>
+        </div>
+    </div>
+</div>

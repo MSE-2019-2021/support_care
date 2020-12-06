@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="content">
+            <h2 data-cy="contentDetailsHeading"><span customTranslate="supportivecareApp.content.detail.title">Content</span></h2>
+
+            <hr>
+
+            <custom-alert-error></custom-alert-error>
+
+            <custom-alert></custom-alert>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span customTranslate="global.field.id">ID</span></dt>
+                <dd>
+                    <span>{{ content.id }}</span>
+                </dd>
+                <dt><span customTranslate="supportivecareApp.content.data" [ngbTooltip]="'supportivecareApp.content.help.data' | translate">Data</span></dt>
+                <dd>
+                    <div *ngIf="content.data">
+                        <a (click)="openFile(content.data, content.dataContentType)" customTranslate="entity.action.open">open</a>
+                        {{ content.dataContentType }}, {{ byteSize(content.data) }}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-outline-primary"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/content', content.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

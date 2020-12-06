@@ -4,8 +4,9 @@
     {
       "fieldName": "type",
       "fieldType": "String",
-      "javadoc": "Tipo de Administração.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Tipo de administração.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
     }
   ],
   "relationships": [
@@ -13,8 +14,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "drug",
       "otherEntityRelationshipName": "administration",
-      "relationshipName": "drug",
-      "otherEntityField": "id"
+      "relationshipName": "drug"
     }
   ],
   "javadoc": "Administração.",
@@ -27,6 +27,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106161950",
+  "changelogDate": "20201204174511",
   "enableEntityAudit": true
 }

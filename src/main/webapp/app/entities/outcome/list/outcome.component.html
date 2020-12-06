@@ -1,0 +1,42 @@
+<div>
+    <h2 id="page-heading" data-cy="OutcomeHeading">
+        <span customTranslate="supportivecareApp.outcome.home.title">Outcomes</span>
+
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary mr-2 d-none" (click)="reset()" [disabled]="isLoading">
+                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+                <span customTranslate="supportivecareApp.outcome.home.refreshListLabel">Refresh List</span>
+            </button>
+
+            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-outcome" [routerLink]="['/outcome/new']">
+                <fa-icon icon="file-medical-alt"></fa-icon>
+                <span  customTranslate="supportivecareApp.outcome.home.createLabel">
+                Create a new Outcome
+                </span>
+            </button>
+        </div>
+    </h2>
+
+    <custom-alert-error></custom-alert-error>
+
+    <custom-alert></custom-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="outcomes?.length === 0">
+        <span customTranslate="supportivecareApp.outcome.home.notFound">No outcomes found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="outcomes && outcomes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.outcome.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let outcome of outcomes; trackBy: trackId" data-cy="entityTable">
+                    <td><a [routerLink]="['/outcome', outcome.id, 'view']">{{ outcome.name }}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

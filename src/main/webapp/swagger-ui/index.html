@@ -66,7 +66,7 @@
                         req.headers['Authorization'] = "Bearer " + authToken;
                     }
                     // Remove the sample Swagger UI request body if present
-                    if (req.body === '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}') {
+                    if (req.method === 'GET' && req.body === '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}') {
                         req.body = undefined;
                     }
                     return req;

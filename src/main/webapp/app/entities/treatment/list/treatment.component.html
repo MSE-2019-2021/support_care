@@ -1,0 +1,42 @@
+<div>
+    <h2 id="page-heading" data-cy="TreatmentHeading">
+        <span customTranslate="supportivecareApp.treatment.home.title">Treatments</span>
+
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary mr-2 d-none" (click)="reset()" [disabled]="isLoading">
+                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+                <span customTranslate="supportivecareApp.treatment.home.refreshListLabel">Refresh List</span>
+            </button>
+
+            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-treatment" [routerLink]="['/treatment/new']">
+                <fa-icon icon="plus"></fa-icon>
+                <span  customTranslate="supportivecareApp.treatment.home.createLabel">
+                Create a new Treatment
+                </span>
+            </button>
+        </div>
+    </h2>
+
+    <custom-alert-error></custom-alert-error>
+
+    <custom-alert></custom-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="treatments?.length === 0">
+        <span customTranslate="supportivecareApp.treatment.home.notFound">No treatments found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="treatments && treatments.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col" customSortBy="type"><span customTranslate="supportivecareApp.treatment.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let treatment of treatments; trackBy: trackId" data-cy="entityTable">
+                    <td><a [routerLink]="['/treatment', treatment.id, 'view']">{{ treatment.type }}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

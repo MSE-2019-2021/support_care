@@ -2,26 +2,26 @@
   "supportivecareApp": {
     "administration": {
       "home": {
-        "title": "Administrations",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Administration",
-        "createOrEditLabel": "Criar ou editar Administration",
-        "notFound": "Nenhum Administrations encontrado"
+        "title": "Administrações",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar nova Administração",
+        "createOrEditLabel": "Criar ou editar Administração",
+        "notFound": "Nenhuma Administração encontrada"
       },
-      "created": "Um novo Administration foi criado com o identificador {{ param }}",
-      "updated": "Administration com identificador {{ param }} foi actualizado",
-      "deleted": "Administration com identificador {{ param }} foi eliminado",
+      "created": "Uma nova Administração foi criado com o identificador {{ param }}",
+      "updated": "Administração com identificador {{ param }} foi actualizado",
+      "deleted": "Administração com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Administration {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar a Administração {{ id }}?"
       },
       "detail": {
-        "title": "Administration"
+        "title": "Administração"
       },
       "id": "ID",
-      "type": "Type",
-      "drug": "Drug",
+      "type": "Tipo",
+      "drug": "Medicamento",
       "help": {
-        "type": "Tipo de Administração."
+        "type": "Tipo de administração."
       }
     }
   }

@@ -3,7 +3,7 @@
     "content": {
       "home": {
         "title": "Contents",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Content",
         "createOrEditLabel": "Criar ou editar Content",
         "notFound": "Nenhum Contents encontrado"

@@ -17,6 +17,7 @@
       "detail": {
         "title": "Symptom"
       },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
       "notice": "Notice",

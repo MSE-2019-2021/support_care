@@ -14,9 +14,10 @@
         "therapeuticRegime": "Regimes Terapêuticos",
         "document": "Documento",
         "content": "Conteúdo",
-        "outcome": "PROM",
+        "outcome": "PROMs",
         "toxicityRate": "Grau de Toxicidade",
         "symptom": "Sintoma",
+        "feedback": "Feedback",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

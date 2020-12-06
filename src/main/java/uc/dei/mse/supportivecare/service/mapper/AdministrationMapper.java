@@ -9,10 +9,6 @@ import uc.dei.mse.supportivecare.service.dto.AdministrationDTO;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface AdministrationMapper extends EntityMapper<AdministrationDTO, Administration> {
-    @Mapping(target = "drugs", ignore = true)
-    @Mapping(target = "removeDrug", ignore = true)
-    Administration toEntity(AdministrationDTO administrationDTO);
-
     @Named("type")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { DrugComponent } from './drug.component';
-import { DrugDetailComponent } from './drug-detail.component';
-import { DrugUpdateComponent } from './drug-update.component';
+import { DrugComponent } from './list/drug.component';
+import { DrugDetailComponent } from './detail/drug-detail.component';
+import { DrugUpdateComponent } from './update/drug-update.component';
 import { DrugRoutingResolveService } from './drug-routing-resolve.service';
 import { DrugModule } from './drug.module';
 
@@ -13,10 +12,6 @@ const drugRoute: Routes = [
   {
     path: '',
     component: DrugComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.drug.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const drugRoute: Routes = [
     component: DrugDetailComponent,
     resolve: {
       drug: DrugRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const drugRoute: Routes = [
     resolve: {
       drug: DrugRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.drug.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const drugRoute: Routes = [
     component: DrugUpdateComponent,
     resolve: {
       drug: DrugRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.drug.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

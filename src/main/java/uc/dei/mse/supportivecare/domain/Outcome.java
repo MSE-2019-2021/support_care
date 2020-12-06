@@ -28,13 +28,15 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 250)
+    @Column(name = "name", length = 250, nullable = false)
     private String name;
 
     /**
      * Descrição.
      */
-    @Column(name = "description")
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000)
     private String description;
 
     @OneToMany(mappedBy = "outcome")
@@ -62,7 +64,7 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Outcome name(String name) {
@@ -75,7 +77,7 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Outcome description(String description) {
@@ -88,11 +90,11 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<Document> getDocuments() {
-        return documents;
+        return this.documents;
     }
 
     public Outcome documents(Set<Document> documents) {
-        this.documents = documents;
+        this.setDocuments(documents);
         return this;
     }
 
@@ -109,15 +111,21 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     }
 
     public void setDocuments(Set<Document> documents) {
+        if (this.documents != null) {
+            this.documents.forEach(i -> i.setOutcome(null));
+        }
+        if (documents != null) {
+            documents.forEach(i -> i.setOutcome(this));
+        }
         this.documents = documents;
     }
 
     public Set<Symptom> getSymptoms() {
-        return symptoms;
+        return this.symptoms;
     }
 
     public Outcome symptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+        this.setSymptoms(symptoms);
         return this;
     }
 
@@ -134,6 +142,12 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     }
 
     public void setSymptoms(Set<Symptom> symptoms) {
+        if (this.symptoms != null) {
+            this.symptoms.forEach(i -> i.removeOutcome(this));
+        }
+        if (symptoms != null) {
+            symptoms.forEach(i -> i.addOutcome(this));
+        }
         this.symptoms = symptoms;
     }
 
@@ -152,7 +166,8 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

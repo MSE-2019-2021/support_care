@@ -28,37 +28,43 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 250)
+    @Column(name = "name", length = 250, nullable = false)
     private String name;
 
     /**
      * Descrição.
      */
-    @Column(name = "description")
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000)
     private String description;
 
     /**
      * Informação ao doente.
      */
-    @Column(name = "notice")
+    @Size(max = 1000)
+    @Column(name = "notice", length = 1000)
     private String notice;
 
     /**
      * Intervenção autónoma.
      */
-    @Column(name = "autonomous_intervention")
+    @Size(max = 1000)
+    @Column(name = "autonomous_intervention", length = 1000)
     private String autonomousIntervention;
 
     /**
      * Intervenção interdependente.
      */
-    @Column(name = "interdependent_intervention")
+    @Size(max = 1000)
+    @Column(name = "interdependent_intervention", length = 1000)
     private String interdependentIntervention;
 
     /**
      * Suporte para auto-gestão.
      */
-    @Column(name = "self_management")
+    @Size(max = 1000)
+    @Column(name = "self_management", length = 1000)
     private String selfManagement;
 
     @ManyToMany(mappedBy = "toxicityRates")
@@ -81,7 +87,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public ToxicityRate name(String name) {
@@ -94,7 +100,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public ToxicityRate description(String description) {
@@ -107,7 +113,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getNotice() {
-        return notice;
+        return this.notice;
     }
 
     public ToxicityRate notice(String notice) {
@@ -120,7 +126,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getAutonomousIntervention() {
-        return autonomousIntervention;
+        return this.autonomousIntervention;
     }
 
     public ToxicityRate autonomousIntervention(String autonomousIntervention) {
@@ -133,7 +139,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getInterdependentIntervention() {
-        return interdependentIntervention;
+        return this.interdependentIntervention;
     }
 
     public ToxicityRate interdependentIntervention(String interdependentIntervention) {
@@ -146,7 +152,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getSelfManagement() {
-        return selfManagement;
+        return this.selfManagement;
     }
 
     public ToxicityRate selfManagement(String selfManagement) {
@@ -159,11 +165,11 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public Set<Symptom> getSymptoms() {
-        return symptoms;
+        return this.symptoms;
     }
 
     public ToxicityRate symptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+        this.setSymptoms(symptoms);
         return this;
     }
 
@@ -180,6 +186,12 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public void setSymptoms(Set<Symptom> symptoms) {
+        if (this.symptoms != null) {
+            this.symptoms.forEach(i -> i.removeToxicityRate(this));
+        }
+        if (symptoms != null) {
+            symptoms.forEach(i -> i.addToxicityRate(this));
+        }
         this.symptoms = symptoms;
     }
 
@@ -198,7 +210,8 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

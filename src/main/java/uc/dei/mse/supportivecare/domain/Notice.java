@@ -28,21 +28,24 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
      * Descrição.
      */
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
     /**
      * Avaliação.
      */
     @NotNull
-    @Column(name = "evaluation", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "evaluation", length = 1000, nullable = false)
     private String evaluation;
 
     /**
-     * Intervenção.
+     * Intervenção interdependente.
      */
     @NotNull
-    @Column(name = "intervention", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "intervention", length = 1000, nullable = false)
     private String intervention;
 
     @ManyToMany(mappedBy = "notices")
@@ -65,7 +68,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Notice description(String description) {
@@ -78,7 +81,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getEvaluation() {
-        return evaluation;
+        return this.evaluation;
     }
 
     public Notice evaluation(String evaluation) {
@@ -91,7 +94,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getIntervention() {
-        return intervention;
+        return this.intervention;
     }
 
     public Notice intervention(String intervention) {
@@ -104,11 +107,11 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<Drug> getDrugs() {
-        return drugs;
+        return this.drugs;
     }
 
     public Notice drugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+        this.setDrugs(drugs);
         return this;
     }
 
@@ -125,6 +128,12 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public void setDrugs(Set<Drug> drugs) {
+        if (this.drugs != null) {
+            this.drugs.forEach(i -> i.removeNotice(this));
+        }
+        if (drugs != null) {
+            drugs.forEach(i -> i.addNotice(this));
+        }
         this.drugs = drugs;
     }
 
@@ -143,7 +152,8 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

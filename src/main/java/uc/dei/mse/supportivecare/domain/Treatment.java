@@ -25,10 +25,11 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     /**
-     * Tipo de Tratamento.
+     * Tipo de tratamento.
      */
     @NotNull
-    @Column(name = "type", nullable = false)
+    @Size(max = 100)
+    @Column(name = "type", length = 100, nullable = false)
     private String type;
 
     @OneToMany(mappedBy = "treatment")
@@ -51,7 +52,7 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public Treatment type(String type) {
@@ -64,11 +65,11 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<TherapeuticRegime> getTherapeuticRegimes() {
-        return therapeuticRegimes;
+        return this.therapeuticRegimes;
     }
 
     public Treatment therapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
-        this.therapeuticRegimes = therapeuticRegimes;
+        this.setTherapeuticRegimes(therapeuticRegimes);
         return this;
     }
 
@@ -85,6 +86,12 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
     }
 
     public void setTherapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
+        if (this.therapeuticRegimes != null) {
+            this.therapeuticRegimes.forEach(i -> i.setTreatment(null));
+        }
+        if (therapeuticRegimes != null) {
+            therapeuticRegimes.forEach(i -> i.setTreatment(this));
+        }
         this.therapeuticRegimes = therapeuticRegimes;
     }
 
@@ -103,7 +110,8 @@ public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

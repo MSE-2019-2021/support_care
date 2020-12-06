@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { TreatmentComponent } from './treatment.component';
-import { TreatmentDetailComponent } from './treatment-detail.component';
-import { TreatmentUpdateComponent } from './treatment-update.component';
+import { TreatmentComponent } from './list/treatment.component';
+import { TreatmentDetailComponent } from './detail/treatment-detail.component';
+import { TreatmentUpdateComponent } from './update/treatment-update.component';
 import { TreatmentRoutingResolveService } from './treatment-routing-resolve.service';
 import { TreatmentModule } from './treatment.module';
 
@@ -13,10 +12,6 @@ const treatmentRoute: Routes = [
   {
     path: '',
     component: TreatmentComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.treatment.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const treatmentRoute: Routes = [
     component: TreatmentDetailComponent,
     resolve: {
       treatment: TreatmentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.treatment.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const treatmentRoute: Routes = [
     resolve: {
       treatment: TreatmentRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.treatment.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const treatmentRoute: Routes = [
     component: TreatmentUpdateComponent,
     resolve: {
       treatment: TreatmentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.treatment.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

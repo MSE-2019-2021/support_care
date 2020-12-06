@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -193,7 +192,6 @@ class ContentResourceIT {
 
     @Test
     @Transactional
-    @Disabled
     void getAllContentsByDocumentIsEqualToSomething() throws Exception {
         // Get already existing entity
         Document document = content.getDocument();

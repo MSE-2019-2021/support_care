@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { ToxicityRateComponent } from './toxicity-rate.component';
-import { ToxicityRateDetailComponent } from './toxicity-rate-detail.component';
-import { ToxicityRateUpdateComponent } from './toxicity-rate-update.component';
+import { ToxicityRateComponent } from './list/toxicity-rate.component';
+import { ToxicityRateDetailComponent } from './detail/toxicity-rate-detail.component';
+import { ToxicityRateUpdateComponent } from './update/toxicity-rate-update.component';
 import { ToxicityRateRoutingResolveService } from './toxicity-rate-routing-resolve.service';
 import { ToxicityRateModule } from './toxicity-rate.module';
 
@@ -13,10 +12,6 @@ const toxicityRateRoute: Routes = [
   {
     path: '',
     component: ToxicityRateComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.toxicityRate.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const toxicityRateRoute: Routes = [
     component: ToxicityRateDetailComponent,
     resolve: {
       toxicityRate: ToxicityRateRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.toxicityRate.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const toxicityRateRoute: Routes = [
     resolve: {
       toxicityRate: ToxicityRateRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.toxicityRate.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const toxicityRateRoute: Routes = [
     component: ToxicityRateUpdateComponent,
     resolve: {
       toxicityRate: ToxicityRateRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.toxicityRate.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

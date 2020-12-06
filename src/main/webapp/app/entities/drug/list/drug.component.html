@@ -1,0 +1,42 @@
+<div>
+    <h2 id="page-heading" data-cy="DrugHeading">
+        <span customTranslate="supportivecareApp.drug.home.title">Drugs</span>
+
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-outline-primary mr-2 d-none" (click)="reset()" [disabled]="isLoading">
+                <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+                <span customTranslate="supportivecareApp.drug.home.refreshListLabel">Refresh List</span>
+            </button>
+
+            <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-drug" [routerLink]="['/drug/new']">
+                <fa-icon icon="pills"></fa-icon>
+                <span  customTranslate="supportivecareApp.drug.home.createLabel">
+                Create a new Drug
+                </span>
+            </button>
+        </div>
+    </h2>
+
+    <custom-alert-error></custom-alert-error>
+
+    <custom-alert></custom-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="drugs?.length === 0">
+        <span customTranslate="supportivecareApp.drug.home.notFound">No drugs found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="drugs && drugs.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.drug.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let drug of drugs; trackBy: trackId" data-cy="entityTable">
+                    <td><a [routerLink]="['/drug', drug.id, 'view']">{{ drug.name }}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,7 +3,7 @@
     "drug": {
       "home": {
         "title": "Medicamentos",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo medicamento",
         "createOrEditLabel": "Criar ou editar medicamento",
         "notFound": "Nenhum medicamento encontrado"
@@ -25,7 +25,7 @@
       "administration": "Tipo de administração",
       "therapeuticRegime": "Regime Terapêutico",
       "help": {
-        "name": "Nome do medicamento.",
+        "name": "Nome.",
         "description": "Descrição geral."
       }
     }

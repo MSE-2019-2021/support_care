@@ -3,7 +3,7 @@
     "document": {
       "home": {
         "title": "Documents",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Document",
         "createOrEditLabel": "Criar ou editar Document",
         "notFound": "Nenhum Documents encontrado"

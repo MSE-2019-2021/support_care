@@ -1,0 +1,37 @@
+{
+  "supportivecareApp": {
+    "feedback": {
+      "home": {
+        "title": "Feedbacks",
+        "refreshListLabel": "Atualizar lista",
+        "createLabel": "Criar novo Feedback",
+        "createOrEditLabel": "Criar ou editar Feedback",
+        "notFound": "Nenhum Feedback encontrado"
+      },
+      "created": "Um novo Feedback foi criado com o identificador {{ param }}",
+      "updated": "Feedback com identificador {{ param }} foi actualizado",
+      "deleted": "Feedback com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar o Feedback {{ id }}?"
+      },
+      "detail": {
+        "title": "Feedback"
+      },
+      "id": "ID",
+      "entityName": "Nome",
+      "entityId": "Id",
+      "thumb": "Polegar",
+      "reason": "Razão",
+      "solved": "Resolvido",
+      "anonym": "Anónimo",
+      "help": {
+        "entityName": "Nome da entidade.",
+        "entityId": "Id da entidade.",
+        "thumb": "Polegar.",
+        "reason": "Razão.",
+        "solved": "Resolvido.",
+        "anonym": "Anónimo."
+      }
+    }
+  }
+}

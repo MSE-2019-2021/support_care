@@ -8,7 +8,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'custom-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.scss'],
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
   private renderer: Renderer2;
@@ -43,7 +43,7 @@ export class MainComponent implements OnInit {
     });
   }
 
-  getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
+  private getPageTitle(routeSnapshot: ActivatedRouteSnapshot): string {
     let title: string = routeSnapshot.data['pageTitle'] ?? '';
     if (routeSnapshot.firstChild) {
       title = this.getPageTitle(routeSnapshot.firstChild) || title;
