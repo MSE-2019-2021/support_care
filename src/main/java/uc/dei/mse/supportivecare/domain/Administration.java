@@ -25,10 +25,11 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     private Long id;
 
     /**
-     * Tipo de Administração.
+     * Tipo de administração.
      */
     @NotNull
-    @Column(name = "type", nullable = false)
+    @Size(max = 100)
+    @Column(name = "type", length = 100, nullable = false)
     private String type;
 
     @OneToMany(mappedBy = "administration")
@@ -51,7 +52,7 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public Administration type(String type) {
@@ -64,11 +65,11 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     }
 
     public Set<Drug> getDrugs() {
-        return drugs;
+        return this.drugs;
     }
 
     public Administration drugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+        this.setDrugs(drugs);
         return this;
     }
 
@@ -85,6 +86,12 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     }
 
     public void setDrugs(Set<Drug> drugs) {
+        if (this.drugs != null) {
+            this.drugs.forEach(i -> i.setAdministration(null));
+        }
+        if (drugs != null) {
+            drugs.forEach(i -> i.setAdministration(this));
+        }
         this.drugs = drugs;
     }
 
@@ -103,7 +110,8 @@ public class Administration extends AbstractAuditingEntity implements Serializab
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

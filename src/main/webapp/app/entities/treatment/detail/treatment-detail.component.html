@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="treatment">
+            <div class="d-flex justify-content-between">
+                <div class="btn-group" role="group">
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-outline-primary"
+                            data-cy="entityDetailsBackButton">
+                        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="submit"
+                            (click)="delete(treatment)"
+                            class="btn btn-outline-danger ml-2"
+                            data-cy="entityDeleteButton">
+                        <fa-icon icon="trash"></fa-icon>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/treatment', treatment.id, 'edit']"
+                            class="btn btn-primary ml-2"
+                            data-cy="entityEditButton">
+                        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+                    </button>
+                </div>
+            </div>
+
+            <h2 data-cy="treatmentDetailsHeading"><span [ngbTooltip]="'supportivecareApp.treatment.help.type' | translate">{{ treatment.type }}</span></h2>
+
+            <custom-alert-error></custom-alert-error>
+
+            <custom-alert></custom-alert>
+        </div>
+    </div>
+</div>

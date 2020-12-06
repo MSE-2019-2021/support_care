@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { TherapeuticRegimeComponent } from './therapeutic-regime.component';
-import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
-import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
-import { TherapeuticRegimeDeleteDialogComponent } from './therapeutic-regime-delete-dialog.component';
-import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
+import { TherapeuticRegimeComponent } from './list/therapeutic-regime.component';
+import { TherapeuticRegimeDetailComponent } from './detail/therapeutic-regime-detail.component';
+import { TherapeuticRegimeUpdateComponent } from './update/therapeutic-regime-update.component';
+import { TherapeuticRegimeDeleteDialogComponent } from './delete/therapeutic-regime-delete-dialog.component';
+import { TherapeuticRegimeCancelDialogComponent } from './cancel/therapeutic-regime-cancel-dialog.component';
 
 @NgModule({
-  imports: [SharedModule, RouterModule],
+  imports: [SharedModule, RouterModule, NgMultiSelectDropDownModule],
   declarations: [
     TherapeuticRegimeComponent,
     TherapeuticRegimeDetailComponent,
@@ -17,7 +18,12 @@ import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-can
     TherapeuticRegimeDeleteDialogComponent,
     TherapeuticRegimeCancelDialogComponent,
   ],
-  exports: [TherapeuticRegimeDetailComponent, TherapeuticRegimeUpdateComponent, TherapeuticRegimeDeleteDialogComponent],
+  exports: [
+    TherapeuticRegimeDetailComponent,
+    TherapeuticRegimeUpdateComponent,
+    TherapeuticRegimeDeleteDialogComponent,
+    TherapeuticRegimeCancelDialogComponent,
+  ],
   entryComponents: [TherapeuticRegimeDeleteDialogComponent, TherapeuticRegimeCancelDialogComponent],
 })
 export class TherapeuticRegimeModule {}

@@ -8,6 +8,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'custom-main',
   templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
   private renderer: Renderer2;
@@ -56,5 +57,23 @@ export class MainComponent implements OnInit {
       pageTitle = 'global.title';
     }
     this.translateService.get(pageTitle).subscribe(title => this.titleService.setTitle(title));
+  }
+
+  getWrapperClass(): string {
+    const pageTitle = this.getPageTitle(this.router.routerState.snapshot.root);
+    if (pageTitle === 'login.title' || pageTitle === 'register.title') {
+      return 'notLoggedWrapper';
+    } else {
+      return 'container-fluid';
+    }
+  }
+
+  getRouterClass(): string {
+    const pageTitle = this.getPageTitle(this.router.routerState.snapshot.root);
+    if (pageTitle === 'login.title' || pageTitle === 'register.title') {
+      return 'notLoggedRouter';
+    } else {
+      return 'card jh-card';
+    }
   }
 }

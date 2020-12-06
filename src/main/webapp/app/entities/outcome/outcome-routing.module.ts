@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { OutcomeComponent } from './outcome.component';
-import { OutcomeDetailComponent } from './outcome-detail.component';
-import { OutcomeUpdateComponent } from './outcome-update.component';
+import { OutcomeComponent } from './list/outcome.component';
+import { OutcomeDetailComponent } from './detail/outcome-detail.component';
+import { OutcomeUpdateComponent } from './update/outcome-update.component';
 import { OutcomeRoutingResolveService } from './outcome-routing-resolve.service';
 import { OutcomeModule } from './outcome.module';
 
@@ -13,10 +12,6 @@ const outcomeRoute: Routes = [
   {
     path: '',
     component: OutcomeComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.outcome.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const outcomeRoute: Routes = [
     component: OutcomeDetailComponent,
     resolve: {
       outcome: OutcomeRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.outcome.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const outcomeRoute: Routes = [
     resolve: {
       outcome: OutcomeRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.outcome.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const outcomeRoute: Routes = [
     component: OutcomeUpdateComponent,
     resolve: {
       outcome: OutcomeRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.outcome.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

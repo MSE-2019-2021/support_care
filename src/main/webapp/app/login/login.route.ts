@@ -5,7 +5,6 @@ export const LOGIN_ROUTE: Route = {
   path: '',
   component: LoginComponent,
   data: {
-    authorities: [],
     pageTitle: 'login.title',
   },
 };

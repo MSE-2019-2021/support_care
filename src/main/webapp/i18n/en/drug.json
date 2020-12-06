@@ -25,7 +25,7 @@
       "administration": "Administration type",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {
-        "name": "Drug Name.",
+        "name": "Name.",
         "description": "General description."
       }
     }

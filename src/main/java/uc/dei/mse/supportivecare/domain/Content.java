@@ -52,7 +52,7 @@ public class Content extends AbstractAuditingEntity implements Serializable {
     }
 
     public byte[] getData() {
-        return data;
+        return this.data;
     }
 
     public Content data(byte[] data) {
@@ -65,7 +65,7 @@ public class Content extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDataContentType() {
-        return dataContentType;
+        return this.dataContentType;
     }
 
     public Content dataContentType(String dataContentType) {
@@ -78,15 +78,21 @@ public class Content extends AbstractAuditingEntity implements Serializable {
     }
 
     public Document getDocument() {
-        return document;
+        return this.document;
     }
 
     public Content document(Document document) {
-        this.document = document;
+        this.setDocument(document);
         return this;
     }
 
     public void setDocument(Document document) {
+        if (this.document != null) {
+            this.document.setContent(null);
+        }
+        if (document != null) {
+            document.setContent(this);
+        }
         this.document = document;
     }
 
@@ -105,7 +111,8 @@ public class Content extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

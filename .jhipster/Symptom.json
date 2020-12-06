@@ -5,12 +5,15 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
-      "javadoc": "Informação ao enfermeiro."
+      "javadoc": "Informação ao enfermeiro.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
@@ -49,6 +52,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162850",
+  "changelogDate": "20201204175411",
   "enableEntityAudit": true
 }

@@ -66,17 +66,4 @@ class SecurityUtilsUnitTest {
         assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)).isTrue();
         assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)).isFalse();
     }
-
-    @Test
-    void testIsCurrentViewerInRole() {
-        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.VIEWER));
-        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("viewer", "viewer", authorities));
-        SecurityContextHolder.setContext(securityContext);
-
-        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.VIEWER)).isTrue();
-        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)).isFalse();
-        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)).isFalse();
-    }
 }

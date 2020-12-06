@@ -3,7 +3,7 @@
     "notice": {
       "home": {
         "title": "Observações",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar nova Observação",
         "createOrEditLabel": "Criar ou editar Observação",
         "notFound": "Nenhuma Observação encontrado"

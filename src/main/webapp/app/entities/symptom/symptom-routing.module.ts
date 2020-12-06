@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { SymptomComponent } from './symptom.component';
-import { SymptomDetailComponent } from './symptom-detail.component';
-import { SymptomUpdateComponent } from './symptom-update.component';
+import { SymptomComponent } from './list/symptom.component';
+import { SymptomDetailComponent } from './detail/symptom-detail.component';
+import { SymptomUpdateComponent } from './update/symptom-update.component';
 import { SymptomRoutingResolveService } from './symptom-routing-resolve.service';
 import { SymptomModule } from './symptom.module';
 
@@ -13,10 +13,6 @@ const symptomRoute: Routes = [
   {
     path: '',
     component: SymptomComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.symptom.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +20,6 @@ const symptomRoute: Routes = [
     component: SymptomDetailComponent,
     resolve: {
       symptom: SymptomRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.symptom.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +29,6 @@ const symptomRoute: Routes = [
     resolve: {
       symptom: SymptomRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.symptom.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -49,16 +37,12 @@ const symptomRoute: Routes = [
     resolve: {
       symptom: SymptomRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.symptom.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(symptomRoute), SymptomModule],
+  imports: [RouterModule.forChild(symptomRoute), SymptomModule, NgMultiSelectDropDownModule],
   exports: [SymptomModule],
 })
 export class SymptomRoutingModule {}

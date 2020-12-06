@@ -2,29 +2,30 @@
   "supportivecareApp": {
     "outcome": {
       "home": {
-        "title": "Outcomes",
+        "title": "PROMs",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Outcome",
-        "createOrEditLabel": "Create or edit a Outcome",
-        "notFound": "No Outcomes found"
+        "createLabel": "Create a new Prom",
+        "createOrEditLabel": "Create or edit a Prom",
+        "notFound": "No Proms found"
       },
-      "created": "A new Outcome is created with identifier {{ param }}",
-      "updated": "A Outcome is updated with identifier {{ param }}",
-      "deleted": "A Outcome is deleted with identifier {{ param }}",
+      "created": "A new Prom is created with identifier {{ param }}",
+      "updated": "A Prom is updated with identifier {{ param }}",
+      "deleted": "A Prom is deleted with identifier {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Outcome {{ id }}?"
+        "question": "Are you sure you want to delete Prom {{ id }}?"
       },
       "detail": {
-        "title": "Outcome"
+        "title": "Prom"
       },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
       "description": "Description",
       "document": "Document",
       "symptom": "Symptom",
       "help": {
-        "name": "Nome.",
-        "description": "Descrição."
+        "name": "Name.",
+        "description": "Description."
       }
     }
   }

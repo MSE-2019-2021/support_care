@@ -12,7 +12,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    url: jdbc:tc:postgresql:13.0:///supportivecare?TC_TMPFS=/testtmpfs:rw
+    url: jdbc:tc:postgresql:13.1:///supportivecare?TC_TMPFS=/testtmpfs:rw
     username: supportivecare
     password:
     hikari:

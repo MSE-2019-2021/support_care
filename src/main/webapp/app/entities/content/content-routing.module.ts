@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { ContentComponent } from './content.component';
-import { ContentDetailComponent } from './content-detail.component';
-import { ContentUpdateComponent } from './content-update.component';
+import { ContentComponent } from './list/content.component';
+import { ContentDetailComponent } from './detail/content-detail.component';
+import { ContentUpdateComponent } from './update/content-update.component';
 import { ContentRoutingResolveService } from './content-routing-resolve.service';
 import { ContentModule } from './content.module';
 
@@ -13,10 +12,6 @@ const contentRoute: Routes = [
   {
     path: '',
     component: ContentComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.content.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const contentRoute: Routes = [
     component: ContentDetailComponent,
     resolve: {
       content: ContentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.content.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const contentRoute: Routes = [
     resolve: {
       content: ContentRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.content.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const contentRoute: Routes = [
     component: ContentUpdateComponent,
     resolve: {
       content: ContentRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.content.home.title',
     },
     canActivate: [UserRouteAccessService],
   },

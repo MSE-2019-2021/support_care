@@ -2,25 +2,26 @@
   "supportivecareApp": {
     "symptom": {
       "home": {
-        "title": "Sintomas disponíveis",
+        "title": "Sintomas",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar sintoma",
-        "createOrEditLabel": "Criar ou editar sintoma",
-        "notFound": "Nenhum sintoma encontrado"
+        "createLabel": "Criar novo Sintoma",
+        "createOrEditLabel": "Criar ou editar Sintoma",
+        "notFound": "Nenhum Sintoma encontrado"
       },
-      "created": "Um novo Symptom foi criado com o identificador {{ param }}",
-      "updated": "O sintoma com o identificador {{ param }} foi actualizado",
-      "deleted": "O sintoma com o identificador {{ param }} foi eliminado",
+      "created": "Um novo Sintoma foi criado com o identificador {{ param }}",
+      "updated": "Sintoma com o identificador {{ param }} foi actualizado",
+      "deleted": "Sintoma com o identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Symptom {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o Simtoma {{ id }}?"
       },
       "detail": {
         "title": "Sintoma"
       },
+      "generalInfo": "Informações gerais",
       "id": "ID",
-      "name": "Name",
-      "notice": "Notice",
-      "therapeuticRegime": "Therapeutic Regime",
+      "name": "Nome",
+      "notice": "Informação ao enfermeiro",
+      "therapeuticRegime": "Regime Terapêutico",
       "outcome": "Outcome",
       "toxicityRate": "Toxicity Rate",
       "help": {

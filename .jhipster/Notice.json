@@ -5,19 +5,22 @@
       "fieldName": "description",
       "fieldType": "String",
       "javadoc": "Descrição.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "evaluation",
       "fieldType": "String",
       "javadoc": "Avaliação.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "intervention",
       "fieldType": "String",
-      "javadoc": "Intervenção.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Intervenção interdependente.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
@@ -41,6 +44,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162050",
+  "changelogDate": "20201204174611",
   "enableEntityAudit": true
 }

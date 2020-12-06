@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Authority } from 'app/core/user/authority.model';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
-import { AdministrationComponent } from './administration.component';
-import { AdministrationDetailComponent } from './administration-detail.component';
-import { AdministrationUpdateComponent } from './administration-update.component';
+import { AdministrationComponent } from './list/administration.component';
+import { AdministrationDetailComponent } from './detail/administration-detail.component';
+import { AdministrationUpdateComponent } from './update/administration-update.component';
 import { AdministrationRoutingResolveService } from './administration-routing-resolve.service';
 import { AdministrationModule } from './administration.module';
 
@@ -13,10 +12,6 @@ const administrationRoute: Routes = [
   {
     path: '',
     component: AdministrationComponent,
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.administration.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -24,10 +19,6 @@ const administrationRoute: Routes = [
     component: AdministrationDetailComponent,
     resolve: {
       administration: AdministrationRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.VIEWER],
-      pageTitle: 'supportivecareApp.administration.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
@@ -37,10 +28,6 @@ const administrationRoute: Routes = [
     resolve: {
       administration: AdministrationRoutingResolveService,
     },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.administration.home.title',
-    },
     canActivate: [UserRouteAccessService],
   },
   {
@@ -48,10 +35,6 @@ const administrationRoute: Routes = [
     component: AdministrationUpdateComponent,
     resolve: {
       administration: AdministrationRoutingResolveService,
-    },
-    data: {
-      authorities: [Authority.USER],
-      pageTitle: 'supportivecareApp.administration.home.title',
     },
     canActivate: [UserRouteAccessService],
   },
