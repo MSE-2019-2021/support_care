@@ -106,6 +106,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void createContent() throws Exception {
         int databaseSizeBeforeCreate = contentRepository.findAll().size();
         // Create the Content
@@ -124,6 +125,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void createContentWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = contentRepository.findAll().size();
 
@@ -193,7 +195,6 @@ class ContentResourceIT {
 
     @Test
     @Transactional
-    @Disabled
     void getAllContentsByDocumentIsEqualToSomething() throws Exception {
         // Get already existing entity
         Document document = content.getDocument();
@@ -282,6 +283,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void updateNonExistingContent() throws Exception {
         int databaseSizeBeforeUpdate = contentRepository.findAll().size();
 
@@ -375,6 +377,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void deleteContent() throws Exception {
         // Initialize the database
         contentRepository.saveAndFlush(content);
