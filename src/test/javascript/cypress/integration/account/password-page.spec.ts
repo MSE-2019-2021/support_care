@@ -14,8 +14,9 @@ describe('/account/password', () => {
     });
 
     cy.clearCookies();
-    cy.visit('/');
+    cy.visit('');
     cy.login('user', 'user');
+    cy.clickOnPasswordItem();
   });
 
   beforeEach(() => {
@@ -24,7 +25,6 @@ describe('/account/password', () => {
   });
 
   it('requires current password', () => {
-    cy.clickOnPasswordItem();
     cy.get(currentPasswordSelector).should('have.class', classInvalid).type('wrong-current-password').should('have.class', classValid);
     cy.get(currentPasswordSelector).clear();
   });

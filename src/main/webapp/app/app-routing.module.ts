@@ -23,10 +23,6 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         },
         {
           path: 'account',
-          data: {
-            authorities: [Authority.VIEWER],
-          },
-          canActivate: [UserRouteAccessService],
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
         },
         {
