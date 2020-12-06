@@ -9,11 +9,11 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav md-auto">
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer navbar-arrow" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="toggleLock()">
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer navbar-arrow " display="static" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
                 </a>
 
-                <ul class="dropdown-menu main-menu-dropdown dropdown-menu-right" ngbDropdownMenu aria-labelledby="entity-menu" >
+                <ul class="dropdown-menu main-menu-dropdown" ngbDropdownMenu aria-labelledby="entity-menu" >
                     <li class="text-center" hidden>
                         <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="administration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <span jhiTranslate="global.menu.entities.administration">Administration</span>

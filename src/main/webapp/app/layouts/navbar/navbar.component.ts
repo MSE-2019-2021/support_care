@@ -9,8 +9,6 @@ import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 
-const scrollLock = require('scroll-lock');
-
 @Component({
   selector: 'custom-navbar',
   templateUrl: './navbar.component.html',
@@ -70,14 +68,5 @@ export class NavbarComponent implements OnInit {
 
   getImageUrl(): string {
     return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
-  }
-
-  toggleLock(): void {
-    if (scrollLock.getScrollState()) {
-      scrollLock.disablePageScroll();
-    } else {
-      scrollLock.clearQueueScrollLocks();
-      scrollLock.enablePageScroll();
-    }
   }
 }

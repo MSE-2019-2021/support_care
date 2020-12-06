@@ -52,28 +52,18 @@ Logo styles
 /* ==========================================================================
 main menu
 ========================================================================== */
+.nav-menu {
+}
 
 .main-menu-dropdown {
-  /*width: 100vw !important;
-  height: 100vh !important;
-  margin: 0 !important;
-  position: fixed !important;
-  //margin-top: calc(60px - 100vh ) !important;
-  //margin-top: calc(100vh - header height )
-  //margin-top: 60px !important;
-  z-index: 1001 !important;
-  max-height: inherit !important;
-  overflow: hidden !important;
-  ul {
-    transform: none !important;
-  }*/
-
-  /*position: static;*/
-  /*body{
-    overflow-y: scroll !important;
-  }*/
-
+  top: 58px;
+  min-height: 100vh;
+  width: 100%;
   background-color: rgba(71, 76, 104, 0.9) !important;
+}
+
+.dropdown {
+  position: static;
 }
 
 .text-center {
