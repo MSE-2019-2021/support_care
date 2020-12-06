@@ -12,13 +12,6 @@
     <name>Supportivecare</name>
 
     <repositories>
-        <repository>
-            <id>ossrh-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
         <!-- jhipster-needle-maven-repository -->
     </repositories>
 
@@ -50,7 +43,7 @@
         <profile.tls />
 
         <!-- Dependency versions -->
-        <jhipster-dependencies.version>7.0.0-SNAPSHOT</jhipster-dependencies.version>
+        <jhipster-dependencies.version>0.1.0</jhipster-dependencies.version>
         <!-- The spring-boot version should match the one managed by
         https://mvnrepository.com/artifact/tech.jhipster/jhipster-dependencies/${jhipster-dependencies.version} -->
         <spring-boot.version>2.3.6.RELEASE</spring-boot.version>
