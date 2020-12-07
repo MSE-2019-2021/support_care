@@ -6,7 +6,6 @@ jest.mock('@ng-bootstrap/ng-bootstrap');
 import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiEventManager } from 'ng-jhipster';
 import { Location } from '@angular/common';
 
 import { TherapeuticRegimeCancelDialogComponent } from 'app/entities/therapeutic-regime/therapeutic-regime-cancel-dialog.component';
@@ -18,7 +17,6 @@ describe('Component Tests', () => {
   describe('TherapeuticRegime Management Cancel Component', () => {
     let comp: NavbarLogoutDialogComponent;
     let fixture: ComponentFixture<NavbarLogoutDialogComponent>;
-    let mockEventManager: JhiEventManager;
     let mockActiveModal: NgbActiveModal;
     let mockLoginService: LoginService;
 
@@ -32,7 +30,6 @@ describe('Component Tests', () => {
         declarations: [NavbarLogoutDialogComponent],
         providers: [
           NgbActiveModal,
-          JhiEventManager,
           Location,
           { provide: LoginService, useValue: { login: jest.fn(() => of({})) } },
           { provide: Router, useValue: mockRouter },
@@ -42,13 +39,8 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(NavbarLogoutDialogComponent);
       comp = fixture.componentInstance;
-      mockEventManager = TestBed.inject(JhiEventManager);
       mockActiveModal = TestBed.inject(NgbActiveModal);
       mockLoginService = TestBed.inject(LoginService);
-
-      spyOn(sessionStorage, 'clear').and.callFake(key => {
-        console.log(key);
-      });
     });
 
     describe('logout', () => {
