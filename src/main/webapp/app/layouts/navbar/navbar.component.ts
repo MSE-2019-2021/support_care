@@ -60,8 +60,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    const modalRef = this.modalService.open(NavbarLogoutDialogComponent, { centered: true, size: 'md', backdrop: 'static' });
-    modalRef.componentInstance.eventName = 'therapeuticRegimeViewModification';
+    this.modalService.open(NavbarLogoutDialogComponent, { centered: true, size: 'md', backdrop: 'static' });
   }
 
   toggleNavbar(): void {
