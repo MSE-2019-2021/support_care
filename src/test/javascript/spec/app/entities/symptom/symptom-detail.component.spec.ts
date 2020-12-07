@@ -11,8 +11,8 @@ describe('Component Tests', () => {
   describe('Symptom Management Detail Component', () => {
     let comp: SymptomDetailComponent;
     let fixture: ComponentFixture<SymptomDetailComponent>;
-    let service: SymptomService;
-    let symptom: ISymptom;
+    // let service: SymptomService;
+    // let symptom: ISymptom;
 
 
     beforeEach(() => {
@@ -30,7 +30,7 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(SymptomDetailComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(SymptomService);
+      // service = TestBed.inject(SymptomService);
     });
 
     describe('OnInit', () => {
