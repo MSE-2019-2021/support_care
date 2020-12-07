@@ -19,10 +19,16 @@
       },
       "id": "ID",
       "name": "Name",
-      "notice": "Notice",
+      "notice": "Informação ao enfermeiro.",
+      "assessment": "Avaliação do sintoma",
       "therapeuticRegime": "Therapeutic Regime",
       "outcome": "Outcome",
       "toxicityRate": "Toxicity Rate",
+      "irt1": "Descrição do grau de manifestação do sintoma",
+      "irt2": "Informação os doente",
+      "irt3": "Intervemções autónomas de enfermagem",
+      "irt4": "Intervemções interdependentes de enfermagem",
+      "irt5": "Apoio à auto-gestão do sintoma",
       "help": {
         "name": "Nome.",
         "notice": "Informação ao enfermeiro."
