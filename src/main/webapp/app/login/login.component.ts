@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if (this.accountService.isAuthenticated()) {
         // TO DO: change this with the route for the correct home page
         // for now let's keep with the symptoms list
-        this.router.navigate(['/symptom']);
+        this.router.navigate(['/home']);
       }
     });
   }
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.authenticationError = false;
           if (!this.router.getCurrentNavigation()) {
             // There were no routing during login (eg from navigationToStoredUrl)
-            this.router.navigate(['/symptom']);
+            this.router.navigate(['/home']);
           }
         },
         () => (this.authenticationError = true)
