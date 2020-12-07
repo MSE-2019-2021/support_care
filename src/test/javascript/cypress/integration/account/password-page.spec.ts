@@ -17,6 +17,7 @@ describe('/account/password', () => {
     cy.visit('/');
     cy.login('user', 'user');
   });
+  // TODO: review this when doing task MSEDO-175
   //code commented because this view is not present and it will be changed in a future feature
   /*beforeEach(() => {
     cy.server();
