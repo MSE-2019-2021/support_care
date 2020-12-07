@@ -5,7 +5,7 @@
         <span jhiTranslate="global.title" class="navbar-title navbar-tittle-font">WikiCare</span> <span class="navbar-version" hidden>{{ version }}</span>
     </a>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-        <fa-icon icon="bars"></fa-icon>
+        <fa-icon icon="bars" class="white-text-color"></fa-icon>
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav md-auto">
@@ -74,7 +74,7 @@
         <li *customHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" routerLink="admin/user-management" routerLinkActive="active" id="admin-menu" data-cy="adminMenu">
                     <span>
-                        <fa-icon icon="users-cog"></fa-icon>
+                        <fa-icon icon="users-cog" class="white-text-color"></fa-icon>
                     </span>
             </a>
         </li>
@@ -84,7 +84,7 @@
         <li *customHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <a class="nav-link" id="logout" data-cy="logout" (click)="logout()">
                     <span>
-                        <fa-icon icon="sign-out-alt"></fa-icon>
+                        <fa-icon icon="sign-out-alt" class="white-text-color"></fa-icon>
                     </span>
             </a>
         </li>
