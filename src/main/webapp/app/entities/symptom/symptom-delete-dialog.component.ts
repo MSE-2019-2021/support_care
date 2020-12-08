@@ -10,8 +10,13 @@ import { SymptomService } from './symptom.service';
 })
 export class SymptomDeleteDialogComponent {
   symptom?: ISymptom;
+  eventName?: string;
 
-  constructor(protected symptomService: SymptomService, public activeModal: NgbActiveModal, protected eventManager: JhiEventManager) {}
+  constructor(
+    protected symptomService: SymptomService,
+    public activeModal: NgbActiveModal,
+    protected eventManager: JhiEventManager
+   ) {}
 
   cancel(): void {
     this.activeModal.dismiss();
@@ -19,8 +24,11 @@ export class SymptomDeleteDialogComponent {
 
   confirmDelete(id: number): void {
     this.symptomService.delete(id).subscribe(() => {
-      this.eventManager.broadcast('symptomListModification');
+      if (this.eventName) {
+        this.eventManager.broadcast(this.eventName);
+      }
       this.activeModal.close();
+      window.history.back();
     });
   }
 }
