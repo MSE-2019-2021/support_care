@@ -1,50 +1,41 @@
-
 <div [ngSwitch]="isAuthenticated()">
-
-<div class="row justify-content-center ">
-    <div class="col-12 ">
-
-
-        <div class="entityWrapper home">
-        <h8 class="text-primary font-weight-bold" jhiTranslate="home.title">Welcome</h8>
-        <h8 class="text-primary"  id="home-logged-message" *ngIf="account"jhiTranslate="home.title2" [translateValues]="{ username: account.login }">
-            <span class="title-color"> {{ account.login }}!.</span></h8>
-         </div>
-             <div class="mainWrapper entityInfoWrapper">
-        <p class="text-secondary p " jhiTranslate="home.navigate" >Navigate</p>
-             </div>
-
-        <div class="sectionWrapper" >
-         <a class="box1" routerLink="/therapeutic-regime">
-             <div class="img">
-             <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon></div>
-             <div class="img">
-             <span jhiTranslate="home.link.therapeutic-regime"   style="font-size:0.79rem !important">Therapeutical Regime</span>
-             </div>
-         </a>
-
-
-         <a class="box2" routerLink="/symptom">
-             <div class="img">
-             <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon>
-             </div>
-             <div class="img">
-             <span jhiTranslate="home.link.symptom" style="font-size:0.79rem !important">Symptom</span>
-             </div>
-         </a>
-
-
-         <a class="box3" routerLink= "/outcome">
-             <div class="img">
-             <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon>
-             </div>
-             <div class="img" style="font-size:0.79rem !important">
-             <span jhiTranslate="home.link.outcome" style="font-size:0.79rem !important">PROMs</span>
-             </div>
-         </a>
-
+    <div class="row justify-content-center ">
+        <div class="col-12 ">
+            <div class="entityWrapper home">
+                <h8 class="text-primary font-weight-bold" jhiTranslate="home.title">Welcome</h8>
+                <h8 class="text-primary" id="home-logged-message" *ngIf="account" jhiTranslate="home.title2"
+                    [translateValues]="{ username: account.login }">
+                    <span class="title-color"> {{ account.login }}!.</span></h8>
+            </div>
+            <div class="mainWrapper entityInfoWrapper">
+                <p class="text-secondary p " jhiTranslate="home.navigate">Navigate</p>
+            </div>
+            <div class="sectionWrapper">
+                <a class="box1" routerLink="/therapeutic-regime">
+                    <div class="img">
+                        <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon>
+                    </div>
+                    <div class="img">
+                        <span jhiTranslate="home.link.therapeutic-regime" style="font-size:0.79rem !important">Therapeutical Regime</span>
+                    </div>
+                </a>
+                <a class="box2" routerLink="/symptom">
+                    <div class="img">
+                        <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon>
+                    </div>
+                    <div class="img">
+                        <span jhiTranslate="home.link.symptom" style="font-size:0.79rem !important">Symptom</span>
+                    </div>
+                </a>
+                <a class="box3" routerLink="/outcome">
+                    <div class="img">
+                        <fa-icon icon="pills" size="5x" style="color:lightgray;"></fa-icon>
+                    </div>
+                    <div class="img" style="font-size:0.79rem !important">
+                        <span jhiTranslate="home.link.outcome" style="font-size:0.79rem !important">PROMs</span>
+                    </div>
+                </a>
+            </div>
         </div>
-             </div>
-     </div>
-
+    </div>
 </div>
