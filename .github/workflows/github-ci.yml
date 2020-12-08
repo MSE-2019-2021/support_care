@@ -74,7 +74,7 @@ jobs:
                       echo No HEROKU_API_KEY, skipping...
                   fi
             - name: Deploy to Heroku PROD
-              if: github.event_name == 'release' && github.event.action == 'created'
+              if: github.event_name == 'release' && github.event.action == 'published'
               env:
                 HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
               run: |
