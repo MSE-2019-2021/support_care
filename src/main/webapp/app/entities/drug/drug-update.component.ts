@@ -81,6 +81,11 @@ export class DrugUpdateComponent implements OnInit {
     }
   }
 
+  isEditing(): boolean {
+    const drug = this.createFromForm();
+    return !!drug.id;
+  }
+
   private createFromForm(): IDrug {
     return {
       ...new Drug(),

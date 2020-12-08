@@ -91,6 +91,11 @@ export class SymptomUpdateComponent implements OnInit {
     }
   }
 
+  isEditing(): boolean {
+    const symptom = this.createFromForm();
+    return !!symptom.id;
+  }
+
   private createFromForm(): ISymptom {
     return {
       ...new Symptom(),

@@ -1,25 +1,16 @@
-<div>
-    <h2 class="h2-color" id="page-heading" data-cy="DrugHeading">
-        <span jhiTranslate="supportivecareApp.drug.home.title">Drugs</span>
-
-        <div class="d-flex justify-content-end">
-            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-drug button-create" [routerLink]="['/drug/new']">
-                <fa-icon icon="pills" slot="start"></fa-icon>
-                <span  jhiTranslate="supportivecareApp.drug.home.createLabel">
-                Create a new Drug
-                </span>
-            </button>
-        </div>
-    </h2>
-
+<div class="mainWrapper">
+    <div class="listHeaderWrapper">
+        <h2 class="h2-color" id="page-heading" data-cy="DrugHeading" jhiTranslate="supportivecareApp.drug.home.title"></h2>
+        <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/drug/new']">
+            <fa-icon icon="pills" slot="start"></fa-icon>
+            <span  jhiTranslate="supportivecareApp.drug.home.createLabel"></span>
+        </button>
+    </div>
     <custom-alert-error></custom-alert-error>
-
     <custom-alert></custom-alert>
-
     <div class="alert alert-warning" id="no-result" *ngIf="drugs?.length === 0">
         <span jhiTranslate="supportivecareApp.drug.home.notFound">No drugs found</span>
     </div>
-
     <div class="table-responsive" id="entities" *ngIf="drugs && drugs.length > 0">
         <table class="table table-striped border-style" aria-describedby="page-heading">
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">

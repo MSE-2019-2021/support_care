@@ -128,5 +128,21 @@ describe('Component Tests', () => {
         });
       }));
     });
+
+    describe('is saving', () => {
+      it('should return true when editing component', () => {
+        const entity = new TherapeuticRegime(123);
+        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+        comp.updateForm(entity);
+
+        expect(comp.isEditing()).toBeTruthy();
+      });
+
+      it('should return false when creating component', () => {
+        const entity = new TherapeuticRegime();
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        expect(comp.isEditing()).toBeFalsy();
+      });
+    });
   });
 });

@@ -9,14 +9,14 @@
         "main": "Entidades",
         "administration": "Administração",
         "notice": "Observação",
-        "drug": "Medicamento",
+        "drug": "Medicamentos",
         "treatment": "Tratamento",
         "therapeuticRegime": "Regimes Terapêuticos",
         "document": "Documento",
         "content": "Conteúdo",
         "outcome": "PROM",
         "toxicityRate": "Grau de Toxicidade",
-        "symptom": "Sintoma",
+        "symptom": "Sintomas",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -4,8 +4,8 @@
       "home": {
         "title": "Drugs",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Drug",
-        "createOrEditLabel": "Create or edit a Drug",
+        "createLabel": "Create drug",
+        "editLabel": "Edit drug",
         "notFound": "No Drugs found"
       },
       "created": "A new Drug is created with identifier {{ param }}",

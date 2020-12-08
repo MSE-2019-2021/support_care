@@ -25,8 +25,12 @@ Cypress.Commands.add('getEntityHeading', (entityName: string) => {
   return cy.get(`[data-cy="${entityName}Heading"]`);
 });
 
-Cypress.Commands.add('getEntityCreateUpdateHeading', (entityName: string) => {
-  return cy.get(`[data-cy="${entityName}CreateUpdateHeading"]`);
+Cypress.Commands.add('getEntityCreateHeading', (entityName: string) => {
+  return cy.get(`[data-cy="${entityName}CreateHeading"]`);
+});
+
+Cypress.Commands.add('getEntityUpdateHeading', (entityName: string) => {
+  return cy.get(`[data-cy="${entityName}UpdateHeading"]`);
 });
 
 Cypress.Commands.add('getEntityDetailsHeading', (entityInstanceName: string) => {
@@ -73,7 +77,8 @@ declare global {
   namespace Cypress {
     interface Chainable<Subject> {
       getEntityHeading(entityName: string): Cypress.Chainable;
-      getEntityCreateUpdateHeading(entityName: string): Cypress.Chainable;
+      getEntityCreateHeading(entityName: string): Cypress.Chainable;
+      getEntityUpdateHeading(entityName: string): Cypress.Chainable;
       getEntityDetailsHeading(entityInstanceName: string): Cypress.Chainable;
       getEntityDeleteDialogHeading(entityInstanceName: string): Cypress.Chainable;
       setFieldImageAsBytesOfEntity(fieldName: string, fileName: string, mimeType: string): Cypress.Chainable;

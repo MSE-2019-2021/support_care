@@ -1,21 +1,13 @@
-<div>
-    <h2 class="h2-color" id="page-heading" data-cy="TherapeuticRegimeHeading">
-        <span jhiTranslate="supportivecareApp.therapeuticRegime.home.title">Available Therapeutic Regimes</span>
-
-        <div class="d-flex justify-content-end">
-            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime button-create" [routerLink]="['/therapeutic-regime/new']">
-                <fa-icon icon="pills" slot="start"></fa-icon>
-                <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel">
-                Create Therapeutic Regime
-                </span>
-            </button>
-        </div>
-    </h2>
-
+<div class="mainWrapper">
+    <div class="listHeaderWrapper">
+        <h2 class="h2-color" id="page-heading" data-cy="TherapeuticRegimeHeading" jhiTranslate="supportivecareApp.therapeuticRegime.home.title"></h2>
+        <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/therapeutic-regime/new']">
+            <fa-icon icon="pills" slot="start"></fa-icon>
+            <span  jhiTranslate="supportivecareApp.therapeuticRegime.home.createLabel"></span>
+        </button>
+    </div>
     <custom-alert-error></custom-alert-error>
-
     <custom-alert></custom-alert>
-
     <div class="alert alert-warning" id="no-result" *ngIf="therapeuticRegimes?.length === 0">
         <span jhiTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
     </div>
