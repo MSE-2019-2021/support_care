@@ -63,6 +63,11 @@ export class OutcomeUpdateComponent implements OnInit {
     }
   }
 
+  isEditing(): boolean {
+    const outcome = this.createFromForm();
+    return !!outcome.id;
+  }
+
   private createFromForm(): IOutcome {
     return {
       ...new Outcome(),

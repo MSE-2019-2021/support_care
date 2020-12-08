@@ -9,14 +9,14 @@
         "main": "Entities",
         "administration": "Administration",
         "notice": "Notice",
-        "drug": "Drug",
+        "drug": "Drugs",
         "treatment": "Treatment",
         "therapeuticRegime": "Therapeutic Regimes",
         "document": "Document",
         "content": "Content",
         "outcome": "Outcome",
         "toxicityRate": "Toxicity Rate",
-        "symptom": "Symptom",
+        "symptom": "Symptoms",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -26,7 +26,7 @@
         "sessions": "Sessions",
         "login": "Sign in",
         "leave": "Exit",
-        "logout": "Do you which to log out of WikiCare?",
+        "logout": "Do you wish to log out of WikiCare?",
         "register": "Register"
       },
       "admin": {

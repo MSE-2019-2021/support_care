@@ -121,6 +121,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  isEditing(): boolean {
+    const drug = this.createFromForm();
+    return !!drug.id;
+  }
+
   private createFromForm(): ITherapeuticRegime {
     return {
       ...new TherapeuticRegime(),

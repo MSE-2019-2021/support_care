@@ -67,7 +67,7 @@ describe('Drug e2e test', () => {
     cy.clickOnEntityMenuItem('drug');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('Drug');
+    cy.getEntityCreateHeading('Drug');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -80,9 +80,8 @@ describe('Drug e2e test', () => {
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
       cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.getEntityDetailsHeading('drug');
-      cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityCreateUpdateHeading('Drug');
+      cy.get(entityEditButtonSelector).click({ force: true });
+      cy.getEntityUpdateHeading('Drug');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');

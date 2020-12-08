@@ -64,7 +64,7 @@ export class MainComponent implements OnInit {
     if (pageTitle === 'login.title' || pageTitle === 'register.title') {
       return 'notLoggedWrapper';
     } else {
-      return 'container-fluid';
+      return '';
     }
   }
 
@@ -73,7 +73,7 @@ export class MainComponent implements OnInit {
     if (pageTitle === 'login.title' || pageTitle === 'register.title') {
       return 'notLoggedRouter';
     } else {
-      return 'card jh-card';
+      return '';
     }
   }
 }

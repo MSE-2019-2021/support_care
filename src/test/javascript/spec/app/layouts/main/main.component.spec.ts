@@ -182,12 +182,12 @@ describe('Component Tests', () => {
           expect(comp.getWrapperClass()).toBe('notLoggedWrapper');
         });
 
-        it('should return container-fluid on other pages', () => {
+        it('should return empty string on other pages', () => {
           // GIVEN
           routerState.snapshot.root.data = { pageTitle: 'symptom.title' };
 
           // WHEN
-          expect(comp.getWrapperClass()).toBe('container-fluid');
+          expect(comp.getWrapperClass()).toBe('');
         });
       });
 
@@ -208,12 +208,12 @@ describe('Component Tests', () => {
           expect(comp.getRouterClass()).toBe('notLoggedRouter');
         });
 
-        it('should return card jh-card on other pages', () => {
+        it('should return empty string on other pages', () => {
           // GIVEN
           routerState.snapshot.root.data = { pageTitle: 'symptom.title' };
 
           // WHEN
-          expect(comp.getRouterClass()).toBe('card jh-card');
+          expect(comp.getRouterClass()).toBe('');
         });
       });
     });

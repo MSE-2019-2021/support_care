@@ -4,16 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { SymptomDetailComponent } from 'app/entities/symptom/symptom-detail.component';
-import {ISymptom, Symptom} from 'app/shared/model/symptom.model';
-import {SymptomService} from "app/entities/symptom/symptom.service";
+import { Symptom } from 'app/shared/model/symptom.model';
 
 describe('Component Tests', () => {
   describe('Symptom Management Detail Component', () => {
     let comp: SymptomDetailComponent;
     let fixture: ComponentFixture<SymptomDetailComponent>;
-    // let service: SymptomService;
-    // let symptom: ISymptom;
-
 
     beforeEach(() => {
       TestBed.configureTestingModule({

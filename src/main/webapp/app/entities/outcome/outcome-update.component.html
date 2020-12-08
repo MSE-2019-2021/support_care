@@ -1,8 +1,8 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="custom-outcome-heading" data-cy="OutcomeCreateUpdateHeading" jhiTranslate="supportivecareApp.outcome.home.createOrEditLabel">Create or edit a Outcome</h2>
-
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="OutcomeUpdateHeading" *ngIf="isEditing()" jhiTranslate="supportivecareApp.outcome.home.editLabel"></h2>
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="OutcomeCreateHeading" *ngIf="!isEditing()" jhiTranslate="supportivecareApp.outcome.home.createLabel"></h2>
             <div>
                 <custom-alert-error></custom-alert-error>
 

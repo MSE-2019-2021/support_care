@@ -1,12 +1,10 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="custom-symptom-heading" data-cy="SymptomCreateUpdateHeading" jhiTranslate="supportivecareApp.symptom.home.createOrEditLabel">Create or edit a Symptom</h2>
-
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomUpdateHeading" *ngIf="isEditing()" jhiTranslate="supportivecareApp.symptom.home.editLabel"></h2>
+            <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomCreateHeading" *ngIf="!isEditing()" jhiTranslate="supportivecareApp.symptom.home.createLabel"></h2>
             <div>
                 <custom-alert-error></custom-alert-error>
-
-
                 <div class="form-group" [hidden]="editForm.get('id')?.value == null">
                     <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
                     <input type="number" class="form-control" name="id" id="field_id" data-cy="id"

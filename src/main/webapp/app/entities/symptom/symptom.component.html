@@ -1,23 +1,14 @@
-<div>
-    <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading">
-        <span jhiTranslate="supportivecareApp.symptom.home.title">Symptoms</span>
-
-        <div class="d-flex justify-content-end">
-            <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
-                    class="btn btn-primary jh-create-entity create-symptom"
-                    [routerLink]="['/symptom/new']">
-                <fa-icon icon="plus" slot="start"></fa-icon>
-                <span jhiTranslate="supportivecareApp.symptom.home.createLabel">
-                Create a new Symptom
-                </span>
-            </button>
-        </div>
-    </h2>
-
+<div class="mainWrapper">
+    <div class="listHeaderWrapper">
+        <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading" jhiTranslate="supportivecareApp.symptom.home.title"></h2>
+        <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
+                class="btn btn-primary jh-create-entity button-create"
+                [routerLink]="['/symptom/new']">
+            <span jhiTranslate="supportivecareApp.symptom.home.createLabel"></span>
+        </button>
+    </div>
     <custom-alert-error></custom-alert-error>
-
     <custom-alert></custom-alert>
-
     <div class="alert alert-warning" id="no-result" *ngIf="symptoms?.length === 0">
         <span jhiTranslate="supportivecareApp.symptom.home.notFound">No symptoms found</span>
     </div>

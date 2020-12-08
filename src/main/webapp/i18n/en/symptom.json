@@ -4,8 +4,8 @@
       "home": {
         "title": "Symptoms",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Symptom",
-        "createOrEditLabel": "Create or edit a Symptom",
+        "createLabel": "Create symptom",
+        "editLabel": "Edit symptom",
         "notFound": "No Symptoms found"
       },
       "created": "A new Symptom is created with identifier {{ param }}",
