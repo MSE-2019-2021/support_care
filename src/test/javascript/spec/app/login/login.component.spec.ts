@@ -82,7 +82,7 @@ describe('Component Tests', () => {
 
       // THEN
       // TODO: this test should be changed when home page is implemented
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/symptom']);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
     });
 
     it('should authenticate the user and navigate to home page', inject(
@@ -109,7 +109,7 @@ describe('Component Tests', () => {
         expect(comp.authenticationError).toEqual(false);
         expect(mockLoginService.login).toHaveBeenCalledWith(credentials);
         // TODO: this test should be changed when home page is implemented
-        expect(mockRouter.navigate).toHaveBeenCalledWith(['/symptom']);
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
       })
     ));
   });
