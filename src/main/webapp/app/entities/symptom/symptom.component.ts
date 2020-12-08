@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
@@ -10,17 +10,11 @@ import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
 import { SymptomService } from './symptom.service';
 import { SymptomDeleteDialogComponent } from './symptom-delete-dialog.component';
 
-// import { Pipe, PipeTransform } from '@angular/core';
-//
-// @Pipe({
-//   name: 'filter'
-// })
-
 @Component({
   selector: 'custom-symptom',
   templateUrl: './symptom.component.html',
 })
-export class SymptomComponent implements OnInit, OnDestroy/*, PipeTransform */  {
+export class SymptomComponent implements OnInit, OnDestroy{
   symptoms: ISymptom[];
   eventSubscriber?: Subscription;
   isLoading = false;
@@ -29,6 +23,9 @@ export class SymptomComponent implements OnInit, OnDestroy/*, PipeTransform */  
   page: number;
   predicate: string;
   ascending: boolean;
+  public searchText: ISymptom['name'];
+
+  // searchText: string | undefined ;
 
   constructor(
     protected symptomService: SymptomService,
@@ -122,18 +119,4 @@ export class SymptomComponent implements OnInit, OnDestroy/*, PipeTransform */  
       }
     }
   }
-  // transform(items: any[], searchText: string): any[] {
-  //
-  //   if (!items) {
-  //     return [];
-  //   }
-  //   if (!searchText) {
-  //     return items;
-  //   }
-  //   searchText = searchText.toLocaleLowerCase();
-  //
-  //   return items.filter(it => {
-  //     return it.toLocaleLowerCase().includes(searchText);
-  //   });
-  // }
 }
