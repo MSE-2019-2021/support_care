@@ -135,5 +135,14 @@ describe('Component Tests', () => {
       // THEN
       expect(result).toEqual(['name,asc', 'id']);
     });
+    it('Should search symptom', () => {
+      // WHEN
+      comp.searching();
+
+      // THEN
+      expect(comp.page).toEqual(0);
+    });
+
+
   });
 });
