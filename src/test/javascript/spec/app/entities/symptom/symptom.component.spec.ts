@@ -16,6 +16,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<SymptomComponent>;
     let service: SymptomService;
 
+
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
@@ -29,11 +30,14 @@ describe('Component Tests', () => {
                 defaultSort: 'id,asc',
               }),
               queryParamMap: of(
-                jest.requireActual('@angular/router').convertToParamMap({
+                jest.requireActual('@angular/router').convertToParamMap(
+                  {},
+                  {
                   page: '1',
                   size: '1',
                   sort: 'id,desc',
-                })
+                }
+                )
               ),
             },
           },
