@@ -18,12 +18,12 @@
         "title": "Toxicity Rate"
       },
       "id": "ID",
-      "name": "Name",
-      "description": "Description",
-      "notice": "Notice",
-      "autonomousIntervention": "Autonomous Intervention",
-      "interdependentIntervention": "Interdependent Intervention",
-      "selfManagement": "Self Management",
+      "name": "Nome",
+      "description": "Descrição do grau de manifestação do sintoma",
+      "notice": "Informação ao doente",
+      "autonomousIntervention": "Intervenção autónoman",
+      "interdependentIntervention": "Intervenção interdependente",
+      "selfManagement": "Suporte para auto-gestão",
       "symptom": "Symptom",
       "help": {
         "name": "Nome.",

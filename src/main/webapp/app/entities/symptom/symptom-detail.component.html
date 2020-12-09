@@ -1,7 +1,7 @@
 
 
 <div class="row justify-content-center">
-    <div class="col-8">
+    <span class="col-8">
         <div *ngIf="symptom">
             <button type="submit"
                     (click)="previousState()"
@@ -22,7 +22,7 @@
                 <fa-icon class="red-icon" icon="trash"></fa-icon>
             </button>
 
-            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">{{ symptom.name }}</span></h2>
+            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span>{{ symptom.name }}</span></h2>
 
             <custom-alert-error></custom-alert-error>
 
@@ -31,36 +31,35 @@
             <!-- Begin of Therapeutical Regime Information Block -->
             <div class="bg-light div-detail-spacing" >
                 <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo">General information</h5>
-
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.titleBlock" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.regime' | translate">Assigned Therapeutic Regimes</label>
-
-                    <span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
+                    <p><span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
                         <a [routerLink]="['/therapeutic-regime', therapeuticRegime?.id, 'view']">{{ therapeuticRegime.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-
+                    </span></p>
                 </div>
 
                 <div class="form-group col-lg-9">
                     <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
-<!--                    <p><span>{{ symptom.notice }}</span></p>-->
-                    <p><span>Hipéruricémia pode ocorrer .........</span></p>
+                    <p><span>{{ symptom.notice }}</span></p>
                 </div>
 
                 <div class="form-group col-lg-9">
-                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.assessment" [ngbTooltip]="'supportivecareApp.symptom.assessment' | translate">Assessement</label>
-<!--                    <p><span>{{ symptom.assessment }}</span></p>-->
-                    <p><span><a href="#">PROM de náusea</a> </span></p>
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.outcome" [ngbTooltip]="'supportivecareApp.symptom.outcome' | translate">Outcome</label>
+                    <p><span *ngFor="let outcome of symptom.outcomes; let last = last">
+                        <a [routerLink]="['/outcome', outcome?.id, 'view']">{{ outcome.name }}</a>{{ last ? '' : ', ' }}
+                    </span></p>
                 </div>
+
             </div>
 
 <!--  Begin Interventions -->
             <div class="accordion" id="accordionExample">
+                <span *ngFor="let toxicityRate of symptom.toxicityRates; let last = last">
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                             <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Intervenções recomendadas - Genérico
+                                Intervenção Recomendada - {{ toxicityRate.name }}
                             </button>
                         </h5>
                     </div>
@@ -68,47 +67,35 @@
                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                         <div class="card-body">
                             <div class="form-group col-lg-12">
-                                <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.irt1" [ngbTooltip]="'supportivecareApp.symptom.irt1' | translate">IR-T1</label>
-                                <!--   <p><span>{{ symptom.assessment }}</span></p>-->
-                                <p><span>Descrição</span></p>
+                                <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.description" [ngbTooltip]="'supportivecareApp.toxicityRate.description' | translate">description</label>
+                                   <p><span>{{ toxicityRate.description }}</span></p>
 
                                 <div class="form-group border col-lg-12">
-                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.irt2" [ngbTooltip]="'supportivecareApp.symptom.irt2' | translate">IR-T2</label>
-                                    <!--                    <p><span>{{ symptom.assessment }}</span></p>-->
-                                    <p><span>Seguir recomendações para redução de dose ou adiar inicío de ciclo</span></p>
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.notice" [ngbTooltip]="'supportivecareApp.toxicityRate.notice' | translate">notice</label>
+                                    <p><span>{{ toxicityRate.notice }}</span></p>
                                 </div>
 
                                 <div class="form-group border col-lg-12">
-                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.irt3" [ngbTooltip]="'supportivecareApp.symptom.irt3' | translate">IR-T3</label>
-                                    <!--                    <p><span>{{ symptom.assessment }}</span></p>-->
-                                    <p><span>INFORMAÇÃO 1</span></p>
-                                    <p><span>INFORMAÇÃO 2</span></p>
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.autonomousIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.autonomousIntervention' | translate">autonomousIntervention</label>
+                                    <p><span>{{ toxicityRate.autonomousIntervention }}</span></p>
                                 </div>
 
                                 <div class="form-group border col-lg-12">
-                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.irt4" [ngbTooltip]="'supportivecareApp.symptom.irt4' | translate">IR-T4</label>
-                                    <!--                    <p><span>{{ symptom.assessment }}</span></p>-->
-                                    <p><span>INFORMAÇÃO 1</span></p>
-                                    <p><span>INFORMAÇÃO 2</span></p>
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.interdependentIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.interdependentIntervention' | translate">interdependentIntervention</label>
+                                    <p><span>{{ toxicityRate.interdependentIntervention }}</span></p>
                                 </div>
 
                                 <div class="form-group border col-lg-12">
-                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.irt5" [ngbTooltip]="'supportivecareApp.symptom.irt5' | translate">IR-T5</label>
-                                    <!--                    <p><span>{{ symptom.assessment }}</span></p>-->
-                                    <p><span>INFORMAÇÃO 1</span></p>
-                                    <p><span>INFORMAÇÃO 2</span></p>
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.selfManagement" [ngbTooltip]="'supportivecareApp.toxicityRate.selfManagement' | translate">selfManagement</label>
+                                    <p><span>{{ toxicityRate.selfManagement }}</span></p>
                                 </div>
 
 
                             </div>
                         </div>
                     </div>
+
                 </div>
+                </span>
             </div>
-
-
-<!-- End intervetions -->
-
         </div>
-    </div>
-</div>
