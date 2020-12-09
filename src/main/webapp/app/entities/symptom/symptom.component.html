@@ -1,7 +1,6 @@
 <div>
     <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading">
         <span jhiTranslate="supportivecareApp.symptom.home.title">Symptoms</span>
-
         <div class="d-flex justify-content-end">
             <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
                     class="btn btn-primary jh-create-entity create-symptom"
@@ -12,30 +11,26 @@
             </button>
         </div>
     </h2>
-
     <!--SEARCH FORM-->
     <div class="input-group input-group-lg md-form form-sm form-1 pl-0" id="tableSearch">
         <div class="input-group-prepend">
             <span class="input-group-text bg-white" id="basic-text1"><fa-icon icon="search" slot="start"
                                                                               aria-hidden="true"></fa-icon></span>
         </div>
-        <input class="form-control form-control-borderless" type="search" [(ngModel)]=searchText
-               placeholder="Pesquise por um sintoma...">
+        <input class="form-control form-control-borderless" type="text" [(ngModel)]="searchName"
+               (ngModelChange)="searching()"
+               placeholder="{{ 'supportivecareApp.symptom.home.namePlaceholder' | translate }}">
     </div>
-
     <custom-alert-error></custom-alert-error>
-
     <custom-alert></custom-alert>
-
     <div class="alert alert-warning" id="no-result" *ngIf="symptoms?.length === 0">
         <span jhiTranslate="supportivecareApp.symptom.home.notFound">No symptoms found</span>
     </div>
-
     <div class="table-responsive" id="entities" *ngIf="symptoms && symptoms.length > 0">
         <table class="table table-striped border-style" aria-describedby="page-heading">
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
                    [infiniteScrollDistance]="0">
-            <tr *ngFor="let symptom of symptoms | filter: searchText; trackBy: trackId" data-cy="entityTable">
+            <tr *ngFor="let symptom of symptoms trackBy: trackId" data-cy="entityTable">
                 <td class="table-item">
                     <a [routerLink]="['/symptom', symptom.id, 'view']">
                         <span class="list-text-color-bold"> {{ symptom.name }} </span> <span

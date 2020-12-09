@@ -6,7 +6,8 @@
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar sintoma",
         "createOrEditLabel": "Criar ou editar sintoma",
-        "notFound": "Nenhum sintoma encontrado"
+        "notFound": "Nenhum sintoma encontrado",
+        "namePlaceholder": "Pesquise por um sintoma..."
       },
       "created": "Um novo Symptom foi criado com o identificador {{ param }}",
       "updated": "O sintoma com o identificador {{ param }} foi actualizado",
