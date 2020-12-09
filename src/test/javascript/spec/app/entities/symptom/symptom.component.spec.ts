@@ -1,6 +1,6 @@
 jest.mock('@angular/router');
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, getTestBed, TestBed} from '@angular/core/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -29,11 +29,14 @@ describe('Component Tests', () => {
                 defaultSort: 'id,asc',
               }),
               queryParamMap: of(
-                jest.requireActual('@angular/router').convertToParamMap({
+                jest.requireActual('@angular/router').convertToParamMap(
+                  {},
+                  {
                   page: '1',
                   size: '1',
                   sort: 'id,desc',
-                })
+                }
+                )
               ),
             },
           },
@@ -129,6 +132,36 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
+      expect(result).toEqual(['name,asc', 'id']);
+    });
+
+    it('Should search symptom', () => {
+      // WHEN
+      comp.searching();
+
+      // THEN
+      comp.reset();
+      expect(comp.page).toEqual(0);
+    });
+
+    it('Should sync symptom list', () => {
+      // WHEN
+      comp.handleSyncList();
+
+      // THEN
+      comp.reset();
+      expect(comp.page).toEqual(0);
+    });
+
+    it('Should filter query symptom by name', () => {
+      // WHEN
+      comp.searchName = 'name'
+      comp.getCriterias();
+
+      const result = comp.sort();
+
+      // THEN
+      expect(comp.searchName).toEqual('name');
       expect(result).toEqual(['name,asc', 'id']);
     });
   });

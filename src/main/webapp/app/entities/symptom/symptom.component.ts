@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {HttpHeaders, HttpResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs';
+import {JhiEventManager, JhiParseLinks} from 'ng-jhipster';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import { ISymptom } from 'app/shared/model/symptom.model';
+import {ISymptom} from 'app/shared/model/symptom.model';
 
-import { ITEMS_PER_PAGE } from 'app/core/config/pagination.constants';
-import { SymptomService } from './symptom.service';
-import { SymptomDeleteDialogComponent } from './symptom-delete-dialog.component';
+import {ITEMS_PER_PAGE} from 'app/core/config/pagination.constants';
+import {SymptomService} from './symptom.service';
+import {SymptomDeleteDialogComponent} from './symptom-delete-dialog.component';
 
 @Component({
   selector: 'custom-symptom',
@@ -23,6 +23,8 @@ export class SymptomComponent implements OnInit, OnDestroy {
   page: number;
   predicate: string;
   ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   constructor(
     protected symptomService: SymptomService,
@@ -38,17 +40,31 @@ export class SymptomComponent implements OnInit, OnDestroy {
     };
     this.predicate = 'name';
     this.ascending = true;
+
+  }
+
+  getCriterias(): string[] {
+    const criterias: string[] = [];
+
+    if (this.searchName) {
+      criterias['name.contains'] = this.searchName;
+    }
+    return criterias;
   }
 
   loadAll(): void {
     this.isLoading = true;
 
     this.symptomService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(Object.assign(
+        {},
+        {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        },
+        this.getCriterias()
+      ))
       .subscribe(
         (res: HttpResponse<ISymptom[]>) => {
           this.isLoading = false;
@@ -95,7 +111,7 @@ export class SymptomComponent implements OnInit, OnDestroy {
   }
 
   delete(symptom: ISymptom): void {
-    const modalRef = this.modalService.open(SymptomDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(SymptomDeleteDialogComponent, {size: 'lg', backdrop: 'static'});
     modalRef.componentInstance.symptom = symptom;
   }
 
@@ -115,5 +131,13 @@ export class SymptomComponent implements OnInit, OnDestroy {
         this.symptoms.push(data[i]);
       }
     }
+  }
+
+  searching(): any {
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.reset();
+    }, 200);
   }
 }
