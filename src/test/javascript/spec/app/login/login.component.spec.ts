@@ -1,12 +1,10 @@
 jest.mock('@angular/router');
 jest.mock('app/core/auth/account.service');
 jest.mock('app/login/login.service');
-
 import { ComponentFixture, TestBed, waitForAsync, inject, fakeAsync, tick } from '@angular/core/testing';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-
 import { LoginService } from 'app/login/login.service';
 import { LoginComponent } from 'app/login/login.component';
 import { AccountService } from 'app/core/auth/account.service';
@@ -81,7 +79,6 @@ describe('Component Tests', () => {
       comp.ngOnInit();
 
       // THEN
-      // TODO: this test should be changed when home page is implemented
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
     });
 
@@ -108,7 +105,6 @@ describe('Component Tests', () => {
         // THEN
         expect(comp.authenticationError).toEqual(false);
         expect(mockLoginService.login).toHaveBeenCalledWith(credentials);
-        // TODO: this test should be changed when home page is implemented
         expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
       })
     ));
