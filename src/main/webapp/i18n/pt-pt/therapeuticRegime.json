@@ -4,8 +4,8 @@
       "home": {
         "title": "Regimes Terapêuticos",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo Regime Terapêutico",
-        "createOrEditLabel": "Criar ou editar Regime Terapêutico",
+        "createLabel": "Criar regime terapêutico",
+        "editLabel": "Editar regime terapêutico",
         "notFound": "Nenhum Regime Terapêutico encontrado"
       },
       "created": "Um novo Regime Terapêutico foi criado com o identificador {{ param }}",

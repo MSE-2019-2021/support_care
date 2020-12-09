@@ -13,8 +13,7 @@ describe('login modal', () => {
     });
 
     cy.clearCookies();
-    cy.visit('');
-    cy.clickOnLoginItem();
+    cy.visit('/');
   });
 
   beforeEach(() => {

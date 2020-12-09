@@ -1,9 +1,17 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="symptom">
+            <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="submit" (click)="delete(symptom)"
+                    class="btn float-right button-transparent "
+                    data-cy="entityDeleteButton">
+                <fa-icon class="red-icon" icon="trash"></fa-icon>
+            </button>
             <h2 data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
 
             <hr>
+
+
 
             <custom-alert-error></custom-alert-error>
 
@@ -51,6 +59,7 @@
 
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="button"
+                    data-cy="entityEditButton"
                     [routerLink]="['/symptom', symptom.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>

@@ -4,8 +4,8 @@
       "home": {
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create Therapeutic Regime",
-        "createOrEditLabel": "Create or edit a Therapeutic Regime",
+        "createLabel": "Create therapeutic regime",
+        "editLabel": "Edit therapeutical regime",
         "notFound": "No Therapeutic Regimes found"
       },
       "created": "A new Therapeutic Regime is created with identifier {{ param }}",

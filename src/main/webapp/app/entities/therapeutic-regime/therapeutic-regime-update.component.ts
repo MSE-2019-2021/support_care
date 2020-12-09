@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { TherapeuticRegimeCancelDialogComponent } from './therapeutic-regime-cancel-dialog.component';
+import { Router } from '@angular/router';
 
 type SelectableEntity = IDrug | ITreatment;
 
@@ -42,6 +43,9 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     treatment: [null, Validators.required],
   });
 
+  dropdownList: { id: number; text: string }[] = [];
+  dropdownSettings = {};
+
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
     protected drugService: DrugService,
@@ -50,10 +54,20 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     protected modalService: NgbModal,
     protected eventManager: JhiEventManager,
     private fb: FormBuilder,
+    private route: Router,
     @Optional() public activeModal?: NgbActiveModal
   ) {}
 
   ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
     if (this.activeModal) {
       return;
     }
@@ -84,7 +98,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
       indication: therapeuticRegime.indication,
       criteria: therapeuticRegime.criteria,
       notice: therapeuticRegime.notice,
-      drugs: therapeuticRegime.drugs,
+      drugs: this.getSelect2Options(therapeuticRegime.drugs!),
       treatment: therapeuticRegime.treatment,
     });
   }
@@ -107,6 +121,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     }
   }
 
+  isEditing(): boolean {
+    const drug = this.createFromForm();
+    return !!drug.id;
+  }
+
   private createFromForm(): ITherapeuticRegime {
     return {
       ...new TherapeuticRegime(),
@@ -126,14 +145,14 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITherapeuticRegime>>): void {
     result.subscribe(
-      () => this.onSaveSuccess(),
+      r => this.onSaveSuccess(r.body!.id),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess(): void {
+  protected onSaveSuccess(id: number | undefined): void {
     this.isSaving = false;
-    this.previousState();
+    this.route.navigate(['/therapeutic-regime', id, 'view']);
   }
 
   protected onSaveError(): void {
@@ -144,22 +163,27 @@ export class TherapeuticRegimeUpdateComponent implements OnInit, OnDestroy {
     return item.id!;
   }
 
-  getSelected(option: IDrug, selectedVals?: IDrug[]): IDrug {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
-    }
-    return option;
-  }
-
   registerChangeInTherapeuticRegimes(): void {
     this.eventSubscriber = this.eventManager.subscribe('therapeuticRegimeListUpdate', () => this.previousState());
   }
 
   cancel(): void {
     this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+
+  getSelect2Options(options: IDrug[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
+
+    if (typeof options === 'undefined' || options.length === 0) {
+      return [];
+    }
+
+    options.forEach(value => {
+      dropdownList.push({
+        id: value.id!,
+        text: value.name!,
+      });
+    });
+    return dropdownList;
   }
 }

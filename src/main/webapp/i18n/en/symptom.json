@@ -8,6 +8,7 @@
         "createOrEditLabel": "Create or edit a Symptom",
         "notFound": "No Symptoms found",
         "namePlaceholder": "Search for a symptom..."
+        "editLabel": "Edit symptom",
       },
       "created": "A new Symptom is created with identifier {{ param }}",
       "updated": "A Symptom is updated with identifier {{ param }}",

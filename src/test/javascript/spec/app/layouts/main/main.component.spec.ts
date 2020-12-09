@@ -164,6 +164,58 @@ describe('Component Tests', () => {
           expect(titleService.setTitle).toHaveBeenCalledWith(parentRoutePageTitle + ' translated');
         });
       });
+
+      describe('getWrapperClass', () => {
+        it('should return notLoggedWrapper on login page', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'login.title' };
+
+          // WHEN
+          expect(comp.getWrapperClass()).toBe('notLoggedWrapper');
+        });
+
+        it('should return notLoggedWrapper on register page', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'register.title' };
+
+          // WHEN
+          expect(comp.getWrapperClass()).toBe('notLoggedWrapper');
+        });
+
+        it('should return empty string on other pages', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'symptom.title' };
+
+          // WHEN
+          expect(comp.getWrapperClass()).toBe('');
+        });
+      });
+
+      describe('getRouterClass', () => {
+        it('should return notLoggedRouter on login page', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'login.title' };
+
+          // WHEN
+          expect(comp.getRouterClass()).toBe('notLoggedRouter');
+        });
+
+        it('should return notLoggedRouter on register page', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'register.title' };
+
+          // WHEN
+          expect(comp.getRouterClass()).toBe('notLoggedRouter');
+        });
+
+        it('should return empty string on other pages', () => {
+          // GIVEN
+          routerState.snapshot.root.data = { pageTitle: 'symptom.title' };
+
+          // WHEN
+          expect(comp.getRouterClass()).toBe('');
+        });
+      });
     });
   });
 });

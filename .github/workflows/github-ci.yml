@@ -73,16 +73,6 @@ jobs:
                   else
                       echo No HEROKU_API_KEY, skipping...
                   fi
-            - name: Deploy to Heroku PROD
-              if: github.event_name == 'release' && github.event.action == 'created'
-              env:
-                HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-              run: |
-                if [ ! -z "$HEROKU_API_KEY" ]; then
-                    ./mvnw -ntp com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=supportivecare
-                else
-                    echo No HEROKU_API_KEY, skipping...
-                fi
             - name: 'E2E: Package'
               run: npm run ci:e2e:package
             - name: 'E2E: Prepare'
