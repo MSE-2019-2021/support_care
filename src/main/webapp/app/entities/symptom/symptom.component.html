@@ -5,6 +5,7 @@
             <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
                     class="btn btn-primary jh-create-entity create-symptom"
                     [routerLink]="['/symptom/new']">
+                <fa-icon icon="plus" slot="start"></fa-icon>
                 <span jhiTranslate="supportivecareApp.symptom.home.createLabel">
                 Create a new Symptom
                 </span>
@@ -30,7 +31,7 @@
         <table class="table table-striped border-style" aria-describedby="page-heading">
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
                    [infiniteScrollDistance]="0">
-            <tr *ngFor="let symptom of symptoms trackBy: trackId" data-cy="entityTable">
+            <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
                 <td class="table-item">
                     <a [routerLink]="['/symptom', symptom.id, 'view']">
                         <span class="list-text-color-bold"> {{ symptom.name }} </span> <span
