@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     // if already authenticated then navigate to home page
     this.accountService.identity().subscribe(() => {
       if (this.accountService.isAuthenticated()) {
-        // TO DO: change this with the route for the correct home page
-        // for now let's keep with the symptoms list
         this.router.navigate(['/home']);
       }
     });

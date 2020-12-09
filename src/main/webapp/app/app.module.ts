@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ServiceWorkerModule } from '@angular/service-worker';
-
 import './vendor';
 import { SharedModule } from 'app/shared/shared.module';
 import { CoreModule } from 'app/core/core.module';
@@ -16,7 +15,6 @@ import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
 import { LoginModule } from './login/login.module';
-//import { HomeModule } from './home/home.module';
 
 @NgModule({
   imports: [
@@ -29,7 +27,6 @@ import { LoginModule } from './login/login.module';
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
-    //   HomeModule,
   ],
   declarations: [
     MainComponent,
