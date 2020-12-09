@@ -1,39 +1,42 @@
-  <div class="mainWrapper">
-      <div class="listHeaderWrapper">
-          <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading" jhiTranslate="supportivecareApp.symptom.home.title"></h2>
-          <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
-                  class="btn btn-primary jh-create-entity button-create"
-                  [routerLink]="['/symptom/new']">
-              <span jhiTranslate="supportivecareApp.symptom.home.createLabel"></span>
-          </button>
+<div class="mainWrapper">
+    <div class="listHeaderWrapper">
+        <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading"
+            jhiTranslate="supportivecareApp.symptom.home.title"></h2>
+        <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton"
+                class="btn btn-primary jh-create-entity button-create"
+                [routerLink]="['/symptom/new']">
+            <span jhiTranslate="supportivecareApp.symptom.home.createLabel"></span>
+        </button>
+    </div>
         <!--SEARCH FORM-->
-    <div class="input-group input-group-lg md-form form-sm form-1 pl-0" id="tableSearch">
-          <div class="input-group-prepend">
+        <div class="input-group input-group-lg md-form form-sm form-1 pl-0" id="tableSearch">
+            <div class="input-group-prepend">
               <span class="input-group-text bg-white" id="basic-text1"><fa-icon icon="search" slot="start"
-                                                                              aria-hidden="true"></fa-icon></span>
-          </div>
-          <input class="form-control form-control-borderless" type="text" [(ngModel)]="searchName"
-               (ngModelChange)="searching()"
-               placeholder="{{ 'supportivecareApp.symptom.home.namePlaceholder' | translate }}">
-    </div>
-    <custom-alert-error></custom-alert-error>
-    <custom-alert></custom-alert>
-    <div class="alert alert-warning" id="no-result" *ngIf="symptoms?.length === 0">
-        <span jhiTranslate="supportivecareApp.symptom.home.notFound">No symptoms found</span>
-    </div>
-    <div class="table-responsive" id="entities" *ngIf="symptoms && symptoms.length > 0">
-        <table class="table table-striped border-style" aria-describedby="page-heading">
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
-                   [infiniteScrollDistance]="0">
-            <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
-                <td class="table-item">
-                    <a data-cy="entityDetailsButton" [routerLink]="['/symptom', symptom.id, 'view']">
-                        <span class="list-text-color-bold"> {{ symptom.name }} </span> <span
-                        class="list-text-color"> ({{ symptom.notice }}) </span>
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                                                                                aria-hidden="true"></fa-icon></span>
+            </div>
+            <input class="form-control form-control-borderless" type="text" [(ngModel)]="searchName"
+                   (ngModelChange)="searching()"
+                   placeholder="{{ 'supportivecareApp.symptom.home.namePlaceholder' | translate }}">
+        </div>
+
+        <custom-alert-error></custom-alert-error>
+        <custom-alert></custom-alert>
+        <div class="alert alert-warning" id="no-result" *ngIf="symptoms?.length === 0">
+            <span jhiTranslate="supportivecareApp.symptom.home.notFound">No symptoms found</span>
+        </div>
+        <div class="table-responsive" id="entities" *ngIf="symptoms && symptoms.length > 0">
+            <table class="table table-striped border-style" aria-describedby="page-heading">
+                <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
+                       [infiniteScrollDistance]="0">
+                <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
+                    <td class="table-item">
+                        <a data-cy="entityDetailsButton" [routerLink]="['/symptom', symptom.id, 'view']">
+                            <span class="list-text-color-bold"> {{ symptom.name }} </span> <span
+                            class="list-text-color"> ({{ symptom.notice }}) </span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 </div>
