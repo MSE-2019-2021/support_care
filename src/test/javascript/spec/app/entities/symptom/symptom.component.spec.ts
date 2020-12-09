@@ -142,7 +142,14 @@ describe('Component Tests', () => {
       // THEN
       expect(comp.page).toEqual(0);
     });
+    it('Should filter query symptom by name', () => {
+      // WHEN
+      comp.getCriterias();
+      const result = comp.sort();
 
+      // THEN
+      expect(result).toEqual(['name,asc', 'id']);
+    });
 
   });
 });
