@@ -144,6 +144,15 @@ describe('Component Tests', () => {
       expect(comp.page).toEqual(0);
     });
 
+    it('Should sync symptom list', () => {
+      // WHEN
+      comp.handleSyncList();
+
+      // THEN
+      comp.reset();
+      expect(comp.page).toEqual(0);
+    });
+
     it('Should filter query symptom by name', () => {
       // WHEN
       comp.searchName = 'name'
