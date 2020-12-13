@@ -73,7 +73,7 @@ export class OutcomeComponent implements OnInit {
   }
 
   delete(outcome: IOutcome): void {
-    const modalRef = this.modalService.open(OutcomeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(OutcomeDeleteDialogComponent, { centered: true, size: 'md', backdrop: 'static' });
     modalRef.componentInstance.outcome = outcome;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {

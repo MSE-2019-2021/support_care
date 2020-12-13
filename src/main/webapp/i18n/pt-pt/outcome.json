@@ -29,6 +29,12 @@
         "name": "Nome.",
         "description": "Descrição.",
         "attachment": "Clique no nome do ficheiro para iniciar o download."
+      },
+      "action": {
+        "delete": {
+          "title": "Deseja apagar este regime terapêutico?",
+          "body": "Ao confirmar esta ação, toda a informação relativa a este regime terapêutico será perdida."
+        }
       }
     }
   }
