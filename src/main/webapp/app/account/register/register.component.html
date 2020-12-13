@@ -7,12 +7,12 @@
         <div>
             <h1 jhiTranslate="register.title" data-cy="registerTitle" class="registerTitle">Registration</h1>
 
-            <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+            <div *ngIf="success">
+                <p class="alert alert-success" jhiTranslate="register.messages.success"></p>
+                <button class="btn btn-light loginButton" data-cy="loginLink" routerLink="/" jhiTranslate="entity.action.back"></button>
             </div>
 
             <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
-                <strong>Registration failed!</strong> Please try again later.
             </div>
 
             <div class="alert alert-danger" *ngIf="errorUserExists" jhiTranslate="register.messages.error.userexists">
@@ -150,8 +150,8 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary registerButton" jhiTranslate="register.form.button" data-cy="submit">Register</button>
-                <button class="btn btn-light loginButton" data-cy="loginLink" routerLink="/" jhiTranslate="global.messages.info.register.goToLogin">Faça login</button>
+                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary registerButton" jhiTranslate="register.form.button" data-cy="submit"></button>
+                <button class="btn btn-light loginButton" data-cy="loginLink" routerLink="/" jhiTranslate="global.messages.info.register.goToLogin"></button>
                 
             </form>
         </div>
