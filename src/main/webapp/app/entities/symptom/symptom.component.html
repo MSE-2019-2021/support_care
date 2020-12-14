@@ -29,7 +29,7 @@
                 <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
                        [infiniteScrollDistance]="0">
                 <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
-                    <td class="table-item">
+                    <td class="table-item" [routerLink]="['/symptom', symptom.id, 'view']">
                         <a data-cy="entityDetailsButton" [routerLink]="['/symptom', symptom.id, 'view']">
                             <span class="list-text-color-bold"> {{ symptom.name }} </span> <span
                             class="list-text-color"> ({{ symptom.notice }}) </span>
