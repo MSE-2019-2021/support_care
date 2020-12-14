@@ -26,7 +26,8 @@
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "description": "Descrição."
+        "description": "Descrição.",
+        "attachment": "Clique no nome do ficheiro para iniciar o download."
       }
     }
   }

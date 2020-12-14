@@ -1,0 +1,42 @@
+<div class="entityWrapper">
+    <div *ngIf="outcome">
+        <button type="submit"
+                [routerLink]="['/outcome']"
+                class="btn button-transparent"
+                data-cy="entityDetailsBackButton">
+            <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>
+        </button>
+        <button *customHasAnyAuthority="'ROLE_USER'"
+                type="button"
+                data-cy="entityEditButton"
+                [routerLink]="['/outcome', outcome.id, 'edit']"
+                class="btn btn-primary float-right button-create">
+            <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        </button>
+        <button *customHasAnyAuthority="'ROLE_USER'"
+                type="submit" (click)="delete(outcome);"
+                class="btn button-transparent float-right button-delete"
+                data-cy="entityDeleteButton">
+            <fa-icon class="red-icon" icon="trash"></fa-icon>
+        </button>
+        <h2 class="h2-color" data-cy="outcomeDetailsHeading">{{ outcome.name }}</h2>
+
+        <div class="mainWrapper entityInfoWrapper">
+            <custom-alert-error></custom-alert-error>
+            <custom-alert></custom-alert>
+
+            <div class="sectionWrapper" >
+                <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.drug.generalInfo"></h5>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate">Description</label>
+                    <p><span>{{ outcome.description }}</span></p>
+                </div>
+                <!-- TODO: Once creat edit is ready this will be the form part for the files -->
+                <!--<div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.drug.attachment" [ngbTooltip]="'supportivecareApp.drug.help.attachment' | translate">File</label>
+                    <p><span>{{ outcome.file }}</span></p>
+                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
