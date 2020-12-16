@@ -4,8 +4,8 @@
       "home": {
         "title": "Outcomes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Outcome",
-        "createOrEditLabel": "Create or edit a Outcome",
+        "createLabel": "Create outcome",
+        "editLabel": "Edit outcome",
         "notFound": "No Outcomes found"
       },
       "created": "A new Outcome is created with identifier {{ param }}",

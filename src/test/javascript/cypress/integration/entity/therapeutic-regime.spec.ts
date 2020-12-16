@@ -67,7 +67,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('TherapeuticRegime');
+    cy.getEntityCreateHeading('TherapeuticRegime');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -79,8 +79,9 @@ describe('TherapeuticRegime e2e test', () => {
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
-      cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityCreateUpdateHeading('TherapeuticRegime');
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.get(entityEditButtonSelector).click({ force: true });
+      cy.getEntityUpdateHeading('TherapeuticRegime');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');

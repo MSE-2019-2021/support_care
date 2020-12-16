@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Supportivecare",
+    "title": "WikiCare",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
@@ -9,14 +9,14 @@
         "main": "Entities",
         "administration": "Administration",
         "notice": "Notice",
-        "drug": "Drug",
+        "drug": "Drugs",
         "treatment": "Treatment",
         "therapeuticRegime": "Therapeutic Regimes",
         "document": "Document",
         "content": "Content",
         "outcome": "Outcome",
         "toxicityRate": "Toxicity Rate",
-        "symptom": "Symptom",
+        "symptom": "Symptoms",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -25,7 +25,8 @@
         "password": "Password",
         "sessions": "Sessions",
         "login": "Sign in",
-        "logout": "Sign out",
+        "leave": "Exit",
+        "logout": "Do you wish to log out of WikiCare?",
         "register": "Register"
       },
       "admin": {
@@ -63,7 +64,8 @@
         },
         "register": {
           "noaccount": "You don't have an account yet?",
-          "link": "Register a new account"
+          "link": "Register a new account",
+          "goToLogin": "Log in your account"
         }
       },
       "error": {

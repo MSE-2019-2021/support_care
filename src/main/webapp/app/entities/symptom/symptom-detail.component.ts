@@ -23,6 +23,7 @@ export class SymptomDetailComponent implements OnInit {
     protected eventManager: JhiEventManager,
   ) {}
 
+
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ symptom }) => {
       this.symptom = symptom;
