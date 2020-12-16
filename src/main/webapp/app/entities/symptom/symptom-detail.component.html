@@ -1,69 +1,89 @@
-<div class="row justify-content-center">
-    <div class="col-8">
+<div class="row justify-content-center" xmlns="http://www.w3.org/1999/html">
+    <span class="col-8">
         <div *ngIf="symptom">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn button-transparent"
+                    data-cy="entityDetailsBackButton">
+                <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" jhiTranslate="entity.action.back">Back</span>
+            </button>
+            <button *customHasAnyAuthority="'ROLE_USER'"
+                    type="button"
+                    data-cy="entityEditButton"
+                    [routerLink]="['/symptom', symptom.id, 'edit']"
+                    class="btn btn-primary float-right">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
             <button *customHasAnyAuthority="'ROLE_USER'"
                     type="submit" (click)="delete(symptom)"
                     class="btn float-right button-transparent "
                     data-cy="entityDeleteButton">
                 <fa-icon class="red-icon" icon="trash"></fa-icon>
             </button>
-            <h2 data-cy="symptomDetailsHeading"><span jhiTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
 
-            <hr>
-
-
-
+            <h2 class="h2-color" data-cy="symptomDetailsHeading"><span>{{ symptom.name }}</span></h2>
             <custom-alert-error></custom-alert-error>
-
             <custom-alert></custom-alert>
 
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="global.field.id">ID</span></dt>
-                <dd>
-                    <span>{{ symptom.id }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.symptom.name" [ngbTooltip]="'supportivecareApp.symptom.help.name' | translate">Name</span></dt>
-                <dd>
-                    <span>{{ symptom.name }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</span></dt>
-                <dd>
-                    <span>{{ symptom.notice }}</span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.symptom.therapeuticRegime">Therapeutic Regime</span></dt>
-                <dd>
-                    <span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
+            <div class="bg-light div-detail-spacing" >
+                <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4"  jhiTranslate="supportivecareApp.therapeuticRegime.generalInfo">General information</h5>
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.therapeuticRegime.titleBlock" [ngbTooltip]="'supportivecareApp.therapeuticRegime.help.regime' | translate">Assigned Therapeutic Regimes</label>
+                    <p><span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
                         <a [routerLink]="['/therapeutic-regime', therapeuticRegime?.id, 'view']">{{ therapeuticRegime.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.symptom.outcome">Outcome</span></dt>
-                <dd>
-                    <span *ngFor="let outcome of symptom.outcomes; let last = last">
+                    </span></p>
+                </div>
+
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
+                    <p><span>{{ symptom.notice }}</span></p>
+                </div>
+
+                <div class="form-group col-lg-9">
+                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.symptom.outcome" [ngbTooltip]="'supportivecareApp.symptom.outcome' | translate">Outcome</label>
+                    <p><span *ngFor="let outcome of symptom.outcomes; let last = last">
                         <a [routerLink]="['/outcome', outcome?.id, 'view']">{{ outcome.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-                <dt><span jhiTranslate="supportivecareApp.symptom.toxicityRate">Toxicity Rate</span></dt>
-                <dd>
-                    <span *ngFor="let toxicityRate of symptom.toxicityRates; let last = last">
-                        <a [routerLink]="['/toxicity-rate', toxicityRate?.id, 'view']">{{ toxicityRate.name }}</a>{{ last ? '' : ', ' }}
-                    </span>
-                </dd>
-            </dl>
+                    </span></p>
+                </div>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info"
-                    data-cy="entityDetailsBackButton">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
-            <button *customHasAnyAuthority="'ROLE_USER'"
-                    type="button"
-                    data-cy="entityEditButton"
-                    [routerLink]="['/symptom', symptom.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-            </button>
+            </div>
+                <span *ngFor="let toxicityRate of symptom.toxicityRates; let last = last">
+                <ng-container *ngIf="toxicityRate.name && toxicityRate.name.length > 0">
+                    <ngb-accordion [closeOthers]="true">
+                        <ngb-panel>
+                            <ng-template ngbPanelHeader let-opened="opened">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <button ngbPanelToggle class="btn btn-link text-primary m-0">Intervenção Recomendada - {{ toxicityRate.name }}</button>
+                                    <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"> </fa-icon>
+                                    <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"> </fa-icon>
+                                  </div>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div class="form-group col-lg-12">
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.description" [ngbTooltip]="'supportivecareApp.toxicityRate.description' | translate">description</label>
+                                    <p><span>{{ toxicityRate.description }}</span></p>
+                                </div>
+                                <div class="form-group border col-lg-12">
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.notice" [ngbTooltip]="'supportivecareApp.toxicityRate.notice' | translate">notice</label>
+                                    <p><span>{{ toxicityRate.notice }}</span></p>
+                                </div>
+                                <div class="form-group border col-lg-12">
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.autonomousIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.autonomousIntervention' | translate">autonomousIntervention</label>
+                                    <p><span>{{ toxicityRate.autonomousIntervention }}</span></p>
+                                </div>
+                                <div class="form-group border col-lg-12">
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.interdependentIntervention" [ngbTooltip]="'supportivecareApp.toxicityRate.interdependentIntervention' | translate">interdependentIntervention</label>
+                                    <p><span>{{ toxicityRate.interdependentIntervention }}</span></p>
+                                </div>
+                                <div class="form-group border col-lg-12">
+                                    <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.toxicityRate.selfManagement" [ngbTooltip]="'supportivecareApp.toxicityRate.selfManagement' | translate">selfManagement</label>
+                                    <p><span>{{ toxicityRate.selfManagement }}</span></p>
+                                </div>
+                            </ng-template>
+                        </ngb-panel>
+                    </ngb-accordion>
+                </ng-container>
+                </span>
         </div>
-    </div>
+    </span>
 </div>

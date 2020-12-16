@@ -21,7 +21,8 @@ export class SymptomDetailComponent implements OnInit {
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
     protected eventManager: JhiEventManager,
-   ) {}
+  ) {}
+
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ symptom }) => {
@@ -45,8 +46,8 @@ export class SymptomDetailComponent implements OnInit {
   }
 
   delete(symptom: ISymptom): void {
-      const modalRef = this.modalService.open(SymptomDeleteDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-      modalRef.componentInstance.symptom = symptom;
-      modalRef.componentInstance.eventName = 'symptomViewModification';
-    }
+    const modalRef = this.modalService.open(SymptomDeleteDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.symptom = symptom;
+    modalRef.componentInstance.eventName = 'symptomViewModification';
+  }
 }

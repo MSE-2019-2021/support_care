@@ -21,10 +21,11 @@
       },
       "id": "ID",
       "name": "Name",
-      "notice": "Notice",
+      "notice": "Informação ao enfermeiro.",
       "therapeuticRegime": "Therapeutic Regime",
-      "outcome": "Outcome",
+      "outcome": "Avaliação do sintoma",
       "toxicityRate": "Toxicity Rate",
+      "irt1": "Descrição do grau de manifestação do sintoma",
       "help": {
         "name": "Nome.",
         "notice": "Informação ao enfermeiro."
