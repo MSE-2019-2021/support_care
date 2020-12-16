@@ -37,10 +37,10 @@
                 </div>
             </div>
             <ng-container *ngIf="drug.notices && drug.notices.length > 0">
-                <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="{{drug.notices[0].id}}">
+                <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="{{drug.notices[0].id}}" class="is-clickable">
                     <ngb-panel *ngFor="let notice of drug.notices" id="{{notice.id}}">
                         <ng-template ngbPanelHeader let-opened="opened">
-                            <div class="d-flex align-items-center justify-content-between" (click)="acc.toggle(''+this.notice.id)">
+                            <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle(''+this.notice.id)">
                                 <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle(''+this.notice.id)">{{ notice.description }}</button>
                                 <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"></fa-icon>
                                 <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"></fa-icon>
