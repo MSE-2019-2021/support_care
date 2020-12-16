@@ -220,3 +220,5 @@ filter *
 paginate * with infinite-scroll
 
 dto * with mapstruct
+
+skipClient Notice, ToxicityRate, Document, Content
