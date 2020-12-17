@@ -37,23 +37,25 @@
                 </div>
             </div>
             <ng-container *ngIf="drug.notices && drug.notices.length > 0">
-                <ngb-accordion [closeOthers]="true" activeIds="{{drug.notices[0].id}}">
+                <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="{{drug.notices[0].id}}">
                     <ngb-panel *ngFor="let notice of drug.notices" id="{{notice.id}}">
                         <ng-template ngbPanelHeader let-opened="opened">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <button ngbPanelToggle class="btn btn-link text-primary m-0">{{ notice.description }}</button>
+                            <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle(''+this.notice.id)">
+                                <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle(''+this.notice.id)">{{ notice.description }}</button>
                                 <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"></fa-icon>
                                 <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"></fa-icon>
                             </div>
                         </ng-template>
-                        <ng-template ngbPanelContent>
-                            <div class="form-group col-lg-9">
+                        <ng-template ngbPanelContent style="cursor:auto;">
+                            <div style="cursor: auto">
+                            <div class="form-group col-lg-12 panel-content-wrapper">
                                 <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.notice.evaluation" [ngbTooltip]="'supportivecareApp.notice.help.evaluation' | translate">Evaluation</label>
                                 <p><span>{{ notice.evaluation }}</span></p>
                             </div>
-                            <div class="form-group col-lg-9">
+                            <div class="form-group col-lg-12 panel-content-wrapper">
                                 <label class="form-control-label font-weight-bold" jhiTranslate="supportivecareApp.notice.intervention" [ngbTooltip]="'supportivecareApp.notice.help.intervention' | translate">Intervention</label>
                                 <p><span>{{ notice.intervention }}</span></p>
+                            </div>
                             </div>
                         </ng-template>
                     </ngb-panel>
