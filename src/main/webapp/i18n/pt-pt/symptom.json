@@ -2,30 +2,27 @@
   "supportivecareApp": {
     "symptom": {
       "home": {
-        "title": "Sintomas disponíveis",
-        "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar sintoma",
-        "createOrEditLabel": "Criar ou editar sintoma",
-        "notFound": "Nenhum sintoma encontrado",
-        "namePlaceholder": "Pesquise por um sintoma...",
-        "editLabel": "Editar sintoma"
+        "title": "Symptoms",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Criar novo(a) Symptom",
+        "createOrEditLabel": "Criar ou editar Symptom",
+        "notFound": "Nenhum Symptoms encontrado"
       },
       "created": "Um novo Symptom foi criado com o identificador {{ param }}",
-      "updated": "O sintoma com o identificador {{ param }} foi actualizado",
-      "deleted": "O sintoma com o identificador {{ param }} foi eliminado",
+      "updated": "Symptom com identificador {{ param }} foi actualizado",
+      "deleted": "Symptom com identificador {{ param }} foi eliminado",
       "delete": {
         "question": "Tem a certeza que pretende eliminar o(a) Symptom {{ id }}?"
       },
       "detail": {
-        "title": "Sintoma"
+        "title": "Symptom"
       },
       "id": "ID",
       "name": "Name",
-      "notice": "Informação ao enfermeiro.",
-      "therapeuticRegime": "Therapeutic Regime",
-      "outcome": "Avaliação do sintoma",
+      "notice": "Notice",
       "toxicityRate": "Toxicity Rate",
-      "irt1": "Descrição do grau de manifestação do sintoma",
+      "therapeuticRegime": "Therapeutic Regime",
+      "outcome": "Outcome",
       "help": {
         "name": "Nome.",
         "notice": "Informação ao enfermeiro."

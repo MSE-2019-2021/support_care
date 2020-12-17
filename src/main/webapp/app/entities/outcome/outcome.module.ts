@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { OutcomeComponent } from './outcome.component';
-import { OutcomeDetailComponent } from './outcome-detail.component';
-import { OutcomeUpdateComponent } from './outcome-update.component';
-import { OutcomeDeleteDialogComponent } from './outcome-delete-dialog.component';
+import { OutcomeComponent } from './list/outcome.component';
+import { OutcomeDetailComponent } from './detail/outcome-detail.component';
+import { OutcomeUpdateComponent } from './update/outcome-update.component';
+import { OutcomeDeleteDialogComponent } from './delete/outcome-delete-dialog.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule],

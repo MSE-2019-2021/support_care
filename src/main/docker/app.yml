@@ -14,7 +14,7 @@ services:
     ports:
       - 127.0.0.1:8080:8080
   supportivecare-postgresql:
-    image: postgres:13.0
+    image: postgres:13.1
     # volumes:
     #     - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
     environment:

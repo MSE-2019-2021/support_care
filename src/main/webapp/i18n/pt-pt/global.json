@@ -1,22 +1,19 @@
 {
   "global": {
-    "title": "WikiCare",
+    "title": "Supportivecare",
     "browsehappy": "Está a usar um navegador <strong>desatualizado</strong>. Por favor <a href=\"http://browsehappy.com/?locale=pt_PT\">atualize o seu navegador</a> para ter uma experiência melhor.",
     "menu": {
       "home": "Início",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "administration": "Administração",
-        "notice": "Observação",
-        "drug": "Medicamentos",
-        "treatment": "Tratamento",
-        "therapeuticRegime": "Regimes Terapêuticos",
-        "document": "Documento",
-        "content": "Conteúdo",
-        "outcome": "PROM",
-        "toxicityRate": "Grau de Toxicidade",
-        "symptom": "Sintomas",
+        "administration": "Administration",
+        "drug": "Drug",
+        "treatment": "Treatment",
+        "therapeuticRegime": "Therapeutic Regime",
+        "outcome": "Outcome",
+        "symptom": "Symptom",
+        "feedback": "Feedback",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -25,8 +22,7 @@
         "password": "Palavra-passe",
         "sessions": "Sessões",
         "login": "Entrar",
-        "leave": "Sair",
-        "logout": "Deseja sair de WikiCare?",
+        "logout": "Sair",
         "register": "Registar"
       },
       "admin": {
@@ -60,12 +56,11 @@
         "authenticated": {
           "prefix": "Para ",
           "link": "entrar",
-          "suffix": ", utilize as seguintes contas:<br/>- Administrador (utilizador=\"admin\" e palavra-passe=\"admin\") <br/>- Curador (utilizador=\"user\" e palavra-passe=\"user\") <br/>- Enfermeiro (utilizador=\"viewer\" e palavra-passe=\"viewer\")."
+          "suffix": ", utilize as seguintes contas:<br/>- Administrador (utilizador=\"admin\" e palavra-passe=\"admin\") <br/>- Utilizador (utilizador=\"user\" e palavra-passe=\"user\")."
         },
         "register": {
           "noaccount": "Ainda não tem uma conta?",
-          "link": "Crie uma nova conta",
-          "goToLogin": "Entre na sua conta"
+          "link": "Crie uma nova conta"
         }
       },
       "error": {
@@ -105,7 +100,6 @@
       "addimage": "Adicionar imagem",
       "back": "Voltar",
       "cancel": "Cancelar",
-      "leaveCreation": "Sair da criação",
       "delete": "Eliminar",
       "edit": "Editar",
       "open": "Abrir",
@@ -147,5 +141,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "MSE@DEI.UC.PT © 2020"
+  "footer": "Este é o seu rodapé"
 }

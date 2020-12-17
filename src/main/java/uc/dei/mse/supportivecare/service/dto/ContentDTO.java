@@ -41,14 +41,6 @@ public class ContentDTO extends AbstractAuditingDTO implements Serializable {
         this.data = data;
     }
 
-    public String getDataContentType() {
-        return dataContentType;
-    }
-
-    public void setDataContentType(String dataContentType) {
-        this.dataContentType = dataContentType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { SymptomComponent } from './symptom.component';
-import { SymptomDetailComponent } from './symptom-detail.component';
-import { SymptomUpdateComponent } from './symptom-update.component';
-import { SymptomDeleteDialogComponent } from './symptom-delete-dialog.component';
+import { SymptomComponent } from './list/symptom.component';
+import { SymptomDetailComponent } from './detail/symptom-detail.component';
+import { SymptomUpdateComponent } from './update/symptom-update.component';
+import { SymptomDeleteDialogComponent } from './delete/symptom-delete-dialog.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule],

@@ -9,9 +9,6 @@ import uc.dei.mse.supportivecare.service.dto.ContentDTO;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface ContentMapper extends EntityMapper<ContentDTO, Content> {
-    @Mapping(target = "document", ignore = true)
-    Content toEntity(ContentDTO contentDTO);
-
     @Named("id")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

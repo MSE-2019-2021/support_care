@@ -5,7 +5,8 @@
       "fieldName": "title",
       "fieldType": "String",
       "javadoc": "Título.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
     },
     {
       "fieldName": "size",
@@ -16,7 +17,9 @@
     {
       "fieldName": "mimeType",
       "fieldType": "String",
-      "javadoc": "Tipo de ficheiro."
+      "javadoc": "Tipo de ficheiro.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
     }
   ],
   "relationships": [
@@ -25,7 +28,6 @@
       "otherEntityName": "content",
       "otherEntityRelationshipName": "document",
       "relationshipName": "content",
-      "otherEntityField": "id",
       "ownerSide": true
     },
     {
@@ -47,6 +49,7 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162450",
+  "skipClient": true,
+  "changelogDate": "20201216190002",
   "enableEntityAudit": true
 }

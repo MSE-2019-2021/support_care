@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "WikiCare",
+    "title": "Supportivecare",
     "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
     "menu": {
       "home": "Home",
@@ -8,15 +8,12 @@
       "entities": {
         "main": "Entities",
         "administration": "Administration",
-        "notice": "Notice",
-        "drug": "Drugs",
+        "drug": "Drug",
         "treatment": "Treatment",
-        "therapeuticRegime": "Therapeutic Regimes",
-        "document": "Document",
-        "content": "Content",
+        "therapeuticRegime": "Therapeutic Regime",
         "outcome": "Outcome",
-        "toxicityRate": "Toxicity Rate",
-        "symptom": "Symptoms",
+        "symptom": "Symptom",
+        "feedback": "Feedback",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -25,8 +22,7 @@
         "password": "Password",
         "sessions": "Sessions",
         "login": "Sign in",
-        "leave": "Exit",
-        "logout": "Do you wish to log out of WikiCare?",
+        "logout": "Sign out",
         "register": "Register"
       },
       "admin": {
@@ -60,12 +56,11 @@
         "authenticated": {
           "prefix": "If you want to ",
           "link": "sign in",
-          "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- Curator (login=\"user\" and password=\"user\") <br/>- Nurse (login=\"viewer\" and password=\"viewer\")."
+          "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
         },
         "register": {
           "noaccount": "You don't have an account yet?",
-          "link": "Register a new account",
-          "goToLogin": "Log in your account"
+          "link": "Register a new account"
         }
       },
       "error": {
@@ -105,7 +100,6 @@
       "addimage": "Add image",
       "back": "Back",
       "cancel": "Cancel",
-      "leaveCreation": "Leave Creation",
       "delete": "Delete",
       "edit": "Edit",
       "open": "Open",
@@ -148,5 +142,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "MSE@DEI.UC.PT © 2020"
+  "footer": "This is your footer"
 }

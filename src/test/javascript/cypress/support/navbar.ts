@@ -22,7 +22,7 @@ Cypress.Commands.add('clickOnLogoutItem', () => {
 });
 
 Cypress.Commands.add('clickOnRegisterItem', () => {
-  return cy.get('[data-cy="registerLink"]').click({ force: true });
+  return cy.get(navbarSelector).get(accountMenuSelector).click({ force: true }).get(registerItemSelector).click({ force: true });
 });
 
 Cypress.Commands.add('clickOnSettingsItem', () => {
@@ -38,7 +38,7 @@ Cypress.Commands.add('clickOnAdminMenuItem', (item: string) => {
     .get(navbarSelector)
     .get(adminMenuSelector)
     .click({ force: true })
-    .get(`.nav-link[routerLink="admin/${item}"]`)
+    .get(`.dropdown-item[href="/admin/${item}"]`)
     .click({ force: true });
 });
 

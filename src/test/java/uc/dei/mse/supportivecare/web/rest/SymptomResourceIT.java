@@ -16,14 +16,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Outcome;
 import uc.dei.mse.supportivecare.domain.Symptom;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
@@ -38,7 +37,7 @@ import uc.dei.mse.supportivecare.service.mapper.SymptomMapper;
 /**
  * Integration tests for the {@link SymptomResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
@@ -121,11 +120,11 @@ class SymptomResourceIT {
     @Test
     @Transactional
     void createSymptomWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = symptomRepository.findAll().size();
-
         // Create the Symptom with an existing ID
         symptom.setId(1L);
         SymptomDTO symptomDTO = symptomMapper.toDto(symptom);
+
+        int databaseSizeBeforeCreate = symptomRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restSymptomMockMvc
@@ -415,25 +414,6 @@ class SymptomResourceIT {
 
         // Get all the symptomList where outcome equals to outcomeId + 1
         defaultSymptomShouldNotBeFound("outcomeId.equals=" + (outcomeId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllSymptomsByToxicityRateIsEqualToSomething() throws Exception {
-        // Initialize the database
-        symptomRepository.saveAndFlush(symptom);
-        ToxicityRate toxicityRate = ToxicityRateResourceIT.createEntity(em);
-        em.persist(toxicityRate);
-        em.flush();
-        symptom.addToxicityRate(toxicityRate);
-        symptomRepository.saveAndFlush(symptom);
-        Long toxicityRateId = toxicityRate.getId();
-
-        // Get all the symptomList where toxicityRate equals to toxicityRateId
-        defaultSymptomShouldBeFound("toxicityRateId.equals=" + toxicityRateId);
-
-        // Get all the symptomList where toxicityRate equals to toxicityRateId + 1
-        defaultSymptomShouldNotBeFound("toxicityRateId.equals=" + (toxicityRateId + 1));
     }
 
     /**

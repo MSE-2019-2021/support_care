@@ -67,7 +67,7 @@ describe('Outcome e2e test', () => {
     cy.clickOnEntityMenuItem('outcome');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateHeading('Outcome');
+    cy.getEntityCreateUpdateHeading('Outcome');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -80,7 +80,7 @@ describe('Outcome e2e test', () => {
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
       cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityUpdateHeading('Outcome');
+      cy.getEntityCreateUpdateHeading('Outcome');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');
@@ -93,7 +93,7 @@ describe('Outcome e2e test', () => {
     cy.clickOnEntityMenuItem('outcome');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateHeading('Outcome');
+    cy.getEntityCreateUpdateHeading('Outcome');
 
     cy.get(`[data-cy="name"]`).type('Calças Metal', { force: true }).invoke('val').should('match', new RegExp('Calças Metal'));
 

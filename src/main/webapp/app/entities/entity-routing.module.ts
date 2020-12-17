@@ -6,43 +6,39 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([
       {
         path: 'administration',
-        loadChildren: () => import('./administration/administration-routing.module').then(m => m.AdministrationRoutingModule),
-      },
-      {
-        path: 'notice',
-        loadChildren: () => import('./notice/notice-routing.module').then(m => m.NoticeRoutingModule),
+        data: { pageTitle: 'supportivecareApp.administration.home.title' },
+        loadChildren: () => import('./administration/route/administration-routing.module').then(m => m.AdministrationRoutingModule),
       },
       {
         path: 'drug',
-        loadChildren: () => import('./drug/drug-routing.module').then(m => m.DrugRoutingModule),
+        data: { pageTitle: 'supportivecareApp.drug.home.title' },
+        loadChildren: () => import('./drug/route/drug-routing.module').then(m => m.DrugRoutingModule),
       },
       {
         path: 'treatment',
-        loadChildren: () => import('./treatment/treatment-routing.module').then(m => m.TreatmentRoutingModule),
+        data: { pageTitle: 'supportivecareApp.treatment.home.title' },
+        loadChildren: () => import('./treatment/route/treatment-routing.module').then(m => m.TreatmentRoutingModule),
       },
       {
         path: 'therapeutic-regime',
-        loadChildren: () => import('./therapeutic-regime/therapeutic-regime-routing.module').then(m => m.TherapeuticRegimeRoutingModule),
-      },
-      {
-        path: 'document',
-        loadChildren: () => import('./document/document-routing.module').then(m => m.DocumentRoutingModule),
-      },
-      {
-        path: 'content',
-        loadChildren: () => import('./content/content-routing.module').then(m => m.ContentRoutingModule),
+        data: { pageTitle: 'supportivecareApp.therapeuticRegime.home.title' },
+        loadChildren: () =>
+          import('./therapeutic-regime/route/therapeutic-regime-routing.module').then(m => m.TherapeuticRegimeRoutingModule),
       },
       {
         path: 'outcome',
-        loadChildren: () => import('./outcome/outcome-routing.module').then(m => m.OutcomeRoutingModule),
-      },
-      {
-        path: 'toxicity-rate',
-        loadChildren: () => import('./toxicity-rate/toxicity-rate-routing.module').then(m => m.ToxicityRateRoutingModule),
+        data: { pageTitle: 'supportivecareApp.outcome.home.title' },
+        loadChildren: () => import('./outcome/route/outcome-routing.module').then(m => m.OutcomeRoutingModule),
       },
       {
         path: 'symptom',
-        loadChildren: () => import('./symptom/symptom-routing.module').then(m => m.SymptomRoutingModule),
+        data: { pageTitle: 'supportivecareApp.symptom.home.title' },
+        loadChildren: () => import('./symptom/route/symptom-routing.module').then(m => m.SymptomRoutingModule),
+      },
+      {
+        path: 'feedback',
+        data: { pageTitle: 'supportivecareApp.feedback.home.title' },
+        loadChildren: () => import('./feedback/route/feedback-routing.module').then(m => m.FeedbackRoutingModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

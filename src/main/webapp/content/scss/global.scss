@@ -14,11 +14,6 @@ h4 {
   font-weight: 300;
 }
 
-// for the sake of the user, we should have bigger buttons
-button {
-  height: 50px;
-}
-
 /* Increase contrast of links to get 100% on Lighthouse Accessability Audit. Override this color if you want to change the link color, or use a Bootswatch theme */
 a {
   color: #533f03;
@@ -27,10 +22,6 @@ a {
 
 a:hover {
   color: #533f03;
-}
-h2 {
-  padding-top: 23.46px;
-  padding-bottom: 10px;
 }
 
 /* override hover color for dropdown-item forced by bootstrap to all a:not([href]):not([tabindex]) elements in _reboot.scss */
@@ -112,50 +103,12 @@ Generic styles
 }
 
 .footer {
-  margin-top: 10px;
-  text-align: center;
-  color: #4d4d4d;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .hand,
-[jhisortby] {
+[customsortby] {
   cursor: pointer;
-}
-
-.mainWrapper {
-  min-height: 83vh;
-  background: #fafafa;
-  border-radius: 4px;
-  margin: 40px;
-  padding: 30px;
-}
-
-.mainWrapper.entityInfoWrapper {
-  margin: 0;
-  margin-top: 20px;
-}
-
-.entityWrapper {
-  margin: 40px;
-}
-
-.entityUpdateButtonsWrapper {
-  margin-top: 30px;
-}
-
-.entityUpdateButtonsWrapper > button {
-  margin-right: 10px;
-}
-
-.sectionWrapper {
-  padding: 15px 20px;
-  background: #ffffff;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.updateTitle {
-  margin-left: 40px;
 }
 
 /* ==========================================================================
@@ -198,15 +151,6 @@ Custom alerts for notification
   .alerts .jhi-toast {
     width: 50%;
   }
-}
-
-/* ==========================================================================
-entity detail page css
-========================================================================== */
-.listHeaderWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 /* ==========================================================================
@@ -256,191 +200,3 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
-
-/* ==========================================================================
-global styles
-========================================================================== */
-
-.button-create {
-  background-color: #5c88f6 !important;
-  border-color: #5c88f6 !important;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25) !important;
-  border-radius: 4px !important;
-}
-
-.button-delete {
-  min-width: 48px;
-  margin-right: 20px;
-}
-
-.h2-color {
-  font-style: normal;
-  font-weight: bold;
-  color: #5279b0;
-}
-
-.button-letter {
-  font-style: normal;
-  font-weight: normal;
-
-  color: #ffffff;
-}
-
-.table-item {
-  background: #ffffff;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-}
-
-.table-item:active {
-  background: #eceffb;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-}
-
-.table-item:hover {
-  background: #eceffb;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.border-style {
-  border-spacing: 5px 15px !important;
-  border-collapse: separate !important;
-}
-
-.title-color {
-  font-style: normal;
-  font-weight: normal;
-  color: #5279b0;
-}
-
-.title-color-bold {
-  font-style: normal;
-  font-weight: bold;
-  color: #5279b0;
-}
-
-.list-text-color {
-  font-style: normal;
-  font-weight: normal;
-  color: #5279b0;
-}
-
-.list-text-color-bold {
-  font-style: normal;
-  font-weight: bold;
-  color: #5279b0;
-}
-
-.button-transparent {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  padding: 3px;
-  text-align: center;
-  display: inline-block;
-  border-radius: 4px !important;
-}
-
-.red-icon {
-  color: red;
-}
-
-.button-text {
-  font-style: normal;
-  font-weight: normal;
-}
-
-.multiselect-dropdown .dropdown-btn {
-  display: inline-block !important;
-  width: 100% !important;
-  font-weight: 300 !important;
-  line-height: 1.5;
-  text-align: left;
-  vertical-align: middle;
-  cursor: pointer;
-  background-image: none;
-  background-color: white !important;
-}
-
-// Logins and Register
-.notLoggedHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../content/images/logo.png') no-repeat center center;
-  background-size: contain;
-  margin-right: 20px;
-}
-
-.notLoggedWrapper {
-  padding: 40px;
-  background: #f9f9f9;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  min-width: 540px;
-}
-
-.notLoggedTitle {
-  margin-bottom: 40px;
-  text-align: center;
-}
-
-.appTitle {
-  color: white;
-  font-size: 19px;
-}
-
-.registerButton {
-  width: 100%;
-  margin-top: 40px;
-  height: 50px;
-  background: #5c88f7;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-}
-
-.loginButton {
-  width: 100%;
-  margin-top: 20px;
-  height: 50px;
-  background: #f6f6f6;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-}
-
-.panel-content-wrapper,
-.panel-content-wrapper:hover {
-  left: 0;
-  right: 8.79%;
-  top: 43.12%;
-  bottom: 52.12%;
-
-  background: #ffffff;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 4px;
-  cursor: auto;
-}
-
-.card {
-  left: 0;
-  right: 6.84%;
-  top: 38.8%;
-  bottom: 44.44%;
-
-  background: #ffffff;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-  margin-bottom: 2%;
-  border-radius: 4px !important;
-  border: none !important;
-}
-
-.is-clickable {
-  cursor: pointer;
-}

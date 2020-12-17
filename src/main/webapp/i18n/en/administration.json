@@ -21,7 +21,7 @@
       "type": "Type",
       "drug": "Drug",
       "help": {
-        "type": "Tipo de Administração."
+        "type": "Tipo de administração."
       }
     }
   }

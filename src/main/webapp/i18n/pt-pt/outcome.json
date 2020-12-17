@@ -4,8 +4,8 @@
       "home": {
         "title": "Outcomes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Criar PROM",
-        "editLabel": "Editar PROM",
+        "createLabel": "Criar novo(a) Outcome",
+        "createOrEditLabel": "Criar ou editar Outcome",
         "notFound": "Nenhum Outcomes encontrado"
       },
       "created": "Um novo Outcome foi criado com o identificador {{ param }}",

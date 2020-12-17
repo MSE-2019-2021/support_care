@@ -49,7 +49,7 @@ public class DrugService {
      * @param drugDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public DrugDTO partialUpdate(DrugDTO drugDTO) {
+    public Optional<DrugDTO> partialUpdate(DrugDTO drugDTO) {
         log.debug("Request to partially update Drug : {}", drugDTO);
 
         return drugRepository
@@ -68,8 +68,7 @@ public class DrugService {
                 }
             )
             .map(drugRepository::save)
-            .map(drugMapper::toDto)
-            .get();
+            .map(drugMapper::toDto);
     }
 
     /**
@@ -85,15 +84,6 @@ public class DrugService {
     }
 
     /**
-     * Get all the drugs with eager load of many-to-many relationships.
-     *
-     * @return the list of entities.
-     */
-    public Page<DrugDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return drugRepository.findAllWithEagerRelationships(pageable).map(drugMapper::toDto);
-    }
-
-    /**
      * Get one drug by id.
      *
      * @param id the id of the entity.
@@ -102,7 +92,7 @@ public class DrugService {
     @Transactional(readOnly = true)
     public Optional<DrugDTO> findOne(Long id) {
         log.debug("Request to get Drug : {}", id);
-        return drugRepository.findOneWithEagerRelationships(id).map(drugMapper::toDto);
+        return drugRepository.findById(id).map(drugMapper::toDto);
     }
 
     /**

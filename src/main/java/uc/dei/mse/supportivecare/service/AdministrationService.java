@@ -49,7 +49,7 @@ public class AdministrationService {
      * @param administrationDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public AdministrationDTO partialUpdate(AdministrationDTO administrationDTO) {
+    public Optional<AdministrationDTO> partialUpdate(AdministrationDTO administrationDTO) {
         log.debug("Request to partially update Administration : {}", administrationDTO);
 
         return administrationRepository
@@ -64,8 +64,7 @@ public class AdministrationService {
                 }
             )
             .map(administrationRepository::save)
-            .map(administrationMapper::toDto)
-            .get();
+            .map(administrationMapper::toDto);
     }
 
     /**

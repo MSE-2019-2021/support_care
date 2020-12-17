@@ -49,7 +49,7 @@ public class SymptomService {
      * @param symptomDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public SymptomDTO partialUpdate(SymptomDTO symptomDTO) {
+    public Optional<SymptomDTO> partialUpdate(SymptomDTO symptomDTO) {
         log.debug("Request to partially update Symptom : {}", symptomDTO);
 
         return symptomRepository
@@ -68,8 +68,7 @@ public class SymptomService {
                 }
             )
             .map(symptomRepository::save)
-            .map(symptomMapper::toDto)
-            .get();
+            .map(symptomMapper::toDto);
     }
 
     /**

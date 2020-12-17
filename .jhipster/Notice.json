@@ -5,30 +5,32 @@
       "fieldName": "description",
       "fieldType": "String",
       "javadoc": "Descrição.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "evaluation",
       "fieldType": "String",
       "javadoc": "Avaliação.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "intervention",
       "fieldType": "String",
-      "javadoc": "Intervenção.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Intervenção interdependente.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "drug",
       "otherEntityRelationshipName": "notice",
       "relationshipValidateRules": "required",
       "relationshipName": "drug",
-      "otherEntityField": "name",
-      "ownerSide": false
+      "otherEntityField": "name"
     }
   ],
   "javadoc": "Observação.",
@@ -41,6 +43,7 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162050",
+  "skipClient": true,
+  "changelogDate": "20201216185602",
   "enableEntityAudit": true
 }

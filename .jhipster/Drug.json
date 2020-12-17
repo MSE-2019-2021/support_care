@@ -4,23 +4,25 @@
     {
       "fieldName": "name",
       "fieldType": "String",
-      "javadoc": "Nome do medicamento.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
     },
     {
       "fieldName": "description",
       "fieldType": "String",
-      "javadoc": "Descrição."
+      "javadoc": "Descrição geral.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "one-to-many",
       "otherEntityName": "notice",
       "otherEntityRelationshipName": "drug",
       "relationshipName": "notice",
-      "otherEntityField": "description",
-      "ownerSide": true
+      "otherEntityField": "description"
     },
     {
       "relationshipType": "many-to-one",
@@ -49,6 +51,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162150",
+  "changelogDate": "20201216185702",
   "enableEntityAudit": true
 }

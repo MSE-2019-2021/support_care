@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="symptom">
+      <h2 data-cy="symptomDetailsHeading"><span customTranslate="supportivecareApp.symptom.detail.title">Symptom</span></h2>
+
+      <hr />
+
+      <custom-alert-error></custom-alert-error>
+
+      <custom-alert></custom-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span customTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ symptom.id }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.symptom.name" [ngbTooltip]="'supportivecareApp.symptom.help.name' | translate"
+            >Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ symptom.name }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate"
+            >Notice</span
+          >
+        </dt>
+        <dd>
+          <span>{{ symptom.notice }}</span>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.symptom.therapeuticRegime">Therapeutic Regime</span></dt>
+        <dd>
+          <span *ngFor="let therapeuticRegime of symptom.therapeuticRegimes; let last = last">
+            <a [routerLink]="['/therapeutic-regime', therapeuticRegime?.id, 'view']">{{ therapeuticRegime.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.symptom.outcome">Outcome</span></dt>
+        <dd>
+          <span *ngFor="let outcome of symptom.outcomes; let last = last">
+            <a [routerLink]="['/outcome', outcome?.id, 'view']">{{ outcome.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/symptom', symptom.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

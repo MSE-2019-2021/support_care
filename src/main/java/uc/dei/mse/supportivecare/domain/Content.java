@@ -30,9 +30,6 @@ public class Content extends AbstractAuditingEntity implements Serializable {
     @Column(name = "data", nullable = false)
     private byte[] data;
 
-    @Column(name = "data_content_type", nullable = false)
-    private String dataContentType;
-
     @JsonIgnoreProperties(value = { "content", "outcome" }, allowSetters = true)
     @OneToOne(mappedBy = "content")
     private Document document;
@@ -52,7 +49,7 @@ public class Content extends AbstractAuditingEntity implements Serializable {
     }
 
     public byte[] getData() {
-        return data;
+        return this.data;
     }
 
     public Content data(byte[] data) {
@@ -64,29 +61,22 @@ public class Content extends AbstractAuditingEntity implements Serializable {
         this.data = data;
     }
 
-    public String getDataContentType() {
-        return dataContentType;
-    }
-
-    public Content dataContentType(String dataContentType) {
-        this.dataContentType = dataContentType;
-        return this;
-    }
-
-    public void setDataContentType(String dataContentType) {
-        this.dataContentType = dataContentType;
-    }
-
     public Document getDocument() {
-        return document;
+        return this.document;
     }
 
     public Content document(Document document) {
-        this.document = document;
+        this.setDocument(document);
         return this;
     }
 
     public void setDocument(Document document) {
+        if (this.document != null) {
+            this.document.setContent(null);
+        }
+        if (document != null) {
+            document.setContent(this);
+        }
         this.document = document;
     }
 
@@ -105,7 +95,8 @@ public class Content extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore
@@ -114,7 +105,6 @@ public class Content extends AbstractAuditingEntity implements Serializable {
         return "Content{" +
             "id=" + getId() +
             ", data='" + getData() + "'" +
-            ", dataContentType='" + getDataContentType() + "'" +
             "}";
     }
 }

@@ -3,9 +3,7 @@ package uc.dei.mse.supportivecare.service.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -17,19 +15,19 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
     private Long id;
 
     /**
-     * Nome do medicamento.
+     * Nome.
      */
     @NotNull
-    @ApiModelProperty(value = "Nome do medicamento.", required = true)
+    @Size(max = 250)
+    @ApiModelProperty(value = "Nome.", required = true)
     private String name;
 
     /**
-     * Descrição.
+     * Descrição geral.
      */
-    @ApiModelProperty(value = "Descrição.")
+    @Size(max = 1000)
+    @ApiModelProperty(value = "Descrição geral.")
     private String description;
-
-    private Set<NoticeDTO> notices = new HashSet<>();
 
     private AdministrationDTO administration;
 
@@ -55,14 +53,6 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<NoticeDTO> getNotices() {
-        return notices;
-    }
-
-    public void setNotices(Set<NoticeDTO> notices) {
-        this.notices = notices;
     }
 
     public AdministrationDTO getAdministration() {
@@ -101,7 +91,6 @@ public class DrugDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", notices=" + getNotices() +
             ", administration=" + getAdministration() +
             "}";
     }

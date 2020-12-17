@@ -25,26 +25,23 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     /**
-     * Nome do medicamento.
+     * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 250)
+    @Column(name = "name", length = 250, nullable = false)
     private String name;
 
     /**
-     * Descrição.
+     * Descrição geral.
      */
-    @Column(name = "description")
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000)
     private String description;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "drug", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "drug_notice",
-        joinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "notice_id", referencedColumnName = "id")
-    )
-    @JsonIgnoreProperties(value = { "drugs" }, allowSetters = true)
+    //@JsonIgnoreProperties(value = { "drug" }, allowSetters = true)
     private Set<Notice> notices = new HashSet<>();
 
     @ManyToOne(optional = false)
@@ -72,7 +69,7 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Drug name(String name) {
@@ -85,7 +82,7 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Drug description(String description) {
@@ -98,36 +95,42 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<Notice> getNotices() {
-        return notices;
+        return this.notices;
     }
 
     public Drug notices(Set<Notice> notices) {
-        this.notices = notices;
+        this.setNotices(notices);
         return this;
     }
 
     public Drug addNotice(Notice notice) {
         this.notices.add(notice);
-        notice.getDrugs().add(this);
+        notice.setDrug(this);
         return this;
     }
 
     public Drug removeNotice(Notice notice) {
         this.notices.remove(notice);
-        notice.getDrugs().remove(this);
+        notice.setDrug(null);
         return this;
     }
 
     public void setNotices(Set<Notice> notices) {
+        if (this.notices != null) {
+            this.notices.forEach(i -> i.setDrug(null));
+        }
+        if (notices != null) {
+            notices.forEach(i -> i.setDrug(this));
+        }
         this.notices = notices;
     }
 
     public Administration getAdministration() {
-        return administration;
+        return this.administration;
     }
 
     public Drug administration(Administration administration) {
-        this.administration = administration;
+        this.setAdministration(administration);
         return this;
     }
 
@@ -136,11 +139,11 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<TherapeuticRegime> getTherapeuticRegimes() {
-        return therapeuticRegimes;
+        return this.therapeuticRegimes;
     }
 
     public Drug therapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
-        this.therapeuticRegimes = therapeuticRegimes;
+        this.setTherapeuticRegimes(therapeuticRegimes);
         return this;
     }
 
@@ -157,6 +160,12 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
     }
 
     public void setTherapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
+        if (this.therapeuticRegimes != null) {
+            this.therapeuticRegimes.forEach(i -> i.removeDrug(this));
+        }
+        if (therapeuticRegimes != null) {
+            therapeuticRegimes.forEach(i -> i.addDrug(this));
+        }
         this.therapeuticRegimes = therapeuticRegimes;
     }
 
@@ -175,7 +184,8 @@ public class Drug extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

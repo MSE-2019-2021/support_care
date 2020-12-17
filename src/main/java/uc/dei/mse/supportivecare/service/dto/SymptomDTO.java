@@ -20,20 +20,20 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
      * Nome.
      */
     @NotNull
+    @Size(max = 250)
     @ApiModelProperty(value = "Nome.", required = true)
     private String name;
 
     /**
      * Informação ao enfermeiro.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Informação ao enfermeiro.")
     private String notice;
 
     private Set<TherapeuticRegimeDTO> therapeuticRegimes = new HashSet<>();
 
     private Set<OutcomeDTO> outcomes = new HashSet<>();
-
-    private Set<ToxicityRateDTO> toxicityRates = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -75,14 +75,6 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
         this.outcomes = outcomes;
     }
 
-    public Set<ToxicityRateDTO> getToxicityRates() {
-        return toxicityRates;
-    }
-
-    public void setToxicityRates(Set<ToxicityRateDTO> toxicityRates) {
-        this.toxicityRates = toxicityRates;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -113,7 +105,6 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
             ", notice='" + getNotice() + "'" +
             ", therapeuticRegimes=" + getTherapeuticRegimes() +
             ", outcomes=" + getOutcomes() +
-            ", toxicityRates=" + getToxicityRates() +
             "}";
     }
 }

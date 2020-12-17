@@ -49,7 +49,7 @@ describe('Drug e2e test', () => {
   it('should load details Drug page', () => {
     cy.server();
     cy.route('GET', '/api/drugs*').as('entitiesRequest');
-    cy.visit('/symptom');
+    cy.visit('/');
     cy.clickOnEntityMenuItem('drug');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
@@ -67,7 +67,7 @@ describe('Drug e2e test', () => {
     cy.clickOnEntityMenuItem('drug');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateHeading('Drug');
+    cy.getEntityCreateUpdateHeading('Drug');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -75,13 +75,12 @@ describe('Drug e2e test', () => {
   it('should load edit Drug page', () => {
     cy.server();
     cy.route('GET', '/api/drugs*').as('entitiesRequest');
-    cy.visit('/symptom');
+    cy.visit('/');
     cy.clickOnEntityMenuItem('drug');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.get(entityEditButtonSelector).click({ force: true });
-      cy.getEntityUpdateHeading('Drug');
+      cy.get(entityEditButtonSelector).first().click({ force: true });
+      cy.getEntityCreateUpdateHeading('Drug');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');
@@ -101,8 +100,6 @@ describe('Drug e2e test', () => {
 
 
     cy.get(`[data-cy="description"]`).type('disintermediate', { force: true }).invoke('val').should('match', new RegExp('disintermediate'));
-
-    cy.setFieldSelectToLastOfEntity('notice');
 
     cy.setFieldSelectToLastOfEntity('administration');
 

@@ -16,14 +16,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.domain.Symptom;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
@@ -38,7 +37,7 @@ import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
 /**
  * Integration tests for the {@link TherapeuticRegimeResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
@@ -185,11 +184,11 @@ class TherapeuticRegimeResourceIT {
     @Test
     @Transactional
     void createTherapeuticRegimeWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = therapeuticRegimeRepository.findAll().size();
-
         // Create the TherapeuticRegime with an existing ID
         therapeuticRegime.setId(1L);
         TherapeuticRegimeDTO therapeuticRegimeDTO = therapeuticRegimeMapper.toDto(therapeuticRegime);
+
+        int databaseSizeBeforeCreate = therapeuticRegimeRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTherapeuticRegimeMockMvc

@@ -4,8 +4,8 @@
       "home": {
         "title": "Drugs",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create drug",
-        "editLabel": "Edit drug",
+        "createLabel": "Create a new Drug",
+        "createOrEditLabel": "Create or edit a Drug",
         "notFound": "No Drugs found"
       },
       "created": "A new Drug is created with identifier {{ param }}",
@@ -17,16 +17,15 @@
       "detail": {
         "title": "Drug"
       },
-      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
-      "description": "General description",
+      "description": "Description",
       "notice": "Notice",
-      "administration": "Administration type",
+      "administration": "Administration",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {
-        "name": "Drug Name.",
-        "description": "General description."
+        "name": "Nome.",
+        "description": "Descrição geral."
       }
     }
   }

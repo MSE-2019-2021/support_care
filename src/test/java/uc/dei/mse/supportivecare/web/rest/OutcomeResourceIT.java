@@ -8,15 +8,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.domain.Outcome;
 import uc.dei.mse.supportivecare.domain.Symptom;
@@ -29,7 +29,7 @@ import uc.dei.mse.supportivecare.service.mapper.OutcomeMapper;
 /**
  * Integration tests for the {@link OutcomeResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class OutcomeResourceIT {
@@ -105,11 +105,11 @@ class OutcomeResourceIT {
     @Test
     @Transactional
     void createOutcomeWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = outcomeRepository.findAll().size();
-
         // Create the Outcome with an existing ID
         outcome.setId(1L);
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(outcome);
+
+        int databaseSizeBeforeCreate = outcomeRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restOutcomeMockMvc
@@ -343,25 +343,6 @@ class OutcomeResourceIT {
 
         // Get all the outcomeList where description does not contain UPDATED_DESCRIPTION
         defaultOutcomeShouldBeFound("description.doesNotContain=" + UPDATED_DESCRIPTION);
-    }
-
-    @Test
-    @Transactional
-    void getAllOutcomesByDocumentIsEqualToSomething() throws Exception {
-        // Initialize the database
-        outcomeRepository.saveAndFlush(outcome);
-        Document document = DocumentResourceIT.createEntity(em);
-        em.persist(document);
-        em.flush();
-        outcome.addDocument(document);
-        outcomeRepository.saveAndFlush(outcome);
-        Long documentId = document.getId();
-
-        // Get all the outcomeList where document equals to documentId
-        defaultOutcomeShouldBeFound("documentId.equals=" + documentId);
-
-        // Get all the outcomeList where document equals to documentId + 1
-        defaultOutcomeShouldNotBeFound("documentId.equals=" + (documentId + 1));
     }
 
     @Test

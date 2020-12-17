@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
  */
-@ApiModel(description = "Regime terapêutico.")
+@ApiModel(description = "Regime Terapêutico.")
 public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
@@ -20,32 +20,37 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Nome.
      */
     @NotNull
+    @Size(max = 250)
     @ApiModelProperty(value = "Nome.", required = true)
     private String name;
 
     /**
-     * Acrónimo.
+     * Acrônimo.
      */
-    @ApiModelProperty(value = "Acrónimo.")
+    @Size(max = 50)
+    @ApiModelProperty(value = "Acrônimo.")
     private String acronym;
 
     /**
      * Propósito.
      */
     @NotNull
+    @Size(max = 1000)
     @ApiModelProperty(value = "Propósito.", required = true)
     private String purpose;
 
     /**
-     * Condição para administração.
+     * Condições para administração.
      */
     @NotNull
-    @ApiModelProperty(value = "Condição para administração.", required = true)
+    @Size(max = 1000)
+    @ApiModelProperty(value = "Condições para administração.", required = true)
     private String condition;
 
     /**
      * Calendarização.
      */
+    @Size(max = 250)
     @ApiModelProperty(value = "Calendarização.")
     private String timing;
 
@@ -53,19 +58,22 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Indicação para prescrição.
      */
     @NotNull
+    @Size(max = 1000)
     @ApiModelProperty(value = "Indicação para prescrição.", required = true)
     private String indication;
 
     /**
-     * Critério de redução de dose.
+     * Critérios de redução de dose.
      */
     @NotNull
-    @ApiModelProperty(value = "Critério de redução de dose.", required = true)
+    @Size(max = 1000)
+    @ApiModelProperty(value = "Critérios de redução de dose.", required = true)
     private String criteria;
 
     /**
      * Outras informações.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Outras informações.")
     private String notice;
 

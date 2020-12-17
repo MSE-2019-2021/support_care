@@ -5,12 +5,15 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "250"
     },
     {
       "fieldName": "description",
       "fieldType": "String",
-      "javadoc": "Descrição."
+      "javadoc": "Descrição.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
@@ -18,8 +21,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "document",
       "otherEntityRelationshipName": "outcome",
-      "relationshipName": "document",
-      "otherEntityField": "id"
+      "relationshipName": "document"
     },
     {
       "relationshipType": "many-to-many",
@@ -40,6 +42,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162650",
+  "changelogDate": "20201216190202",
   "enableEntityAudit": true
 }

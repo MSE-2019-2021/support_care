@@ -107,7 +107,7 @@ public class DrugResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<DrugDTO> result = Optional.ofNullable(drugService.partialUpdate(drugDTO));
+        Optional<DrugDTO> result = drugService.partialUpdate(drugDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

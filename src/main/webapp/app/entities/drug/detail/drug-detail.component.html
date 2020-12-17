@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="drug">
+      <h2 data-cy="drugDetailsHeading"><span customTranslate="supportivecareApp.drug.detail.title">Drug</span></h2>
+
+      <hr />
+
+      <custom-alert-error></custom-alert-error>
+
+      <custom-alert></custom-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span customTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ drug.id }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.drug.name" [ngbTooltip]="'supportivecareApp.drug.help.name' | translate">Name</span>
+        </dt>
+        <dd>
+          <span>{{ drug.name }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.drug.description" [ngbTooltip]="'supportivecareApp.drug.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ drug.description }}</span>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.drug.administration">Administration</span></dt>
+        <dd>
+          <div *ngIf="drug.administration">
+            <a [routerLink]="['/administration', drug.administration?.id, 'view']">{{ drug.administration?.type }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/drug', drug.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
