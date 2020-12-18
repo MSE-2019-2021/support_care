@@ -1,22 +1,24 @@
-<div>
-    <div class="row justify-content-center">
-        <div class="col-11 ">
-
+<div class="mainWrapper">
+    <div class="listHeaderWrapper">
+        <div class="col ">
             <h2>
                 <span jhiTranslate="user-info.title" [translateValues]="{ username: account.login }" *ngIf="account">User
                     settings for [<b>{{ account.login }}</b>]</span>
                 <div class="d-flex justify-content-end">
                     <a class="btn btn-info mr-2" routerLink="/password">
-                        <fa-icon icon="sync"></fa-icon> <span jhiTranslate="user-info.password">Change Password</span>
+                        <fa-icon icon="pencil-alt"></fa-icon> <span jhiTranslate="user-info.password">Change Password</span>
                     </a>
                     <a class="btn btn-primary jh-create-entity" routerLink="/settings">
-                        <fa-icon icon="plus"></fa-icon> <span jhiTranslate="user-info.profile">Edit profile</span>
+                        <fa-icon icon="lock"></fa-icon> <span jhiTranslate="user-info.profile">Edit profile</span>
                     </a>
                 </div>
             </h2>
         </div>
+    </div>
+    <div class="sectionWrapper" >
         <div class="col-md-10">
             <h5 jhiTranslate="user-info.list.name" [translateValues]="{ username: account.firstName}" *ngIf="account"></h5>
+            <h5 jhiTranslate="user-info.list.name" [translateValues]="{ username: account.lastName}" *ngIf="account"></h5>
             <h5 jhiTranslate="user-info.list.email" [translateValues]="{ username: account.email }" *ngIf="account"></h5>
             <h5 jhiTranslate="user-info.list.language" [translateValues]="{ username: account.langKey }" *ngIf="account"></h5>
             <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
@@ -24,5 +26,6 @@
 
 
         </div>
+    </div>
     </div>
 </div>
