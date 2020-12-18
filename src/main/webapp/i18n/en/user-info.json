@@ -1,0 +1,12 @@
+{
+  "user-info": {
+    "title": "My profile <strong>{{username}}</strong>",
+    "list": {
+      "name": "<strong>Name</strong> <p> {{username}} </p>",
+      "email": "<strong>Associated Email</strong> <p> {{username}} </p>",
+      "language": "<strong>Default Language</strong> <p> {{username}} </p>"
+    },
+    "password": "Change password",
+    "profile": "Edit profile"
+  }
+}

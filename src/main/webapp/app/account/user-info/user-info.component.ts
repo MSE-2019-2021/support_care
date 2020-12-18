@@ -37,23 +37,4 @@ export class UserInfoComponent implements OnInit {
       }
     });
   }
-
-  save(): void {
-    this.success = false;
-
-    this.account.firstName = this.settingsForm.get('firstName')!.value;
-    this.account.lastName = this.settingsForm.get('lastName')!.value;
-    this.account.email = this.settingsForm.get('email')!.value;
-    this.account.langKey = this.settingsForm.get('langKey')!.value;
-
-    this.accountService.save(this.account).subscribe(() => {
-      this.success = true;
-
-      this.accountService.authenticate(this.account);
-
-      if (this.account.langKey !== this.languageService.getCurrentLanguage()) {
-        this.languageService.changeLanguage(this.account.langKey);
-      }
-    });
-  }
 }
