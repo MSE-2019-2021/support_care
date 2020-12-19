@@ -2,7 +2,7 @@
   "supportivecareApp": {
     "outcome": {
       "home": {
-        "title": "Outcomes",
+        "title": "Available PROMs",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create outcome",
         "editLabel": "Edit outcome",
