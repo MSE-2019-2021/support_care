@@ -26,6 +26,13 @@ export class PasswordComponent implements OnInit {
   ngOnInit(): void {
     this.account$ = this.accountService.identity();
   }
+  previousState(): void {
+    window.history.back();
+  }
+
+  cancel(): void {
+    this.modalService.open(PasswordCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
 
   changePassword(): void {
     this.error = false;

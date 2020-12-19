@@ -38,6 +38,14 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  cancel(): void {
+    this.modalService.open(PasswordCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+
+  previousState(): void {
+    window.history.back();
+  }
+
   save(): void {
     this.success = false;
 
