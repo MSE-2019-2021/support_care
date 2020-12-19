@@ -1,8 +1,9 @@
 {
   "user-info": {
-    "title": "My profile <strong>{{username}}</strong>",
+    "title": "My profile",
     "list": {
-      "name": "<strong>Name</strong> <p> {{username}} </p>",
+      "name": "<strong>First name</strong> <p> {{username}} </p>",
+      "lastname": "<strong>Last name</strong> <p> {{username}} </p>",
       "email": "<strong>Associated Email</strong> <p> {{username}} </p>",
       "language": "<strong>Default Language</strong> <p> {{username}} </p>"
     },
