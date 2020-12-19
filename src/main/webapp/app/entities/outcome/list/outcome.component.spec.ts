@@ -27,13 +27,13 @@ describe('Component Tests', () => {
             provide: ActivatedRoute,
             useValue: {
               data: of({
-                defaultSort: 'id,asc',
+                defaultSort: 'name,asc',
               }),
               queryParamMap: of(
                 jest.requireActual('@angular/router').convertToParamMap({
                   page: '1',
                   size: '1',
-                  sort: 'id,desc',
+                  sort: 'name,desc',
                 })
               ),
             },
@@ -116,7 +116,7 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['id,asc']);
+      expect(result).toEqual(['name,asc', 'id']);
     });
 
     it('should calculate the sort attribute for a non-id attribute', () => {
