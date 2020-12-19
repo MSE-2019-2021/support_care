@@ -27,13 +27,13 @@ describe('Component Tests', () => {
             provide: ActivatedRoute,
             useValue: {
               data: of({
-                defaultSort: 'name,asc',
+                defaultSort: 'id,asc',
               }),
               queryParamMap: of(
                 jest.requireActual('@angular/router').convertToParamMap({
                   page: '1',
                   size: '1',
-                  sort: 'name,desc',
+                  sort: 'id,desc',
                 })
               ),
             },
@@ -110,7 +110,7 @@ describe('Component Tests', () => {
       expect(comp.outcomes[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
-    it('should calculate the sort attribute for an id', () => {
+    it('should calculate the sort attribute for an name', () => {
       // WHEN
       comp.ngOnInit();
       const result = comp.sort();
