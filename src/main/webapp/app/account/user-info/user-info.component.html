@@ -1,26 +1,26 @@
-<div class="mainWrapper">
+<div class="entityWrapper">
     <div class="listHeaderWrapper">
-        <div class="col">
-            <h2>
-                <h8 class="text-primary font-weight-bold" jhiTranslate="user-info.title" *ngIf="account">User
-                    settings</h8>
-                <div class="d-flex justify-content-end">
-                    <a class="btn btn-info mr-2" routerLink="/account/password" routerLinkActive="active"  data-cy="passwordItem">
-                        <fa-icon icon="lock"></fa-icon> <span jhiTranslate="user-info.password">Change Password</span>
-                    </a>
-                    <a class="btn btn-info " routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
-                        <fa-icon icon="pencil-alt"></fa-icon> <span jhiTranslate="user-info.profile">Edit profile</span>
-                    </a>
-                </div>
-            </h2>
+
+        <h2 class="text-primary font-weight-bold" jhiTranslate="user-info.title" *ngIf="account">User
+            settings</h2>
+        <div class="d-flex justify-content-end">
+            <a class="btn button-transparent text-primary mr-2" routerLink="/account/password" routerLinkActive="active"  data-cy="passwordItem">
+                <fa-icon icon="lock"></fa-icon> <span jhiTranslate="user-info.password">Change Password</span>
+            </a>
+            <a class="btn btn-primary " routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
+                <fa-icon icon="pencil-alt"></fa-icon> <span jhiTranslate="user-info.profile">Edit profile</span>
+            </a>
         </div>
     </div>
-    <div class="sectionWrapper" >
-        <div class="col-md-10">
-            <h5 jhiTranslate="user-info.list.name" [translateValues]="{ username: account.firstName}" *ngIf="account"></h5>
-            <h5 jhiTranslate="user-info.list.lastname" [translateValues]="{ username: account.lastName}" *ngIf="account"></h5>
-            <h5 jhiTranslate="user-info.list.email" [translateValues]="{ username: account.email }" *ngIf="account"></h5>
-            <h5 jhiTranslate="user-info.list.language" [translateValues]="{ username: account.langKey }" *ngIf="account"></h5>
+    <div class="mainWrapper entityInfoWrapper">
+        <div class="sectionWrapper" >
+            <div class="form-group col-lg-9 mt-4 mb-4 mr-2">
+
+                <h5 jhiTranslate="user-info.list.name" [translateValues]="{ username: account.firstName}" *ngIf="account"></h5>
+                <h5 jhiTranslate="user-info.list.lastname" [translateValues]="{ username: account.lastName}" *ngIf="account"></h5>
+                <h5 jhiTranslate="user-info.list.email" [translateValues]="{ username: account.email }" *ngIf="account"></h5>
+                <h5 jhiTranslate="user-info.list.language" [translateValues]="{ username: account.langKey }" *ngIf="account"></h5>
+            </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@
             </button>
             <h2 class="text-primary font-weight-bold" jhiTranslate="settings.title" [translateValues]="{ username: account.login }" *ngIf="account">User
                 settings for [<b>{{ account.login }}</b>]</h2>
-            <div class="sectionWrapper">
+
                 <div class="alert alert-success" *ngIf="success" jhiTranslate="settings.messages.success">
                     <strong>Settings saved!</strong>
                 </div>
@@ -18,6 +18,7 @@
                 <custom-alert-error></custom-alert-error>
 
                 <form name="form" role="form" (ngSubmit)="save()" [formGroup]="settingsForm" *ngIf="account" novalidate>
+                    <div class="sectionWrapper">
                     <div class="form-group">
                         <label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First
                             Name</label>
@@ -120,7 +121,7 @@
                             </option>
                         </select>
                     </div>
-
+                    </div>
                     <button type="submit" [disabled]="settingsForm.invalid" class="btn btn-primary mr-2"
                             jhiTranslate="settings.form.button" data-cy="submit">Save
                     </button>
@@ -129,7 +130,7 @@
                         <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                     </button>
                 </form>
-            </div>
+
         </div>
     </div>
 </div>
