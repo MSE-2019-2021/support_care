@@ -26,9 +26,9 @@ application {
 */
 entity Administration {
 	/**
-	* Tipo de Administração.
+	* Tipo de administração.
 	*/
-	type String required
+	type String required maxlength(100)
 }
 
 /**
@@ -38,15 +38,15 @@ entity Notice {
 	/**
 	* Descrição.
 	*/
-	description String required,
+	description String required maxlength(1000),
 	/**
 	* Avaliação.
 	*/
-	evaluation String required,
+	evaluation String required maxlength(1000),
 	/**
-	* Intervenção.
+	* Intervenção interdependente.
 	*/
-	intervention String required
+	intervention String required maxlength(1000)
 }
 
 /**
@@ -54,13 +54,13 @@ entity Notice {
 */
 entity Drug {
 	/**
-	* Nome do medicamento.
+	* Nome.
 	*/
-	name String required,
+	name String required maxlength(250),
 	/**
-	* Descrição.
+	* Descrição geral.
 	*/
-	description String
+	description String maxlength(1000)
 }
 
 /**
@@ -68,47 +68,47 @@ entity Drug {
 */
 entity Treatment {
 	/**
-	* Tipo de Tratamento.
+	* Tipo de tratamento.
 	*/
-	type String required
+	type String required maxlength(100)
 }
 
 /**
-* Regime terapêutico.
+* Regime Terapêutico.
 */
 entity TherapeuticRegime {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(250),
 	/**
-	* Acrónimo.
+	* Acrônimo.
 	*/
-	acronym String,
+	acronym String maxlength(50),
 	/**
 	* Propósito.
 	*/
-	purpose String required,
+	purpose String required maxlength(1000),
 	/**
-	* Condição para administração.
+	* Condições para administração.
 	*/
-	condition String required,
+	condition String required maxlength(1000),
 	/**
 	* Calendarização.
 	*/
-	timing String,
+	timing String maxlength(250),
 	/**
 	* Indicação para prescrição.
 	*/
-    indication String required,
+    indication String required maxlength(1000),
 	/**
-	* Critério de redução de dose.
+	* Critérios de redução de dose.
 	*/
-    criteria String required,
+    criteria String required maxlength(1000),
 	/**
 	* Outras informações.
 	*/
-    notice String
+    notice String maxlength(1000)
 }
 
 /**
@@ -118,7 +118,7 @@ entity Document {
 	/**
 	* Título.
 	*/
-	title String required,
+	title String required maxlength(250),
 	/**
 	* Tamanho.
 	*/
@@ -126,7 +126,7 @@ entity Document {
 	/**
 	* Tipo de ficheiro.
 	*/
-  	mimeType String
+  	mimeType String maxlength(50)
 }
 
 /**
@@ -146,11 +146,11 @@ entity Outcome {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(250),
 	/**
 	* Descrição.
 	*/
-	description String
+	description String maxlength(1000)
 }
 
 /**
@@ -160,27 +160,27 @@ entity ToxicityRate {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(250),
 	/**
 	* Descrição.
 	*/
-	description String,
+	description String maxlength(1000),
 	/**
 	* Informação ao doente.
 	*/
-	notice String,
+	notice String maxlength(1000),
 	/**
 	* Intervenção autónoma.
 	*/
-    autonomousIntervention String,
+    autonomousIntervention String maxlength(1000),
 	/**
 	* Intervenção interdependente.
 	*/
-    interdependentIntervention String,
+    interdependentIntervention String maxlength(1000),
 	/**
 	* Suporte para auto-gestão.
 	*/
-    selfManagement String
+    selfManagement String maxlength(1000)
 }
 
 /**
@@ -190,11 +190,11 @@ entity Symptom {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(250),
 	/**
 	* Informação ao enfermeiro.
 	*/
-	notice String
+	notice String maxlength(1000)
 }
 
 relationship OneToOne {
