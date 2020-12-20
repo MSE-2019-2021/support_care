@@ -4,10 +4,10 @@
         <h2 class="text-primary font-weight-bold" jhiTranslate="user-info.title" *ngIf="account">User
             settings</h2>
         <div class="d-flex justify-content-end">
-            <a class="btn button-transparent text-primary mr-2" routerLink="/account/password" routerLinkActive="active"  data-cy="passwordItem">
+            <a class="btn btn-info mr-2" routerLink="/account/password" routerLinkActive="active"  data-cy="passwordItem">
                 <fa-icon icon="lock"></fa-icon> <span jhiTranslate="user-info.password">Change Password</span>
             </a>
-            <a class="btn btn-primary " routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
+            <a class="btn btn-info " routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
                 <fa-icon icon="pencil-alt"></fa-icon> <span jhiTranslate="user-info.profile">Edit profile</span>
             </a>
         </div>
