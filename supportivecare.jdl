@@ -50,13 +50,21 @@ entity Notice {
 }
 
 /**
-* Medicamento.
+* Substância Ativa (ou DCI: Denominação Comum Internacional).
 */
-entity Drug {
+entity ActiveSubstance {
 	/**
 	* Nome.
 	*/
-	name String required maxlength(250),
+	name String required maxlength(255),
+	/**
+	* Dosagem.
+	*/
+	dosage String required maxlength(30),
+	/**
+	* Forma Farmacêutica.
+	*/
+	form String required maxlength(255),
 	/**
 	* Descrição geral.
 	*/
@@ -80,7 +88,7 @@ entity TherapeuticRegime {
 	/**
 	* Nome.
 	*/
-	name String required maxlength(250),
+	name String required maxlength(255),
 	/**
 	* Acrônimo.
 	*/
@@ -96,7 +104,7 @@ entity TherapeuticRegime {
 	/**
 	* Calendarização.
 	*/
-	timing String maxlength(250),
+	timing String maxlength(255),
 	/**
 	* Indicação para prescrição.
 	*/
@@ -118,7 +126,7 @@ entity Document {
 	/**
 	* Título.
 	*/
-	title String required maxlength(250),
+	title String required maxlength(255),
 	/**
 	* Tamanho.
 	*/
@@ -146,7 +154,7 @@ entity Outcome {
 	/**
 	* Nome.
 	*/
-	name String required maxlength(250),
+	name String required maxlength(255),
 	/**
 	* Descrição.
 	*/
@@ -160,7 +168,7 @@ entity ToxicityRate {
 	/**
 	* Nome.
 	*/
-	name String required maxlength(250),
+	name String required maxlength(255),
 	/**
 	* Descrição.
 	*/
@@ -190,7 +198,7 @@ entity Symptom {
 	/**
 	* Nome.
 	*/
-	name String required maxlength(250),
+	name String required maxlength(255),
 	/**
 	* Informação ao enfermeiro.
 	*/
@@ -242,15 +250,15 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-	Administration to Drug{administration(type) required},
-	Drug{notice(description)} to Notice{drug(name) required},
+	Administration to ActiveSubstance{administration(type)},
+    ActiveSubstance{notice(description)} to Notice{activeSubstance(name) required},
     Treatment to TherapeuticRegime{treatment(type) required},
     Outcome{document} to Document{outcome(name) required},
     Symptom{toxicityRate(name)} to ToxicityRate{symptom(name)}
 }
 
 relationship ManyToMany {
-	TherapeuticRegime{drug(name)} to Drug{therapeuticRegime(name)},
+	TherapeuticRegime{activeSubstance(name)} to ActiveSubstance{therapeuticRegime(name)},
     Symptom{therapeuticRegime(name)} to TherapeuticRegime{symptom(name)},
     Symptom{outcome(name)} to Outcome{symptom(name)}
 }
