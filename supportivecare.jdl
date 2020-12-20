@@ -197,6 +197,46 @@ entity Symptom {
 	notice String maxlength(1000)
 }
 
+/**
+* Entity Feedback.
+*/
+enum EntityFeedback {
+  DRUG (Drug),
+  THERAPEUTIC_REGIME (TherapeuticRegime),
+  OUTCOME (Outcome),
+  SYMPTOM (Symptom)
+}
+
+/**
+* Feedback.
+*/
+entity Feedback {
+	/**
+	* Nome da entidade.
+	*/
+	entityName EntityFeedback required,
+	/**
+	* Id da entidade.
+	*/
+	entityId Long required,
+	/**
+	* Polegar.
+	*/
+	thumb Boolean required,
+	/**
+	* Razão.
+	*/
+	reason String maxlength(1000),
+	/**
+	* Resolvido.
+	*/
+	solved Boolean required,
+	/**
+	* Anónimo.
+	*/
+	anonym Boolean required
+}
+
 relationship OneToOne {
   Document{content} to Content{document(id) required}
 }
