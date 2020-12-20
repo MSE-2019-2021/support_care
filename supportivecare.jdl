@@ -245,14 +245,14 @@ relationship OneToMany {
 	Administration to Drug{administration(type) required},
 	Drug{notice(description)} to Notice{drug(name) required},
     Treatment to TherapeuticRegime{treatment(type) required},
-    Outcome{document} to Document{outcome(name) required}
+    Outcome{document} to Document{outcome(name) required},
+    Symptom{toxicityRate(name)} to ToxicityRate{symptom(name)}
 }
 
 relationship ManyToMany {
 	TherapeuticRegime{drug(name)} to Drug{therapeuticRegime(name)},
     Symptom{therapeuticRegime(name)} to TherapeuticRegime{symptom(name)},
-    Symptom{outcome(name)} to Outcome{symptom(name)},
-    Symptom{toxicityRate(name)} to ToxicityRate{symptom(name)}
+    Symptom{outcome(name)} to Outcome{symptom(name)}
 }
 
 filter *
