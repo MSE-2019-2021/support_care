@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.TherapeuticRegime} entity.
  */
 @ApiModel(description = "Regime Terapêutico.")
-public class TherapeuticRegimeDTO implements Serializable {
+public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

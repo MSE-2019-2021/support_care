@@ -11,7 +11,7 @@ import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Feedback} entity.
  */
 @ApiModel(description = "Feedback.")
-public class FeedbackDTO implements Serializable {
+public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

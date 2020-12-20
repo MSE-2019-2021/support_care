@@ -55,5 +55,10 @@
     "creationTimestamp": 1608470745965,
     "jwtSecretKey": "ODM4ODljNjAzYjkzZWY1ZDJkYjJlYTY5YzNkMWZmYWZhNDJjMDMzZmY0OGZiOWU5ODI2NzQ2NzYzZjUzNGY2OTQ3ZjlmNTRjZmMxY2E1MjVlN2VhMDdkYmMyNjkzODg4NzVhZTdhNDZiMDQyMmI1YjNiNzcwNDQ2YWM0ZWMxN2Y=",
     "lastLiquibaseTimestamp": 1608471405000
+  },
+  "generator-jhipster-entity-audit": {
+    "auditFramework": "custom",
+    "auditPage": false,
+    "lastLiquibaseTimestamp": 1608471465000
   }
 }

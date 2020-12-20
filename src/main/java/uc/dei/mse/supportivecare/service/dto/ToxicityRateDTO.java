@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.ToxicityRate} entity.
  */
 @ApiModel(description = "Grau de Toxicidade.")
-public class ToxicityRateDTO implements Serializable {
+public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

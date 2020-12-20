@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.ActiveSubstance} entity.
  */
 @ApiModel(description = "Substância Ativa (ou DCI: Denominação Comum Internacional).")
-public class ActiveSubstanceDTO implements Serializable {
+public class ActiveSubstanceDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

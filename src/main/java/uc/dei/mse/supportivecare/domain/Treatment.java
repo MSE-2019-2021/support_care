@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "treatment")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Treatment implements Serializable {
+public class Treatment extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

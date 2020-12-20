@@ -13,7 +13,7 @@ import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 @Entity
 @Table(name = "feedback")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Feedback implements Serializable {
+public class Feedback extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

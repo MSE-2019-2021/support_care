@@ -131,7 +131,8 @@
     "wait-on": "5.2.0",
     "webpack": "4.44.2",
     "webpack-bundle-analyzer": "4.3.0",
-    "webpack-notifier": "1.12.0"
+    "webpack-notifier": "1.12.0",
+    "generator-jhipster-entity-audit": "3.3.0"
   },
   "engines": {
     "node": ">=14.15.0"

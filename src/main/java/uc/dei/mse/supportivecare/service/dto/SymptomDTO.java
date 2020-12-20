@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Symptom} entity.
  */
 @ApiModel(description = "Sintoma (Efeito secundário).")
-public class SymptomDTO implements Serializable {
+public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 

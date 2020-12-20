@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "content")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Content implements Serializable {
+public class Content extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

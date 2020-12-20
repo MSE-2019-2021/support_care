@@ -28,6 +28,7 @@
     <include file="config/liquibase/changelog/20201220133445_added_entity_ToxicityRate.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201220133545_added_entity_Symptom.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201220133645_added_entity_Feedback.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201220133745_added_entity_EntityAuditEvent.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201220132745_added_entity_constraints_Notice.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201220132845_added_entity_constraints_ActiveSubstance.xml" relativeToChangelogFile="false"/>

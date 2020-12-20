@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Administration} entity.
  */
 @ApiModel(description = "Administração.")
-public class AdministrationDTO implements Serializable {
+public class AdministrationDTO extends AbstractAuditingDTO implements Serializable {
 
     private Long id;
 
