@@ -18,8 +18,8 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_toxicity_rate_id_seq")
+    @SequenceGenerator(name = "gen_toxicity_rate_id_seq", sequenceName = "toxicity_rate_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**

@@ -9,9 +9,12 @@
     <!--
         Added the entity ToxicityRate.
     -->
-    <changeSet id="20201220133445-1" author="jhipster">
+    <changeSet id="20201220132745-seq-1" author="DanielFran">
+        <createSequence sequenceName="toxicity_rate_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220133445-1" author="DanielFran">
         <createTable tableName="toxicity_rate" remarks="Grau de Toxicidade.">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" defaultValueSequenceNext="toxicity_rate_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)" remarks="Nome.">
@@ -39,7 +42,7 @@
         </createTable>
     </changeSet>
 
-    
+
     <!-- Added the entity audit columns -->
     <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
         <addColumn tableName="toxicity_rate">
@@ -68,7 +71,6 @@
                   file="config/liquibase/fake-data/toxicity_rate.csv"
                   separator=";"
                   tableName="toxicity_rate">
-            <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <column name="description" type="string"/>
             <column name="notice" type="string"/>

@@ -20,8 +20,8 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_outcome_id_seq")
+    @SequenceGenerator(name = "gen_outcome_id_seq", sequenceName = "outcome_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**

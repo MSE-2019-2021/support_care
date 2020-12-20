@@ -20,8 +20,8 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_administration_id_seq")
+    @SequenceGenerator(name = "gen_administration_id_seq", sequenceName = "administration_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**

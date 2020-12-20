@@ -20,8 +20,8 @@ public class ActiveSubstance extends AbstractAuditingEntity implements Serializa
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_active_substance_id_seq")
+    @SequenceGenerator(name = "gen_active_substance_id_seq", sequenceName = "active_substance_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**

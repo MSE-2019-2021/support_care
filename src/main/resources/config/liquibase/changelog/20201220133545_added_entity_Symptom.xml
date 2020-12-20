@@ -9,9 +9,12 @@
     <!--
         Added the entity Symptom.
     -->
-    <changeSet id="20201220133545-1" author="jhipster">
+    <changeSet id="20201220132745-seq-1" author="DanielFran">
+        <createSequence sequenceName="symptom_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220133545-1" author="DanielFran">
         <createTable tableName="symptom" remarks="Sintoma (Efeito secundário).">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" defaultValueSequenceNext="symptom_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)" remarks="Nome.">
@@ -49,7 +52,7 @@
         <addPrimaryKey columnNames="symptom_id, outcome_id" tableName="rel_symptom__outcome"/>
     </changeSet>
 
-    
+
     <!-- Added the entity audit columns -->
     <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
         <addColumn tableName="symptom">
@@ -78,7 +81,6 @@
                   file="config/liquibase/fake-data/symptom.csv"
                   separator=";"
                   tableName="symptom">
-            <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <column name="notice" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->

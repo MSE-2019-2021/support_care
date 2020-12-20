@@ -9,9 +9,12 @@
     <!--
         Added the entity Treatment.
     -->
-    <changeSet id="20201220132945-1" author="jhipster">
+    <changeSet id="20201220132745-seq-1" author="DanielFran">
+        <createSequence sequenceName="treatment_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220132945-1" author="DanielFran">
         <createTable tableName="treatment" remarks="Tratamento.">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" defaultValueSequenceNext="treatment_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="type" type="varchar(100)" remarks="Tipo de tratamento.">
@@ -45,7 +48,6 @@
                   file="config/liquibase/data/treatment.csv"
                   separator=";"
                   tableName="treatment">
-            <column name="id" type="numeric"/>
             <column name="type" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

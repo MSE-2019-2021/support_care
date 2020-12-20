@@ -9,9 +9,12 @@
     <!--
         Added the entity Feedback.
     -->
-    <changeSet id="20201220133645-1" author="jhipster">
+    <changeSet id="20201220132745-seq-1" author="DanielFran">
+        <createSequence sequenceName="feedback_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220133645-1" author="DanielFran">
         <createTable tableName="feedback" remarks="Feedback.">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" defaultValueSequenceNext="feedback_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="entity_name" type="varchar(255)" remarks="Nome da entidade.">
@@ -36,7 +39,7 @@
         </createTable>
     </changeSet>
 
-    
+
     <!-- Added the entity audit columns -->
     <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
         <addColumn tableName="feedback">
@@ -65,7 +68,6 @@
                   file="config/liquibase/fake-data/feedback.csv"
                   separator=";"
                   tableName="feedback">
-            <column name="id" type="numeric"/>
             <column name="entity_name" type="string"/>
             <column name="entity_id" type="numeric"/>
             <column name="thumb" type="boolean"/>

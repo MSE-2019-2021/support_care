@@ -9,9 +9,12 @@
     <!--
         Added the entity TherapeuticRegime.
     -->
-    <changeSet id="20201220133045-1" author="jhipster">
+    <changeSet id="20201220132745-seq-1" author="DanielFran">
+        <createSequence sequenceName="therapeutic_regime_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220133045-1" author="DanielFran">
         <createTable tableName="therapeutic_regime" remarks="Regime Terapêutico.">
-            <column name="id" type="bigint">
+            <column name="id" type="bigint" defaultValueSequenceNext="therapeutic_regime_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="name" type="varchar(255)" remarks="Nome.">
@@ -59,7 +62,7 @@
         <addPrimaryKey columnNames="therapeutic_regime_id, active_substance_id" tableName="rel_therapeutic_regime__active_substance"/>
     </changeSet>
 
-    
+
     <!-- Added the entity audit columns -->
     <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
         <addColumn tableName="therapeutic_regime">
@@ -88,7 +91,6 @@
                   file="config/liquibase/fake-data/therapeutic_regime.csv"
                   separator=";"
                   tableName="therapeutic_regime">
-            <column name="id" type="numeric"/>
             <column name="name" type="string"/>
             <column name="acronym" type="string"/>
             <column name="purpose" type="string"/>
