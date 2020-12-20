@@ -2,10 +2,13 @@ package uc.dei.mse.supportivecare.service.mapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import org.mapstruct.*;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.stereotype.Service;
 import uc.dei.mse.supportivecare.domain.Authority;
 import uc.dei.mse.supportivecare.domain.User;
+import uc.dei.mse.supportivecare.service.dto.AdminUserDTO;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
 
 /**
@@ -25,11 +28,19 @@ public class UserMapper {
         return new UserDTO(user);
     }
 
-    public List<User> userDTOsToUsers(List<UserDTO> userDTOs) {
+    public List<AdminUserDTO> usersToAdminUserDTOs(List<User> users) {
+        return users.stream().filter(Objects::nonNull).map(this::userToAdminUserDTO).collect(Collectors.toList());
+    }
+
+    public AdminUserDTO userToAdminUserDTO(User user) {
+        return new AdminUserDTO(user);
+    }
+
+    public List<User> userDTOsToUsers(List<AdminUserDTO> userDTOs) {
         return userDTOs.stream().filter(Objects::nonNull).map(this::userDTOToUser).collect(Collectors.toList());
     }
 
-    public User userDTOToUser(UserDTO userDTO) {
+    public User userDTOToUser(AdminUserDTO userDTO) {
         if (userDTO == null) {
             return null;
         } else {
@@ -89,6 +100,22 @@ public class UserMapper {
         return userDto;
     }
 
+    @Named("idSet")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    public Set<UserDTO> toDtoIdSet(Set<User> users) {
+        if (users == null) {
+            return null;
+        }
+
+        Set<UserDTO> userSet = new HashSet<>();
+        for (User userEntity : users) {
+            userSet.add(this.toDtoId(userEntity));
+        }
+
+        return userSet;
+    }
+
     @Named("login")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
@@ -101,5 +128,22 @@ public class UserMapper {
         userDto.setId(user.getId());
         userDto.setLogin(user.getLogin());
         return userDto;
+    }
+
+    @Named("loginSet")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "login", source = "login")
+    public Set<UserDTO> toDtoLoginSet(Set<User> users) {
+        if (users == null) {
+            return null;
+        }
+
+        Set<UserDTO> userSet = new HashSet<>();
+        for (User userEntity : users) {
+            userSet.add(this.toDtoLogin(userEntity));
+        }
+
+        return userSet;
     }
 }

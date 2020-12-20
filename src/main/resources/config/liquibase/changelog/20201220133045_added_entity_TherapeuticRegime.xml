@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity TherapeuticRegime.
+    -->
+    <changeSet id="20201220133045-1" author="jhipster">
+        <createTable tableName="therapeutic_regime" remarks="Regime Terapêutico.">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="Nome.">
+                <constraints nullable="false" />
+            </column>
+            <column name="acronym" type="varchar(50)" remarks="Acrônimo.">
+                <constraints nullable="true" />
+            </column>
+            <column name="purpose" type="varchar(1000)" remarks="Propósito.">
+                <constraints nullable="false" />
+            </column>
+            <column name="condition" type="varchar(1000)" remarks="Condições para administração.">
+                <constraints nullable="false" />
+            </column>
+            <column name="timing" type="varchar(255)" remarks="Calendarização.">
+                <constraints nullable="true" />
+            </column>
+            <column name="indication" type="varchar(1000)" remarks="Indicação para prescrição.">
+                <constraints nullable="false" />
+            </column>
+            <column name="criteria" type="varchar(1000)" remarks="Critérios de redução de dose.">
+                <constraints nullable="false" />
+            </column>
+            <column name="notice" type="varchar(1000)" remarks="Outras informações.">
+                <constraints nullable="true" />
+            </column>
+            <column name="treatment_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20201220133045-1-relations" author="jhipster">
+
+        <createTable tableName="rel_therapeutic_regime__active_substance">
+            <column name="active_substance_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="therapeutic_regime_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="therapeutic_regime_id, active_substance_id" tableName="rel_therapeutic_regime__active_substance"/>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20201220133045-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/therapeutic_regime.csv"
+                  separator=";"
+                  tableName="therapeutic_regime">
+            <column name="id" type="numeric"/>
+            <column name="name" type="string"/>
+            <column name="acronym" type="string"/>
+            <column name="purpose" type="string"/>
+            <column name="condition" type="string"/>
+            <column name="timing" type="string"/>
+            <column name="indication" type="string"/>
+            <column name="criteria" type="string"/>
+            <column name="notice" type="string"/>
+            <column name="treatment_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

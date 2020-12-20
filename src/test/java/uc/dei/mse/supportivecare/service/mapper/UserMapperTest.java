@@ -10,6 +10,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import uc.dei.mse.supportivecare.domain.User;
+import uc.dei.mse.supportivecare.service.dto.AdminUserDTO;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
 
 /**
@@ -22,7 +23,7 @@ class UserMapperTest {
 
     private UserMapper userMapper;
     private User user;
-    private UserDTO userDto;
+    private AdminUserDTO userDto;
 
     @BeforeEach
     public void init() {
@@ -37,7 +38,7 @@ class UserMapperTest {
         user.setImageUrl("image_url");
         user.setLangKey("en");
 
-        userDto = new UserDTO(user);
+        userDto = new AdminUserDTO(user);
     }
 
     @Test
@@ -53,7 +54,7 @@ class UserMapperTest {
 
     @Test
     void userDTOsToUsersShouldMapOnlyNonNullUsers() {
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
         usersDto.add(null);
 
@@ -68,7 +69,7 @@ class UserMapperTest {
         authoritiesAsString.add("ADMIN");
         userDto.setAuthorities(authoritiesAsString);
 
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
         List<User> users = userMapper.userDTOsToUsers(usersDto);
@@ -83,7 +84,7 @@ class UserMapperTest {
     void userDTOsToUsersMapWithNullAuthoritiesStringShouldReturnUserWithEmptyAuthorities() {
         userDto.setAuthorities(null);
 
-        List<UserDTO> usersDto = new ArrayList<>();
+        List<AdminUserDTO> usersDto = new ArrayList<>();
         usersDto.add(userDto);
 
         List<User> users = userMapper.userDTOsToUsers(usersDto);

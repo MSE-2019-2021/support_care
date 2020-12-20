@@ -63,10 +63,6 @@ export const submitInitResetPasswordSelector = '[data-cy="submit"]';
 
 // Administration
 export const userManagementPageHeadingSelector = '[data-cy="userManagementPageHeading"]';
-export const metricsPageHeadingSelector = '[data-cy="metricsPageHeading"]';
-export const healthPageHeadingSelector = '[data-cy="healthPageHeading"]';
-export const logsPageHeadingSelector = '[data-cy="logsPageHeading"]';
-export const configurationPageHeadingSelector = '[data-cy="configurationPageHeading"]';
 
 // ***********************************************
 // End Specific Selector Attributes for Cypress
@@ -77,6 +73,7 @@ export const classInvalid = 'ng-invalid';
 export const classValid = 'ng-valid';
 
 Cypress.Commands.add('login', (username: string, password: string) => {
+  cy.clickOnLoginItem();
   cy.get(usernameLoginSelector).type(username);
   cy.get(passwordLoginSelector).type(password);
   cy.get(submitLoginSelector).click();

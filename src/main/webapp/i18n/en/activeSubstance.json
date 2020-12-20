@@ -1,0 +1,36 @@
+{
+  "supportivecareApp": {
+    "activeSubstance": {
+      "home": {
+        "title": "Active Substances",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Active Substance",
+        "createOrEditLabel": "Create or edit a Active Substance",
+        "notFound": "No Active Substances found"
+      },
+      "created": "A new Active Substance is created with identifier {{ param }}",
+      "updated": "A Active Substance is updated with identifier {{ param }}",
+      "deleted": "A Active Substance is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Active Substance {{ id }}?"
+      },
+      "detail": {
+        "title": "Active Substance"
+      },
+      "id": "ID",
+      "name": "Name",
+      "dosage": "Dosage",
+      "form": "Form",
+      "description": "Description",
+      "notice": "Notice",
+      "administration": "Administration",
+      "therapeuticRegime": "Therapeutic Regime",
+      "help": {
+        "name": "Nome.",
+        "dosage": "Dosagem.",
+        "form": "Forma Farmacêutica.",
+        "description": "Descrição geral."
+      }
+    }
+  }
+}

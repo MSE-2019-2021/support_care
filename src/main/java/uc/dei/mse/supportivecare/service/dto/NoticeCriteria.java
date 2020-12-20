@@ -32,7 +32,7 @@ public class NoticeCriteria implements Serializable, Criteria {
 
     private StringFilter intervention;
 
-    private LongFilter drugId;
+    private LongFilter activeSubstanceId;
 
     public NoticeCriteria() {}
 
@@ -41,7 +41,7 @@ public class NoticeCriteria implements Serializable, Criteria {
         this.description = other.description == null ? null : other.description.copy();
         this.evaluation = other.evaluation == null ? null : other.evaluation.copy();
         this.intervention = other.intervention == null ? null : other.intervention.copy();
-        this.drugId = other.drugId == null ? null : other.drugId.copy();
+        this.activeSubstanceId = other.activeSubstanceId == null ? null : other.activeSubstanceId.copy();
     }
 
     @Override
@@ -81,12 +81,12 @@ public class NoticeCriteria implements Serializable, Criteria {
         this.intervention = intervention;
     }
 
-    public LongFilter getDrugId() {
-        return drugId;
+    public LongFilter getActiveSubstanceId() {
+        return activeSubstanceId;
     }
 
-    public void setDrugId(LongFilter drugId) {
-        this.drugId = drugId;
+    public void setActiveSubstanceId(LongFilter activeSubstanceId) {
+        this.activeSubstanceId = activeSubstanceId;
     }
 
     @Override
@@ -103,13 +103,13 @@ public class NoticeCriteria implements Serializable, Criteria {
             Objects.equals(description, that.description) &&
             Objects.equals(evaluation, that.evaluation) &&
             Objects.equals(intervention, that.intervention) &&
-            Objects.equals(drugId, that.drugId)
+            Objects.equals(activeSubstanceId, that.activeSubstanceId)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, evaluation, intervention, drugId);
+        return Objects.hash(id, description, evaluation, intervention, activeSubstanceId);
     }
 
     // prettier-ignore
@@ -120,7 +120,7 @@ public class NoticeCriteria implements Serializable, Criteria {
                 (description != null ? "description=" + description + ", " : "") +
                 (evaluation != null ? "evaluation=" + evaluation + ", " : "") +
                 (intervention != null ? "intervention=" + intervention + ", " : "") +
-                (drugId != null ? "drugId=" + drugId + ", " : "") +
+                (activeSubstanceId != null ? "activeSubstanceId=" + activeSubstanceId + ", " : "") +
             "}";
     }
 }

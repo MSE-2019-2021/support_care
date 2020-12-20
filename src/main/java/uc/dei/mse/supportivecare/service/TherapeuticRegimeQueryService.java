@@ -113,10 +113,13 @@ public class TherapeuticRegimeQueryService extends QueryService<TherapeuticRegim
             if (criteria.getNotice() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNotice(), TherapeuticRegime_.notice));
             }
-            if (criteria.getDrugId() != null) {
+            if (criteria.getActiveSubstanceId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getDrugId(), root -> root.join(TherapeuticRegime_.drugs, JoinType.LEFT).get(Drug_.id))
+                        buildSpecification(
+                            criteria.getActiveSubstanceId(),
+                            root -> root.join(TherapeuticRegime_.activeSubstances, JoinType.LEFT).get(ActiveSubstance_.id)
+                        )
                     );
             }
             if (criteria.getTreatmentId() != null) {

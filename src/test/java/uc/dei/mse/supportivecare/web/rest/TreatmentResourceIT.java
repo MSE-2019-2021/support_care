@@ -11,12 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 import uc.dei.mse.supportivecare.domain.Treatment;
 import uc.dei.mse.supportivecare.repository.TreatmentRepository;
@@ -28,7 +27,7 @@ import uc.dei.mse.supportivecare.service.mapper.TreatmentMapper;
 /**
  * Integration tests for the {@link TreatmentResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class TreatmentResourceIT {
@@ -102,11 +101,11 @@ class TreatmentResourceIT {
     @Test
     @Transactional
     void createTreatmentWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = treatmentRepository.findAll().size();
-
         // Create the Treatment with an existing ID
         treatment.setId(1L);
         TreatmentDTO treatmentDTO = treatmentMapper.toDto(treatment);
+
+        int databaseSizeBeforeCreate = treatmentRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTreatmentMockMvc

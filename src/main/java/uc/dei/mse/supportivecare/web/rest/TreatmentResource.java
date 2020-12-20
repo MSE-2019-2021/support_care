@@ -107,7 +107,7 @@ public class TreatmentResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<TreatmentDTO> result = Optional.ofNullable(treatmentService.partialUpdate(treatmentDTO));
+        Optional<TreatmentDTO> result = treatmentService.partialUpdate(treatmentDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

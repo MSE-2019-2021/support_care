@@ -108,7 +108,7 @@ public class ContentResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<ContentDTO> result = Optional.ofNullable(contentService.partialUpdate(contentDTO));
+        Optional<ContentDTO> result = contentService.partialUpdate(contentDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

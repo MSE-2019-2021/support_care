@@ -11,21 +11,15 @@ export class UserRouteAccessService implements CanActivate {
   constructor(private router: Router, private accountService: AccountService, private stateStorageService: StateStorageService) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    const authorities = route.data['authorities'];
-    // We need to call the accountService.identity() function, to ensure,
-    // that the client has a principal too, if they already logged in by the server.
-    // This could happen on a page refresh.
     return this.accountService.identity().pipe(
       map(account => {
-        if (!authorities || authorities.length === 0) {
-          return true;
-        }
-
         if (account) {
-          const hasAnyAuthority = this.accountService.hasAnyAuthority(authorities);
-          if (hasAnyAuthority) {
+          const authorities = route.data['authorities'];
+
+          if (!authorities || authorities.length === 0 || this.accountService.hasAnyAuthority(authorities)) {
             return true;
           }
+
           if (isDevMode()) {
             console.error('User has not any of required authorities: ', authorities);
           }

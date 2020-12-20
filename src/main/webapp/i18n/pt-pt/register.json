@@ -13,7 +13,7 @@
           "pattern": "Your username is invalid."
         }
       },
-      "success": "<strong>Registo efetuado com sucesso!</strong> Por favor espere para o administrador confirmar a sua conta.",
+      "success": "<strong>Registo efetuado com sucesso!</strong> Por favor verifique o seu email para confirmar a conta.",
       "error": {
         "fail": "<strong>Erro ao realizar o registo!</strong> Por favor tente novamente mais tarde.",
         "userexists": "<strong>Utilizador já registado!</strong> Por favor escolha outro.",

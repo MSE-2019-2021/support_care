@@ -14,18 +14,17 @@ describe('/account/password', () => {
     });
 
     cy.clearCookies();
-    cy.visit('/');
+    cy.visit('');
     cy.login('user', 'user');
+    cy.clickOnPasswordItem();
   });
-  // TODO: review this when doing task MSEDO-175
-  //code commented because this view is not present and it will be changed in a future feature
-  /*beforeEach(() => {
+
+  beforeEach(() => {
     cy.server();
     cy.route('POST', '/api/account/change-password').as('passwordSave');
   });
 
   it('requires current password', () => {
-    cy.clickOnPasswordItem();
     cy.get(currentPasswordSelector).should('have.class', classInvalid).type('wrong-current-password').should('have.class', classValid);
     cy.get(currentPasswordSelector).clear();
   });
@@ -59,5 +58,5 @@ describe('/account/password', () => {
     cy.get(confirmPasswordSelector).type('user');
     cy.get(submitPasswordSelector).click({ force: true });
     cy.wait('@passwordSave').its('status').should('equal', 200);
-  });*/
+  });
 });

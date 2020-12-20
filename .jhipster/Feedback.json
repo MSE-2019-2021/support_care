@@ -1,0 +1,55 @@
+{
+  "name": "Feedback",
+  "fields": [
+    {
+      "fieldName": "entityName",
+      "fieldType": "EntityFeedback",
+      "javadoc": "Nome da entidade.",
+      "fieldValues": "DRUG (Drug),THERAPEUTIC_REGIME (TherapeuticRegime),OUTCOME (Outcome),SYMPTOM (Symptom)",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "entityId",
+      "fieldType": "Long",
+      "javadoc": "Id da entidade.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "thumb",
+      "fieldType": "Boolean",
+      "javadoc": "Polegar.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "reason",
+      "fieldType": "String",
+      "javadoc": "Razão.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
+    },
+    {
+      "fieldName": "solved",
+      "fieldType": "Boolean",
+      "javadoc": "Resolvido.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anonym",
+      "fieldType": "Boolean",
+      "javadoc": "Anónimo.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "javadoc": "Feedback.",
+  "entityTableName": "feedback",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201220133645"
+}

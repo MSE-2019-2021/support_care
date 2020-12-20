@@ -2,8 +2,6 @@ package uc.dei.mse.supportivecare.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -15,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "notice")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Notice extends AbstractAuditingEntity implements Serializable {
+public class Notice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,27 +26,30 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
      * Descrição.
      */
     @NotNull
-    @Column(name = "description", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
     /**
      * Avaliação.
      */
     @NotNull
-    @Column(name = "evaluation", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "evaluation", length = 1000, nullable = false)
     private String evaluation;
 
     /**
-     * Intervenção.
+     * Intervenção interdependente.
      */
     @NotNull
-    @Column(name = "intervention", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "intervention", length = 1000, nullable = false)
     private String intervention;
 
-    @ManyToMany(mappedBy = "notices")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
-    private Set<Drug> drugs = new HashSet<>();
+    private ActiveSubstance activeSubstance;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -65,7 +66,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public Notice description(String description) {
@@ -78,7 +79,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getEvaluation() {
-        return evaluation;
+        return this.evaluation;
     }
 
     public Notice evaluation(String evaluation) {
@@ -91,7 +92,7 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getIntervention() {
-        return intervention;
+        return this.intervention;
     }
 
     public Notice intervention(String intervention) {
@@ -103,29 +104,17 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
         this.intervention = intervention;
     }
 
-    public Set<Drug> getDrugs() {
-        return drugs;
+    public ActiveSubstance getActiveSubstance() {
+        return this.activeSubstance;
     }
 
-    public Notice drugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public Notice activeSubstance(ActiveSubstance activeSubstance) {
+        this.setActiveSubstance(activeSubstance);
         return this;
     }
 
-    public Notice addDrug(Drug drug) {
-        this.drugs.add(drug);
-        drug.getNotices().add(this);
-        return this;
-    }
-
-    public Notice removeDrug(Drug drug) {
-        this.drugs.remove(drug);
-        drug.getNotices().remove(this);
-        return this;
-    }
-
-    public void setDrugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public void setActiveSubstance(ActiveSubstance activeSubstance) {
+        this.activeSubstance = activeSubstance;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -143,7 +132,8 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

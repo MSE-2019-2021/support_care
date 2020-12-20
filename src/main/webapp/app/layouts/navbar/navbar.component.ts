@@ -1,20 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 
 import { VERSION } from 'app/app.constants';
-import { LANGUAGES } from 'app/core/config/language.constants';
+import { LANGUAGES } from 'app/config/language.constants';
 import { AccountService } from 'app/core/auth/account.service';
 import { LoginService } from 'app/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NavbarLogoutDialogComponent } from 'app/layouts/navbar/navbar-logout-dialog.component';
 
 @Component({
   selector: 'custom-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['navbar.scss'],
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   inProduction?: boolean;
@@ -25,12 +23,11 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private languageService: JhiLanguageService,
+    private translateService: TranslateService,
     private sessionStorage: SessionStorageService,
     private accountService: AccountService,
     private profileService: ProfileService,
-    private router: Router,
-    protected modalService: NgbModal
+    private router: Router
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
   }
@@ -44,7 +41,7 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage(languageKey: string): void {
     this.sessionStorage.store('locale', languageKey);
-    this.languageService.changeLanguage(languageKey);
+    this.translateService.use(languageKey);
   }
 
   collapseNavbar(): void {
@@ -60,7 +57,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.modalService.open(NavbarLogoutDialogComponent, { centered: true, size: 'md', backdrop: 'static' });
+    this.collapseNavbar();
+    this.loginService.logout();
+    this.router.navigate(['']);
   }
 
   toggleNavbar(): void {

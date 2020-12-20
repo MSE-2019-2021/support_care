@@ -20,12 +20,12 @@
       "id": "ID",
       "description": "Description",
       "evaluation": "Evaluation",
-      "intervention": "Interdependent intervention",
-      "drug": "Drug",
+      "intervention": "Intervention",
+      "activeSubstance": "Active Substance",
       "help": {
-        "description": "Description.",
-        "evaluation": "Evaluation.",
-        "intervention": "Interdependent intervention."
+        "description": "Descrição.",
+        "evaluation": "Avaliação.",
+        "intervention": "Intervenção interdependente."
       }
     }
   }

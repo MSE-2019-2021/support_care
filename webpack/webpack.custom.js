@@ -21,7 +21,7 @@ module.exports = (config, options) => {
       new FriendlyErrorsWebpackPlugin(),
       new WebpackNotifierPlugin({
         title: 'JHipster',
-        contentImage: path.join(__dirname, 'logo.png'),
+        contentImage: path.join(__dirname, 'logo-jhipster.png'),
       }),
       new BrowserSyncPlugin(
         {

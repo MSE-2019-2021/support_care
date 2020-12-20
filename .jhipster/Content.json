@@ -30,6 +30,5 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162550",
-  "enableEntityAudit": true
+  "changelogDate": "20201220133245"
 }

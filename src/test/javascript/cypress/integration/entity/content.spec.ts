@@ -46,45 +46,45 @@ describe('Content e2e test', () => {
     cy.visit('/');
   });
 
-  // it('should load details Content page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/contents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('content');
-  //   cy.wait('@entitiesRequest');
-  //   if (startingEntitiesCount > 0) {
-  //     cy.get(entityDetailsButtonSelector).first().click({ force: true });
-  //     cy.getEntityDetailsHeading('content');
-  //     cy.get(entityDetailsBackButtonSelector).should('exist');
-  //   }
-  //   cy.visit('/');
-  // });
+  it('should load details Content page', () => {
+    cy.server();
+    cy.route('GET', '/api/contents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('content');
+    cy.wait('@entitiesRequest');
+    if (startingEntitiesCount > 0) {
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.getEntityDetailsHeading('content');
+      cy.get(entityDetailsBackButtonSelector).should('exist');
+    }
+    cy.visit('/');
+  });
 
-  // it('should load create Content page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/contents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('content');
-  //   cy.wait('@entitiesRequest');
-  //   cy.get(entityCreateButtonSelector).click({ force: true });
-  //   cy.getEntityCreateHeading('Content');
-  //   cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   cy.visit('/');
-  // });
+  it('should load create Content page', () => {
+    cy.server();
+    cy.route('GET', '/api/contents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('content');
+    cy.wait('@entitiesRequest');
+    cy.get(entityCreateButtonSelector).click({ force: true });
+    cy.getEntityCreateUpdateHeading('Content');
+    cy.get(entityCreateSaveButtonSelector).should('exist');
+    cy.visit('/');
+  });
 
-  // it('should load edit Content page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/contents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('content');
-  //   cy.wait('@entitiesRequest');
-  //   if (startingEntitiesCount > 0) {
-  //     cy.get(entityEditButtonSelector).first().click({ force: true });
-  //     cy.getEntityUpdateHeading('Content');
-  //     cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   }
-  //   cy.visit('/');
-  // });
+  it('should load edit Content page', () => {
+    cy.server();
+    cy.route('GET', '/api/contents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('content');
+    cy.wait('@entitiesRequest');
+    if (startingEntitiesCount > 0) {
+      cy.get(entityEditButtonSelector).first().click({ force: true });
+      cy.getEntityCreateUpdateHeading('Content');
+      cy.get(entityCreateSaveButtonSelector).should('exist');
+    }
+    cy.visit('/');
+  });
 
   /* this test is commented because it contains required relationships
   it('should create an instance of Content', () => {

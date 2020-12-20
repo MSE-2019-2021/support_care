@@ -4,8 +4,9 @@
     {
       "fieldName": "type",
       "fieldType": "String",
-      "javadoc": "Tipo de Tratamento.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Tipo de tratamento.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "100"
     }
   ],
   "relationships": [
@@ -13,8 +14,7 @@
       "relationshipType": "one-to-many",
       "otherEntityName": "therapeuticRegime",
       "otherEntityRelationshipName": "treatment",
-      "relationshipName": "therapeuticRegime",
-      "otherEntityField": "id"
+      "relationshipName": "therapeuticRegime"
     }
   ],
   "javadoc": "Tratamento.",
@@ -27,6 +27,5 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162250",
-  "enableEntityAudit": true
+  "changelogDate": "20201220132945"
 }

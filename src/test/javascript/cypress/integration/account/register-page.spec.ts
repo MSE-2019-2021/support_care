@@ -15,7 +15,7 @@ describe('/account/register', () => {
     });
 
     cy.clearCookies();
-    cy.visit('/');
+    cy.visit('');
     cy.clickOnRegisterItem();
   });
 

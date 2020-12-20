@@ -42,7 +42,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
 
     private StringFilter notice;
 
-    private LongFilter drugId;
+    private LongFilter activeSubstanceId;
 
     private LongFilter treatmentId;
 
@@ -60,7 +60,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.indication = other.indication == null ? null : other.indication.copy();
         this.criteria = other.criteria == null ? null : other.criteria.copy();
         this.notice = other.notice == null ? null : other.notice.copy();
-        this.drugId = other.drugId == null ? null : other.drugId.copy();
+        this.activeSubstanceId = other.activeSubstanceId == null ? null : other.activeSubstanceId.copy();
         this.treatmentId = other.treatmentId == null ? null : other.treatmentId.copy();
         this.symptomId = other.symptomId == null ? null : other.symptomId.copy();
     }
@@ -142,12 +142,12 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
         this.notice = notice;
     }
 
-    public LongFilter getDrugId() {
-        return drugId;
+    public LongFilter getActiveSubstanceId() {
+        return activeSubstanceId;
     }
 
-    public void setDrugId(LongFilter drugId) {
-        this.drugId = drugId;
+    public void setActiveSubstanceId(LongFilter activeSubstanceId) {
+        this.activeSubstanceId = activeSubstanceId;
     }
 
     public LongFilter getTreatmentId() {
@@ -185,7 +185,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
             Objects.equals(indication, that.indication) &&
             Objects.equals(criteria, that.criteria) &&
             Objects.equals(notice, that.notice) &&
-            Objects.equals(drugId, that.drugId) &&
+            Objects.equals(activeSubstanceId, that.activeSubstanceId) &&
             Objects.equals(treatmentId, that.treatmentId) &&
             Objects.equals(symptomId, that.symptomId)
         );
@@ -193,7 +193,20 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, acronym, purpose, condition, timing, indication, criteria, notice, drugId, treatmentId, symptomId);
+        return Objects.hash(
+            id,
+            name,
+            acronym,
+            purpose,
+            condition,
+            timing,
+            indication,
+            criteria,
+            notice,
+            activeSubstanceId,
+            treatmentId,
+            symptomId
+        );
     }
 
     // prettier-ignore
@@ -209,7 +222,7 @@ public class TherapeuticRegimeCriteria implements Serializable, Criteria {
                 (indication != null ? "indication=" + indication + ", " : "") +
                 (criteria != null ? "criteria=" + criteria + ", " : "") +
                 (notice != null ? "notice=" + notice + ", " : "") +
-                (drugId != null ? "drugId=" + drugId + ", " : "") +
+                (activeSubstanceId != null ? "activeSubstanceId=" + activeSubstanceId + ", " : "") +
                 (treatmentId != null ? "treatmentId=" + treatmentId + ", " : "") +
                 (symptomId != null ? "symptomId=" + symptomId + ", " : "") +
             "}";

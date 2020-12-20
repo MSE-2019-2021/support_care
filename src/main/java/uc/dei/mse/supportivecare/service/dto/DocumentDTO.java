@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Document} entity.
  */
 @ApiModel(description = "Documento.")
-public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
+public class DocumentDTO implements Serializable {
 
     private Long id;
 
@@ -18,6 +18,7 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
      * Título.
      */
     @NotNull
+    @Size(max = 255)
     @ApiModelProperty(value = "Título.", required = true)
     private String title;
 
@@ -31,6 +32,7 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Tipo de ficheiro.
      */
+    @Size(max = 50)
     @ApiModelProperty(value = "Tipo de ficheiro.")
     private String mimeType;
 

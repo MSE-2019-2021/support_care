@@ -49,7 +49,7 @@ public class TreatmentService {
      * @param treatmentDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public TreatmentDTO partialUpdate(TreatmentDTO treatmentDTO) {
+    public Optional<TreatmentDTO> partialUpdate(TreatmentDTO treatmentDTO) {
         log.debug("Request to partially update Treatment : {}", treatmentDTO);
 
         return treatmentRepository
@@ -64,8 +64,7 @@ public class TreatmentService {
                 }
             )
             .map(treatmentRepository::save)
-            .map(treatmentMapper::toDto)
-            .get();
+            .map(treatmentMapper::toDto);
     }
 
     /**

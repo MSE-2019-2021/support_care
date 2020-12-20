@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Outcome} entity.
  */
 @ApiModel(description = "PROM.")
-public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
+public class OutcomeDTO implements Serializable {
 
     private Long id;
 
@@ -18,12 +18,14 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
      * Nome.
      */
     @NotNull
+    @Size(max = 255)
     @ApiModelProperty(value = "Nome.", required = true)
     private String name;
 
     /**
      * Descrição.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Descrição.")
     private String description;
 

@@ -67,7 +67,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateHeading('TherapeuticRegime');
+    cy.getEntityCreateUpdateHeading('TherapeuticRegime');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -79,9 +79,8 @@ describe('TherapeuticRegime e2e test', () => {
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.get(entityEditButtonSelector).click({ force: true });
-      cy.getEntityUpdateHeading('TherapeuticRegime');
+      cy.get(entityEditButtonSelector).first().click({ force: true });
+      cy.getEntityCreateUpdateHeading('TherapeuticRegime');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');
@@ -120,7 +119,7 @@ describe('TherapeuticRegime e2e test', () => {
 
     cy.get(`[data-cy="notice"]`).type('reintermediate deliverables', { force: true }).invoke('val').should('match', new RegExp('reintermediate deliverables'));
 
-    cy.setFieldSelectToLastOfEntity('drug');
+    cy.setFieldSelectToLastOfEntity('activeSubstance');
 
     cy.setFieldSelectToLastOfEntity('treatment');
 

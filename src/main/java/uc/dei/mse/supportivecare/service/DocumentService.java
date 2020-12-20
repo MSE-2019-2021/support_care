@@ -49,7 +49,7 @@ public class DocumentService {
      * @param documentDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public DocumentDTO partialUpdate(DocumentDTO documentDTO) {
+    public Optional<DocumentDTO> partialUpdate(DocumentDTO documentDTO) {
         log.debug("Request to partially update Document : {}", documentDTO);
 
         return documentRepository
@@ -72,8 +72,7 @@ public class DocumentService {
                 }
             )
             .map(documentRepository::save)
-            .map(documentMapper::toDto)
-            .get();
+            .map(documentMapper::toDto);
     }
 
     /**

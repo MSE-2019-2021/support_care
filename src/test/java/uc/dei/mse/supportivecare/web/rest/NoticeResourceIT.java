@@ -11,13 +11,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
-import uc.dei.mse.supportivecare.domain.Drug;
+import uc.dei.mse.supportivecare.IntegrationTest;
+import uc.dei.mse.supportivecare.domain.ActiveSubstance;
 import uc.dei.mse.supportivecare.domain.Notice;
 import uc.dei.mse.supportivecare.repository.NoticeRepository;
 import uc.dei.mse.supportivecare.service.NoticeQueryService;
@@ -28,7 +27,7 @@ import uc.dei.mse.supportivecare.service.mapper.NoticeMapper;
 /**
  * Integration tests for the {@link NoticeResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class NoticeResourceIT {
@@ -68,15 +67,15 @@ class NoticeResourceIT {
     public static Notice createEntity(EntityManager em) {
         Notice notice = new Notice().description(DEFAULT_DESCRIPTION).evaluation(DEFAULT_EVALUATION).intervention(DEFAULT_INTERVENTION);
         // Add required entity
-        Drug drug;
-        if (TestUtil.findAll(em, Drug.class).isEmpty()) {
-            drug = DrugResourceIT.createEntity(em);
-            em.persist(drug);
+        ActiveSubstance activeSubstance;
+        if (TestUtil.findAll(em, ActiveSubstance.class).isEmpty()) {
+            activeSubstance = ActiveSubstanceResourceIT.createEntity(em);
+            em.persist(activeSubstance);
             em.flush();
         } else {
-            drug = TestUtil.findAll(em, Drug.class).get(0);
+            activeSubstance = TestUtil.findAll(em, ActiveSubstance.class).get(0);
         }
-        notice.getDrugs().add(drug);
+        notice.setActiveSubstance(activeSubstance);
         return notice;
     }
 
@@ -89,15 +88,15 @@ class NoticeResourceIT {
     public static Notice createUpdatedEntity(EntityManager em) {
         Notice notice = new Notice().description(UPDATED_DESCRIPTION).evaluation(UPDATED_EVALUATION).intervention(UPDATED_INTERVENTION);
         // Add required entity
-        Drug drug;
-        if (TestUtil.findAll(em, Drug.class).isEmpty()) {
-            drug = DrugResourceIT.createUpdatedEntity(em);
-            em.persist(drug);
+        ActiveSubstance activeSubstance;
+        if (TestUtil.findAll(em, ActiveSubstance.class).isEmpty()) {
+            activeSubstance = ActiveSubstanceResourceIT.createUpdatedEntity(em);
+            em.persist(activeSubstance);
             em.flush();
         } else {
-            drug = TestUtil.findAll(em, Drug.class).get(0);
+            activeSubstance = TestUtil.findAll(em, ActiveSubstance.class).get(0);
         }
-        notice.getDrugs().add(drug);
+        notice.setActiveSubstance(activeSubstance);
         return notice;
     }
 
@@ -128,11 +127,11 @@ class NoticeResourceIT {
     @Test
     @Transactional
     void createNoticeWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = noticeRepository.findAll().size();
-
         // Create the Notice with an existing ID
         notice.setId(1L);
         NoticeDTO noticeDTO = noticeMapper.toDto(notice);
+
+        int databaseSizeBeforeCreate = noticeRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNoticeMockMvc
@@ -486,21 +485,21 @@ class NoticeResourceIT {
 
     @Test
     @Transactional
-    void getAllNoticesByDrugIsEqualToSomething() throws Exception {
+    void getAllNoticesByActiveSubstanceIsEqualToSomething() throws Exception {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
-        Drug drug = DrugResourceIT.createEntity(em);
-        em.persist(drug);
+        ActiveSubstance activeSubstance = ActiveSubstanceResourceIT.createEntity(em);
+        em.persist(activeSubstance);
         em.flush();
-        notice.addDrug(drug);
+        notice.setActiveSubstance(activeSubstance);
         noticeRepository.saveAndFlush(notice);
-        Long drugId = drug.getId();
+        Long activeSubstanceId = activeSubstance.getId();
 
-        // Get all the noticeList where drug equals to drugId
-        defaultNoticeShouldBeFound("drugId.equals=" + drugId);
+        // Get all the noticeList where activeSubstance equals to activeSubstanceId
+        defaultNoticeShouldBeFound("activeSubstanceId.equals=" + activeSubstanceId);
 
-        // Get all the noticeList where drug equals to drugId + 1
-        defaultNoticeShouldNotBeFound("drugId.equals=" + (drugId + 1));
+        // Get all the noticeList where activeSubstance equals to activeSubstanceId + 1
+        defaultNoticeShouldNotBeFound("activeSubstanceId.equals=" + (activeSubstanceId + 1));
     }
 
     /**

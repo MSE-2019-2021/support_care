@@ -31,7 +31,6 @@ describe('Document e2e test', () => {
     cy.visit('/');
   });
 
-  /* this test is commented because it contains required relationships
   it('should load Documents', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
@@ -46,47 +45,46 @@ describe('Document e2e test', () => {
     }
     cy.visit('/');
   });
-  */
 
-  // it('should load details Document page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/documents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('document');
-  //   cy.wait('@entitiesRequest');
-  //   if (startingEntitiesCount > 0) {
-  //     cy.get(entityDetailsButtonSelector).first().click({ force: true });
-  //     cy.getEntityDetailsHeading('document');
-  //     cy.get(entityDetailsBackButtonSelector).should('exist');
-  //   }
-  //   cy.visit('/');
-  // });
+  it('should load details Document page', () => {
+    cy.server();
+    cy.route('GET', '/api/documents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('document');
+    cy.wait('@entitiesRequest');
+    if (startingEntitiesCount > 0) {
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.getEntityDetailsHeading('document');
+      cy.get(entityDetailsBackButtonSelector).should('exist');
+    }
+    cy.visit('/');
+  });
 
-  // it('should load create Document page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/documents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('document');
-  //   cy.wait('@entitiesRequest');
-  //   cy.get(entityCreateButtonSelector).click({ force: true });
-  //   cy.getEntityCreateHeading('Document');
-  //   cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   cy.visit('/');
-  // });
+  it('should load create Document page', () => {
+    cy.server();
+    cy.route('GET', '/api/documents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('document');
+    cy.wait('@entitiesRequest');
+    cy.get(entityCreateButtonSelector).click({ force: true });
+    cy.getEntityCreateUpdateHeading('Document');
+    cy.get(entityCreateSaveButtonSelector).should('exist');
+    cy.visit('/');
+  });
 
-  // it('should load edit Document page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/documents*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('document');
-  //   cy.wait('@entitiesRequest');
-  //   if (startingEntitiesCount > 0) {
-  //     cy.get(entityEditButtonSelector).first().click({ force: true });
-  //     cy.getEntityUpdateHeading('Document');
-  //     cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   }
-  //   cy.visit('/');
-  // });
+  it('should load edit Document page', () => {
+    cy.server();
+    cy.route('GET', '/api/documents*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('document');
+    cy.wait('@entitiesRequest');
+    if (startingEntitiesCount > 0) {
+      cy.get(entityEditButtonSelector).first().click({ force: true });
+      cy.getEntityCreateUpdateHeading('Document');
+      cy.get(entityCreateSaveButtonSelector).should('exist');
+    }
+    cy.visit('/');
+  });
 
   /* this test is commented because it contains required relationships
   it('should create an instance of Document', () => {

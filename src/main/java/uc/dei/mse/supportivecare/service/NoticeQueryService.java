@@ -95,10 +95,13 @@ public class NoticeQueryService extends QueryService<Notice> {
             if (criteria.getIntervention() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIntervention(), Notice_.intervention));
             }
-            if (criteria.getDrugId() != null) {
+            if (criteria.getActiveSubstanceId() != null) {
                 specification =
                     specification.and(
-                        buildSpecification(criteria.getDrugId(), root -> root.join(Notice_.drugs, JoinType.LEFT).get(Drug_.id))
+                        buildSpecification(
+                            criteria.getActiveSubstanceId(),
+                            root -> root.join(Notice_.activeSubstance, JoinType.LEFT).get(ActiveSubstance_.id)
+                        )
                     );
             }
         }

@@ -10,15 +10,16 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Treatment} entity.
  */
 @ApiModel(description = "Tratamento.")
-public class TreatmentDTO extends AbstractAuditingDTO implements Serializable {
+public class TreatmentDTO implements Serializable {
 
     private Long id;
 
     /**
-     * Tipo de Tratamento.
+     * Tipo de tratamento.
      */
     @NotNull
-    @ApiModelProperty(value = "Tipo de Tratamento.", required = true)
+    @Size(max = 100)
+    @ApiModelProperty(value = "Tipo de tratamento.", required = true)
     private String type;
 
     public Long getId() {

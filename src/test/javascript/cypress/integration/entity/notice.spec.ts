@@ -60,31 +60,31 @@ describe('Notice e2e test', () => {
     cy.visit('/');
   });
 
-  // it('should load create Notice page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/notices*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('notice');
-  //   cy.wait('@entitiesRequest');
-  //   cy.get(entityCreateButtonSelector).click({ force: true });
-  //   cy.getEntityCreateHeading('Notice');
-  //   cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   cy.visit('/');
-  // });
+  it('should load create Notice page', () => {
+    cy.server();
+    cy.route('GET', '/api/notices*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('notice');
+    cy.wait('@entitiesRequest');
+    cy.get(entityCreateButtonSelector).click({ force: true });
+    cy.getEntityCreateUpdateHeading('Notice');
+    cy.get(entityCreateSaveButtonSelector).should('exist');
+    cy.visit('/');
+  });
 
-  // it('should load edit Notice page', () => {
-  //   cy.server();
-  //   cy.route('GET', '/api/notices*').as('entitiesRequest');
-  //   cy.visit('/');
-  //   cy.clickOnEntityMenuItem('notice');
-  //   cy.wait('@entitiesRequest');
-  //   if (startingEntitiesCount > 0) {
-  //     cy.get(entityEditButtonSelector).first().click({ force: true });
-  //     cy.getEntityUpdateHeading('Notice');
-  //     cy.get(entityCreateSaveButtonSelector).should('exist');
-  //   }
-  //   cy.visit('/');
-  // });
+  it('should load edit Notice page', () => {
+    cy.server();
+    cy.route('GET', '/api/notices*').as('entitiesRequest');
+    cy.visit('/');
+    cy.clickOnEntityMenuItem('notice');
+    cy.wait('@entitiesRequest');
+    if (startingEntitiesCount > 0) {
+      cy.get(entityEditButtonSelector).first().click({ force: true });
+      cy.getEntityCreateUpdateHeading('Notice');
+      cy.get(entityCreateSaveButtonSelector).should('exist');
+    }
+    cy.visit('/');
+  });
 
   /* this test is commented because it contains required relationships
   it('should create an instance of Notice', () => {
@@ -103,6 +103,8 @@ describe('Notice e2e test', () => {
 
 
     cy.get(`[data-cy="intervention"]`).type('Toalhas middleware', { force: true }).invoke('val').should('match', new RegExp('Toalhas middleware'));
+
+    cy.setFieldSelectToLastOfEntity('activeSubstance');
 
     cy.get(entityCreateSaveButtonSelector).click({force: true});
     cy.scrollTo('top', {ensureScrollable: false});

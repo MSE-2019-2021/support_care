@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.ToxicityRate} entity.
  */
 @ApiModel(description = "Grau de Toxicidade.")
-public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable {
+public class ToxicityRateDTO implements Serializable {
 
     private Long id;
 
@@ -18,38 +18,46 @@ public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable
      * Nome.
      */
     @NotNull
+    @Size(max = 255)
     @ApiModelProperty(value = "Nome.", required = true)
     private String name;
 
     /**
      * Descrição.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
     /**
      * Informação ao doente.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Informação ao doente.")
     private String notice;
 
     /**
      * Intervenção autónoma.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Intervenção autónoma.")
     private String autonomousIntervention;
 
     /**
      * Intervenção interdependente.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Intervenção interdependente.")
     private String interdependentIntervention;
 
     /**
      * Suporte para auto-gestão.
      */
+    @Size(max = 1000)
     @ApiModelProperty(value = "Suporte para auto-gestão.")
     private String selfManagement;
+
+    private SymptomDTO symptom;
 
     public Long getId() {
         return id;
@@ -107,6 +115,14 @@ public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable
         this.selfManagement = selfManagement;
     }
 
+    public SymptomDTO getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(SymptomDTO symptom) {
+        this.symptom = symptom;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -139,6 +155,7 @@ public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable
             ", autonomousIntervention='" + getAutonomousIntervention() + "'" +
             ", interdependentIntervention='" + getInterdependentIntervention() + "'" +
             ", selfManagement='" + getSelfManagement() + "'" +
+            ", symptom=" + getSymptom() +
             "}";
     }
 }

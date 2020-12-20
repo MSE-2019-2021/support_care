@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="activeSubstance">
+      <h2 data-cy="activeSubstanceDetailsHeading">
+        <span customTranslate="supportivecareApp.activeSubstance.detail.title">Active Substance</span>
+      </h2>
+
+      <hr />
+
+      <custom-alert-error></custom-alert-error>
+
+      <custom-alert></custom-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span customTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ activeSubstance.id }}</span>
+        </dd>
+        <dt>
+          <span
+            customTranslate="supportivecareApp.activeSubstance.name"
+            [ngbTooltip]="'supportivecareApp.activeSubstance.help.name' | translate"
+            >Name</span
+          >
+        </dt>
+        <dd>
+          <span>{{ activeSubstance.name }}</span>
+        </dd>
+        <dt>
+          <span
+            customTranslate="supportivecareApp.activeSubstance.dosage"
+            [ngbTooltip]="'supportivecareApp.activeSubstance.help.dosage' | translate"
+            >Dosage</span
+          >
+        </dt>
+        <dd>
+          <span>{{ activeSubstance.dosage }}</span>
+        </dd>
+        <dt>
+          <span
+            customTranslate="supportivecareApp.activeSubstance.form"
+            [ngbTooltip]="'supportivecareApp.activeSubstance.help.form' | translate"
+            >Form</span
+          >
+        </dt>
+        <dd>
+          <span>{{ activeSubstance.form }}</span>
+        </dd>
+        <dt>
+          <span
+            customTranslate="supportivecareApp.activeSubstance.description"
+            [ngbTooltip]="'supportivecareApp.activeSubstance.help.description' | translate"
+            >Description</span
+          >
+        </dt>
+        <dd>
+          <span>{{ activeSubstance.description }}</span>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.activeSubstance.administration">Administration</span></dt>
+        <dd>
+          <div *ngIf="activeSubstance.administration">
+            <a [routerLink]="['/administration', activeSubstance.administration?.id, 'view']">{{ activeSubstance.administration?.type }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/active-substance', activeSubstance.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

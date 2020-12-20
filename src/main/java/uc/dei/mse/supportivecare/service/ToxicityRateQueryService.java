@@ -113,7 +113,7 @@ public class ToxicityRateQueryService extends QueryService<ToxicityRate> {
                     specification.and(
                         buildSpecification(
                             criteria.getSymptomId(),
-                            root -> root.join(ToxicityRate_.symptoms, JoinType.LEFT).get(Symptom_.id)
+                            root -> root.join(ToxicityRate_.symptom, JoinType.LEFT).get(Symptom_.id)
                         )
                     );
             }

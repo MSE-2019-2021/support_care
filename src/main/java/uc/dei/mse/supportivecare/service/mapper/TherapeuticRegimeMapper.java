@@ -1,5 +1,6 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
+import java.util.Set;
 import org.mapstruct.*;
 import uc.dei.mse.supportivecare.domain.*;
 import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
@@ -7,19 +8,18 @@ import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
 /**
  * Mapper for the entity {@link TherapeuticRegime} and its DTO {@link TherapeuticRegimeDTO}.
  */
-@Mapper(componentModel = "spring", uses = { DrugMapper.class, TreatmentMapper.class })
+@Mapper(componentModel = "spring", uses = { ActiveSubstanceMapper.class, TreatmentMapper.class })
 public interface TherapeuticRegimeMapper extends EntityMapper<TherapeuticRegimeDTO, TherapeuticRegime> {
+    @Mapping(target = "activeSubstances", source = "activeSubstances", qualifiedByName = "nameSet")
     @Mapping(target = "treatment", source = "treatment", qualifiedByName = "type")
     TherapeuticRegimeDTO toDto(TherapeuticRegime therapeuticRegime);
 
-    @Mapping(target = "removeDrug", ignore = true)
-    @Mapping(target = "symptoms", ignore = true)
-    @Mapping(target = "removeSymptom", ignore = true)
+    @Mapping(target = "removeActiveSubstance", ignore = true)
     TherapeuticRegime toEntity(TherapeuticRegimeDTO therapeuticRegimeDTO);
 
-    @Named("name")
+    @Named("nameSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    TherapeuticRegimeDTO toDtoName(TherapeuticRegime therapeuticRegime);
+    Set<TherapeuticRegimeDTO> toDtoNameSet(Set<TherapeuticRegime> therapeuticRegime);
 }

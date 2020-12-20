@@ -52,7 +52,7 @@ public class TherapeuticRegimeService {
      * @param therapeuticRegimeDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public TherapeuticRegimeDTO partialUpdate(TherapeuticRegimeDTO therapeuticRegimeDTO) {
+    public Optional<TherapeuticRegimeDTO> partialUpdate(TherapeuticRegimeDTO therapeuticRegimeDTO) {
         log.debug("Request to partially update TherapeuticRegime : {}", therapeuticRegimeDTO);
 
         return therapeuticRegimeRepository
@@ -95,8 +95,7 @@ public class TherapeuticRegimeService {
                 }
             )
             .map(therapeuticRegimeRepository::save)
-            .map(therapeuticRegimeMapper::toDto)
-            .get();
+            .map(therapeuticRegimeMapper::toDto);
     }
 
     /**

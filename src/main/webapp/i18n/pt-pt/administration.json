@@ -19,9 +19,9 @@
       },
       "id": "ID",
       "type": "Type",
-      "drug": "Drug",
+      "activeSubstance": "Active Substance",
       "help": {
-        "type": "Tipo de Administração."
+        "type": "Tipo de administração."
       }
     }
   }

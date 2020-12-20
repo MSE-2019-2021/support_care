@@ -11,14 +11,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
+import uc.dei.mse.supportivecare.domain.ActiveSubstance;
 import uc.dei.mse.supportivecare.domain.Administration;
-import uc.dei.mse.supportivecare.domain.Drug;
 import uc.dei.mse.supportivecare.repository.AdministrationRepository;
 import uc.dei.mse.supportivecare.service.AdministrationQueryService;
 import uc.dei.mse.supportivecare.service.dto.AdministrationCriteria;
@@ -28,7 +27,7 @@ import uc.dei.mse.supportivecare.service.mapper.AdministrationMapper;
 /**
  * Integration tests for the {@link AdministrationResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class AdministrationResourceIT {
@@ -104,11 +103,11 @@ class AdministrationResourceIT {
     @Test
     @Transactional
     void createAdministrationWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = administrationRepository.findAll().size();
-
         // Create the Administration with an existing ID
         administration.setId(1L);
         AdministrationDTO administrationDTO = administrationMapper.toDto(administration);
+
+        int databaseSizeBeforeCreate = administrationRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAdministrationMockMvc
@@ -274,21 +273,21 @@ class AdministrationResourceIT {
 
     @Test
     @Transactional
-    void getAllAdministrationsByDrugIsEqualToSomething() throws Exception {
+    void getAllAdministrationsByActiveSubstanceIsEqualToSomething() throws Exception {
         // Initialize the database
         administrationRepository.saveAndFlush(administration);
-        Drug drug = DrugResourceIT.createEntity(em);
-        em.persist(drug);
+        ActiveSubstance activeSubstance = ActiveSubstanceResourceIT.createEntity(em);
+        em.persist(activeSubstance);
         em.flush();
-        administration.addDrug(drug);
+        administration.addActiveSubstance(activeSubstance);
         administrationRepository.saveAndFlush(administration);
-        Long drugId = drug.getId();
+        Long activeSubstanceId = activeSubstance.getId();
 
-        // Get all the administrationList where drug equals to drugId
-        defaultAdministrationShouldBeFound("drugId.equals=" + drugId);
+        // Get all the administrationList where activeSubstance equals to activeSubstanceId
+        defaultAdministrationShouldBeFound("activeSubstanceId.equals=" + activeSubstanceId);
 
-        // Get all the administrationList where drug equals to drugId + 1
-        defaultAdministrationShouldNotBeFound("drugId.equals=" + (drugId + 1));
+        // Get all the administrationList where activeSubstance equals to activeSubstanceId + 1
+        defaultAdministrationShouldNotBeFound("activeSubstanceId.equals=" + (activeSubstanceId + 1));
     }
 
     /**

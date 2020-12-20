@@ -107,7 +107,7 @@ public class SymptomResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<SymptomDTO> result = Optional.ofNullable(symptomService.partialUpdate(symptomDTO));
+        Optional<SymptomDTO> result = symptomService.partialUpdate(symptomDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

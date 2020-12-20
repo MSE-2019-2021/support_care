@@ -15,7 +15,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Table(name = "symptom")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Symptom extends AbstractAuditingEntity implements Serializable {
+public class Symptom implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,44 +28,41 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 255)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
     /**
      * Informação ao enfermeiro.
      */
-    @Column(name = "notice")
+    @Size(max = 1000)
+    @Column(name = "notice", length = 1000)
     private String notice;
+
+    @OneToMany(mappedBy = "symptom")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(value = { "symptom" }, allowSetters = true)
+    private Set<ToxicityRate> toxicityRates = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "symptom_therapeutic_regime",
-        joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id")
+        name = "rel_symptom__therapeutic_regime",
+        joinColumns = @JoinColumn(name = "symptom_id"),
+        inverseJoinColumns = @JoinColumn(name = "therapeutic_regime_id")
     )
-    @JsonIgnoreProperties(value = { "drugs", "treatment", "symptoms" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "activeSubstances", "treatment", "symptoms" }, allowSetters = true)
     private Set<TherapeuticRegime> therapeuticRegimes = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "symptom_outcome",
-        joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "outcome_id", referencedColumnName = "id")
+        name = "rel_symptom__outcome",
+        joinColumns = @JoinColumn(name = "symptom_id"),
+        inverseJoinColumns = @JoinColumn(name = "outcome_id")
     )
     @JsonIgnoreProperties(value = { "documents", "symptoms" }, allowSetters = true)
     private Set<Outcome> outcomes = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(
-        name = "symptom_toxicity_rate",
-        joinColumns = @JoinColumn(name = "symptom_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "toxicity_rate_id", referencedColumnName = "id")
-    )
-    @JsonIgnoreProperties(value = { "symptoms" }, allowSetters = true)
-    private Set<ToxicityRate> toxicityRates = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -82,7 +79,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Symptom name(String name) {
@@ -95,7 +92,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getNotice() {
-        return notice;
+        return this.notice;
     }
 
     public Symptom notice(String notice) {
@@ -107,12 +104,43 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
         this.notice = notice;
     }
 
+    public Set<ToxicityRate> getToxicityRates() {
+        return this.toxicityRates;
+    }
+
+    public Symptom toxicityRates(Set<ToxicityRate> toxicityRates) {
+        this.setToxicityRates(toxicityRates);
+        return this;
+    }
+
+    public Symptom addToxicityRate(ToxicityRate toxicityRate) {
+        this.toxicityRates.add(toxicityRate);
+        toxicityRate.setSymptom(this);
+        return this;
+    }
+
+    public Symptom removeToxicityRate(ToxicityRate toxicityRate) {
+        this.toxicityRates.remove(toxicityRate);
+        toxicityRate.setSymptom(null);
+        return this;
+    }
+
+    public void setToxicityRates(Set<ToxicityRate> toxicityRates) {
+        if (this.toxicityRates != null) {
+            this.toxicityRates.forEach(i -> i.setSymptom(null));
+        }
+        if (toxicityRates != null) {
+            toxicityRates.forEach(i -> i.setSymptom(this));
+        }
+        this.toxicityRates = toxicityRates;
+    }
+
     public Set<TherapeuticRegime> getTherapeuticRegimes() {
-        return therapeuticRegimes;
+        return this.therapeuticRegimes;
     }
 
     public Symptom therapeuticRegimes(Set<TherapeuticRegime> therapeuticRegimes) {
-        this.therapeuticRegimes = therapeuticRegimes;
+        this.setTherapeuticRegimes(therapeuticRegimes);
         return this;
     }
 
@@ -133,11 +161,11 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     }
 
     public Set<Outcome> getOutcomes() {
-        return outcomes;
+        return this.outcomes;
     }
 
     public Symptom outcomes(Set<Outcome> outcomes) {
-        this.outcomes = outcomes;
+        this.setOutcomes(outcomes);
         return this;
     }
 
@@ -157,31 +185,6 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
         this.outcomes = outcomes;
     }
 
-    public Set<ToxicityRate> getToxicityRates() {
-        return toxicityRates;
-    }
-
-    public Symptom toxicityRates(Set<ToxicityRate> toxicityRates) {
-        this.toxicityRates = toxicityRates;
-        return this;
-    }
-
-    public Symptom addToxicityRate(ToxicityRate toxicityRate) {
-        this.toxicityRates.add(toxicityRate);
-        toxicityRate.getSymptoms().add(this);
-        return this;
-    }
-
-    public Symptom removeToxicityRate(ToxicityRate toxicityRate) {
-        this.toxicityRates.remove(toxicityRate);
-        toxicityRate.getSymptoms().remove(this);
-        return this;
-    }
-
-    public void setToxicityRates(Set<ToxicityRate> toxicityRates) {
-        this.toxicityRates = toxicityRates;
-    }
-
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -197,7 +200,8 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore
