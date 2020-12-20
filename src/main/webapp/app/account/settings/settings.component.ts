@@ -5,6 +5,8 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { LANGUAGES } from 'app/core/config/language.constants';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsCancelDialogComponent } from './settings-cancel-dialog.component';
 
 @Component({
   selector: 'custom-settings',
@@ -21,7 +23,12 @@ export class SettingsComponent implements OnInit {
     langKey: [undefined],
   });
 
-  constructor(private accountService: AccountService, private fb: FormBuilder, private languageService: JhiLanguageService) {}
+  constructor(
+    private accountService: AccountService,
+    private fb: FormBuilder,
+    private languageService: JhiLanguageService,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => {
@@ -38,6 +45,9 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  cancel(): void {
+    this.modalService.open(SettingsCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
   previousState(): void {
     window.history.back();
   }

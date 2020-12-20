@@ -4,9 +4,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
-  templateUrl: './password-cancel-dialog.component.html',
+  templateUrl: './settings-cancel-dialog.component.html',
 })
-export class PasswordCancelDialogComponent {
+export class SettingsCancelDialogComponent {
   constructor(public activeModal: NgbActiveModal, protected eventManager: JhiEventManager, private _location: Location) {}
 
   cancel(): void {
