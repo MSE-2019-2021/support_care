@@ -110,29 +110,29 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
-  it('should delete last instance of Outcome', () => {
-    cy.server();
-    cy.route('GET', '/api/outcomes*').as('entitiesRequest');
-    cy.route('DELETE', '/api/outcomes/*').as('deleteEntityRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('outcome');
-    cy.wait('@entitiesRequest')
-      .its('responseBody')
-      .then(array => {
-        startingEntitiesCount = array.length;
-        if (startingEntitiesCount > 0) {
-          cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-          cy.get(entityDeleteButtonSelector).last().click({ force: true });
-          cy.getEntityDeleteDialogHeading('outcome').should('exist');
-          cy.get(entityConfirmDeleteButtonSelector).click({ force: true });
-          cy.wait('@deleteEntityRequest');
-          cy.route('GET', '/api/outcomes*').as('entitiesRequestAfterDelete');
-          cy.visit('/');
-          cy.clickOnEntityMenuItem('outcome');
-          cy.wait('@entitiesRequestAfterDelete');
-          cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount - 1);
-        }
-        cy.visit('/');
-      });
-  });
+  // it('should delete last instance of Outcome', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/outcomes*').as('entitiesRequest');
+  //   cy.route('DELETE', '/api/outcomes/*').as('deleteEntityRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('outcome');
+  //   cy.wait('@entitiesRequest')
+  //     .its('responseBody')
+  //     .then(array => {
+  //       startingEntitiesCount = array.length;
+  //       if (startingEntitiesCount > 0) {
+  //         cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
+  //         cy.get(entityDeleteButtonSelector).last().click({ force: true });
+  //         cy.getEntityDeleteDialogHeading('outcome').should('exist');
+  //         cy.get(entityConfirmDeleteButtonSelector).click({ force: true });
+  //         cy.wait('@deleteEntityRequest');
+  //         cy.route('GET', '/api/outcomes*').as('entitiesRequestAfterDelete');
+  //         cy.visit('/');
+  //         cy.clickOnEntityMenuItem('outcome');
+  //         cy.wait('@entitiesRequestAfterDelete');
+  //         cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount - 1);
+  //       }
+  //       cy.visit('/');
+  //     });
+  // });
 });
