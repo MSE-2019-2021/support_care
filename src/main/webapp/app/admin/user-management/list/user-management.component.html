@@ -21,26 +21,14 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="transition.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="login">
-            <span customTranslate="userManagement.login">Login</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="email">
-            <span customTranslate="userManagement.email">Email</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="login"><span customTranslate="userManagement.login">Login</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="email"><span customTranslate="userManagement.email">Email</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
-          <th scope="col" customSortBy="langKey">
-            <span customTranslate="userManagement.langKey">Lang Key</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="langKey"><span customTranslate="userManagement.langKey">Lang Key</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"><span customTranslate="userManagement.profiles">Profiles</span></th>
-          <th scope="col" customSortBy="createdDate">
-            <span customTranslate="userManagement.createdDate">Created Date</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="lastModifiedBy">
-            <span customTranslate="userManagement.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="lastModifiedDate">
-            <span customTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="createdDate"><span customTranslate="userManagement.createdDate">Created Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="lastModifiedBy"><span customTranslate="userManagement.lastModifiedBy">Last Modified By</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="lastModifiedDate"><span customTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -52,14 +40,7 @@
           <td>{{ user.login }}</td>
           <td>{{ user.email }}</td>
           <td>
-            <button
-              class="btn btn-danger btn-sm"
-              (click)="setActive(user, true)"
-              *ngIf="!user.activated"
-              customTranslate="userManagement.deactivated"
-            >
-              Deactivated
-            </button>
+            <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated" customTranslate="userManagement.deactivated">Deactivated</button>
             <button
               class="btn btn-success btn-sm"
               (click)="setActive(user, false)"
@@ -91,12 +72,7 @@
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button
-                type="button"
-                (click)="deleteUser(user)"
-                class="btn btn-danger btn-sm"
-                [disabled]="!currentAccount || currentAccount.login === user.login"
-              >
+              <button type="button" (click)="deleteUser(user)" class="btn btn-danger btn-sm" [disabled]="!currentAccount || currentAccount.login === user.login">
                 <fa-icon icon="times"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.delete">Delete</span>
               </button>
@@ -113,15 +89,7 @@
     </div>
 
     <div class="row justify-content-center">
-      <ngb-pagination
-        [collectionSize]="totalItems"
-        [(page)]="page"
-        [pageSize]="itemsPerPage"
-        [maxSize]="5"
-        [rotate]="true"
-        [boundaryLinks]="true"
-        (pageChange)="transition()"
-      ></ngb-pagination>
+      <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="transition()"></ngb-pagination>
     </div>
   </div>
 </div>

@@ -8,12 +8,7 @@
         <span customTranslate="supportivecareApp.document.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-document"
-        [routerLink]="['/document/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-document" [routerLink]="['/document/new']">
         <fa-icon icon="plus"></fa-icon>
         <span customTranslate="supportivecareApp.document.home.createLabel"> Create a new Document </span>
       </button>
@@ -33,21 +28,11 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="title">
-            <span customTranslate="supportivecareApp.document.title">Title</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="size">
-            <span customTranslate="supportivecareApp.document.size">Size</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="mimeType">
-            <span customTranslate="supportivecareApp.document.mimeType">Mime Type</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="content.id">
-            <span customTranslate="supportivecareApp.document.content">Content</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="outcome.name">
-            <span customTranslate="supportivecareApp.document.outcome">Outcome</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="title"><span customTranslate="supportivecareApp.document.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="size"><span customTranslate="supportivecareApp.document.size">Size</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="mimeType"><span customTranslate="supportivecareApp.document.mimeType">Mime Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="content.id"><span customTranslate="supportivecareApp.document.content">Content</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="outcome.name"><span customTranslate="supportivecareApp.document.outcome">Outcome</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -71,22 +56,12 @@
           </td>
           <td class="text-right">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/document', document.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
+              <button type="submit" [routerLink]="['/document', document.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
               </button>
 
-              <button
-                type="submit"
-                [routerLink]="['/document', document.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
+              <button type="submit" [routerLink]="['/document', document.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>

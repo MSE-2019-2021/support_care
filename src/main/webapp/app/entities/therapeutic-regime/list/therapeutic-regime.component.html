@@ -8,12 +8,7 @@
         <span customTranslate="supportivecareApp.therapeuticRegime.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-therapeutic-regime"
-        [routerLink]="['/therapeutic-regime/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-therapeutic-regime" [routerLink]="['/therapeutic-regime/new']">
         <fa-icon icon="plus"></fa-icon>
         <span customTranslate="supportivecareApp.therapeuticRegime.home.createLabel"> Create a new Therapeutic Regime </span>
       </button>
@@ -33,33 +28,15 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="name">
-            <span customTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="acronym">
-            <span customTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="purpose">
-            <span customTranslate="supportivecareApp.therapeuticRegime.purpose">Purpose</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="condition">
-            <span customTranslate="supportivecareApp.therapeuticRegime.condition">Condition</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="timing">
-            <span customTranslate="supportivecareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="indication">
-            <span customTranslate="supportivecareApp.therapeuticRegime.indication">Indication</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="criteria">
-            <span customTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="notice">
-            <span customTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="treatment.type">
-            <span customTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.therapeuticRegime.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="acronym"><span customTranslate="supportivecareApp.therapeuticRegime.acronym">Acronym</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="purpose"><span customTranslate="supportivecareApp.therapeuticRegime.purpose">Purpose</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="condition"><span customTranslate="supportivecareApp.therapeuticRegime.condition">Condition</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="timing"><span customTranslate="supportivecareApp.therapeuticRegime.timing">Timing</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="indication"><span customTranslate="supportivecareApp.therapeuticRegime.indication">Indication</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="criteria"><span customTranslate="supportivecareApp.therapeuticRegime.criteria">Criteria</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="notice"><span customTranslate="supportivecareApp.therapeuticRegime.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="treatment.type"><span customTranslate="supportivecareApp.therapeuticRegime.treatment">Treatment</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -83,22 +60,12 @@
           </td>
           <td class="text-right">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
+              <button type="submit" [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
               </button>
 
-              <button
-                type="submit"
-                [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
+              <button type="submit" [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>

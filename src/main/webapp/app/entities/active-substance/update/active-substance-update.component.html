@@ -1,11 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2
-        id="custom-active-substance-heading"
-        data-cy="ActiveSubstanceCreateUpdateHeading"
-        customTranslate="supportivecareApp.activeSubstance.home.createOrEditLabel"
-      >
+      <h2 id="custom-active-substance-heading" data-cy="ActiveSubstanceCreateUpdateHeading" customTranslate="supportivecareApp.activeSubstance.home.createOrEditLabel">
         Create or edit a Active Substance
       </h2>
 
@@ -18,84 +14,39 @@
         </div>
 
         <div class="form-group">
-          <label
-            class="form-control-label"
-            customTranslate="supportivecareApp.activeSubstance.name"
-            for="field_name"
-            [ngbTooltip]="'supportivecareApp.activeSubstance.help.name' | translate"
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.name" for="field_name" [ngbTooltip]="'supportivecareApp.activeSubstance.help.name' | translate"
             >Name</label
           >
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.required"
-              customTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('name')?.errors?.maxlength"
-              customTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 255 }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
               This field cannot be longer than 255 characters.
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label
-            class="form-control-label"
-            customTranslate="supportivecareApp.activeSubstance.dosage"
-            for="field_dosage"
-            [ngbTooltip]="'supportivecareApp.activeSubstance.help.dosage' | translate"
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.dosage" for="field_dosage" [ngbTooltip]="'supportivecareApp.activeSubstance.help.dosage' | translate"
             >Dosage</label
           >
           <input type="text" class="form-control" name="dosage" id="field_dosage" data-cy="dosage" formControlName="dosage" />
           <div *ngIf="editForm.get('dosage')!.invalid && (editForm.get('dosage')!.dirty || editForm.get('dosage')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('dosage')?.errors?.required"
-              customTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('dosage')?.errors?.maxlength"
-              customTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 30 }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('dosage')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('dosage')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
               This field cannot be longer than 30 characters.
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label
-            class="form-control-label"
-            customTranslate="supportivecareApp.activeSubstance.form"
-            for="field_form"
-            [ngbTooltip]="'supportivecareApp.activeSubstance.help.form' | translate"
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.form" for="field_form" [ngbTooltip]="'supportivecareApp.activeSubstance.help.form' | translate"
             >Form</label
           >
           <input type="text" class="form-control" name="form" id="field_form" data-cy="form" formControlName="form" />
           <div *ngIf="editForm.get('form')!.invalid && (editForm.get('form')!.dirty || editForm.get('form')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('form')?.errors?.required"
-              customTranslate="entity.validation.required"
-            >
-              This field is required.
-            </small>
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('form')?.errors?.maxlength"
-              customTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 255 }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('form')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('form')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
               This field cannot be longer than 255 characters.
             </small>
           </div>
@@ -109,44 +60,20 @@
             [ngbTooltip]="'supportivecareApp.activeSubstance.help.description' | translate"
             >Description</label
           >
-          <input
-            type="text"
-            class="form-control"
-            name="description"
-            id="field_description"
-            data-cy="description"
-            formControlName="description"
-          />
+          <input type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description" />
           <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('description')?.errors?.maxlength"
-              customTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 1000 }"
-            >
+            <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
               This field cannot be longer than 1000 characters.
             </small>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.administration" for="field_administration"
-            >Administration</label
-          >
-          <select
-            class="form-control"
-            id="field_administration"
-            data-cy="administration"
-            name="administration"
-            formControlName="administration"
-          >
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.administration" for="field_administration">Administration</label>
+          <select class="form-control" id="field_administration" data-cy="administration" name="administration" formControlName="administration">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="
-                administrationOption.id === editForm.get('administration')!.value?.id
-                  ? editForm.get('administration')!.value
-                  : administrationOption
-              "
+              [ngValue]="administrationOption.id === editForm.get('administration')!.value?.id ? editForm.get('administration')!.value : administrationOption"
               *ngFor="let administrationOption of administrations; trackBy: trackAdministrationById"
             >
               {{ administrationOption.type }}
@@ -160,13 +87,7 @@
           <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
         </button>
 
-        <button
-          type="submit"
-          id="save-entity"
-          data-cy="entityCreateSaveButton"
-          [disabled]="editForm.invalid || isSaving"
-          class="btn btn-primary"
-        >
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
           <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
         </button>
       </div>

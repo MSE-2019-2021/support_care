@@ -8,12 +8,7 @@
         <span customTranslate="supportivecareApp.notice.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-notice"
-        [routerLink]="['/notice/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-notice" [routerLink]="['/notice/new']">
         <fa-icon icon="plus"></fa-icon>
         <span customTranslate="supportivecareApp.notice.home.createLabel"> Create a new Notice </span>
       </button>
@@ -33,18 +28,10 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="description">
-            <span customTranslate="supportivecareApp.notice.description">Description</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="evaluation">
-            <span customTranslate="supportivecareApp.notice.evaluation">Evaluation</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="intervention">
-            <span customTranslate="supportivecareApp.notice.intervention">Intervention</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="activeSubstance.name">
-            <span customTranslate="supportivecareApp.notice.activeSubstance">Active Substance</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="description"><span customTranslate="supportivecareApp.notice.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="evaluation"><span customTranslate="supportivecareApp.notice.evaluation">Evaluation</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="intervention"><span customTranslate="supportivecareApp.notice.intervention">Intervention</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="activeSubstance.name"><span customTranslate="supportivecareApp.notice.activeSubstance">Active Substance</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>

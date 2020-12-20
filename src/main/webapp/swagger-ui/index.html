@@ -55,17 +55,12 @@
             presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
             plugins: [SwaggerUIBundle.plugins.DownloadUrl],
             requestInterceptor: function (req) {
-              var authToken = JSON.parse(
-                localStorage.getItem('custom-authenticationtoken') || sessionStorage.getItem('custom-authenticationtoken')
-              );
+              var authToken = JSON.parse(localStorage.getItem('custom-authenticationtoken') || sessionStorage.getItem('custom-authenticationtoken'));
               if (authToken) {
                 req.headers['Authorization'] = 'Bearer ' + authToken;
               }
               // Remove the sample Swagger UI request body if present
-              if (
-                req.method === 'GET' &&
-                req.body === '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}'
-              ) {
+              if (req.method === 'GET' && req.body === '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}') {
                 req.body = undefined;
               }
               return req;

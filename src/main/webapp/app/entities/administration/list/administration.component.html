@@ -8,12 +8,7 @@
         <span customTranslate="supportivecareApp.administration.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-administration"
-        [routerLink]="['/administration/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-administration" [routerLink]="['/administration/new']">
         <fa-icon icon="plus"></fa-icon>
         <span customTranslate="supportivecareApp.administration.home.createLabel"> Create a new Administration </span>
       </button>
@@ -33,9 +28,7 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="type">
-            <span customTranslate="supportivecareApp.administration.type">Type</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="type"><span customTranslate="supportivecareApp.administration.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -47,22 +40,12 @@
           <td>{{ administration.type }}</td>
           <td class="text-right">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/administration', administration.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
+              <button type="submit" [routerLink]="['/administration', administration.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
               </button>
 
-              <button
-                type="submit"
-                [routerLink]="['/administration', administration.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
+              <button type="submit" [routerLink]="['/administration', administration.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>

@@ -2,12 +2,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8 col-sm-10">
       <h1 customTranslate="login.title" data-cy="loginTitle">Sign in</h1>
-      <div
-        class="alert alert-danger"
-        *ngIf="authenticationError"
-        customTranslate="login.messages.error.authentication"
-        data-cy="loginError"
-      >
+      <div class="alert alert-danger" *ngIf="authenticationError" customTranslate="login.messages.error.authentication" data-cy="loginError">
         <strong>Failed to sign in!</strong> Please check your credentials and try again.
       </div>
       <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
@@ -27,15 +22,7 @@
 
         <div class="form-group">
           <label for="password" customTranslate="login.form.password">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            name="password"
-            id="password"
-            placeholder="{{ 'login.form.password.placeholder' | translate }}"
-            formControlName="password"
-            data-cy="password"
-          />
+          <input type="password" class="form-control" name="password" id="password" placeholder="{{ 'login.form.password.placeholder' | translate }}" formControlName="password" data-cy="password" />
         </div>
 
         <div class="form-check">
@@ -48,13 +35,7 @@
         <button type="submit" class="btn btn-primary" customTranslate="login.form.button" data-cy="submit">Sign in</button>
       </form>
       <div class="mt-3 alert alert-warning">
-        <a
-          class="alert-link"
-          routerLink="/account/reset/request"
-          customTranslate="login.password.forgot"
-          data-cy="forgetYourPasswordSelector"
-          >Did you forget your password?</a
-        >
+        <a class="alert-link" routerLink="/account/reset/request" customTranslate="login.password.forgot" data-cy="forgetYourPasswordSelector">Did you forget your password?</a>
       </div>
 
       <div class="alert alert-warning">

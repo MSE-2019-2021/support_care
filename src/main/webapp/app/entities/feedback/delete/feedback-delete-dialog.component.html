@@ -8,19 +8,11 @@
   <div class="modal-body">
     <custom-alert-error></custom-alert-error>
 
-    <p
-      id="custom-delete-feedback-heading"
-      customTranslate="supportivecareApp.feedback.delete.question"
-      [translateValues]="{ id: feedback.id }"
-    >
-      Are you sure you want to delete this Feedback?
-    </p>
+    <p id="custom-delete-feedback-heading" customTranslate="supportivecareApp.feedback.delete.question" [translateValues]="{ id: feedback.id }">Are you sure you want to delete this Feedback?</p>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
-      <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
-    </button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()"><fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span></button>
 
     <button id="custom-confirm-delete-feedback" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
       <fa-icon icon="times"></fa-icon>&nbsp;<span customTranslate="entity.action.delete">Delete</span>

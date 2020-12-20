@@ -8,12 +8,7 @@
         <span customTranslate="supportivecareApp.symptom.home.refreshListLabel">Refresh List</span>
       </button>
 
-      <button
-        id="jh-create-entity"
-        data-cy="entityCreateButton"
-        class="btn btn-primary jh-create-entity create-symptom"
-        [routerLink]="['/symptom/new']"
-      >
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-symptom" [routerLink]="['/symptom/new']">
         <fa-icon icon="plus"></fa-icon>
         <span customTranslate="supportivecareApp.symptom.home.createLabel"> Create a new Symptom </span>
       </button>
@@ -33,12 +28,8 @@
       <thead>
         <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
           <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="name">
-            <span customTranslate="supportivecareApp.symptom.name">Name</span> <fa-icon icon="sort"></fa-icon>
-          </th>
-          <th scope="col" customSortBy="notice">
-            <span customTranslate="supportivecareApp.symptom.notice">Notice</span> <fa-icon icon="sort"></fa-icon>
-          </th>
+          <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.symptom.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="notice"><span customTranslate="supportivecareApp.symptom.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -51,22 +42,12 @@
           <td>{{ symptom.notice }}</td>
           <td class="text-right">
             <div class="btn-group">
-              <button
-                type="submit"
-                [routerLink]="['/symptom', symptom.id, 'view']"
-                class="btn btn-info btn-sm"
-                data-cy="entityDetailsButton"
-              >
+              <button type="submit" [routerLink]="['/symptom', symptom.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
               </button>
 
-              <button
-                type="submit"
-                [routerLink]="['/symptom', symptom.id, 'edit']"
-                class="btn btn-primary btn-sm"
-                data-cy="entityEditButton"
-              >
+              <button type="submit" [routerLink]="['/symptom', symptom.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>

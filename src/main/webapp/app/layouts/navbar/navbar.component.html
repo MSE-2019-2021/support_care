@@ -26,14 +26,7 @@
         </a>
       </li>
       <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-      <li
-        *ngSwitchCase="true"
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
           <span>
             <fa-icon icon="th-list"></fa-icon>
@@ -42,133 +35,67 @@
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="administration"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="administration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.administration">Administration</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="notice"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="notice" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.notice">Notice</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="active-substance"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="active-substance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.activeSubstance">Active Substance</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="treatment"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="treatment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.treatment">Treatment</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="therapeutic-regime"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="therapeutic-regime" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.therapeuticRegime">Therapeutic Regime</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="document"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="document" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.document">Document</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="content"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="content" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.content">Content</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="outcome"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="outcome" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.outcome">Outcome</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="toxicity-rate"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="toxicity-rate" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.toxicityRate">Toxicity Rate</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="symptom"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="symptom" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.symptom">Symptom</span>
             </a>
           </li>
           <li>
-            <a
-              class="dropdown-item"
-              routerLink="feedback"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
+            <a class="dropdown-item" routerLink="feedback" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.entities.feedback">Feedback</span>
             </a>
@@ -176,14 +103,7 @@
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </ul>
       </li>
-      <li
-        *customHasAnyAuthority="'ROLE_ADMIN'"
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <li *customHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
           <span>
             <fa-icon icon="users-cog"></fa-icon>
@@ -221,23 +141,11 @@
         </a>
         <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
           <li *ngFor="let language of languages">
-            <a
-              class="dropdown-item"
-              [customActiveMenu]="language"
-              href="javascript:void(0);"
-              (click)="changeLanguage(language); collapseNavbar()"
-              >{{ language | findLanguageFromKey }}</a
-            >
+            <a class="dropdown-item" [customActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language); collapseNavbar()">{{ language | findLanguageFromKey }}</a>
           </li>
         </ul>
       </li>
-      <li
-        ngbDropdown
-        class="nav-item dropdown pointer"
-        display="dynamic"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
+      <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
           <span *ngIf="!getImageUrl()">
             <fa-icon icon="user"></fa-icon>
@@ -255,13 +163,7 @@
             </a>
           </li>
           <li *ngSwitchCase="true">
-            <a
-              class="dropdown-item"
-              routerLink="account/password"
-              routerLinkActive="active"
-              (click)="collapseNavbar()"
-              data-cy="passwordItem"
-            >
+            <a class="dropdown-item" routerLink="account/password" routerLinkActive="active" (click)="collapseNavbar()" data-cy="passwordItem">
               <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
               <span customTranslate="global.menu.account.password">Password</span>
             </a>
