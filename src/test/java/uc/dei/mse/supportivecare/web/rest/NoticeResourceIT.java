@@ -489,6 +489,7 @@ class NoticeResourceIT {
         // Initialize the database
         noticeRepository.saveAndFlush(notice);
         ActiveSubstance activeSubstance = ActiveSubstanceResourceIT.createEntity(em);
+        activeSubstance.setName(activeSubstance.getName() + "1"); // Change name due to unique constraint
         em.persist(activeSubstance);
         em.flush();
         notice.setActiveSubstance(activeSubstance);

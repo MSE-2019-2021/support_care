@@ -13,7 +13,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
  * Substância Ativa (ou DCI: Denominação Comum Internacional).
  */
 @Entity
-@Table(name = "active_substance")
+@Table(name = "active_substance", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "dosage", "form" }) })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ActiveSubstance extends AbstractAuditingEntity implements Serializable {
 

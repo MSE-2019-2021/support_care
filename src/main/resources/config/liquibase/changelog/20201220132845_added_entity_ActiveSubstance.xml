@@ -47,6 +47,14 @@
             <column name="last_modified_date" type="timestamp"/>
         </addColumn>
     </changeSet>
+
+    <!-- Added the unique constraint -->
+    <changeSet id="20201220133745-unique-1" author="DanielFran">
+        <addUniqueConstraint
+            columnNames="name, dosage, form"
+            constraintName="idx_active_substance__name_dosage_form"
+            tableName="active_substance"/>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--
