@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITherapeuticRegime } from '../therapeutic-regime.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { TherapeuticRegimeService } from '../service/therapeutic-regime.service';
-import { TherapeuticRegimeDeleteDialogComponent } from '../delete/therapeutic-regime-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
@@ -22,11 +20,7 @@ export class TherapeuticRegimeComponent implements OnInit {
   predicate: string;
   ascending: boolean;
 
-  constructor(
-    protected therapeuticRegimeService: TherapeuticRegimeService,
-    protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
-  ) {
+  constructor(protected therapeuticRegimeService: TherapeuticRegimeService, protected parseLinks: ParseLinks) {
     this.therapeuticRegimes = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -74,17 +68,6 @@ export class TherapeuticRegimeComponent implements OnInit {
 
   trackId(index: number, item: ITherapeuticRegime): number {
     return item.id!;
-  }
-
-  delete(therapeuticRegime: ITherapeuticRegime): void {
-    const modalRef = this.modalService.open(TherapeuticRegimeDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.therapeuticRegime = therapeuticRegime;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.reset();
-      }
-    });
   }
 
   sort(): string[] {
