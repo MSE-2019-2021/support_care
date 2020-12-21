@@ -36,5 +36,15 @@ describe('Component Tests', () => {
         expect(comp.activeSubstance).toEqual(jasmine.objectContaining({ id: 123 }));
       });
     });
+
+    describe('previousState', () => {
+      it('Should go back', () => {
+        // WHEN
+        comp.previousState();
+
+        // THEN
+        expect(comp.activeSubstance).toEqual(jasmine.objectContaining(null));
+      });
+    });
   });
 });

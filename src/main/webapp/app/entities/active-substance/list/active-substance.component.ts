@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IActiveSubstance } from '../active-substance.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { ActiveSubstanceService } from '../service/active-substance.service';
-import { ActiveSubstanceDeleteDialogComponent } from '../delete/active-substance-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
@@ -22,11 +20,7 @@ export class ActiveSubstanceComponent implements OnInit {
   predicate: string;
   ascending: boolean;
 
-  constructor(
-    protected activeSubstanceService: ActiveSubstanceService,
-    protected modalService: NgbModal,
-    protected parseLinks: ParseLinks
-  ) {
+  constructor(protected activeSubstanceService: ActiveSubstanceService, protected parseLinks: ParseLinks) {
     this.activeSubstances = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -74,17 +68,6 @@ export class ActiveSubstanceComponent implements OnInit {
 
   trackId(index: number, item: IActiveSubstance): number {
     return item.id!;
-  }
-
-  delete(activeSubstance: IActiveSubstance): void {
-    const modalRef = this.modalService.open(ActiveSubstanceDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.activeSubstance = activeSubstance;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.reset();
-      }
-    });
   }
 
   sort(): string[] {
