@@ -76,21 +76,5 @@ describe('Component Tests', () => {
       // THEN
       expect(mockAccountService.isAuthenticated).toHaveBeenCalled();
     });
-
-    it('should open modal', fakeAsync(() => {
-      // GIVEN
-      spyOn(modalService, 'open').and.returnValue(mockModalRef);
-
-      // WHEN
-      comp.logout();
-      tick(); // simulate async
-
-      // THEN
-      expect(modalService.open).toHaveBeenCalledWith(NavbarLogoutDialogComponent, {
-        centered: true,
-        size: 'md',
-        backdrop: 'static',
-      });
-    }));
   });
 });
