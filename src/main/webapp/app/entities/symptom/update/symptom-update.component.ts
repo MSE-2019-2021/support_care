@@ -10,6 +10,8 @@ import { ITherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-
 import { TherapeuticRegimeService } from 'app/entities/therapeutic-regime/service/therapeutic-regime.service';
 import { IOutcome } from 'app/entities/outcome/outcome.model';
 import { OutcomeService } from 'app/entities/outcome/service/outcome.service';
+import { IToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
+import { ToxicityRateService } from 'app/entities/toxicity-rate/service/toxicity-rate.service';
 
 @Component({
   selector: 'custom-symptom-update',
@@ -19,6 +21,7 @@ export class SymptomUpdateComponent implements OnInit {
   isSaving = false;
   therapeuticregimes: ITherapeuticRegime[] = [];
   outcomes: IOutcome[] = [];
+  toxicityrates: IToxicityRate[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -26,12 +29,14 @@ export class SymptomUpdateComponent implements OnInit {
     notice: [null, [Validators.maxLength(1000)]],
     therapeuticRegimes: [],
     outcomes: [],
+    toxicityRates: [],
   });
 
   constructor(
     protected symptomService: SymptomService,
     protected therapeuticRegimeService: TherapeuticRegimeService,
     protected outcomeService: OutcomeService,
+    protected toxicityRateService: ToxicityRateService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -45,6 +50,8 @@ export class SymptomUpdateComponent implements OnInit {
         .subscribe((res: HttpResponse<ITherapeuticRegime[]>) => (this.therapeuticregimes = res.body ?? []));
 
       this.outcomeService.query().subscribe((res: HttpResponse<IOutcome[]>) => (this.outcomes = res.body ?? []));
+
+      this.toxicityRateService.query().subscribe((res: HttpResponse<IOutcome[]>) => (this.toxicityrates = res.body ?? []));
     });
   }
 
@@ -55,6 +62,7 @@ export class SymptomUpdateComponent implements OnInit {
       notice: symptom.notice,
       therapeuticRegimes: symptom.therapeuticRegimes,
       outcomes: symptom.outcomes,
+      toxicityRates: symptom.toxicityRates,
     });
   }
 
@@ -72,6 +80,11 @@ export class SymptomUpdateComponent implements OnInit {
     }
   }
 
+  isEditing(): boolean {
+    const symptom = this.createFromForm();
+    return !!symptom.id;
+  }
+
   private createFromForm(): ISymptom {
     return {
       ...new Symptom(),
@@ -80,6 +93,7 @@ export class SymptomUpdateComponent implements OnInit {
       notice: this.editForm.get(['notice'])!.value,
       therapeuticRegimes: this.editForm.get(['therapeuticRegimes'])!.value,
       outcomes: this.editForm.get(['outcomes'])!.value,
+      toxicityRates: this.editForm.get(['toxicityRates'])!.value,
     };
   }
 
@@ -107,6 +121,10 @@ export class SymptomUpdateComponent implements OnInit {
     return item.id!;
   }
 
+  trackToxicityRateById(index: number, item: IToxicityRate): number {
+    return item.id!;
+  }
+
   getSelectedTherapeuticRegime(option: ITherapeuticRegime, selectedVals?: ITherapeuticRegime[]): ITherapeuticRegime {
     if (selectedVals) {
       for (let i = 0; i < selectedVals.length; i++) {
@@ -119,6 +137,17 @@ export class SymptomUpdateComponent implements OnInit {
   }
 
   getSelectedOutcome(option: IOutcome, selectedVals?: IOutcome[]): IOutcome {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
+  }
+
+  getSelectedToxicityRate(option: IToxicityRate, selectedVals?: IToxicityRate[]): IToxicityRate {
     if (selectedVals) {
       for (let i = 0; i < selectedVals.length; i++) {
         if (option.id === selectedVals[i].id) {

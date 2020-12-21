@@ -1,3 +1,5 @@
+import { ToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
+
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -80,6 +82,14 @@ describe('Component Tests', () => {
           expect(trackResult).toEqual(entity.id);
         });
       });
+
+      describe('trackToxicityRateById', () => {
+        it('Should return tracked ToxicityRate primary key', () => {
+          const entity = new ToxicityRate(123);
+          const trackResult = comp.trackToxicityRateById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
     });
 
     describe('Getting selected relationships', () => {
@@ -130,6 +140,32 @@ describe('Component Tests', () => {
           const option = new Outcome(123);
           const selected = new Outcome(456);
           const result = comp.getSelectedOutcome(option, [selected]);
+          expect(result === option).toEqual(true);
+          expect(result === selected).toEqual(false);
+        });
+      });
+
+      describe('getSelectedToxicityRate', () => {
+        it('Should return option if no ToxicityRate is selected', () => {
+          const option = new ToxicityRate(123);
+          const result = comp.getSelectedToxicityRate(option);
+          expect(result === option).toEqual(true);
+        });
+
+        it('Should return selected ToxicityRate for according option', () => {
+          const option = new ToxicityRate(123);
+          const selected = new ToxicityRate(123);
+          const selected2 = new ToxicityRate(456);
+          const result = comp.getSelectedToxicityRate(option, [selected2, selected]);
+          expect(result === selected).toEqual(true);
+          expect(result === selected2).toEqual(false);
+          expect(result === option).toEqual(false);
+        });
+
+        it('Should return option if this ToxicityRate is not selected', () => {
+          const option = new ToxicityRate(123);
+          const selected = new ToxicityRate(456);
+          const result = comp.getSelectedToxicityRate(option, [selected]);
           expect(result === option).toEqual(true);
           expect(result === selected).toEqual(false);
         });
