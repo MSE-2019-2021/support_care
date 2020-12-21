@@ -17,6 +17,7 @@
       "detail": {
         "title": "Active Substance"
       },
+      "generalInfo": "Informações gerais",
       "id": "ID",
       "name": "Name",
       "dosage": "Dosage",

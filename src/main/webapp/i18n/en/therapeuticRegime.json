@@ -5,6 +5,7 @@
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Therapeutic Regime",
+        "editLabel": "Edit therapeutical regime",
         "createOrEditLabel": "Create or edit a Therapeutic Regime",
         "notFound": "No Therapeutic Regimes found"
       },
@@ -14,30 +15,35 @@
       "delete": {
         "question": "Are you sure you want to delete Therapeutic Regime {{ id }}?"
       },
-      "detail": {
-        "title": "Therapeutic Regime"
+      "cancel": {
+        "title": "Deseja sair da criação de um regime terapêutico?",
+        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
       },
+      "detail": {
+        "title": "Available Therapeutic Regimes"
+      },
+      "generalInfo": "General information",
       "id": "ID",
       "name": "Name",
       "acronym": "Acronym",
       "purpose": "Purpose",
-      "condition": "Condition",
-      "timing": "Timing",
-      "indication": "Indication",
-      "criteria": "Criteria",
-      "notice": "Notice",
-      "activeSubstance": "Active Substance",
-      "treatment": "Treatment",
+      "condition": "Conditions for administration",
+      "timing": "Timetable",
+      "indication": "Indication for prescription",
+      "criteria": "Dose reduction criteria",
+      "notice": "Other information",
+      "drug": "Associated drugs",
+      "treatment": "Type of treatment",
       "symptom": "Symptom",
       "help": {
-        "name": "Nome.",
-        "acronym": "Acrônimo.",
-        "purpose": "Propósito.",
-        "condition": "Condições para administração.",
-        "timing": "Calendarização.",
-        "indication": "Indicação para prescrição.",
-        "criteria": "Critérios de redução de dose.",
-        "notice": "Outras informações."
+        "name": "Name.",
+        "acronym": "Acronym.",
+        "purpose": "Purpose.",
+        "condition": "Conditions for administration.",
+        "timing": "Timetable.",
+        "indication": "Indication for prescription.",
+        "criteria": "Dose reduction criteria.",
+        "notice": "Other information."
       }
     }
   }

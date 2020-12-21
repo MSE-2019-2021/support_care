@@ -4,7 +4,8 @@
       "home": {
         "title": "Outcomes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Outcome",
+        "createLabel": "Create outcome",
+        "editLabel": "Edit outcome",
         "createOrEditLabel": "Create or edit a Outcome",
         "notFound": "No Outcomes found"
       },

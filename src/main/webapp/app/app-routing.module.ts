@@ -29,6 +29,15 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
           path: 'login',
           loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
         },
+        {
+          path: 'home',
+          data: {
+            authorities: [Authority.VIEWER],
+          },
+          canActivate: [UserRouteAccessService],
+          loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+        },
+
         ...LAYOUT_ROUTES,
       ],
       { enableTracing: DEBUG_INFO_ENABLED }

@@ -8,6 +8,15 @@ Navbar
 .navbar-version {
   font-size: 0.65em;
   color: $navbar-dark-color;
+  display: none;
+}
+
+.navbar-custom {
+  background-color: #474c68;
+}
+
+.navbar-nav > li > .dropdown-menu a:hover {
+  background-color: #474c68;
 }
 
 .profile-image {
@@ -33,10 +42,68 @@ Navbar
 Logo styles
 ========================================================================== */
 .logo-img {
-  height: 45px;
-  width: 45px;
+  height: 30px;
+  width: 30px;
   display: inline-block;
   vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
+  padding: 0;
+  margin-right: 10px;
+  margin-bottom: 2px;
+  margin-left: 4%;
+  background: url('../../../content/images/logo.png') no-repeat center center;
   background-size: contain;
+}
+
+/* ==========================================================================
+main menu
+========================================================================== */
+
+.main-menu-dropdown {
+  top: 93%;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgba(71, 76, 104, 0.9) !important;
+}
+
+.dropdown {
+  position: static;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.white-text-color {
+  color: #ffffff !important;
+}
+
+.dropdown-main-menu-item.active:visited {
+  background: rgba(220, 193, 203, 0.9) !important;
+}
+
+.dropdown-main-menu-item:hover {
+  background: rgba(220, 193, 203, 0.9) !important;
+}
+.dropdown-main-menu-item {
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.navbar-icon {
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.navbar-arrow {
+  right: 12.21%;
+  top: 16%;
+  bottom: 23%;
+  font-weight: 900;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.navbar-title-font {
+  font-weight: normal !important;
 }

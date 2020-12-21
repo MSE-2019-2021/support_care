@@ -1,0 +1,15 @@
+<form name="logoutForm" (ngSubmit)="confirmLogout()">
+  <div class="modal-body navbar-modal-body">
+    <h5 class="modal-title mb-1" data-cy="navbarLogoutDialogHeading" customTranslate="global.menu.account.logout">Confirm logout</h5>
+  </div>
+
+  <div class="modal-footer navbar-modal-footer">
+    <button type="button" class="btn btn-danger" id="custom-confirm-navbar-logout" data-cy="entityConfirmLogoutButton" (click)="confirmLogout()">
+      <span class="button-text" customTranslate="global.menu.account.leave">Logout</span>
+    </button>
+
+    <button type="button" class="btn button-transparent" data-dismiss="modal" (click)="cancel()">
+      <span class="button-text list-text-color" customTranslate="entity.action.cancel">Cancel</span>
+    </button>
+  </div>
+</form>

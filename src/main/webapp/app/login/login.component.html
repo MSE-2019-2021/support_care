@@ -1,7 +1,11 @@
-<div>
-  <div class="row justify-content-center">
-    <div class="col-lg-6 col-md-8 col-sm-10">
-      <h1 customTranslate="login.title" data-cy="loginTitle">Sign in</h1>
+<div class="notLoggedHeader">
+  <span class="logo-img"></span>
+  <span customTranslate="global.title" class="appTitle">Supportivecare</span>
+</div>
+<div class="notLoggedWrapper">
+  <div>
+    <div>
+      <h1 class="notLoggedTitle" customTranslate="login.title" data-cy="loginTitle">Sign in</h1>
       <div class="alert alert-danger" *ngIf="authenticationError" customTranslate="login.messages.error.authentication" data-cy="loginError">
         <strong>Failed to sign in!</strong> Please check your credentials and try again.
       </div>
@@ -25,23 +29,18 @@
           <input type="password" class="form-control" name="password" id="password" placeholder="{{ 'login.form.password.placeholder' | translate }}" formControlName="password" data-cy="password" />
         </div>
 
-        <div class="form-check">
+        <div class="form-check moreOptionsLoginWrapper">
           <label class="form-check-label" for="rememberMe">
             <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" />
             <span customTranslate="login.form.rememberme">Remember me</span>
           </label>
+          <a class="alert-link" routerLink="/account/reset/request" customTranslate="login.password.forgot" data-cy="forgetYourPasswordSelector">Did you forget your password?</a>
         </div>
 
-        <button type="submit" class="btn btn-primary" customTranslate="login.form.button" data-cy="submit">Sign in</button>
+        <button type="submit" class="btn btn-primary loginButton" customTranslate="login.form.button" data-cy="submit">Sign in</button>
       </form>
-      <div class="mt-3 alert alert-warning">
-        <a class="alert-link" routerLink="/account/reset/request" customTranslate="login.password.forgot" data-cy="forgetYourPasswordSelector">Did you forget your password?</a>
-      </div>
 
-      <div class="alert alert-warning">
-        <span customTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-        <a class="alert-link" routerLink="/account/register" customTranslate="global.messages.info.register.link">Register a new account</a>
-      </div>
+      <button class="btn btn-light registerButton" data-cy="registerLink" routerLink="/account/register" customTranslate="global.messages.info.register.link">Register a new account</button>
     </div>
   </div>
 </div>

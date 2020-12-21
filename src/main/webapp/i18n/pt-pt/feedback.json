@@ -3,7 +3,7 @@
     "feedback": {
       "home": {
         "title": "Feedbacks",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Feedback",
         "createOrEditLabel": "Criar ou editar Feedback",
         "notFound": "Nenhum Feedbacks encontrado"

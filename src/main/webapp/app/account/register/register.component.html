@@ -1,9 +1,16 @@
-<div>
+<div class="notLoggedHeader">
+  <span class="logo-img"></span>
+  <span customTranslate="global.title" class="appTitle">Supportivecare</span>
+</div>
+<div class="notLoggedWrapper">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h1 customTranslate="register.title" data-cy="registerTitle">Registration</h1>
+    <div>
+      <h1 class="registerTitle" customTranslate="register.title" data-cy="registerTitle">Registration</h1>
 
-      <div class="alert alert-success" *ngIf="success" customTranslate="register.messages.success"><strong>Registration saved!</strong> Please check your email for confirmation.</div>
+      <div *ngIf="success">
+        <p class="alert alert-success" customTranslate="register.messages.success"><strong>Registration saved!</strong> Please check your email for confirmation.</p>
+        <button class="btn btn-light loginButton" data-cy="loginLink" routerLink="/" customTranslate="entity.action.back"></button>
+      </div>
 
       <div class="alert alert-danger" *ngIf="error" customTranslate="register.messages.error.fail"><strong>Registration failed!</strong> Please try again later.</div>
 
@@ -15,8 +22,8 @@
     </div>
   </div>
 
-  <div class="row justify-content-center">
-    <div class="col-md-8">
+  <div>
+    <div>
       <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
         <div class="form-group">
           <label class="form-control-label" for="login" customTranslate="global.form.username.label">Username</label>
@@ -114,16 +121,9 @@
           </div>
         </div>
 
-        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary" customTranslate="register.form.button" data-cy="submit">Register</button>
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary registerButton" customTranslate="register.form.button" data-cy="submit">Register</button>
+        <button class="btn btn-light loginButton" data-cy="loginLink" routerLink="/login" customTranslate="global.messages.info.register.goToLogin">Go to Login</button>
       </form>
-
-      <div class="mt-3 alert alert-warning">
-        <span customTranslate="global.messages.info.authenticated.prefix">If you want to </span>
-        <a class="alert-link" routerLink="/login" customTranslate="global.messages.info.authenticated.link">sign in</a
-        ><span customTranslate="global.messages.info.authenticated.suffix"
-          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and password="user").</span
-        >
-      </div>
     </div>
   </div>
 </div>

@@ -2,26 +2,26 @@
   "supportivecareApp": {
     "notice": {
       "home": {
-        "title": "Notices",
+        "title": "Observações",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Notice",
-        "createOrEditLabel": "Criar ou editar Notice",
-        "notFound": "Nenhum Notices encontrado"
+        "createLabel": "Criar nova Observação",
+        "createOrEditLabel": "Criar ou editar Observação",
+        "notFound": "Nenhuma Observação encontrado"
       },
-      "created": "Um novo Notice foi criado com o identificador {{ param }}",
-      "updated": "Notice com identificador {{ param }} foi actualizado",
-      "deleted": "Notice com identificador {{ param }} foi eliminado",
+      "created": "Uma nova Observação foi criado com o identificador {{ param }}",
+      "updated": "Observação com identificador {{ param }} foi actualizado",
+      "deleted": "Observação com identificador {{ param }} foi eliminado",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Notice {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar Observação {{ id }}?"
       },
       "detail": {
-        "title": "Notice"
+        "title": "Observação"
       },
       "id": "ID",
-      "description": "Description",
-      "evaluation": "Evaluation",
-      "intervention": "Intervention",
-      "activeSubstance": "Active Substance",
+      "description": "Descrição",
+      "evaluation": "Avaliação",
+      "intervention": "Intervenção interdependente",
+      "drug": "Medicamento",
       "help": {
         "description": "Descrição.",
         "evaluation": "Avaliação.",
