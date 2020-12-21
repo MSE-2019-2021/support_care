@@ -2,30 +2,31 @@
   "supportivecareApp": {
     "activeSubstance": {
       "home": {
-        "title": "Active Substances",
-        "refreshListLabel": "Refresh list",
-        "createLabel": "Criar novo(a) Active Substance",
-        "createOrEditLabel": "Criar ou editar Active Substance",
-        "notFound": "Nenhum Active Substances encontrado"
+        "title": "Substâncias Ativas",
+        "refreshListLabel": "Actualizar lista",
+        "createLabel": "Criar substância ativa",
+        "editLabel": "Editar substância ativa",
+        "createOrEditLabel": "Criar ou editar substância ativa",
+        "notFound": "Nenhuma substância ativa encontrada"
       },
-      "created": "Um novo Active Substance foi criado com o identificador {{ param }}",
-      "updated": "Active Substance com identificador {{ param }} foi actualizado",
-      "deleted": "Active Substance com identificador {{ param }} foi eliminado",
+      "created": "Uma nova substância ativa foi criada com o identificador {{ param }}",
+      "updated": "Substância ativa com identificador {{ param }} foi actualizada",
+      "deleted": "Substância ativa com identificador {{ param }} foi eliminada",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Active Substance {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar a substância ativa {{ id }}?"
       },
       "detail": {
-        "title": "Active Substance"
+        "title": "Substância Ativa"
       },
       "generalInfo": "Informações gerais",
       "id": "ID",
-      "name": "Name",
-      "dosage": "Dosage",
-      "form": "Form",
-      "description": "Description",
-      "notice": "Notice",
-      "administration": "Administration",
-      "therapeuticRegime": "Therapeutic Regime",
+      "name": "Nome",
+      "dosage": "Dosagem",
+      "form": "Forma Farmacêutica",
+      "description": "Descrição geral",
+      "notice": "Observação",
+      "administration": "Tipo de administração",
+      "therapeuticRegime": "Regime Terapêutico",
       "help": {
         "name": "Nome.",
         "dosage": "Dosagem.",

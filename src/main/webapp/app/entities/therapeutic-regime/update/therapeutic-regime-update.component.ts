@@ -161,7 +161,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     options.forEach(value => {
       dropdownList.push({
         id: value.id!,
-        text: value.name!,
+        text: value.name! + ' - ' + value.dosage! + ' (' + value.form! + ')',
       });
     });
     return dropdownList;

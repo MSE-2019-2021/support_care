@@ -90,8 +90,7 @@
           <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.therapeuticRegime.activeSubstance">Active Substance</label>
           <p>
             <span *ngFor="let activeSubstance of therapeuticRegime.activeSubstances; let last = last">
-              <a [routerLink]="['/active-substance', activeSubstance?.id, 'view']">{{ activeSubstance.name }}</a
-              >{{ last ? '' : ', ' }}
+              <a [routerLink]="['/active-substance', activeSubstance?.id, 'view']">{{ activeSubstance.name }} - {{ activeSubstance.dosage }} ({{ activeSubstance.form }})</a>{{ last ? '' : ', ' }}
             </span>
           </p>
         </div>

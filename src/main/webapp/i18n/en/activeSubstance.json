@@ -4,8 +4,8 @@
       "home": {
         "title": "Active Substances",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create a new Active Substance",
-        "createOrEditLabel": "Create or edit a Active Substance",
+        "createLabel": "Create active substance",
+        "editLabel": "Edit active substance",
         "notFound": "No Active Substances found"
       },
       "created": "A new Active Substance is created with identifier {{ param }}",
@@ -21,16 +21,16 @@
       "id": "ID",
       "name": "Name",
       "dosage": "Dosage",
-      "form": "Form",
-      "description": "Description",
+      "form": "Pharmaceutical form",
+      "description": "General description",
       "notice": "Notice",
-      "administration": "Administration",
+      "administration": "Administration type",
       "therapeuticRegime": "Therapeutic Regime",
       "help": {
-        "name": "Nome.",
-        "dosage": "Dosagem.",
-        "form": "Forma Farmacêutica.",
-        "description": "Descrição geral."
+        "name": "Name.",
+        "dosage": "Dosage.",
+        "form": "Pharmaceutical form.",
+        "description": "General description."
       }
     }
   }
