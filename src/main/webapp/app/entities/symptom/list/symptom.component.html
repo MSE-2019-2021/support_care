@@ -2,6 +2,7 @@
   <div class="listHeaderWrapper">
     <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading" customTranslate="supportivecareApp.symptom.home.title"></h2>
     <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/symptom/new']">
+      <fa-icon icon="head-side-cough" slot="start"></fa-icon>
       <span customTranslate="supportivecareApp.symptom.home.createLabel"></span>
     </button>
   </div>

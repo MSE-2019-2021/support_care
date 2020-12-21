@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ISymptom } from '../symptom.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { SymptomService } from '../service/symptom.service';
-import { SymptomDeleteDialogComponent } from '../delete/symptom-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
@@ -24,7 +22,7 @@ export class SymptomComponent implements OnInit {
   searchName: string | undefined;
   timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
-  constructor(protected symptomService: SymptomService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
+  constructor(protected symptomService: SymptomService, protected parseLinks: ParseLinks) {
     this.symptoms = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -87,17 +85,6 @@ export class SymptomComponent implements OnInit {
 
   trackId(index: number, item: ISymptom): number {
     return item.id!;
-  }
-
-  delete(symptom: ISymptom): void {
-    const modalRef = this.modalService.open(SymptomDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.symptom = symptom;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.reset();
-      }
-    });
   }
 
   sort(): string[] {

@@ -87,7 +87,7 @@
           </p>
         </div>
         <div class="form-group col-lg-9 font-weight-bold">
-          <label class="form-control-label" customTranslate="supportivecareApp.therapeuticRegime.activeSubstance">Active Substance</label>
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.therapeuticRegime.activeSubstance">Active Substance</label>
           <p>
             <span *ngFor="let activeSubstance of therapeuticRegime.activeSubstances; let last = last">
               <a [routerLink]="['/active-substance', activeSubstance?.id, 'view']">{{ activeSubstance.name }}</a

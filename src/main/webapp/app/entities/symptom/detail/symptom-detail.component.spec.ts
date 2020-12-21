@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -13,6 +14,7 @@ describe('Component Tests', () => {
 
     beforeEach(() => {
       TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule],
         declarations: [SymptomDetailComponent],
         providers: [
           {
@@ -34,6 +36,16 @@ describe('Component Tests', () => {
 
         // THEN
         expect(comp.symptom).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+    });
+
+    describe('previousState', () => {
+      it('Should go back', () => {
+        // WHEN
+        comp.previousState();
+
+        // THEN
+        expect(comp.symptom).toEqual(jasmine.objectContaining(null));
       });
     });
   });
