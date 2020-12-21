@@ -1,62 +1,35 @@
-<div>
-  <h2 id="page-heading" data-cy="SymptomHeading">
-    <span customTranslate="supportivecareApp.symptom.home.title">Symptoms</span>
-
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
-        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span customTranslate="supportivecareApp.symptom.home.refreshListLabel">Refresh List</span>
-      </button>
-
-      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-symptom" [routerLink]="['/symptom/new']">
-        <fa-icon icon="plus"></fa-icon>
-        <span customTranslate="supportivecareApp.symptom.home.createLabel"> Create a new Symptom </span>
-      </button>
-    </div>
-  </h2>
-
+<div class="mainWrapper">
+  <div class="listHeaderWrapper">
+    <h2 class="h2-color" id="page-heading" data-cy="SymptomHeading" customTranslate="supportivecareApp.symptom.home.title"></h2>
+    <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/symptom/new']">
+      <span customTranslate="supportivecareApp.symptom.home.createLabel"></span>
+    </button>
+  </div>
   <custom-alert-error></custom-alert-error>
-
   <custom-alert></custom-alert>
-
+  <div class="input-group input-group-lg md-form form-sm form-1 pl-0" id="tableSearch">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-white" id="basic-text1"><fa-icon icon="search" slot="start" aria-hidden="true"></fa-icon></span>
+    </div>
+    <input
+      class="form-control form-control-borderless"
+      type="text"
+      [(ngModel)]="searchName"
+      (ngModelChange)="searching()"
+      placeholder="{{ 'supportivecareApp.symptom.home.namePlaceholder' | translate }}"
+    />
+  </div>
   <div class="alert alert-warning" id="no-result" *ngIf="symptoms?.length === 0">
     <span customTranslate="supportivecareApp.symptom.home.notFound">No symptoms found</span>
   </div>
-
   <div class="table-responsive" id="entities" *ngIf="symptoms && symptoms.length > 0">
-    <table class="table table-striped" aria-describedby="page-heading">
-      <thead>
-        <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-          <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.symptom.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" customSortBy="notice"><span customTranslate="supportivecareApp.symptom.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+    <table class="table table-striped border-style" aria-describedby="page-heading">
       <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
         <tr *ngFor="let symptom of symptoms; trackBy: trackId" data-cy="entityTable">
-          <td>
-            <a [routerLink]="['/symptom', symptom.id, 'view']">{{ symptom.id }}</a>
-          </td>
-          <td>{{ symptom.name }}</td>
-          <td>{{ symptom.notice }}</td>
-          <td class="text-right">
-            <div class="btn-group">
-              <button type="submit" [routerLink]="['/symptom', symptom.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
-                <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
-              </button>
-
-              <button type="submit" [routerLink]="['/symptom', symptom.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
-                <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
-              </button>
-
-              <button type="submit" (click)="delete(symptom)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
-                <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline" customTranslate="entity.action.delete">Delete</span>
-              </button>
-            </div>
+          <td class="table-item" [routerLink]="['/symptom', symptom.id, 'view']">
+            <a data-cy="entityDetailsButton" [routerLink]="['/symptom', symptom.id, 'view']">
+              <span class="list-text-color-bold"> {{ symptom.name }} </span>
+            </a>
           </td>
         </tr>
       </tbody>

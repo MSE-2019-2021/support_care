@@ -30,11 +30,14 @@ describe('Component Tests', () => {
                 defaultSort: 'id,asc',
               }),
               queryParamMap: of(
-                jest.requireActual('@angular/router').convertToParamMap({
-                  page: '1',
-                  size: '1',
-                  sort: 'id,desc',
-                })
+                jest.requireActual('@angular/router').convertToParamMap(
+                  {},
+                  {
+                    page: '1',
+                    size: '1',
+                    sort: 'id,desc',
+                  }
+                )
               ),
             },
           },
@@ -116,7 +119,7 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['id,asc']);
+      expect(result).toEqual(['name,asc', 'id']);
     });
 
     it('should calculate the sort attribute for a non-id attribute', () => {
@@ -130,6 +133,27 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
+      expect(result).toEqual(['name,asc', 'id']);
+    });
+
+    it('Should search symptom', () => {
+      // WHEN
+      comp.searching();
+
+      // THEN
+      comp.reset();
+      expect(comp.page).toEqual(0);
+    });
+
+    it('Should filter query symptom by name', () => {
+      // WHEN
+      comp.searchName = 'name';
+      comp.getCriteria();
+
+      const result = comp.sort();
+
+      // THEN
+      expect(comp.searchName).toEqual('name');
       expect(result).toEqual(['name,asc', 'id']);
     });
   });

@@ -21,6 +21,8 @@ export class SymptomComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   constructor(protected symptomService: SymptomService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
     this.symptoms = [];
@@ -29,19 +31,34 @@ export class SymptomComponent implements OnInit {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'name';
     this.ascending = true;
+  }
+
+  getCriteria(): {} {
+    let criteria = {};
+
+    if (this.searchName) {
+      criteria = { 'name.contains': this.searchName };
+    }
+    return criteria;
   }
 
   loadAll(): void {
     this.isLoading = true;
 
     this.symptomService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
       .subscribe(
         (res: HttpResponse<ISymptom[]>) => {
           this.isLoading = false;
@@ -98,5 +115,13 @@ export class SymptomComponent implements OnInit {
         this.symptoms.push(data[i]);
       }
     }
+  }
+
+  searching(): any {
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.reset();
+    }, 200);
   }
 }
