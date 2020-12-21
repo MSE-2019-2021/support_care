@@ -3,8 +3,11 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 import { ITherapeuticRegime, TherapeuticRegime } from '../therapeutic-regime.model';
+import { TherapeuticRegimeCancelDialogComponent } from '../cancel/therapeutic-regime-cancel-dialog.component';
 import { TherapeuticRegimeService } from '../service/therapeutic-regime.service';
 import { IActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 import { ActiveSubstanceService } from 'app/entities/active-substance/service/active-substance.service';
@@ -17,7 +20,7 @@ import { TreatmentService } from 'app/entities/treatment/service/treatment.servi
 })
 export class TherapeuticRegimeUpdateComponent implements OnInit {
   isSaving = false;
-  activesubstances: IActiveSubstance[] = [];
+  activeSubstances: IActiveSubstance[] = [];
   treatments: ITreatment[] = [];
 
   editForm = this.fb.group({
@@ -30,23 +33,37 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     indication: [null, [Validators.required, Validators.maxLength(1000)]],
     criteria: [null, [Validators.required, Validators.maxLength(1000)]],
     notice: [null, [Validators.maxLength(1000)]],
-    activeSubstances: [],
+    activeSubstances: [null, Validators.required],
     treatment: [null, Validators.required],
   });
+
+  dropdownList: { id: number; text: string }[] = [];
+  dropdownSettings = {};
 
   constructor(
     protected therapeuticRegimeService: TherapeuticRegimeService,
     protected activeSubstanceService: ActiveSubstanceService,
     protected treatmentService: TreatmentService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    protected modalService: NgbModal,
+    private fb: FormBuilder,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
       this.updateForm(therapeuticRegime);
 
-      this.activeSubstanceService.query().subscribe((res: HttpResponse<IActiveSubstance[]>) => (this.activesubstances = res.body ?? []));
+      this.activeSubstanceService.query().subscribe((res: HttpResponse<IActiveSubstance[]>) => (this.activeSubstances = res.body ?? []));
 
       this.treatmentService.query().subscribe((res: HttpResponse<ITreatment[]>) => (this.treatments = res.body ?? []));
     });
@@ -63,7 +80,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
       indication: therapeuticRegime.indication,
       criteria: therapeuticRegime.criteria,
       notice: therapeuticRegime.notice,
-      activeSubstances: therapeuticRegime.activeSubstances,
+      activeSubstances: this.getSelectedActiveSubstance(therapeuticRegime.activeSubstances!),
       treatment: therapeuticRegime.treatment,
     });
   }
@@ -80,6 +97,11 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.therapeuticRegimeService.create(therapeuticRegime));
     }
+  }
+
+  isEditing(): boolean {
+    const activeSubstance = this.createFromForm();
+    return !!activeSubstance.id;
   }
 
   private createFromForm(): ITherapeuticRegime {
@@ -101,36 +123,47 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITherapeuticRegime>>): void {
     result.subscribe(
-      () => this.onSaveSuccess(),
+      r => this.onSaveSuccess(r.body!.id),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess(): void {
+  protected onSaveSuccess(id: number | undefined): void {
     this.isSaving = false;
-    this.previousState();
+    this.route.navigate(['/therapeutic-regime', id, 'view']);
   }
 
   protected onSaveError(): void {
     this.isSaving = false;
   }
 
-  trackActiveSubstanceById(index: number, item: IActiveSubstance): number {
-    return item.id!;
-  }
-
   trackTreatmentById(index: number, item: ITreatment): number {
     return item.id!;
   }
 
-  getSelectedActiveSubstance(option: IActiveSubstance, selectedVals?: IActiveSubstance[]): IActiveSubstance {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
+  cancel(): void {
+    const modalRef = this.modalService.open(TherapeuticRegimeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'canceled') {
+        this.previousState();
       }
+    });
+  }
+
+  getSelectedActiveSubstance(options: IActiveSubstance[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
+
+    if (typeof options === 'undefined' || options.length === 0) {
+      return [];
     }
-    return option;
+
+    options.forEach(value => {
+      dropdownList.push({
+        id: value.id!,
+        text: value.name!,
+      });
+    });
+    return dropdownList;
   }
 }

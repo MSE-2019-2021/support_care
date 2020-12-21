@@ -17,7 +17,7 @@
       },
       "cancel": {
         "title": "Deseja sair da criação de um regime terapêutico?",
-        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
+        "question": "Ao sair irá perder toda a informação inserida na criação deste regime terapêutico."
       },
       "detail": {
         "title": "Regime Terapêutico"
@@ -32,7 +32,7 @@
       "indication": "Indicação para prescrição",
       "criteria": "Critérios de redução de dose",
       "notice": "Outras informações",
-      "drug": "Medicamentos associados",
+      "activeSubstance": "Substâncias ativas associadas",
       "treatment": "Tipo de tratamento",
       "symptom": "Sintoma",
       "titleBlock": "Regimes terapêuticos associados",
