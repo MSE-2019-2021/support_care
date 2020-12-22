@@ -7,7 +7,13 @@
       "lastname": "Apelido",
       "lastname.placeholder": "O seu apelido",
       "language": "Idioma",
-      "button": "Editar"
+      "button": "Editar",
+      "leave": "Sair da edição",
+      "cancel": "Cancelar"
+    },
+    "cancel": {
+      "title": "Do you want to exit password edition?",
+      "question": "When you leave you will lose all the information inserted."
     },
     "messages": {
       "error": {
