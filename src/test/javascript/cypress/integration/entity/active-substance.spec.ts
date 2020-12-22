@@ -67,7 +67,7 @@ describe.only('ActiveSubstance e2e test', () => {
     cy.clickOnEntityMenuItem('active-substance');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('ActiveSubstance');
+    cy.getEntityCreateHeading('ActiveSubstance');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -80,7 +80,7 @@ describe.only('ActiveSubstance e2e test', () => {
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
       cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityCreateUpdateHeading('ActiveSubstance');
+      cy.getEntityUpdateHeading('ActiveSubstance');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');

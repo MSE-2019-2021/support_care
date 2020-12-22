@@ -53,25 +53,9 @@
               <span customTranslate="global.menu.entities.activeSubstance">Active Substance</span>
             </a>
           </li>
-          <li class="text-center">
+          <li class="text-center" *customHasAnyAuthority="'ROLE_USER'">
             <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="feedback" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
               <span customTranslate="global.menu.entities.feedback">Feedback</span>
-            </a>
-          </li>
-          <li class="text-center" *customHasAnyAuthority="'ROLE_ADMIN'">
-            <a
-              class="dropdown-item white-text-color dropdown-main-menu-item"
-              routerLink="administration"
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="collapseNavbar()"
-            >
-              <span customTranslate="global.menu.entities.administration">Administration</span>
-            </a>
-          </li>
-          <li class="text-center" *customHasAnyAuthority="'ROLE_ADMIN'">
-            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="treatment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-              <span customTranslate="global.menu.entities.treatment">Treatment</span>
             </a>
           </li>
           <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

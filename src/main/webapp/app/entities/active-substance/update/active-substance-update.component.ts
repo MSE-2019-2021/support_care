@@ -56,6 +56,7 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       form: activeSubstance.form,
       description: activeSubstance.description,
       administration: activeSubstance.administration,
+      notices: activeSubstance.notices,
     });
   }
 
@@ -87,6 +88,7 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       form: this.editForm.get(['form'])!.value,
       description: this.editForm.get(['description'])!.value,
       administration: this.editForm.get(['administration'])!.value,
+      notices: this.editForm.get(['notices'])!.value,
     };
   }
 
