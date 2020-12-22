@@ -8,10 +8,14 @@ import uc.dei.mse.supportivecare.service.dto.ActiveSubstanceDTO;
 /**
  * Mapper for the entity {@link ActiveSubstance} and its DTO {@link ActiveSubstanceDTO}.
  */
-@Mapper(componentModel = "spring", uses = { AdministrationMapper.class })
+@Mapper(componentModel = "spring", uses = { NoticeMapper.class, AdministrationMapper.class })
 public interface ActiveSubstanceMapper extends EntityMapper<ActiveSubstanceDTO, ActiveSubstance> {
+    @Mapping(target = "notices", source = "notices", qualifiedByName = "nameSet")
     @Mapping(target = "administration", source = "administration", qualifiedByName = "type")
     ActiveSubstanceDTO toDto(ActiveSubstance activeSubstance);
+
+    @Mapping(target = "removeNotice", ignore = true)
+    ActiveSubstance toEntity(ActiveSubstanceDTO activeSubstanceDTO);
 
     @Named("name")
     @BeanMapping(ignoreByDefault = true)

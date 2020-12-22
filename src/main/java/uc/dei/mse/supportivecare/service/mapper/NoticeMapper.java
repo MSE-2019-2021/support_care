@@ -1,5 +1,6 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
+import java.util.Set;
 import org.mapstruct.*;
 import uc.dei.mse.supportivecare.domain.*;
 import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
@@ -11,4 +12,10 @@ import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
 public interface NoticeMapper extends EntityMapper<NoticeDTO, Notice> {
     @Mapping(target = "activeSubstance", source = "activeSubstance", qualifiedByName = "name")
     NoticeDTO toDto(Notice notice);
+
+    @Named("nameSet")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "description", source = "description")
+    Set<NoticeDTO> toDtoNameSet(Set<Notice> notice);
 }
