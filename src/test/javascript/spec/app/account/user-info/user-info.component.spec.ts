@@ -47,9 +47,8 @@ describe('Component Tests', () => {
       mockAccountService.getAuthenticationState = jest.fn(() => of(account));
     });
 
-    it('should send the current identity upon save', () => {
+    it('should send the current identity when showing', () => {
       // GIVEN
-      mockAccountService.save = jest.fn(() => of({}));
       const settingsFormValues = {
         firstName: 'John',
         lastName: 'Doe',
@@ -59,37 +58,10 @@ describe('Component Tests', () => {
 
       // WHEN
       comp.ngOnInit();
-      comp.save();
 
       // THEN
       expect(mockAccountService.identity).toHaveBeenCalled();
-      expect(mockAccountService.save).toHaveBeenCalledWith(account);
-      expect(mockAccountService.authenticate).toHaveBeenCalledWith(account);
       expect(comp.settingsForm.value).toEqual(settingsFormValues);
-    });
-
-    it('should notify of success upon successful save', () => {
-      // GIVEN
-      mockAccountService.save = jest.fn(() => of({}));
-
-      // WHEN
-      comp.ngOnInit();
-      comp.save();
-
-      // THEN
-      expect(comp.success).toBe(true);
-    });
-
-    it('should notify of error upon failed save', () => {
-      // GIVEN
-      mockAccountService.save = jest.fn(() => throwError('ERROR'));
-
-      // WHEN
-      comp.ngOnInit();
-      comp.save();
-
-      // THEN
-      expect(comp.success).toBe(false);
     });
   });
 });
