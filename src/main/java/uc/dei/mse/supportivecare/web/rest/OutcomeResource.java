@@ -3,6 +3,7 @@ package uc.dei.mse.supportivecare.web.rest;
 import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.URI;
 
 import io.jsonwebtoken.io.IOException;
+import io.micrometer.core.annotation.Timed;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,6 +26,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import uc.dei.mse.supportivecare.domain.Document;
+import uc.dei.mse.supportivecare.repository.OutcomeRepository;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
@@ -43,6 +45,7 @@ public class OutcomeResource {
     private final Logger log = LoggerFactory.getLogger(OutcomeResource.class);
 
     private static final String ENTITY_NAME = "outcome";
+    private final DocumentMapper documentMapper;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -51,9 +54,10 @@ public class OutcomeResource {
 
     private final OutcomeQueryService outcomeQueryService;
 
-    public OutcomeResource(OutcomeService outcomeService, OutcomeQueryService outcomeQueryService) {
+    public OutcomeResource(OutcomeService outcomeService, OutcomeQueryService outcomeQueryService, DocumentMapper documentMapper) {
         this.outcomeService = outcomeService;
         this.outcomeQueryService = outcomeQueryService;
+        this.documentMapper = documentMapper;
     }
 
     /**
@@ -64,14 +68,16 @@ public class OutcomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/outcomes")
+    @Timed
     public ResponseEntity<OutcomeDTO> createOutcome(@Valid @RequestPart OutcomeDTO outcomeDTO, @RequestPart List<MultipartFile> files)
         throws URISyntaxException, IOException {
         log.debug("REST request to save Outcome : {}", outcomeDTO);
         if (outcomeDTO.getId() != null) {
             throw new BadRequestAlertException("A new outcome cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Set<DocumentDTO> documents = DocumentMapper.multiPartFilesToDocuments(files);
-        documents.forEach(OutcomeDTO::addDocument);
+
+        Set<DocumentDTO> documents = documentMapper.multiPartFilesToDocuments(files);
+        documents.forEach(outcomeDTO::addDocument);
 
         OutcomeDTO result = outcomeService.save(outcomeDTO);
         return ResponseEntity
