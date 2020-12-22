@@ -6,6 +6,7 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create outcome",
         "editLabel": "Edit outcome",
+        "createOrEditLabel": "Create or edit a Outcome",
         "notFound": "No Outcomes found"
       },
       "created": "A new Outcome is created with identifier {{ param }}",

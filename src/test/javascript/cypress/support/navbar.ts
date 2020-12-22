@@ -34,12 +34,7 @@ Cypress.Commands.add('clickOnPasswordItem', () => {
 });
 
 Cypress.Commands.add('clickOnAdminMenuItem', (item: string) => {
-  return cy
-    .get(navbarSelector)
-    .get(adminMenuSelector)
-    .click({ force: true })
-    .get(`.nav-link[routerLink="admin/${item}"]`)
-    .click({ force: true });
+  return cy.get(navbarSelector).get(adminMenuSelector).click({ force: true }).get(adminMenuSelector).click({ force: true });
 });
 
 Cypress.Commands.add('clickOnEntityMenuItem', (entityName: string) => {

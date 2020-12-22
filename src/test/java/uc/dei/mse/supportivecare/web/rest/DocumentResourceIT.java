@@ -11,12 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Content;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.domain.Outcome;
@@ -29,7 +28,7 @@ import uc.dei.mse.supportivecare.service.mapper.DocumentMapper;
 /**
  * Integration tests for the {@link DocumentResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class DocumentResourceIT {
@@ -130,11 +129,11 @@ class DocumentResourceIT {
     @Test
     @Transactional
     void createDocumentWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = documentRepository.findAll().size();
-
         // Create the Document with an existing ID
         document.setId(1L);
         DocumentDTO documentDTO = documentMapper.toDto(document);
+
+        int databaseSizeBeforeCreate = documentRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDocumentMockMvc

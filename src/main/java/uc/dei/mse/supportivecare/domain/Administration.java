@@ -20,21 +20,22 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_administration_id_seq")
+    @SequenceGenerator(name = "gen_administration_id_seq", sequenceName = "administration_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**
-     * Tipo de Administração.
+     * Tipo de administração.
      */
     @NotNull
-    @Column(name = "type", nullable = false)
+    @Size(max = 100)
+    @Column(name = "type", length = 100, nullable = false)
     private String type;
 
     @OneToMany(mappedBy = "administration")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
-    private Set<Drug> drugs = new HashSet<>();
+    private Set<ActiveSubstance> activeSubstances = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -51,7 +52,7 @@ public class Administration extends AbstractAuditingEntity implements Serializab
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public Administration type(String type) {
@@ -63,29 +64,35 @@ public class Administration extends AbstractAuditingEntity implements Serializab
         this.type = type;
     }
 
-    public Set<Drug> getDrugs() {
-        return drugs;
+    public Set<ActiveSubstance> getActiveSubstances() {
+        return this.activeSubstances;
     }
 
-    public Administration drugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public Administration activeSubstances(Set<ActiveSubstance> activeSubstances) {
+        this.setActiveSubstances(activeSubstances);
         return this;
     }
 
-    public Administration addDrug(Drug drug) {
-        this.drugs.add(drug);
-        drug.setAdministration(this);
+    public Administration addActiveSubstance(ActiveSubstance activeSubstance) {
+        this.activeSubstances.add(activeSubstance);
+        activeSubstance.setAdministration(this);
         return this;
     }
 
-    public Administration removeDrug(Drug drug) {
-        this.drugs.remove(drug);
-        drug.setAdministration(null);
+    public Administration removeActiveSubstance(ActiveSubstance activeSubstance) {
+        this.activeSubstances.remove(activeSubstance);
+        activeSubstance.setAdministration(null);
         return this;
     }
 
-    public void setDrugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public void setActiveSubstances(Set<ActiveSubstance> activeSubstances) {
+        if (this.activeSubstances != null) {
+            this.activeSubstances.forEach(i -> i.setAdministration(null));
+        }
+        if (activeSubstances != null) {
+            activeSubstances.forEach(i -> i.setAdministration(this));
+        }
+        this.activeSubstances = activeSubstances;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -103,7 +110,8 @@ public class Administration extends AbstractAuditingEntity implements Serializab
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

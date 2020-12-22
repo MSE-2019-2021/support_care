@@ -12,13 +12,12 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Content;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.repository.ContentRepository;
@@ -30,7 +29,7 @@ import uc.dei.mse.supportivecare.service.mapper.ContentMapper;
 /**
  * Integration tests for the {@link ContentResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class ContentResourceIT {
@@ -106,6 +105,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void createContent() throws Exception {
         int databaseSizeBeforeCreate = contentRepository.findAll().size();
         // Create the Content
@@ -125,11 +125,11 @@ class ContentResourceIT {
     @Test
     @Transactional
     void createContentWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = contentRepository.findAll().size();
-
         // Create the Content with an existing ID
         content.setId(1L);
         ContentDTO contentDTO = contentMapper.toDto(content);
+
+        int databaseSizeBeforeCreate = contentRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restContentMockMvc
@@ -193,7 +193,6 @@ class ContentResourceIT {
 
     @Test
     @Transactional
-    @Disabled
     void getAllContentsByDocumentIsEqualToSomething() throws Exception {
         // Get already existing entity
         Document document = content.getDocument();
@@ -282,6 +281,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void updateNonExistingContent() throws Exception {
         int databaseSizeBeforeUpdate = contentRepository.findAll().size();
 
@@ -375,6 +375,7 @@ class ContentResourceIT {
 
     @Test
     @Transactional
+    @Disabled
     void deleteContent() throws Exception {
         // Initialize the database
         contentRepository.saveAndFlush(content);

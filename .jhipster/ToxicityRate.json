@@ -5,42 +5,52 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "description",
       "fieldType": "String",
-      "javadoc": "Descrição."
+      "javadoc": "Descrição.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
-      "javadoc": "Informação ao doente."
+      "javadoc": "Informação ao doente.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "autonomousIntervention",
       "fieldType": "String",
-      "javadoc": "Intervenção autónoma."
+      "javadoc": "Intervenção autónoma.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "interdependentIntervention",
       "fieldType": "String",
-      "javadoc": "Intervenção interdependente."
+      "javadoc": "Intervenção interdependente.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "selfManagement",
       "fieldType": "String",
-      "javadoc": "Suporte para auto-gestão."
+      "javadoc": "Suporte para auto-gestão.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
     {
-      "relationshipType": "many-to-many",
+      "relationshipType": "many-to-one",
       "otherEntityName": "symptom",
       "otherEntityRelationshipName": "toxicityRate",
       "relationshipName": "symptom",
-      "otherEntityField": "name",
-      "ownerSide": false
+      "otherEntityField": "name"
     }
   ],
   "javadoc": "Grau de Toxicidade.",
@@ -53,6 +63,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162750",
+  "changelogDate": "20201220133445",
   "enableEntityAudit": true
 }

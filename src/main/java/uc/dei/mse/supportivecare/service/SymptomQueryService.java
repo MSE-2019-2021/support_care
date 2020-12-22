@@ -92,6 +92,15 @@ public class SymptomQueryService extends QueryService<Symptom> {
             if (criteria.getNotice() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getNotice(), Symptom_.notice));
             }
+            if (criteria.getToxicityRateId() != null) {
+                specification =
+                    specification.and(
+                        buildSpecification(
+                            criteria.getToxicityRateId(),
+                            root -> root.join(Symptom_.toxicityRates, JoinType.LEFT).get(ToxicityRate_.id)
+                        )
+                    );
+            }
             if (criteria.getTherapeuticRegimeId() != null) {
                 specification =
                     specification.and(
@@ -105,15 +114,6 @@ public class SymptomQueryService extends QueryService<Symptom> {
                 specification =
                     specification.and(
                         buildSpecification(criteria.getOutcomeId(), root -> root.join(Symptom_.outcomes, JoinType.LEFT).get(Outcome_.id))
-                    );
-            }
-            if (criteria.getToxicityRateId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getToxicityRateId(),
-                            root -> root.join(Symptom_.toxicityRates, JoinType.LEFT).get(ToxicityRate_.id)
-                        )
                     );
             }
         }

@@ -1,10 +1,4 @@
-import {
-  userManagementPageHeadingSelector,
-  metricsPageHeadingSelector,
-  healthPageHeadingSelector,
-  logsPageHeadingSelector,
-  configurationPageHeadingSelector,
-} from '../../support/commands';
+import { userManagementPageHeadingSelector } from '../../support/commands';
 
 describe('/admin', () => {
   before(() => {
@@ -23,34 +17,4 @@ describe('/admin', () => {
       cy.get(userManagementPageHeadingSelector).should('be.visible');
     });
   });
-
-  // code is commented because we do not have this pages for now
-  /*
-   describe('/metrics', () => {
-      it('should load the page', () => {
-        cy.clickOnAdminMenuItem('metrics');
-        cy.get(metricsPageHeadingSelector).should('be.visible');
-      });
-    });
-
-    describe('/health', () => {
-      it('should load the page', () => {
-        cy.clickOnAdminMenuItem('health');
-        cy.get(healthPageHeadingSelector).should('be.visible');
-      });
-    });
-
-    describe('/logs', () => {
-      it('should load the page', () => {
-        cy.clickOnAdminMenuItem('logs');
-        cy.get(logsPageHeadingSelector).should('be.visible');
-      });
-    });
-
-    describe('/configuration', () => {
-      it('should load the page', () => {
-        cy.clickOnAdminMenuItem('configuration');
-        cy.get(configurationPageHeadingSelector).should('be.visible');
-      });
-    });*/
 });

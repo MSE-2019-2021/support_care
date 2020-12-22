@@ -2,7 +2,7 @@
 version: '3.8'
 services:
   supportivecare-postgresql:
-    image: postgres:13.0
+    image: postgres:13.1
     # volumes:
     #     - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
     environment:

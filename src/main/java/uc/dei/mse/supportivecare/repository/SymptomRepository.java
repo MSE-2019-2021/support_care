@@ -15,18 +15,16 @@ import uc.dei.mse.supportivecare.domain.Symptom;
 @Repository
 public interface SymptomRepository extends JpaRepository<Symptom, Long>, JpaSpecificationExecutor<Symptom> {
     @Query(
-        value = "select distinct symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes left join fetch symptom.toxicityRates",
+        value = "select distinct symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes",
         countQuery = "select count(distinct symptom) from Symptom symptom"
     )
     Page<Symptom> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query(
-        "select distinct symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes left join fetch symptom.toxicityRates"
-    )
+    @Query("select distinct symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes")
     List<Symptom> findAllWithEagerRelationships();
 
     @Query(
-        "select symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes left join fetch symptom.toxicityRates where symptom.id =:id"
+        "select symptom from Symptom symptom left join fetch symptom.therapeuticRegimes left join fetch symptom.outcomes where symptom.id =:id"
     )
     Optional<Symptom> findOneWithEagerRelationships(@Param("id") Long id);
 }

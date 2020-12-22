@@ -5,15 +5,25 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
-      "javadoc": "Informação ao enfermeiro."
+      "javadoc": "Informação ao enfermeiro.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "toxicityRate",
+      "otherEntityRelationshipName": "symptom",
+      "relationshipName": "toxicityRate",
+      "otherEntityField": "name"
+    },
     {
       "relationshipType": "many-to-many",
       "otherEntityName": "therapeuticRegime",
@@ -29,14 +39,6 @@
       "relationshipName": "outcome",
       "otherEntityField": "name",
       "ownerSide": true
-    },
-    {
-      "relationshipType": "many-to-many",
-      "otherEntityName": "toxicityRate",
-      "otherEntityRelationshipName": "symptom",
-      "relationshipName": "toxicityRate",
-      "otherEntityField": "name",
-      "ownerSide": true
     }
   ],
   "javadoc": "Sintoma (Efeito secundário).",
@@ -49,6 +51,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162850",
+  "changelogDate": "20201220133545",
   "enableEntityAudit": true
 }

@@ -18,6 +18,7 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
      * Título.
      */
     @NotNull
+    @Size(max = 255)
     @ApiModelProperty(value = "Título.", required = true)
     private String title;
 
@@ -31,6 +32,7 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Tipo de ficheiro.
      */
+    @Size(max = 50)
     @ApiModelProperty(value = "Tipo de ficheiro.")
     private String mimeType;
 

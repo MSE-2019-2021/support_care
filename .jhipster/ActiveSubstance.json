@@ -1,0 +1,69 @@
+{
+  "name": "ActiveSubstance",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "javadoc": "Nome.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "dosage",
+      "fieldType": "String",
+      "javadoc": "Dosagem.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "30"
+    },
+    {
+      "fieldName": "form",
+      "fieldType": "String",
+      "javadoc": "Forma Farmacêutica.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "javadoc": "Descrição geral.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "notice",
+      "otherEntityRelationshipName": "activeSubstance",
+      "relationshipName": "notice",
+      "otherEntityField": "description"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "administration",
+      "otherEntityRelationshipName": "activeSubstance",
+      "relationshipName": "administration",
+      "otherEntityField": "type"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "therapeuticRegime",
+      "otherEntityRelationshipName": "activeSubstance",
+      "relationshipName": "therapeuticRegime",
+      "otherEntityField": "name",
+      "ownerSide": false
+    }
+  ],
+  "javadoc": "Substância Ativa (ou DCI: Denominação Comum Internacional).",
+  "entityTableName": "active_substance",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20201220132845",
+  "enableEntityAudit": true
+}

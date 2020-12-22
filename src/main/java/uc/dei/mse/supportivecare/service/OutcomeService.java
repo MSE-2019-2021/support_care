@@ -49,7 +49,7 @@ public class OutcomeService {
      * @param outcomeDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public OutcomeDTO partialUpdate(OutcomeDTO outcomeDTO) {
+    public Optional<OutcomeDTO> partialUpdate(OutcomeDTO outcomeDTO) {
         log.debug("Request to partially update Outcome : {}", outcomeDTO);
 
         return outcomeRepository
@@ -68,8 +68,7 @@ public class OutcomeService {
                 }
             )
             .map(outcomeRepository::save)
-            .map(outcomeMapper::toDto)
-            .get();
+            .map(outcomeMapper::toDto);
     }
 
     /**

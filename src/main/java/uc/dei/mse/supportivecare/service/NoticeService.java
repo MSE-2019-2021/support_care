@@ -49,7 +49,7 @@ public class NoticeService {
      * @param noticeDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public NoticeDTO partialUpdate(NoticeDTO noticeDTO) {
+    public Optional<NoticeDTO> partialUpdate(NoticeDTO noticeDTO) {
         log.debug("Request to partially update Notice : {}", noticeDTO);
 
         return noticeRepository
@@ -72,8 +72,7 @@ public class NoticeService {
                 }
             )
             .map(noticeRepository::save)
-            .map(noticeMapper::toDto)
-            .get();
+            .map(noticeMapper::toDto);
     }
 
     /**

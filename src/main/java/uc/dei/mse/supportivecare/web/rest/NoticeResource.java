@@ -107,7 +107,7 @@ public class NoticeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<NoticeDTO> result = Optional.ofNullable(noticeService.partialUpdate(noticeDTO));
+        Optional<NoticeDTO> result = noticeService.partialUpdate(noticeDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

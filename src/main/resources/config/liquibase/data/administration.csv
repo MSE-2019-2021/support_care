@@ -1,15 +1,15 @@
-id;type
-1;Via oral
-2;Via intravenosa (IV)
-3;Via intramuscular (IM)
-4;Via intratecal
-5;Via subcutânea (SC)
-6;Via bucal
-7;Via retal
-8;Via vaginal
-9;Via ocular
-10;Via otológica
-11;Via nasal
-12;Nebulização
-13;Via cutânea
-14;Via transdérmica
+type
+Via oral
+Via intravenosa (IV)
+Via intramuscular (IM)
+Via intratecal
+Via subcutânea (SC)
+Via bucal
+Via retal
+Via vaginal
+Via ocular
+Via otológica
+Via nasal
+Nebulização
+Via cutânea
+Via transdérmica

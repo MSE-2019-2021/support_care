@@ -4,8 +4,9 @@
       "home": {
         "title": "Therapeutic Regimes",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create therapeutic regime",
+        "createLabel": "Create a new Therapeutic Regime",
         "editLabel": "Edit therapeutical regime",
+        "createOrEditLabel": "Create or edit a Therapeutic Regime",
         "notFound": "No Therapeutic Regimes found"
       },
       "created": "A new Therapeutic Regime is created with identifier {{ param }}",
@@ -16,7 +17,7 @@
       },
       "cancel": {
         "title": "Deseja sair da criação de um regime terapêutico?",
-        "question": "Ao sair irá perder toda a informaçãoinserida na criação deste regime terapêutico."
+        "question": "Ao sair irá perder toda a informação inserida na criação deste regime terapêutico."
       },
       "detail": {
         "title": "Available Therapeutic Regimes"
@@ -31,7 +32,7 @@
       "indication": "Indication for prescription",
       "criteria": "Dose reduction criteria",
       "notice": "Other information",
-      "drug": "Associated drugs",
+      "activeSubstance": "Associated active substances",
       "treatment": "Type of treatment",
       "symptom": "Symptom",
       "help": {

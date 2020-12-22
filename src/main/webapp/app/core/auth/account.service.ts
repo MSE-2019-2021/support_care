@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { JhiLanguageService } from 'ng-jhipster';
+import { TranslateService } from '@ngx-translate/core';
 import { SessionStorageService } from 'ngx-webstorage';
 import { Observable, ReplaySubject, of } from 'rxjs';
 import { shareReplay, tap, catchError } from 'rxjs/operators';
@@ -17,7 +17,7 @@ export class AccountService {
   private accountCache$?: Observable<Account | null>;
 
   constructor(
-    private languageService: JhiLanguageService,
+    private translateService: TranslateService,
     private sessionStorage: SessionStorageService,
     private http: HttpClient,
     private stateStorageService: StateStorageService,
@@ -54,7 +54,7 @@ export class AccountService {
           // the user's preferred language configured in the account setting
           if (account?.langKey) {
             const langKey = this.sessionStorage.retrieve('locale') ?? account.langKey;
-            this.languageService.changeLanguage(langKey);
+            this.translateService.use(langKey);
           }
 
           if (account) {

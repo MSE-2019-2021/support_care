@@ -18,6 +18,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
      * Descrição.
      */
     @NotNull
+    @Size(max = 1000)
     @ApiModelProperty(value = "Descrição.", required = true)
     private String description;
 
@@ -25,15 +26,19 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
      * Avaliação.
      */
     @NotNull
+    @Size(max = 1000)
     @ApiModelProperty(value = "Avaliação.", required = true)
     private String evaluation;
 
     /**
-     * Intervenção.
+     * Intervenção interdependente.
      */
     @NotNull
-    @ApiModelProperty(value = "Intervenção.", required = true)
+    @Size(max = 1000)
+    @ApiModelProperty(value = "Intervenção interdependente.", required = true)
     private String intervention;
+
+    private ActiveSubstanceDTO activeSubstance;
 
     public Long getId() {
         return id;
@@ -67,6 +72,14 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
         this.intervention = intervention;
     }
 
+    public ActiveSubstanceDTO getActiveSubstance() {
+        return activeSubstance;
+    }
+
+    public void setActiveSubstance(ActiveSubstanceDTO activeSubstance) {
+        this.activeSubstance = activeSubstance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -96,6 +109,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
             ", description='" + getDescription() + "'" +
             ", evaluation='" + getEvaluation() + "'" +
             ", intervention='" + getIntervention() + "'" +
+            ", activeSubstance=" + getActiveSubstance() +
             "}";
     }
 }

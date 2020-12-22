@@ -1,0 +1,85 @@
+<div>
+  <h2 id="page-heading" data-cy="ToxicityRateHeading">
+    <span customTranslate="supportivecareApp.toxicityRate.home.title">Toxicity Rates</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span customTranslate="supportivecareApp.toxicityRate.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-toxicity-rate" [routerLink]="['/toxicity-rate/new']">
+        <fa-icon icon="plus"></fa-icon>
+        <span customTranslate="supportivecareApp.toxicityRate.home.createLabel"> Create a new Toxicity Rate </span>
+      </button>
+    </div>
+  </h2>
+
+  <custom-alert-error></custom-alert-error>
+
+  <custom-alert></custom-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="toxicityRates?.length === 0">
+    <span customTranslate="supportivecareApp.toxicityRate.home.notFound">No toxicityRates found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="toxicityRates && toxicityRates.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="name"><span customTranslate="supportivecareApp.toxicityRate.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="description"><span customTranslate="supportivecareApp.toxicityRate.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="notice"><span customTranslate="supportivecareApp.toxicityRate.notice">Notice</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="autonomousIntervention">
+            <span customTranslate="supportivecareApp.toxicityRate.autonomousIntervention">Autonomous Intervention</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" customSortBy="interdependentIntervention">
+            <span customTranslate="supportivecareApp.toxicityRate.interdependentIntervention">Interdependent Intervention</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" customSortBy="selfManagement"><span customTranslate="supportivecareApp.toxicityRate.selfManagement">Self Management</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="symptom.name"><span customTranslate="supportivecareApp.toxicityRate.symptom">Symptom</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let toxicityRate of toxicityRates; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/toxicity-rate', toxicityRate.id, 'view']">{{ toxicityRate.id }}</a>
+          </td>
+          <td>{{ toxicityRate.name }}</td>
+          <td>{{ toxicityRate.description }}</td>
+          <td>{{ toxicityRate.notice }}</td>
+          <td>{{ toxicityRate.autonomousIntervention }}</td>
+          <td>{{ toxicityRate.interdependentIntervention }}</td>
+          <td>{{ toxicityRate.selfManagement }}</td>
+          <td>
+            <div *ngIf="toxicityRate.symptom">
+              <a [routerLink]="['/symptom', toxicityRate.symptom?.id, 'view']">{{ toxicityRate.symptom?.name }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/toxicity-rate', toxicityRate.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/toxicity-rate', toxicityRate.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(toxicityRate)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

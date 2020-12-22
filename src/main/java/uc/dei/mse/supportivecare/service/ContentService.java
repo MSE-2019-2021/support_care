@@ -53,7 +53,7 @@ public class ContentService {
      * @param contentDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public ContentDTO partialUpdate(ContentDTO contentDTO) {
+    public Optional<ContentDTO> partialUpdate(ContentDTO contentDTO) {
         log.debug("Request to partially update Content : {}", contentDTO);
 
         return contentRepository
@@ -71,8 +71,7 @@ public class ContentService {
                 }
             )
             .map(contentRepository::save)
-            .map(contentMapper::toDto)
-            .get();
+            .map(contentMapper::toDto);
     }
 
     /**

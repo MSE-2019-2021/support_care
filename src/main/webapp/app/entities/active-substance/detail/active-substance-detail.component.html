@@ -1,0 +1,80 @@
+<div class="entityWrapper">
+  <div *ngIf="activeSubstance">
+    <button type="submit" (click)="previousState()" class="btn button-transparent" data-cy="entityDetailsBackButton">
+      <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="entity.action.back">Back</span>
+    </button>
+    <button
+      *customHasAnyAuthority="'ROLE_USER'"
+      type="button"
+      [routerLink]="['/active-substance', activeSubstance.id, 'edit']"
+      data-cy="entityEditButton"
+      class="btn btn-primary float-right button-create"
+    >
+      <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+    </button>
+    <button *customHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(activeSubstance)" class="btn button-transparent float-right button-delete" data-cy="entityDeleteButton">
+      <fa-icon class="red-icon" icon="trash"></fa-icon>
+    </button>
+    <h2 class="h2-color" data-cy="activeSubstanceDetailsHeading">{{ activeSubstance.name }}</h2>
+    <div class="mainWrapper entityInfoWrapper">
+      <custom-alert-error></custom-alert-error>
+      <custom-alert></custom-alert>
+      <div class="sectionWrapper">
+        <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4" customTranslate="supportivecareApp.activeSubstance.generalInfo"></h5>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.activeSubstance.dosage">Dosage</label>
+          <p>
+            <span>{{ activeSubstance.dosage }}</span>
+          </p>
+        </div>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.activeSubstance.form">Form</label>
+          <p>
+            <span>{{ activeSubstance.form }}</span>
+          </p>
+        </div>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.activeSubstance.description">Description</label>
+          <p>
+            <span>{{ activeSubstance.description }}</span>
+          </p>
+        </div>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.activeSubstance.administration">Administration</label>
+          <div *ngIf="activeSubstance.administration">
+            <span>{{ activeSubstance.administration?.type }}</span>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="activeSubstance.notices && activeSubstance.notices.length > 0">
+        <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="{{ activeSubstance.notices[0].id }}">
+          <ngb-panel *ngFor="let notice of activeSubstance.notices" id="{{ notice.id }}">
+            <ng-template ngbPanelHeader let-opened="opened">
+              <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('' + this.notice.id)">
+                <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle('' + this.notice.id)">{{ notice.description }}</button>
+                <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"></fa-icon>
+                <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"></fa-icon>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent style="cursor: auto">
+              <div style="cursor: auto">
+                <div class="form-group col-lg-12 panel-content-wrapper">
+                  <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.notice.evaluation">Evaluation</label>
+                  <p>
+                    <span>{{ notice.evaluation }}</span>
+                  </p>
+                </div>
+                <div class="form-group col-lg-12 panel-content-wrapper">
+                  <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.notice.intervention">Intervention</label>
+                  <p>
+                    <span>{{ notice.intervention }}</span>
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </ng-container>
+    </div>
+  </div>
+</div>

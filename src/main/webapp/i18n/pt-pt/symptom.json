@@ -19,10 +19,11 @@
       "detail": {
         "title": "Sintoma"
       },
+      "generalInfo": "Informações gerais",
       "id": "ID",
       "name": "Name",
       "notice": "Informação ao enfermeiro.",
-      "therapeuticRegime": "Therapeutic Regime",
+      "therapeuticRegime": "Regimes terapêuticos associados",
       "outcome": "Avaliação do sintoma",
       "toxicityRate": "Toxicity Rate",
       "irt1": "Descrição do grau de manifestação do sintoma",

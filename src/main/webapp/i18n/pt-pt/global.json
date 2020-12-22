@@ -7,16 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "administration": "Administração",
-        "notice": "Observação",
-        "drug": "Medicamentos",
-        "treatment": "Tratamento",
+        "administration": "Administrações",
+        "notice": "Observações",
+        "activeSubstance": "Substâncias Activas",
+        "treatment": "Tratamentos",
         "therapeuticRegime": "Regimes Terapêuticos",
         "document": "Documento",
         "content": "Conteúdo",
-        "outcome": "PROM",
+        "outcome": "PROMs",
         "toxicityRate": "Grau de Toxicidade",
         "symptom": "Sintomas",
+        "feedback": "Feedbacks",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -76,7 +77,7 @@
           "required": "A palavra-passe é obrigatória.",
           "minlength": "A palavra-passe deve ter pelo menos 4 caracteres",
           "maxlength": "A palavra-passe não pode ter mais de 50 caracteres",
-          "strength": "Nível de dificuldade da palavra-passe:"
+          "strength": ""
         },
         "confirmpassword": {
           "required": "A confirmação da palavra-passe é obrigatória.",

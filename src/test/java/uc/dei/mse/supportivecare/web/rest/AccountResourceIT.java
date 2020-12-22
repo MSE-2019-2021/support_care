@@ -11,19 +11,19 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.AuthorityRepository;
 import uc.dei.mse.supportivecare.repository.UserRepository;
 import uc.dei.mse.supportivecare.security.AuthoritiesConstants;
 import uc.dei.mse.supportivecare.service.UserService;
+import uc.dei.mse.supportivecare.service.dto.AdminUserDTO;
 import uc.dei.mse.supportivecare.service.dto.PasswordChangeDTO;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
 import uc.dei.mse.supportivecare.web.rest.vm.KeyAndPasswordVM;
@@ -34,7 +34,7 @@ import uc.dei.mse.supportivecare.web.rest.vm.ManagedUserVM;
  */
 @AutoConfigureMockMvc
 @WithMockUser(value = TEST_USER_LOGIN)
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 class AccountResourceIT {
 
     static final String TEST_USER_LOGIN = "test";
@@ -85,7 +85,7 @@ class AccountResourceIT {
         Set<String> authorities = new HashSet<>();
         authorities.add(AuthoritiesConstants.ADMIN);
 
-        UserDTO user = new UserDTO();
+        AdminUserDTO user = new AdminUserDTO();
         user.setLogin(TEST_USER_LOGIN);
         user.setFirstName("john");
         user.setLastName("doe");
@@ -344,7 +344,7 @@ class AccountResourceIT {
         assertThat(testUser4.get().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 
         testUser4.get().setActivated(true);
-        userService.updateUser((new UserDTO(testUser4.get())));
+        userService.updateUser((new AdminUserDTO(testUser4.get())));
 
         // Register 4th (already activated) user
         restAccountMockMvc
@@ -413,7 +413,7 @@ class AccountResourceIT {
         user.setActivated(true);
         userRepository.saveAndFlush(user);
 
-        UserDTO userDTO = new UserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -450,7 +450,7 @@ class AccountResourceIT {
 
         userRepository.saveAndFlush(user);
 
-        UserDTO userDTO = new UserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -486,7 +486,7 @@ class AccountResourceIT {
 
         userRepository.saveAndFlush(anotherUser);
 
-        UserDTO userDTO = new UserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");
@@ -515,7 +515,7 @@ class AccountResourceIT {
         user.setActivated(true);
         userRepository.saveAndFlush(user);
 
-        UserDTO userDTO = new UserDTO();
+        AdminUserDTO userDTO = new AdminUserDTO();
         userDTO.setLogin("not-used");
         userDTO.setFirstName("firstname");
         userDTO.setLastName("lastname");

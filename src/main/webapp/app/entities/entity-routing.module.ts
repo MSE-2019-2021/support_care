@@ -6,43 +6,58 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([
       {
         path: 'administration',
-        loadChildren: () => import('./administration/administration-routing.module').then(m => m.AdministrationRoutingModule),
+        data: { pageTitle: 'supportivecareApp.administration.home.title' },
+        loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule),
       },
       {
         path: 'notice',
-        loadChildren: () => import('./notice/notice-routing.module').then(m => m.NoticeRoutingModule),
+        data: { pageTitle: 'supportivecareApp.notice.home.title' },
+        loadChildren: () => import('./notice/notice.module').then(m => m.NoticeModule),
       },
       {
-        path: 'drug',
-        loadChildren: () => import('./drug/drug-routing.module').then(m => m.DrugRoutingModule),
+        path: 'active-substance',
+        data: { pageTitle: 'supportivecareApp.activeSubstance.home.title' },
+        loadChildren: () => import('./active-substance/active-substance.module').then(m => m.ActiveSubstanceModule),
       },
       {
         path: 'treatment',
-        loadChildren: () => import('./treatment/treatment-routing.module').then(m => m.TreatmentRoutingModule),
+        data: { pageTitle: 'supportivecareApp.treatment.home.title' },
+        loadChildren: () => import('./treatment/treatment.module').then(m => m.TreatmentModule),
       },
       {
         path: 'therapeutic-regime',
-        loadChildren: () => import('./therapeutic-regime/therapeutic-regime-routing.module').then(m => m.TherapeuticRegimeRoutingModule),
+        data: { pageTitle: 'supportivecareApp.therapeuticRegime.home.title' },
+        loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.TherapeuticRegimeModule),
       },
       {
         path: 'document',
-        loadChildren: () => import('./document/document-routing.module').then(m => m.DocumentRoutingModule),
+        data: { pageTitle: 'supportivecareApp.document.home.title' },
+        loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
       },
       {
         path: 'content',
-        loadChildren: () => import('./content/content-routing.module').then(m => m.ContentRoutingModule),
+        data: { pageTitle: 'supportivecareApp.content.home.title' },
+        loadChildren: () => import('./content/content.module').then(m => m.ContentModule),
       },
       {
         path: 'outcome',
-        loadChildren: () => import('./outcome/outcome-routing.module').then(m => m.OutcomeRoutingModule),
+        data: { pageTitle: 'supportivecareApp.outcome.home.title' },
+        loadChildren: () => import('./outcome/outcome.module').then(m => m.OutcomeModule),
       },
       {
         path: 'toxicity-rate',
-        loadChildren: () => import('./toxicity-rate/toxicity-rate-routing.module').then(m => m.ToxicityRateRoutingModule),
+        data: { pageTitle: 'supportivecareApp.toxicityRate.home.title' },
+        loadChildren: () => import('./toxicity-rate/toxicity-rate.module').then(m => m.ToxicityRateModule),
       },
       {
         path: 'symptom',
-        loadChildren: () => import('./symptom/symptom-routing.module').then(m => m.SymptomRoutingModule),
+        data: { pageTitle: 'supportivecareApp.symptom.home.title' },
+        loadChildren: () => import('./symptom/symptom.module').then(m => m.SymptomModule),
+      },
+      {
+        path: 'feedback',
+        data: { pageTitle: 'supportivecareApp.feedback.home.title' },
+        loadChildren: () => import('./feedback/feedback.module').then(m => m.FeedbackModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

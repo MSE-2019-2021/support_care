@@ -7,7 +7,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'custom-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.scss'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('username', { static: false })

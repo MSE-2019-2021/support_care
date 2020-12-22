@@ -11,12 +11,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import uc.dei.mse.supportivecare.SupportivecareApp;
+import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Symptom;
 import uc.dei.mse.supportivecare.domain.ToxicityRate;
 import uc.dei.mse.supportivecare.repository.ToxicityRateRepository;
@@ -28,7 +27,7 @@ import uc.dei.mse.supportivecare.service.mapper.ToxicityRateMapper;
 /**
  * Integration tests for the {@link ToxicityRateResource} REST controller.
  */
-@SpringBootTest(classes = SupportivecareApp.class)
+@IntegrationTest
 @AutoConfigureMockMvc
 @WithMockUser
 class ToxicityRateResourceIT {
@@ -136,11 +135,11 @@ class ToxicityRateResourceIT {
     @Test
     @Transactional
     void createToxicityRateWithExistingId() throws Exception {
-        int databaseSizeBeforeCreate = toxicityRateRepository.findAll().size();
-
         // Create the ToxicityRate with an existing ID
         toxicityRate.setId(1L);
         ToxicityRateDTO toxicityRateDTO = toxicityRateMapper.toDto(toxicityRate);
+
+        int databaseSizeBeforeCreate = toxicityRateRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restToxicityRateMockMvc
@@ -716,7 +715,7 @@ class ToxicityRateResourceIT {
         Symptom symptom = SymptomResourceIT.createEntity(em);
         em.persist(symptom);
         em.flush();
-        toxicityRate.addSymptom(symptom);
+        toxicityRate.setSymptom(symptom);
         toxicityRateRepository.saveAndFlush(toxicityRate);
         Long symptomId = symptom.getId();
 

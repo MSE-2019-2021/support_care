@@ -3,7 +3,7 @@
     "administration": {
       "home": {
         "title": "Administrations",
-        "refreshListLabel": "Refresh list",
+        "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Administration",
         "createOrEditLabel": "Criar ou editar Administration",
         "notFound": "Nenhum Administrations encontrado"
@@ -19,9 +19,9 @@
       },
       "id": "ID",
       "type": "Type",
-      "drug": "Drug",
+      "activeSubstance": "Active Substance",
       "help": {
-        "type": "Tipo de Administração."
+        "type": "Tipo de administração."
       }
     }
   }

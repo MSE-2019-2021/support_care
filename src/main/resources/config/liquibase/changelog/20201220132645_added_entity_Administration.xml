@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity Administration.
+    -->
+    <changeSet id="20201220132645-seq-1" author="DanielFran">
+        <createSequence sequenceName="administration_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    </changeSet>
+    <changeSet id="20201220132645-1" author="DanielFran">
+        <createTable tableName="administration" remarks="Administração.">
+            <column name="id" type="bigint" defaultValueSequenceNext="administration_id_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type" type="varchar(100)" remarks="Tipo de administração.">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+
+    <!-- Added the entity audit columns -->
+    <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
+        <addColumn tableName="administration">
+            <column name="created_by" type="varchar(50)" defaultValue="system">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_modified_by" type="varchar(50)"/>
+            <column name="last_modified_date" type="timestamp"/>
+        </addColumn>
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load data
+    -->
+    <changeSet id="20201220132645-1-data" author="DanielFran" context="!test">
+        <loadData
+                  file="config/liquibase/data/administration.csv"
+                  separator=";"
+                  tableName="administration">
+            <column name="type" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
