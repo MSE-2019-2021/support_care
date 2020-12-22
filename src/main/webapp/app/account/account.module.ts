@@ -11,6 +11,8 @@ import { PasswordResetFinishComponent } from './password-reset/finish/password-r
 import { SettingsComponent } from './settings/settings.component';
 import { UserInfoComponent } from './user-info/user-info.component';
 import { accountState } from './account.route';
+import { SettingsCancelDialogComponent } from 'app/account/settings/settings-cancel-dialog.component';
+import { PasswordCancelDialogComponent } from 'app/account/password/password-cancel-dialog.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild(accountState)],
@@ -23,6 +25,8 @@ import { accountState } from './account.route';
     PasswordResetFinishComponent,
     SettingsComponent,
     UserInfoComponent,
+    SettingsCancelDialogComponent,
+    PasswordCancelDialogComponent,
   ],
 })
 export class AccountModule {}
