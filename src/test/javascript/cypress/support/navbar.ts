@@ -11,6 +11,7 @@ import {
   settingsItemSelector,
   passwordItemSelector,
   entityItemSelector,
+  userInfoItemSelector,
 } from './commands';
 
 Cypress.Commands.add('clickOnLoginItem', () => {
@@ -33,10 +34,10 @@ Cypress.Commands.add('clickOnPasswordItem', () => {
   return cy.get(navbarSelector).get(accountMenuSelector).click({ force: true }).get(passwordItemSelector).click({ force: true });
 });
 
-Cypress.Commands.add('clickOnAdminMenuItem', (item: string) => {
+Cypress.Commands.add('clickOnuserInfoItem', (item: string) => {
   return cy
     .get(navbarSelector)
-    .get(adminMenuSelector)
+    .get(userInfoItemSelector)
     .click({ force: true })
     .get(`.nav-link[routerLink="admin/${item}"]`)
     .click({ force: true });
