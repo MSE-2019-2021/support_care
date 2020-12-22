@@ -29,7 +29,7 @@ export class OutcomeComponent implements OnInit {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'name';
     this.ascending = true;
   }
 
