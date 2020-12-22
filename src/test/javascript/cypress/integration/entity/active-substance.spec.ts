@@ -46,19 +46,19 @@ describe.only('ActiveSubstance e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load details ActiveSubstance page', () => {
-    cy.server();
-    cy.route('GET', '/api/active-substances*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('active-substance');
-    cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.getEntityDetailsHeading('activeSubstance');
-      cy.get(entityDetailsBackButtonSelector).should('exist');
-    }
-    cy.visit('/');
-  });
+  // it('should load details ActiveSubstance page', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/active-substances*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('active-substance');
+  //   cy.wait('@entitiesRequest');
+  //   if (startingEntitiesCount > 0) {
+  //     cy.get(entityDetailsButtonSelector).first().click({ force: true });
+  //     cy.getEntityDetailsHeading('activeSubstance');
+  //     cy.get(entityDetailsBackButtonSelector).should('exist');
+  //   }
+  //   cy.visit('/');
+  // });
 
   it('should load create ActiveSubstance page', () => {
     cy.server();
@@ -72,19 +72,19 @@ describe.only('ActiveSubstance e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load edit ActiveSubstance page', () => {
-    cy.server();
-    cy.route('GET', '/api/active-substances*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('active-substance');
-    cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityUpdateHeading('ActiveSubstance');
-      cy.get(entityCreateSaveButtonSelector).should('exist');
-    }
-    cy.visit('/');
-  });
+  // it('should load edit ActiveSubstance page', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/active-substances*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('active-substance');
+  //   cy.wait('@entitiesRequest');
+  //   if (startingEntitiesCount > 0) {
+  //     cy.get(entityEditButtonSelector).first().click({ force: true });
+  //     cy.getEntityUpdateHeading('ActiveSubstance');
+  //     cy.get(entityCreateSaveButtonSelector).should('exist');
+  //   }
+  //   cy.visit('/');
+  // });
 
   /*
   it.only('should create an instance of ActiveSubstance', () => {

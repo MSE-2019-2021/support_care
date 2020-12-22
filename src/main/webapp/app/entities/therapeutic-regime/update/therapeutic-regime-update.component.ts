@@ -116,7 +116,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
       indication: this.editForm.get(['indication'])!.value,
       criteria: this.editForm.get(['criteria'])!.value,
       notice: this.editForm.get(['notice'])!.value,
-      activeSubstances: this.editForm.get(['activeSubstances'])!.value, //this.trackActiveSubstancesById(this.editForm.get(['activeSubstances'])!.value),
+      activeSubstances: this.editForm.get(['activeSubstances'])!.value,
       treatment: this.editForm.get(['treatment'])!.value,
     };
   }
@@ -151,26 +151,10 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
     });
   }
 
-  /*
-  trackActiveSubstancesById(options: { id: number; text: string }[]): IActiveSubstance[] {
-    const list: IActiveSubstance[] = [];
-
-    if (typeof options !== 'undefined' && options.length >= 0) {
-      options.forEach(value => {
-        list.push({
-          id: value.id!,
-        });
-      });
-    }
-
-    return list;
-  }
-
-*/
   getSelectedActiveSubstance(options: IActiveSubstance[]): { id: number; text: string }[] {
     const dropdownList: { id: number; text: string }[] = [];
 
-    if (typeof options !== 'undefined' && options.length >= 0) {
+    if (typeof options !== 'undefined' && options.length > 0) {
       options.forEach(value => {
         dropdownList.push({
           id: value.id!,

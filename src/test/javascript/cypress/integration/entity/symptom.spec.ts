@@ -5,8 +5,6 @@ import {
   entityCreateButtonSelector,
   entityCreateSaveButtonSelector,
   entityEditButtonSelector,
-  entityDeleteButtonSelector,
-  entityConfirmDeleteButtonSelector,
 } from '../../support/entity';
 
 describe('Symptom e2e test', () => {
@@ -67,7 +65,7 @@ describe('Symptom e2e test', () => {
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
     cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('Symptom');
+    cy.getEntityCreateHeading('Symptom');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
   });
@@ -79,8 +77,9 @@ describe('Symptom e2e test', () => {
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
     if (startingEntitiesCount > 0) {
-      cy.get(entityEditButtonSelector).first().click({ force: true });
-      cy.getEntityCreateUpdateHeading('Symptom');
+      cy.get(entityDetailsButtonSelector).first().click({ force: true });
+      cy.get(entityEditButtonSelector).click({ force: true });
+      cy.getEntityUpdateHeading('Symptom');
       cy.get(entityCreateSaveButtonSelector).should('exist');
     }
     cy.visit('/');
@@ -92,8 +91,8 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
-    cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('Symptom');
+    cy.get(entityCreateButtonSelector).first().click({ force: true });
+    cy.getEntityCreateHeading('Symptom');
 
     cy.get(`[data-cy="name"]`)
       .type('Research visionary Desporto', { force: true })
@@ -106,6 +105,8 @@ describe('Symptom e2e test', () => {
 
     cy.setFieldSelectToLastOfEntity('outcome');
 
+    cy.setFieldSelectToLastOfEntity('toxicityRate');
+
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });
     cy.get(entityCreateSaveButtonSelector).should('not.exist');
@@ -117,6 +118,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
+  /***
   it('should delete last instance of Symptom', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
@@ -141,5 +143,5 @@ describe('Symptom e2e test', () => {
         }
         cy.visit('/');
       });
-  });
+  });*/
 });

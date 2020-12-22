@@ -31,34 +31,34 @@ describe('Notice e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Notices', () => {
-    cy.server();
-    cy.route('GET', '/api/notices*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('notice');
-    cy.wait('@entitiesRequest');
-    cy.getEntityHeading('Notice').should('exist');
-    if (startingEntitiesCount === 0) {
-      cy.get(entityTableSelector).should('not.exist');
-    } else {
-      cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-    }
-    cy.visit('/');
-  });
-
-  it('should load details Notice page', () => {
-    cy.server();
-    cy.route('GET', '/api/notices*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('notice');
-    cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.getEntityDetailsHeading('notice');
-      cy.get(entityDetailsBackButtonSelector).should('exist');
-    }
-    cy.visit('/');
-  });
+  // it('should load Notices', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/notices*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('notice');
+  //   cy.wait('@entitiesRequest');
+  //   cy.getEntityHeading('Notice').should('exist');
+  //   if (startingEntitiesCount === 0) {
+  //     cy.get(entityTableSelector).should('not.exist');
+  //   } else {
+  //     cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
+  //   }
+  //   cy.visit('/');
+  // });
+  //
+  // it('should load details Notice page', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/notices*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('notice');
+  //   cy.wait('@entitiesRequest');
+  //   if (startingEntitiesCount > 0) {
+  //     cy.get(entityDetailsButtonSelector).first().click({ force: true });
+  //     cy.getEntityDetailsHeading('notice');
+  //     cy.get(entityDetailsBackButtonSelector).should('exist');
+  //   }
+  //   cy.visit('/');
+  // });
 
   // it('should load create Notice page', () => {
   //   cy.server();
