@@ -15,6 +15,7 @@ import { TherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-r
 import { Outcome } from 'app/entities/outcome/outcome.model';
 
 import { SymptomUpdateComponent } from './symptom-update.component';
+import { ActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 
 describe('Component Tests', () => {
   describe('Symptom Management Update Component', () => {
@@ -64,6 +65,22 @@ describe('Component Tests', () => {
         expect(service.create).toHaveBeenCalledWith(entity);
         expect(comp.isSaving).toEqual(false);
       }));
+    });
+
+    describe('is editing', () => {
+      it('should return true when editing component', () => {
+        const entity = new Symptom(123);
+        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+        comp.updateForm(entity);
+
+        expect(comp.isEditing()).toBeTruthy();
+      });
+
+      it('should return false when creating component', () => {
+        const entity = new Symptom();
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        expect(comp.isEditing()).toBeFalsy();
+      });
     });
 
     describe('Tracking relationships identifiers', () => {

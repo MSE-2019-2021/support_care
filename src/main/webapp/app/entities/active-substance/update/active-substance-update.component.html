@@ -1,22 +1,25 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="custom-active-substance-heading" data-cy="ActiveSubstanceCreateUpdateHeading" customTranslate="supportivecareApp.activeSubstance.home.createOrEditLabel">
-        Create or edit a Active Substance
-      </h2>
-
-      <div>
-        <custom-alert-error></custom-alert-error>
-
-        <div class="form-group" [hidden]="editForm.get('id')?.value == null">
-          <label class="form-control-label" customTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" readonly />
-        </div>
-
+<div class="entityWrapper">
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <h2
+      class="list-text-color-bold"
+      id="custom-active-substance-heading"
+      data-cy="ActiveSubstanceUpdateHeading"
+      *ngIf="isEditing()"
+      customTranslate="supportivecareApp.activeSubstance.home.editLabel"
+    ></h2>
+    <h2
+      class="list-text-color-bold"
+      id="custom-active-substance-heading"
+      data-cy="ActiveSubstanceCreateHeading"
+      *ngIf="!isEditing()"
+      customTranslate="supportivecareApp.activeSubstance.home.createLabel"
+    ></h2>
+    <div class="mainWrapper entityInfoWrapper">
+      <custom-alert-error></custom-alert-error>
+      <div class="sectionWrapper">
+        <h5 class="list-text-color-bold" customTranslate="supportivecareApp.activeSubstance.generalInfo"></h5>
         <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.name" for="field_name" [ngbTooltip]="'supportivecareApp.activeSubstance.help.name' | translate"
-            >Name</label
-          >
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.name" for="field_name">Name</label>
           <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
           <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
@@ -27,9 +30,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.dosage" for="field_dosage" [ngbTooltip]="'supportivecareApp.activeSubstance.help.dosage' | translate"
-            >Dosage</label
-          >
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.dosage" for="field_dosage">Dosage</label>
           <input type="text" class="form-control" name="dosage" id="field_dosage" data-cy="dosage" formControlName="dosage" />
           <div *ngIf="editForm.get('dosage')!.invalid && (editForm.get('dosage')!.dirty || editForm.get('dosage')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('dosage')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
@@ -40,9 +41,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.form" for="field_form" [ngbTooltip]="'supportivecareApp.activeSubstance.help.form' | translate"
-            >Form</label
-          >
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.form" for="field_form">Form</label>
           <input type="text" class="form-control" name="form" id="field_form" data-cy="form" formControlName="form" />
           <div *ngIf="editForm.get('form')!.invalid && (editForm.get('form')!.dirty || editForm.get('form')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('form')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
@@ -53,13 +52,7 @@
         </div>
 
         <div class="form-group">
-          <label
-            class="form-control-label"
-            customTranslate="supportivecareApp.activeSubstance.description"
-            for="field_description"
-            [ngbTooltip]="'supportivecareApp.activeSubstance.help.description' | translate"
-            >Description</label
-          >
+          <label class="form-control-label" customTranslate="supportivecareApp.activeSubstance.description" for="field_description">Description</label>
           <input type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description" />
           <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
@@ -82,15 +75,23 @@
         </div>
       </div>
 
-      <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-          <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
-        </button>
+      <div class="sectionWrapper">
+        <div class="form-group">
+          <label customTranslate="supportivecareApp.activeSubstance.notice" for="field_notices">Notice</label>
+          <select class="form-control" id="field_notices" data-cy="notice" multiple name="notices" formControlName="notices">
+            <option [ngValue]="getSelectedNotice(noticeOption, editForm.get('notices')!.value)" *ngFor="let noticeOption of notices; trackBy: trackNoticeById">{{ noticeOption.description }}</option>
+          </select>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div class="entityUpdateButtonsWrapper">
+      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn button-create button-text text-white">
+        <fa-icon icon="check"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
+      </button>
+      <button type="button" id="cancel-save" class="btn btn-danger button-text" (click)="previousState()">
+        <fa-icon icon="times"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
+      </button>
+    </div>
+  </form>
 </div>

@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 
 import { IActiveSubstance, ActiveSubstance } from '../active-substance.model';
 import { ActiveSubstanceService } from '../service/active-substance.service';
+import { INotice } from 'app/entities/notice/notice.model';
+import { NoticeService } from 'app/entities/notice/service/notice.service';
 import { IAdministration } from 'app/entities/administration/administration.model';
 import { AdministrationService } from 'app/entities/administration/service/administration.service';
 
@@ -15,6 +17,7 @@ import { AdministrationService } from 'app/entities/administration/service/admin
 })
 export class ActiveSubstanceUpdateComponent implements OnInit {
   isSaving = false;
+  notices: INotice[] = [];
   administrations: IAdministration[] = [];
 
   editForm = this.fb.group({
@@ -23,11 +26,13 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     dosage: [null, [Validators.required, Validators.maxLength(30)]],
     form: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
+    notices: [],
     administration: [],
   });
 
   constructor(
     protected activeSubstanceService: ActiveSubstanceService,
+    protected noticeService: NoticeService,
     protected administrationService: AdministrationService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -36,6 +41,8 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ activeSubstance }) => {
       this.updateForm(activeSubstance);
+
+      this.noticeService.query().subscribe((res: HttpResponse<INotice[]>) => (this.notices = res.body ?? []));
 
       this.administrationService.query().subscribe((res: HttpResponse<IAdministration[]>) => (this.administrations = res.body ?? []));
     });
@@ -66,6 +73,11 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     }
   }
 
+  isEditing(): boolean {
+    const activeSubstance = this.createFromForm();
+    return !!activeSubstance.id;
+  }
+
   private createFromForm(): IActiveSubstance {
     return {
       ...new ActiveSubstance(),
@@ -94,7 +106,22 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
+  trackNoticeById(index: number, item: INotice): number {
+    return item.id!;
+  }
+
   trackAdministrationById(index: number, item: IAdministration): number {
     return item.id!;
+  }
+
+  getSelectedNotice(option: INotice, selectedVals?: INotice[]): INotice {
+    if (selectedVals) {
+      for (let i = 0; i < selectedVals.length; i++) {
+        if (option.id === selectedVals[i].id) {
+          return selectedVals[i];
+        }
+      }
+    }
+    return option;
   }
 }
