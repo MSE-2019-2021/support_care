@@ -6,7 +6,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { PasswordService } from './password.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PasswordCancelDialogComponent } from './password-cancel-dialog.component';
+import { PasswordCancelDialogComponent } from 'app/account/password/password-cancel-dialog.component';
 
 @Component({
   selector: 'custom-password',
