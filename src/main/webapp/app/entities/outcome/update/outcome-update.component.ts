@@ -13,11 +13,13 @@ import { OutcomeService } from '../service/outcome.service';
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
+  files: any;
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
+    documents: [],
   });
 
   constructor(protected outcomeService: OutcomeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -28,11 +30,16 @@ export class OutcomeUpdateComponent implements OnInit {
     });
   }
 
+  handleFileInput(event: Event): void {
+    this.files = (<HTMLInputElement>event.target).files!;
+  }
+
   updateForm(outcome: IOutcome): void {
     this.editForm.patchValue({
       id: outcome.id,
       name: outcome.name,
       description: outcome.description,
+      documents: outcome.documents,
     });
   }
 
@@ -46,7 +53,7 @@ export class OutcomeUpdateComponent implements OnInit {
     if (outcome.id !== undefined) {
       this.subscribeToSaveResponse(this.outcomeService.update(outcome));
     } else {
-      this.subscribeToSaveResponse(this.outcomeService.create(outcome));
+      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
     }
   }
 
@@ -56,6 +63,7 @@ export class OutcomeUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
+      documents: this.editForm.get(['documents'])!.value,
     };
   }
 

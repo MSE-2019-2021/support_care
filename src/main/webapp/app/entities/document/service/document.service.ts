@@ -27,6 +27,10 @@ export class DocumentService {
     return this.http.get<IDocument>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  download(id: number): Observable<Blob> {
+    return this.http.get(`${this.resourceUrl}/${id}/$content`, { responseType: 'blob' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IDocument[]>(this.resourceUrl, { params: options, observe: 'response' });

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as FileSaver from 'file-saver';
 
 import { IOutcome } from '../outcome.model';
+import { DocumentService } from 'app/entities/document/service/document.service';
+import { IDocument } from 'app/entities/document/document.model';
 
 @Component({
   selector: 'custom-outcome-detail',
@@ -10,11 +13,17 @@ import { IOutcome } from '../outcome.model';
 export class OutcomeDetailComponent implements OnInit {
   outcome: IOutcome | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute) {}
+  constructor(protected activatedRoute: ActivatedRoute, private documentService: DocumentService) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ outcome }) => {
       this.outcome = outcome;
+    });
+  }
+
+  downloadDocument(document: IDocument): void {
+    this.documentService.download(document.id!).subscribe(file => {
+      FileSaver.saveAs(file, document.title);
     });
   }
 

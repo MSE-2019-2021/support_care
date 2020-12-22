@@ -11,6 +11,6 @@ class DocumentMapperTest {
 
     @BeforeEach
     public void setUp() {
-        documentMapper = new DocumentMapperImpl();
+        documentMapper = new DocumentMapper();
     }
 }

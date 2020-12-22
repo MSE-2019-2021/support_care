@@ -1,6 +1,6 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
-import io.jsonwebtoken.io.IOException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +36,7 @@ public class DocumentMapper {
     public DocumentDTO multiPartFileToDocument(MultipartFile file) {
         DocumentDTO document = new DocumentDTO();
         document.setTitle(file.getOriginalFilename());
-        document.setSize(file.getSize());
+        document.setSize(new Long(file.getSize()));
         document.setMimeType(file.getContentType());
         try {
             document.addContent(file.getBytes());

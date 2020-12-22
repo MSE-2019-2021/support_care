@@ -1,5 +1,6 @@
 package uc.dei.mse.supportivecare.web.rest;
 
+import io.micrometer.core.annotation.Timed;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,17 +14,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+import uc.dei.mse.supportivecare.domain.Document;
+import uc.dei.mse.supportivecare.repository.DocumentRepository;
 import uc.dei.mse.supportivecare.service.DocumentQueryService;
 import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.dto.DocumentCriteria;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
+import uc.dei.mse.supportivecare.web.rest.errors.DocumentNotFoundException;
 
 /**
  * REST controller for managing {@link uc.dei.mse.supportivecare.domain.Document}.
@@ -43,9 +48,16 @@ public class DocumentResource {
 
     private final DocumentQueryService documentQueryService;
 
-    public DocumentResource(DocumentService documentService, DocumentQueryService documentQueryService) {
+    private final DocumentRepository documentRepository;
+
+    public DocumentResource(
+        DocumentService documentService,
+        DocumentQueryService documentQueryService,
+        DocumentRepository documentRepository
+    ) {
         this.documentService = documentService;
         this.documentQueryService = documentQueryService;
+        this.documentRepository = documentRepository;
     }
 
     /**
@@ -128,6 +140,18 @@ public class DocumentResource {
         Page<DocumentDTO> page = documentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/documents/{id}/$content")
+    @Timed
+    public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
+        Document document = documentRepository.findOneById(id).orElseThrow(DocumentNotFoundException::new);
+
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(document.getMimeType()))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + document.getTitle() + "\"")
+            .body(document.retrieveContent());
     }
 
     /**
