@@ -35,6 +35,8 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
 
     private Set<OutcomeDTO> outcomes = new HashSet<>();
 
+    private Set<ToxicityRateDTO> toxicityRates = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -75,6 +77,14 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
         this.outcomes = outcomes;
     }
 
+    public Set<ToxicityRateDTO> getToxicityRates() {
+        return toxicityRates;
+    }
+
+    public void setToxicityRates(Set<ToxicityRateDTO> toxicityRates) {
+        this.toxicityRates = toxicityRates;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -105,6 +115,7 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
             ", notice='" + getNotice() + "'" +
             ", therapeuticRegimes=" + getTherapeuticRegimes() +
             ", outcomes=" + getOutcomes() +
+            ", toxicityRates=" + getToxicityRates() +
             "}";
     }
 }
