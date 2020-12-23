@@ -4,10 +4,7 @@
       <button type="submit" (click)="previousState()" class="btn button-transparent" data-cy="entityDetailsBackButton">
         <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="entity.action.back">Back</span>
       </button>
-      <h2 class="text-primary font-weight-bold" customTranslate="settings.title" [translateValues]="{ username: account.login }" *ngIf="account">
-        User settings for [<b>{{ account.login }}</b
-        >]
-      </h2>
+      <h2 class="text-primary font-weight-bold" customTranslate="settings.title" [translateValues]="{ username: account.login }" *ngIf="account">User settings</h2>
 
       <div class="alert alert-success" *ngIf="success" customTranslate="settings.messages.success">
         <strong>Settings saved!</strong>
