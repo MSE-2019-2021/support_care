@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -13,12 +13,11 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class UserInfoComponent implements OnInit {
   account!: Account;
-  success = false;
   languages = LANGUAGES;
   settingsForm = this.fb.group({
-    firstName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    lastName: [undefined, [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-    email: [undefined, [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    firstName: [undefined],
+    lastName: [undefined],
+    email: [undefined],
     langKey: [undefined],
   });
 
