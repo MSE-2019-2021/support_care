@@ -28,14 +28,14 @@ public class AdministrationCriteria implements Serializable, Criteria {
 
     private StringFilter type;
 
-    private LongFilter drugId;
+    private LongFilter activeSubstanceId;
 
     public AdministrationCriteria() {}
 
     public AdministrationCriteria(AdministrationCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.type = other.type == null ? null : other.type.copy();
-        this.drugId = other.drugId == null ? null : other.drugId.copy();
+        this.activeSubstanceId = other.activeSubstanceId == null ? null : other.activeSubstanceId.copy();
     }
 
     @Override
@@ -59,12 +59,12 @@ public class AdministrationCriteria implements Serializable, Criteria {
         this.type = type;
     }
 
-    public LongFilter getDrugId() {
-        return drugId;
+    public LongFilter getActiveSubstanceId() {
+        return activeSubstanceId;
     }
 
-    public void setDrugId(LongFilter drugId) {
-        this.drugId = drugId;
+    public void setActiveSubstanceId(LongFilter activeSubstanceId) {
+        this.activeSubstanceId = activeSubstanceId;
     }
 
     @Override
@@ -76,12 +76,12 @@ public class AdministrationCriteria implements Serializable, Criteria {
             return false;
         }
         final AdministrationCriteria that = (AdministrationCriteria) o;
-        return Objects.equals(id, that.id) && Objects.equals(type, that.type) && Objects.equals(drugId, that.drugId);
+        return Objects.equals(id, that.id) && Objects.equals(type, that.type) && Objects.equals(activeSubstanceId, that.activeSubstanceId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, drugId);
+        return Objects.hash(id, type, activeSubstanceId);
     }
 
     // prettier-ignore
@@ -90,7 +90,7 @@ public class AdministrationCriteria implements Serializable, Criteria {
         return "AdministrationCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (type != null ? "type=" + type + ", " : "") +
-                (drugId != null ? "drugId=" + drugId + ", " : "") +
+                (activeSubstanceId != null ? "activeSubstanceId=" + activeSubstanceId + ", " : "") +
             "}";
     }
 }

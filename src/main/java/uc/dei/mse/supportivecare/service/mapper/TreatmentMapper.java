@@ -9,10 +9,6 @@ import uc.dei.mse.supportivecare.service.dto.TreatmentDTO;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface TreatmentMapper extends EntityMapper<TreatmentDTO, Treatment> {
-    @Mapping(target = "therapeuticRegimes", ignore = true)
-    @Mapping(target = "removeTherapeuticRegime", ignore = true)
-    Treatment toEntity(TreatmentDTO treatmentDTO);
-
     @Named("type")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "id", source = "id")

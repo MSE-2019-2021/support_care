@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="document">
+      <h2 data-cy="documentDetailsHeading"><span customTranslate="supportivecareApp.document.detail.title">Document</span></h2>
+
+      <hr />
+
+      <custom-alert-error></custom-alert-error>
+
+      <custom-alert></custom-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span customTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ document.id }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.document.title" [ngbTooltip]="'supportivecareApp.document.help.title' | translate">Title</span>
+        </dt>
+        <dd>
+          <span>{{ document.title }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.document.size" [ngbTooltip]="'supportivecareApp.document.help.size' | translate">Size</span>
+        </dt>
+        <dd>
+          <span>{{ document.size }}</span>
+        </dd>
+        <dt>
+          <span customTranslate="supportivecareApp.document.mimeType" [ngbTooltip]="'supportivecareApp.document.help.mimeType' | translate">Mime Type</span>
+        </dt>
+        <dd>
+          <span>{{ document.mimeType }}</span>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.document.content">Content</span></dt>
+        <dd>
+          <div *ngIf="document.content">
+            <a [routerLink]="['/content', document.content?.id, 'view']">{{ document.content?.id }}</a>
+          </div>
+        </dd>
+        <dt><span customTranslate="supportivecareApp.document.outcome">Outcome</span></dt>
+        <dd>
+          <div *ngIf="document.outcome">
+            <a [routerLink]="['/outcome', document.outcome?.id, 'view']">{{ document.outcome?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/document', document.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

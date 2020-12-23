@@ -1,0 +1,29 @@
+<div class="mainWrapper">
+  <div class="listHeaderWrapper">
+    <h2 class="h2-color" id="page-heading" data-cy="TherapeuticRegimeHeading" customTranslate="supportivecareApp.therapeuticRegime.home.title"></h2>
+    <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/therapeutic-regime/new']">
+      <fa-icon icon="pills" slot="start"></fa-icon>
+      <span customTranslate="supportivecareApp.therapeuticRegime.home.createLabel"></span>
+    </button>
+  </div>
+  <custom-alert-error></custom-alert-error>
+  <custom-alert></custom-alert>
+  <div class="alert alert-warning" id="no-result" *ngIf="therapeuticRegimes?.length === 0">
+    <span customTranslate="supportivecareApp.therapeuticRegime.home.notFound">No therapeuticRegimes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="therapeuticRegimes && therapeuticRegimes.length > 0">
+    <table class="table table-striped border-style" aria-describedby="page-heading">
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let therapeuticRegime of therapeuticRegimes; trackBy: trackId" data-cy="entityTable">
+          <td class="table-item" [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">
+            <a data-cy="entityDetailsButton" [routerLink]="['/therapeutic-regime', therapeuticRegime.id, 'view']">
+              <span class="list-text-color-bold">{{ therapeuticRegime.name }}</span
+              ><span *ngIf="therapeuticRegime.acronym" class="list-text-color"> ({{ therapeuticRegime.acronym }})</span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

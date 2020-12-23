@@ -31,8 +31,8 @@ describe('Document e2e test', () => {
     cy.visit('/');
   });
 
-  /* this test is commented because it contains required relationships
-  it('should load Documents', () => {
+  /*
+  it.only('should load Documents', () => {
     cy.server();
     cy.route('GET', '/api/documents*').as('entitiesRequest');
     cy.visit('/');

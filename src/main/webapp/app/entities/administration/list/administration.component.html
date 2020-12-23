@@ -1,0 +1,63 @@
+<div>
+  <h2 id="page-heading" data-cy="AdministrationHeading">
+    <span customTranslate="supportivecareApp.administration.home.title">Administrations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span customTranslate="supportivecareApp.administration.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-administration" [routerLink]="['/administration/new']">
+        <fa-icon icon="plus"></fa-icon>
+        <span customTranslate="supportivecareApp.administration.home.createLabel"> Create a new Administration </span>
+      </button>
+    </div>
+  </h2>
+
+  <custom-alert-error></custom-alert-error>
+
+  <custom-alert></custom-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="administrations?.length === 0">
+    <span customTranslate="supportivecareApp.administration.home.notFound">No administrations found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="administrations && administrations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr customSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+          <th scope="col" customSortBy="id"><span customTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" customSortBy="type"><span customTranslate="supportivecareApp.administration.type">Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let administration of administrations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/administration', administration.id, 'view']">{{ administration.id }}</a>
+          </td>
+          <td>{{ administration.type }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/administration', administration.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/administration', administration.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(administration)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" customTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
 import { DEBUG_INFO_ENABLED } from 'app/app.constants';
-import { Authority } from 'app/core/user/authority.model';
+import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 
@@ -31,6 +31,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
         },
         {
           path: 'home',
+          data: {
+            authorities: [Authority.VIEWER],
+          },
+          canActivate: [UserRouteAccessService],
           loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
         },
 

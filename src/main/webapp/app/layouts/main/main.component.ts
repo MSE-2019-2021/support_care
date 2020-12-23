@@ -8,7 +8,7 @@ import { AccountService } from 'app/core/auth/account.service';
 @Component({
   selector: 'custom-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.scss'],
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
   private renderer: Renderer2;

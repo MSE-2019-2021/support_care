@@ -49,7 +49,7 @@ public class ToxicityRateService {
      * @param toxicityRateDTO the entity to update partially.
      * @return the persisted entity.
      */
-    public ToxicityRateDTO partialUpdate(ToxicityRateDTO toxicityRateDTO) {
+    public Optional<ToxicityRateDTO> partialUpdate(ToxicityRateDTO toxicityRateDTO) {
         log.debug("Request to partially update ToxicityRate : {}", toxicityRateDTO);
 
         return toxicityRateRepository
@@ -84,8 +84,7 @@ public class ToxicityRateService {
                 }
             )
             .map(toxicityRateRepository::save)
-            .map(toxicityRateMapper::toDto)
-            .get();
+            .map(toxicityRateMapper::toDto);
     }
 
     /**

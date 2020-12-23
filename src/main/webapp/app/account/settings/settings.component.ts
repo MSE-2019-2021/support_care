@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { JhiLanguageService } from 'ng-jhipster';
-
+import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
-import { LANGUAGES } from 'app/core/config/language.constants';
+import { LANGUAGES } from 'app/config/language.constants';
+import { SettingsCancelDialogComponent } from 'app/account/settings/cancel/settings-cancel-dialog.component';
 
 @Component({
   selector: 'custom-settings',
@@ -21,7 +22,12 @@ export class SettingsComponent implements OnInit {
     langKey: [undefined],
   });
 
-  constructor(private accountService: AccountService, private fb: FormBuilder, private languageService: JhiLanguageService) {}
+  constructor(
+    private accountService: AccountService,
+    private fb: FormBuilder,
+    private translateService: TranslateService,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => {
@@ -38,6 +44,13 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  cancel(): void {
+    this.modalService.open(SettingsCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  }
+  previousState(): void {
+    window.history.back();
+  }
+
   save(): void {
     this.success = false;
 
@@ -51,8 +64,8 @@ export class SettingsComponent implements OnInit {
 
       this.accountService.authenticate(this.account);
 
-      if (this.account.langKey !== this.languageService.getCurrentLanguage()) {
-        this.languageService.changeLanguage(this.account.langKey);
+      if (this.account.langKey !== this.translateService.currentLang) {
+        this.translateService.use(this.account.langKey);
       }
     });
   }

@@ -15,10 +15,11 @@ public class TreatmentDTO extends AbstractAuditingDTO implements Serializable {
     private Long id;
 
     /**
-     * Tipo de Tratamento.
+     * Tipo de tratamento.
      */
     @NotNull
-    @ApiModelProperty(value = "Tipo de Tratamento.", required = true)
+    @Size(max = 100)
+    @ApiModelProperty(value = "Tipo de tratamento.", required = true)
     private String type;
 
     public Long getId() {

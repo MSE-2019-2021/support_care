@@ -110,7 +110,7 @@ public class ToxicityRateResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<ToxicityRateDTO> result = Optional.ofNullable(toxicityRateService.partialUpdate(toxicityRateDTO));
+        Optional<ToxicityRateDTO> result = toxicityRateService.partialUpdate(toxicityRateDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

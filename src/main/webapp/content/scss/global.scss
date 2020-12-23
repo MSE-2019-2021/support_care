@@ -21,12 +21,12 @@ button {
 
 /* Increase contrast of links to get 100% on Lighthouse Accessability Audit. Override this color if you want to change the link color, or use a Bootswatch theme */
 a {
-  color: #533f03;
+  color: $primary; //#533f03;
   font-weight: bold;
 }
 
 a:hover {
-  color: #533f03;
+  color: $primary; //#533f03;
 }
 h2 {
   padding-top: 23.46px;
@@ -118,7 +118,7 @@ Generic styles
 }
 
 .hand,
-[jhisortby] {
+[customsortby] {
   cursor: pointer;
 }
 
@@ -403,7 +403,6 @@ global styles
   width: 100%;
   margin-top: 40px;
   height: 50px;
-  background: #5c88f7;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -411,6 +410,35 @@ global styles
   width: 100%;
   margin-top: 20px;
   height: 50px;
-  background: #f6f6f6;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.panel-content-wrapper,
+.panel-content-wrapper:hover {
+  left: 0;
+  right: 8.79%;
+  top: 43.12%;
+  bottom: 52.12%;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  cursor: auto;
+}
+
+.card {
+  left: 0;
+  right: 6.84%;
+  top: 38.8%;
+  bottom: 44.44%;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 2%;
+  border-radius: 4px !important;
+  border: none !important;
+}
+
+.is-clickable {
+  cursor: pointer;
 }

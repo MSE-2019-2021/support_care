@@ -31,34 +31,34 @@ describe('ToxicityRate e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load ToxicityRates', () => {
-    cy.server();
-    cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('toxicity-rate');
-    cy.wait('@entitiesRequest');
-    cy.getEntityHeading('ToxicityRate').should('exist');
-    if (startingEntitiesCount === 0) {
-      cy.get(entityTableSelector).should('not.exist');
-    } else {
-      cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-    }
-    cy.visit('/');
-  });
-
-  it('should load details ToxicityRate page', () => {
-    cy.server();
-    cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('toxicity-rate');
-    cy.wait('@entitiesRequest');
-    if (startingEntitiesCount > 0) {
-      cy.get(entityDetailsButtonSelector).first().click({ force: true });
-      cy.getEntityDetailsHeading('toxicityRate');
-      cy.get(entityDetailsBackButtonSelector).should('exist');
-    }
-    cy.visit('/');
-  });
+  // it('should load ToxicityRates', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('toxicity-rate');
+  //   cy.wait('@entitiesRequest');
+  //   cy.getEntityHeading('ToxicityRate').should('exist');
+  //   if (startingEntitiesCount === 0) {
+  //     cy.get(entityTableSelector).should('not.exist');
+  //   } else {
+  //     cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
+  //   }
+  //   cy.visit('/');
+  // });
+  //
+  // it('should load details ToxicityRate page', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/toxicity-rates*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('toxicity-rate');
+  //   cy.wait('@entitiesRequest');
+  //   if (startingEntitiesCount > 0) {
+  //     cy.get(entityDetailsButtonSelector).first().click({ force: true });
+  //     cy.getEntityDetailsHeading('toxicityRate');
+  //     cy.get(entityDetailsBackButtonSelector).should('exist');
+  //   }
+  //   cy.visit('/');
+  // });
 
   // it('should load create ToxicityRate page', () => {
   //   cy.server();

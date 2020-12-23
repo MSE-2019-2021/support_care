@@ -1,0 +1,28 @@
+<div class="mainWrapper">
+  <div class="listHeaderWrapper">
+    <h2 class="h2-color" id="page-heading" data-cy="ActiveSubstanceHeading" customTranslate="supportivecareApp.activeSubstance.home.title">Active Substances</h2>
+    <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/active-substance/new']">
+      <fa-icon icon="pills" slot="start"></fa-icon>
+      <span customTranslate="supportivecareApp.activeSubstance.home.createLabel"> Create a new Active Substance </span>
+    </button>
+  </div>
+  <custom-alert-error></custom-alert-error>
+  <custom-alert></custom-alert>
+  <div class="alert alert-warning" id="no-result" *ngIf="activeSubstances?.length === 0">
+    <span customTranslate="supportivecareApp.activeSubstance.home.notFound">No activeSubstances found</span>
+  </div>
+  <div class="table-responsive" id="entities" *ngIf="activeSubstances && activeSubstances.length > 0">
+    <table class="table table-striped border-style" aria-describedby="page-heading">
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let activeSubstance of activeSubstances; trackBy: trackId" data-cy="entityTable">
+          <td class="table-item" [routerLink]="['/active-substance', activeSubstance.id, 'view']">
+            <a data-cy="entityDetailsButton" [routerLink]="['/active-substance', activeSubstance.id, 'view']">
+              <span class="list-text-color-bold"> {{ activeSubstance.name }} </span><span class="list-text-color-bold"> - {{ activeSubstance.dosage }} </span
+              ><span class="list-text-color-bold"> ({{ activeSubstance.form }})</span>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

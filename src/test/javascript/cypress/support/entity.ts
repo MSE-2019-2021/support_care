@@ -33,6 +33,10 @@ Cypress.Commands.add('getEntityUpdateHeading', (entityName: string) => {
   return cy.get(`[data-cy="${entityName}UpdateHeading"]`);
 });
 
+Cypress.Commands.add('getEntityCreateUpdateHeading', (entityName: string) => {
+  return cy.get(`[data-cy="${entityName}CreateUpdateHeading"]`);
+});
+
 Cypress.Commands.add('getEntityDetailsHeading', (entityInstanceName: string) => {
   return cy.get(`[data-cy="${entityInstanceName}DetailsHeading"]`);
 });

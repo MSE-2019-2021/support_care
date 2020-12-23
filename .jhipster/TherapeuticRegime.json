@@ -5,54 +5,65 @@
       "fieldName": "name",
       "fieldType": "String",
       "javadoc": "Nome.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "acronym",
       "fieldType": "String",
-      "javadoc": "Acrónimo."
+      "javadoc": "Acrônimo.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "50"
     },
     {
       "fieldName": "purpose",
       "fieldType": "String",
       "javadoc": "Propósito.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "condition",
       "fieldType": "String",
-      "javadoc": "Condição para administração.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Condições para administração.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "timing",
       "fieldType": "String",
-      "javadoc": "Calendarização."
+      "javadoc": "Calendarização.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "indication",
       "fieldType": "String",
       "javadoc": "Indicação para prescrição.",
-      "fieldValidateRules": ["required"]
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "criteria",
       "fieldType": "String",
-      "javadoc": "Critério de redução de dose.",
-      "fieldValidateRules": ["required"]
+      "javadoc": "Critérios de redução de dose.",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
-      "javadoc": "Outras informações."
+      "javadoc": "Outras informações.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "1000"
     }
   ],
   "relationships": [
     {
       "relationshipType": "many-to-many",
-      "otherEntityName": "drug",
+      "otherEntityName": "activeSubstance",
       "otherEntityRelationshipName": "therapeuticRegime",
-      "relationshipName": "drug",
+      "relationshipName": "activeSubstance",
       "otherEntityField": "name",
       "ownerSide": true
     },
@@ -73,7 +84,7 @@
       "ownerSide": false
     }
   ],
-  "javadoc": "Regime terapêutico.",
+  "javadoc": "Regime Terapêutico.",
   "entityTableName": "therapeutic_regime",
   "dto": "mapstruct",
   "pagination": "infinite-scroll",
@@ -83,6 +94,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201106162350",
+  "changelogDate": "20201220133045",
   "enableEntityAudit": true
 }

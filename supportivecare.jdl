@@ -14,8 +14,8 @@ application {
     cacheProvider caffeine,
     enableHibernateCache true,
     clientFramework angularX,
-    useSass true,
     jhiPrefix custom,
+    withAdminUi false,
     testFrameworks [cypress]
   }
   entities *
@@ -26,9 +26,9 @@ application {
 */
 entity Administration {
 	/**
-	* Tipo de Administração.
+	* Tipo de administração.
 	*/
-	type String required
+	type String required maxlength(100)
 }
 
 /**
@@ -38,29 +38,37 @@ entity Notice {
 	/**
 	* Descrição.
 	*/
-	description String required,
+	description String required maxlength(1000),
 	/**
 	* Avaliação.
 	*/
-	evaluation String required,
+	evaluation String required maxlength(1000),
 	/**
-	* Intervenção.
+	* Intervenção interdependente.
 	*/
-	intervention String required
+	intervention String required maxlength(1000)
 }
 
 /**
-* Medicamento.
+* Substância Ativa (ou DCI: Denominação Comum Internacional).
 */
-entity Drug {
+entity ActiveSubstance {
 	/**
-	* Nome do medicamento.
+	* Nome.
 	*/
-	name String required,
+	name String required maxlength(255),
 	/**
-	* Descrição.
+	* Dosagem.
 	*/
-	description String
+	dosage String required maxlength(30),
+	/**
+	* Forma Farmacêutica.
+	*/
+	form String required maxlength(255),
+	/**
+	* Descrição geral.
+	*/
+	description String maxlength(1000)
 }
 
 /**
@@ -68,47 +76,47 @@ entity Drug {
 */
 entity Treatment {
 	/**
-	* Tipo de Tratamento.
+	* Tipo de tratamento.
 	*/
-	type String required
+	type String required maxlength(100)
 }
 
 /**
-* Regime terapêutico.
+* Regime Terapêutico.
 */
 entity TherapeuticRegime {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(255),
 	/**
-	* Acrónimo.
+	* Acrônimo.
 	*/
-	acronym String,
+	acronym String maxlength(50),
 	/**
 	* Propósito.
 	*/
-	purpose String required,
+	purpose String required maxlength(1000),
 	/**
-	* Condição para administração.
+	* Condições para administração.
 	*/
-	condition String required,
+	condition String required maxlength(1000),
 	/**
 	* Calendarização.
 	*/
-	timing String,
+	timing String maxlength(255),
 	/**
 	* Indicação para prescrição.
 	*/
-    indication String required,
+    indication String required maxlength(1000),
 	/**
-	* Critério de redução de dose.
+	* Critérios de redução de dose.
 	*/
-    criteria String required,
+    criteria String required maxlength(1000),
 	/**
 	* Outras informações.
 	*/
-    notice String
+    notice String maxlength(1000)
 }
 
 /**
@@ -118,7 +126,7 @@ entity Document {
 	/**
 	* Título.
 	*/
-	title String required,
+	title String required maxlength(255),
 	/**
 	* Tamanho.
 	*/
@@ -126,7 +134,7 @@ entity Document {
 	/**
 	* Tipo de ficheiro.
 	*/
-  	mimeType String
+  	mimeType String maxlength(50)
 }
 
 /**
@@ -146,11 +154,11 @@ entity Outcome {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(255),
 	/**
 	* Descrição.
 	*/
-	description String
+	description String maxlength(1000)
 }
 
 /**
@@ -160,27 +168,27 @@ entity ToxicityRate {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(255),
 	/**
 	* Descrição.
 	*/
-	description String,
+	description String maxlength(1000),
 	/**
 	* Informação ao doente.
 	*/
-	notice String,
+	notice String maxlength(1000),
 	/**
 	* Intervenção autónoma.
 	*/
-    autonomousIntervention String,
+    autonomousIntervention String maxlength(1000),
 	/**
 	* Intervenção interdependente.
 	*/
-    interdependentIntervention String,
+    interdependentIntervention String maxlength(1000),
 	/**
 	* Suporte para auto-gestão.
 	*/
-    selfManagement String
+    selfManagement String maxlength(1000)
 }
 
 /**
@@ -190,11 +198,51 @@ entity Symptom {
 	/**
 	* Nome.
 	*/
-	name String required,
+	name String required maxlength(255),
 	/**
 	* Informação ao enfermeiro.
 	*/
-	notice String
+	notice String maxlength(1000)
+}
+
+/**
+* Entity Feedback.
+*/
+enum EntityFeedback {
+  DRUG (Drug),
+  THERAPEUTIC_REGIME (TherapeuticRegime),
+  OUTCOME (Outcome),
+  SYMPTOM (Symptom)
+}
+
+/**
+* Feedback.
+*/
+entity Feedback {
+	/**
+	* Nome da entidade.
+	*/
+	entityName EntityFeedback required,
+	/**
+	* Id da entidade.
+	*/
+	entityId Long required,
+	/**
+	* Polegar.
+	*/
+	thumb Boolean required,
+	/**
+	* Razão.
+	*/
+	reason String maxlength(1000),
+	/**
+	* Resolvido.
+	*/
+	solved Boolean required,
+	/**
+	* Anónimo.
+	*/
+	anonym Boolean required
 }
 
 relationship OneToOne {
@@ -202,17 +250,17 @@ relationship OneToOne {
 }
 
 relationship OneToMany {
-	Administration to Drug{administration(type) required},
+	Administration to ActiveSubstance{administration(type)},
+    ActiveSubstance{notice(description)} to Notice{activeSubstance(name) required},
     Treatment to TherapeuticRegime{treatment(type) required},
-    Outcome{document} to Document{outcome(name) required}
+    Outcome{document} to Document{outcome(name) required},
+    Symptom{toxicityRate(name)} to ToxicityRate{symptom(name)}
 }
 
 relationship ManyToMany {
-	Drug{notice(description)} to Notice{drug(name) required},
-	TherapeuticRegime{drug(name)} to Drug{therapeuticRegime(name)},
+	TherapeuticRegime{activeSubstance(name)} to ActiveSubstance{therapeuticRegime(name)},
     Symptom{therapeuticRegime(name)} to TherapeuticRegime{symptom(name)},
-    Symptom{outcome(name)} to Outcome{symptom(name)},
-    Symptom{toxicityRate(name)} to ToxicityRate{symptom(name)}
+    Symptom{outcome(name)} to Outcome{symptom(name)}
 }
 
 filter *

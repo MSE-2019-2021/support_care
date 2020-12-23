@@ -108,14 +108,13 @@ public class TherapeuticRegimeResource {
     @PatchMapping(value = "/therapeutic-regimes", consumes = "application/merge-patch+json")
     public ResponseEntity<TherapeuticRegimeDTO> partialUpdateTherapeuticRegime(
         @NotNull @RequestBody TherapeuticRegimeDTO therapeuticRegimeDTO
-    )
-        throws URISyntaxException {
+    ) throws URISyntaxException {
         log.debug("REST request to update TherapeuticRegime partially : {}", therapeuticRegimeDTO);
         if (therapeuticRegimeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<TherapeuticRegimeDTO> result = Optional.ofNullable(therapeuticRegimeService.partialUpdate(therapeuticRegimeDTO));
+        Optional<TherapeuticRegimeDTO> result = therapeuticRegimeService.partialUpdate(therapeuticRegimeDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

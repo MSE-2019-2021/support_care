@@ -107,7 +107,7 @@ public class OutcomeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<OutcomeDTO> result = Optional.ofNullable(outcomeService.partialUpdate(outcomeDTO));
+        Optional<OutcomeDTO> result = outcomeService.partialUpdate(outcomeDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

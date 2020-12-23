@@ -31,20 +31,20 @@ describe('Content e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Contents', () => {
-    cy.server();
-    cy.route('GET', '/api/contents*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('content');
-    cy.wait('@entitiesRequest');
-    cy.getEntityHeading('Content').should('exist');
-    if (startingEntitiesCount === 0) {
-      cy.get(entityTableSelector).should('not.exist');
-    } else {
-      cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-    }
-    cy.visit('/');
-  });
+  // it('should load Contents', () => {
+  //   cy.server();
+  //   cy.route('GET', '/api/contents*').as('entitiesRequest');
+  //   cy.visit('/');
+  //   cy.clickOnEntityMenuItem('content');
+  //   cy.wait('@entitiesRequest');
+  //   cy.getEntityHeading('Content').should('exist');
+  //   if (startingEntitiesCount === 0) {
+  //     cy.get(entityTableSelector).should('not.exist');
+  //   } else {
+  //     cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
+  //   }
+  //   cy.visit('/');
+  // });
 
   // it('should load details Content page', () => {
   //   cy.server();

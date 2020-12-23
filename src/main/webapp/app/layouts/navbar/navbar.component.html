@@ -1,91 +1,96 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md navbar-custom " *ngIf="isAuthenticated()">
-    <a class="navbar-brand logo" routerLink="/home" (click)="collapseNavbar()">
-        <span class="logo-img"></span>
-        <span jhiTranslate="global.title" class="navbar-title navbar-tittle-font">WikiCare</span> <span class="navbar-version" hidden>{{ version }}</span>
-    </a>
-    <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
-        <fa-icon icon="bars" class="white-text-color"></fa-icon>
-    </a>
-    <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
-        <ul class="navbar-nav md-auto">
-            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer navbar-arrow " display="static" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
-                </a>
-
-                <ul class="dropdown-menu main-menu-dropdown" ngbDropdownMenu aria-labelledby="entity-menu" >
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="administration" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.administration">Administration</span>
-                        </a>
-                    </li>
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="notice" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.notice" >Notice</span>
-                        </a>
-                    </li>
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="treatment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.treatment">Treatment</span>
-                        </a>
-                    </li>
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="document" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.document">Document</span>
-                        </a>
-                    </li>
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="content" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.content">Content</span>
-                        </a>
-                    </li>
-                    <li class="text-center" hidden>
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="toxicity-rate" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.toxicityRate">Toxicity Rate</span>
-                        </a>
-                    </li>
-                    <li class="text-center">
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="symptom" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.symptom">Symptom</span>
-                        </a>
-                    </li>
-                    <li class="text-center">
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="outcome" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.outcome">Outcome</span>
-                        </a>
-                    </li>
-                    <li class="text-center">
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="therapeutic-regime" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.therapeuticRegime">Therapeutic Regime</span>
-                        </a>
-                    </li>
-                    <li class="text-center">
-                        <a class="dropdown-item white-text-color dropdown-main-menu-item"  routerLink="drug" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.drug">Drug</span>
-                        </a>
-                    </li>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-                </ul>
-            </li>
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md navbar-custom" *ngIf="isAuthenticated()">
+  <a class="navbar-brand logo" routerLink="/home" (click)="collapseNavbar()">
+    <span class="logo-img"></span>
+    <span class="navbar-title navbar-tittle-font" customTranslate="global.title">Supportivecare</span> <span class="navbar-version">{{ version }}</span>
+  </a>
+  <a
+    class="navbar-toggler d-lg-none"
+    href="javascript:void(0);"
+    data-toggle="collapse"
+    data-target="#navbarResponsive"
+    aria-controls="navbarResponsive"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+    (click)="toggleNavbar()"
+  >
+    <fa-icon icon="bars" class="white-text-color"></fa-icon>
+  </a>
+  <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+    <ul class="navbar-nav md-auto">
+      <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+      <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer navbar-arrow" display="static" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity"> </a>
+        <ul class="dropdown-menu main-menu-dropdown" ngbDropdownMenu aria-labelledby="entity-menu">
+          <li class="text-center">
+            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="symptom" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <span customTranslate="global.menu.entities.symptom">Symptom</span>
+            </a>
+          </li>
+          <li class="text-center">
+            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="outcome" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <span customTranslate="global.menu.entities.outcome">Outcome</span>
+            </a>
+          </li>
+          <li class="text-center">
+            <a
+              class="dropdown-item white-text-color dropdown-main-menu-item"
+              routerLink="therapeutic-regime"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <span customTranslate="global.menu.entities.therapeuticRegime">Therapeutic Regime</span>
+            </a>
+          </li>
+          <li class="text-center">
+            <a
+              class="dropdown-item white-text-color dropdown-main-menu-item"
+              routerLink="active-substance"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="collapseNavbar()"
+            >
+              <span customTranslate="global.menu.entities.activeSubstance">Active Substance</span>
+            </a>
+          </li>
+          <li class="text-center" *customHasAnyAuthority="'ROLE_USER'">
+            <a class="dropdown-item white-text-color dropdown-main-menu-item" routerLink="feedback" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+              <span customTranslate="global.menu.entities.feedback">Feedback</span>
+            </a>
+          </li>
+          <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
         </ul>
-    </div>
-    <ul class="navbar-nav ml-auto">
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu it-->
-        <li ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link" routerLink="admin/user-management" routerLinkActive="active" id="admin-menu" data-cy="adminMenu">
-                    <span>
-                        <fa-icon icon="users-cog" class="white-text-color"></fa-icon>
-                    </span>
-            </a>
-        </li>
+      </li>
     </ul>
-    <ul class="navbar-nav ml-auto">
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu it-->
-        <li ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link" id="logout" data-cy="logout" (click)="logout()">
-                    <span>
-                        <fa-icon icon="sign-out-alt" class="white-text-color"></fa-icon>
-                    </span>
-            </a>
-        </li>
-    </ul>
+  </div>
+  <ul class="navbar-nav ml-auto">
+    <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu it-->
+    <li ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" routerLink="account/user-info" routerLinkActive="active" id="user-menu" data-cy="userMenu">
+        <span>
+          <fa-icon icon="user" class="white-text-color"></fa-icon>
+        </span>
+      </a>
+    </li>
+  </ul>
+  <ul *customHasAnyAuthority="'ROLE_ADMIN'" class="navbar-nav ml-auto">
+    <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu it-->
+    <li ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" routerLink="admin/user-management" routerLinkActive="active" id="admin-menu" data-cy="adminMenu">
+        <span>
+          <fa-icon icon="users-cog" class="white-text-color"></fa-icon>
+        </span>
+      </a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto">
+    <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu it-->
+    <li ngbDropdown class="nav-item dropdown pointer navbar-icon" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" id="logout" data-cy="logout" (click)="logout()">
+        <span>
+          <fa-icon icon="sign-out-alt" class="white-text-color"></fa-icon>
+        </span>
+      </a>
+    </li>
+  </ul>
 </nav>

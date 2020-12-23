@@ -10,7 +10,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
- * Regime terapêutico.
+ * Regime Terapêutico.
  */
 @Entity
 @Table(name = "therapeutic_regime")
@@ -20,72 +20,85 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_therapeutic_regime_id_seq")
+    @SequenceGenerator(
+        name = "gen_therapeutic_regime_id_seq",
+        sequenceName = "therapeutic_regime_id_seq",
+        initialValue = 1,
+        allocationSize = 1
+    )
     private Long id;
 
     /**
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 255)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
     /**
-     * Acrónimo.
+     * Acrônimo.
      */
-    @Column(name = "acronym")
+    @Size(max = 50)
+    @Column(name = "acronym", length = 50)
     private String acronym;
 
     /**
      * Propósito.
      */
     @NotNull
-    @Column(name = "purpose", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "purpose", length = 1000, nullable = false)
     private String purpose;
 
     /**
-     * Condição para administração.
+     * Condições para administração.
      */
     @NotNull
-    @Column(name = "condition", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "condition", length = 1000, nullable = false)
     private String condition;
 
     /**
      * Calendarização.
      */
-    @Column(name = "timing")
+    @Size(max = 255)
+    @Column(name = "timing", length = 255)
     private String timing;
 
     /**
      * Indicação para prescrição.
      */
     @NotNull
-    @Column(name = "indication", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "indication", length = 1000, nullable = false)
     private String indication;
 
     /**
-     * Critério de redução de dose.
+     * Critérios de redução de dose.
      */
     @NotNull
-    @Column(name = "criteria", nullable = false)
+    @Size(max = 1000)
+    @Column(name = "criteria", length = 1000, nullable = false)
     private String criteria;
 
     /**
      * Outras informações.
      */
-    @Column(name = "notice")
+    @Size(max = 1000)
+    @Column(name = "notice", length = 1000)
     private String notice;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(
-        name = "therapeutic_regime_drug",
-        joinColumns = @JoinColumn(name = "therapeutic_regime_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "drug_id", referencedColumnName = "id")
+        name = "rel_therapeutic_regime__active_substance",
+        joinColumns = @JoinColumn(name = "therapeutic_regime_id"),
+        inverseJoinColumns = @JoinColumn(name = "active_substance_id")
     )
     @JsonIgnoreProperties(value = { "notices", "administration", "therapeuticRegimes" }, allowSetters = true)
-    private Set<Drug> drugs = new HashSet<>();
+    private Set<ActiveSubstance> activeSubstances = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -94,7 +107,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     @ManyToMany(mappedBy = "therapeuticRegimes")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "therapeuticRegimes", "outcomes", "toxicityRates" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "toxicityRates", "therapeuticRegimes", "outcomes" }, allowSetters = true)
     private Set<Symptom> symptoms = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -112,7 +125,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public TherapeuticRegime name(String name) {
@@ -125,7 +138,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getAcronym() {
-        return acronym;
+        return this.acronym;
     }
 
     public TherapeuticRegime acronym(String acronym) {
@@ -138,7 +151,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getPurpose() {
-        return purpose;
+        return this.purpose;
     }
 
     public TherapeuticRegime purpose(String purpose) {
@@ -151,7 +164,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getCondition() {
-        return condition;
+        return this.condition;
     }
 
     public TherapeuticRegime condition(String condition) {
@@ -164,7 +177,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getTiming() {
-        return timing;
+        return this.timing;
     }
 
     public TherapeuticRegime timing(String timing) {
@@ -177,7 +190,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getIndication() {
-        return indication;
+        return this.indication;
     }
 
     public TherapeuticRegime indication(String indication) {
@@ -190,7 +203,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getCriteria() {
-        return criteria;
+        return this.criteria;
     }
 
     public TherapeuticRegime criteria(String criteria) {
@@ -203,7 +216,7 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public String getNotice() {
-        return notice;
+        return this.notice;
     }
 
     public TherapeuticRegime notice(String notice) {
@@ -215,37 +228,37 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
         this.notice = notice;
     }
 
-    public Set<Drug> getDrugs() {
-        return drugs;
+    public Set<ActiveSubstance> getActiveSubstances() {
+        return this.activeSubstances;
     }
 
-    public TherapeuticRegime drugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public TherapeuticRegime activeSubstances(Set<ActiveSubstance> activeSubstances) {
+        this.setActiveSubstances(activeSubstances);
         return this;
     }
 
-    public TherapeuticRegime addDrug(Drug drug) {
-        this.drugs.add(drug);
-        drug.getTherapeuticRegimes().add(this);
+    public TherapeuticRegime addActiveSubstance(ActiveSubstance activeSubstance) {
+        this.activeSubstances.add(activeSubstance);
+        activeSubstance.getTherapeuticRegimes().add(this);
         return this;
     }
 
-    public TherapeuticRegime removeDrug(Drug drug) {
-        this.drugs.remove(drug);
-        drug.getTherapeuticRegimes().remove(this);
+    public TherapeuticRegime removeActiveSubstance(ActiveSubstance activeSubstance) {
+        this.activeSubstances.remove(activeSubstance);
+        activeSubstance.getTherapeuticRegimes().remove(this);
         return this;
     }
 
-    public void setDrugs(Set<Drug> drugs) {
-        this.drugs = drugs;
+    public void setActiveSubstances(Set<ActiveSubstance> activeSubstances) {
+        this.activeSubstances = activeSubstances;
     }
 
     public Treatment getTreatment() {
-        return treatment;
+        return this.treatment;
     }
 
     public TherapeuticRegime treatment(Treatment treatment) {
-        this.treatment = treatment;
+        this.setTreatment(treatment);
         return this;
     }
 
@@ -254,11 +267,11 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public Set<Symptom> getSymptoms() {
-        return symptoms;
+        return this.symptoms;
     }
 
     public TherapeuticRegime symptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+        this.setSymptoms(symptoms);
         return this;
     }
 
@@ -275,6 +288,12 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
     }
 
     public void setSymptoms(Set<Symptom> symptoms) {
+        if (this.symptoms != null) {
+            this.symptoms.forEach(i -> i.removeTherapeuticRegime(this));
+        }
+        if (symptoms != null) {
+            symptoms.forEach(i -> i.addTherapeuticRegime(this));
+        }
         this.symptoms = symptoms;
     }
 
@@ -293,7 +312,8 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

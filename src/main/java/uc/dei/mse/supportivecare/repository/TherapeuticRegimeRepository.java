@@ -15,16 +15,16 @@ import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
 @Repository
 public interface TherapeuticRegimeRepository extends JpaRepository<TherapeuticRegime, Long>, JpaSpecificationExecutor<TherapeuticRegime> {
     @Query(
-        value = "select distinct therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.drugs",
+        value = "select distinct therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.activeSubstances",
         countQuery = "select count(distinct therapeuticRegime) from TherapeuticRegime therapeuticRegime"
     )
     Page<TherapeuticRegime> findAllWithEagerRelationships(Pageable pageable);
 
-    @Query("select distinct therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.drugs")
+    @Query("select distinct therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.activeSubstances")
     List<TherapeuticRegime> findAllWithEagerRelationships();
 
     @Query(
-        "select therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.drugs where therapeuticRegime.id =:id"
+        "select therapeuticRegime from TherapeuticRegime therapeuticRegime left join fetch therapeuticRegime.activeSubstances where therapeuticRegime.id =:id"
     )
     Optional<TherapeuticRegime> findOneWithEagerRelationships(@Param("id") Long id);
 }

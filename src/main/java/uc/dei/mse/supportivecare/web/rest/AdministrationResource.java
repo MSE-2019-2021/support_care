@@ -110,7 +110,7 @@ public class AdministrationResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<AdministrationDTO> result = Optional.ofNullable(administrationService.partialUpdate(administrationDTO));
+        Optional<AdministrationDTO> result = administrationService.partialUpdate(administrationDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

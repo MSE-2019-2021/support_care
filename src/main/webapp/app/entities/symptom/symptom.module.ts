@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { SymptomComponent } from './symptom.component';
-import { SymptomDetailComponent } from './symptom-detail.component';
-import { SymptomUpdateComponent } from './symptom-update.component';
-import { SymptomDeleteDialogComponent } from './symptom-delete-dialog.component';
+import { SymptomComponent } from './list/symptom.component';
+import { SymptomDetailComponent } from './detail/symptom-detail.component';
+import { SymptomUpdateComponent } from './update/symptom-update.component';
+import { SymptomDeleteDialogComponent } from './delete/symptom-delete-dialog.component';
+import { SymptomRoutingModule } from './route/symptom-routing.module';
 
 @NgModule({
-  imports: [SharedModule, RouterModule],
+  imports: [SharedModule, SymptomRoutingModule],
   declarations: [SymptomComponent, SymptomDetailComponent, SymptomUpdateComponent, SymptomDeleteDialogComponent],
-  exports: [SymptomDetailComponent, SymptomUpdateComponent, SymptomDeleteDialogComponent],
   entryComponents: [SymptomDeleteDialogComponent],
 })
 export class SymptomModule {}

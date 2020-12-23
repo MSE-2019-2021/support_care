@@ -7,16 +7,17 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "administration": "Administration",
+        "administration": "Administrations",
         "notice": "Notice",
-        "drug": "Drugs",
-        "treatment": "Treatment",
+        "activeSubstance": "Active Substances",
+        "treatment": "Treatments",
         "therapeuticRegime": "Therapeutic Regimes",
         "document": "Document",
         "content": "Content",
-        "outcome": "Outcome",
+        "outcome": "PROMs",
         "toxicityRate": "Toxicity Rate",
         "symptom": "Symptoms",
+        "feedback": "Feedbacks",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -76,7 +77,7 @@
           "required": "Your password is required.",
           "minlength": "Your password is required to be at least 4 characters.",
           "maxlength": "Your password cannot be longer than 50 characters.",
-          "strength": "Password strength:"
+          "strength": ""
         },
         "confirmpassword": {
           "required": "Your confirmation password is required.",

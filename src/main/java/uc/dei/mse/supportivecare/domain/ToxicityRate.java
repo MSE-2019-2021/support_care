@@ -2,8 +2,6 @@ package uc.dei.mse.supportivecare.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.hibernate.annotations.Cache;
@@ -20,51 +18,56 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_toxicity_rate_id_seq")
+    @SequenceGenerator(name = "gen_toxicity_rate_id_seq", sequenceName = "toxicity_rate_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**
      * Nome.
      */
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 255)
+    @Column(name = "name", length = 255, nullable = false)
     private String name;
 
     /**
      * Descrição.
      */
-    @Column(name = "description")
+    @Size(max = 1000)
+    @Column(name = "description", length = 1000)
     private String description;
 
     /**
      * Informação ao doente.
      */
-    @Column(name = "notice")
+    @Size(max = 1000)
+    @Column(name = "notice", length = 1000)
     private String notice;
 
     /**
      * Intervenção autónoma.
      */
-    @Column(name = "autonomous_intervention")
+    @Size(max = 1000)
+    @Column(name = "autonomous_intervention", length = 1000)
     private String autonomousIntervention;
 
     /**
      * Intervenção interdependente.
      */
-    @Column(name = "interdependent_intervention")
+    @Size(max = 1000)
+    @Column(name = "interdependent_intervention", length = 1000)
     private String interdependentIntervention;
 
     /**
      * Suporte para auto-gestão.
      */
-    @Column(name = "self_management")
+    @Size(max = 1000)
+    @Column(name = "self_management", length = 1000)
     private String selfManagement;
 
-    @ManyToMany(mappedBy = "toxicityRates")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "therapeuticRegimes", "outcomes", "toxicityRates" }, allowSetters = true)
-    private Set<Symptom> symptoms = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "toxicityRates", "therapeuticRegimes", "outcomes" }, allowSetters = true)
+    private Symptom symptom;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -81,7 +84,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public ToxicityRate name(String name) {
@@ -94,7 +97,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public ToxicityRate description(String description) {
@@ -107,7 +110,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getNotice() {
-        return notice;
+        return this.notice;
     }
 
     public ToxicityRate notice(String notice) {
@@ -120,7 +123,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getAutonomousIntervention() {
-        return autonomousIntervention;
+        return this.autonomousIntervention;
     }
 
     public ToxicityRate autonomousIntervention(String autonomousIntervention) {
@@ -133,7 +136,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getInterdependentIntervention() {
-        return interdependentIntervention;
+        return this.interdependentIntervention;
     }
 
     public ToxicityRate interdependentIntervention(String interdependentIntervention) {
@@ -146,7 +149,7 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     }
 
     public String getSelfManagement() {
-        return selfManagement;
+        return this.selfManagement;
     }
 
     public ToxicityRate selfManagement(String selfManagement) {
@@ -158,29 +161,17 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
         this.selfManagement = selfManagement;
     }
 
-    public Set<Symptom> getSymptoms() {
-        return symptoms;
+    public Symptom getSymptom() {
+        return this.symptom;
     }
 
-    public ToxicityRate symptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+    public ToxicityRate symptom(Symptom symptom) {
+        this.setSymptom(symptom);
         return this;
     }
 
-    public ToxicityRate addSymptom(Symptom symptom) {
-        this.symptoms.add(symptom);
-        symptom.getToxicityRates().add(this);
-        return this;
-    }
-
-    public ToxicityRate removeSymptom(Symptom symptom) {
-        this.symptoms.remove(symptom);
-        symptom.getToxicityRates().remove(this);
-        return this;
-    }
-
-    public void setSymptoms(Set<Symptom> symptoms) {
-        this.symptoms = symptoms;
+    public void setSymptom(Symptom symptom) {
+        this.symptom = symptom;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -198,7 +189,8 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore

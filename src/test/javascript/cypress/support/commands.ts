@@ -20,6 +20,7 @@
 // Navbar
 export const navbarSelector = '[data-cy="navbar"]';
 export const adminMenuSelector = '[data-cy="adminMenu"]';
+export const userMenuSelector = '[data-cy="userMenu"]';
 export const accountMenuSelector = '[data-cy="accountMenu"]';
 export const registerItemSelector = '[data-cy="register"]';
 export const settingsItemSelector = '[data-cy="settings"]';
@@ -63,10 +64,6 @@ export const submitInitResetPasswordSelector = '[data-cy="submit"]';
 
 // Administration
 export const userManagementPageHeadingSelector = '[data-cy="userManagementPageHeading"]';
-export const metricsPageHeadingSelector = '[data-cy="metricsPageHeading"]';
-export const healthPageHeadingSelector = '[data-cy="healthPageHeading"]';
-export const logsPageHeadingSelector = '[data-cy="logsPageHeading"]';
-export const configurationPageHeadingSelector = '[data-cy="configurationPageHeading"]';
 
 // ***********************************************
 // End Specific Selector Attributes for Cypress

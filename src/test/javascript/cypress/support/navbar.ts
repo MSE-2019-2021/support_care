@@ -11,6 +11,7 @@ import {
   settingsItemSelector,
   passwordItemSelector,
   entityItemSelector,
+  userMenuSelector,
 } from './commands';
 
 Cypress.Commands.add('clickOnLoginItem', () => {
@@ -34,12 +35,11 @@ Cypress.Commands.add('clickOnPasswordItem', () => {
 });
 
 Cypress.Commands.add('clickOnAdminMenuItem', (item: string) => {
-  return cy
-    .get(navbarSelector)
-    .get(adminMenuSelector)
-    .click({ force: true })
-    .get(`.nav-link[routerLink="admin/${item}"]`)
-    .click({ force: true });
+  return cy.get(navbarSelector).get(adminMenuSelector).click({ force: true }).get(adminMenuSelector).click({ force: true });
+});
+
+Cypress.Commands.add('clickOnUserMenuItem', (item: string) => {
+  return cy.get(navbarSelector).get(userMenuSelector).click({ force: true }).get(userMenuSelector).click({ force: true });
 });
 
 Cypress.Commands.add('clickOnEntityMenuItem', (entityName: string) => {
@@ -61,6 +61,7 @@ declare global {
       clickOnPasswordItem(): Cypress.Chainable;
       clickOnAdminMenuItem(item: string): Cypress.Chainable;
       clickOnEntityMenuItem(entityName: string): Cypress.Chainable;
+      clickOnUserMenuItem(item: string): Cypress.Chainable;
     }
   }
 }

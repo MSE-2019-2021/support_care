@@ -107,7 +107,7 @@ public class DocumentResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Optional<DocumentDTO> result = Optional.ofNullable(documentService.partialUpdate(documentDTO));
+        Optional<DocumentDTO> result = documentService.partialUpdate(documentDTO);
 
         return ResponseUtil.wrapOrNotFound(
             result,

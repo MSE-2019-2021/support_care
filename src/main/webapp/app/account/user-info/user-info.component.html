@@ -1,0 +1,23 @@
+<div class="entityWrapper">
+  <div class="listHeaderWrapper">
+    <h2 class="text-primary font-weight-bold" customTranslate="user-info.title" *ngIf="account">User settings</h2>
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-info mr-2" routerLink="/account/password" routerLinkActive="active" data-cy="passwordItem">
+        <fa-icon icon="lock"></fa-icon> <span customTranslate="user-info.password">Change Password</span>
+      </a>
+      <a class="btn btn-info" routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
+        <fa-icon icon="pencil-alt"></fa-icon> <span customTranslate="user-info.profile">Edit profile</span>
+      </a>
+    </div>
+  </div>
+  <div class="mainWrapper entityInfoWrapper">
+    <div class="sectionWrapper">
+      <div class="form-group col-lg-9 mt-4 mb-4 mr-2">
+        <h5 customTranslate="user-info.list.name" [translateValues]="{ username: account.firstName }" *ngIf="account"></h5>
+        <h5 customTranslate="user-info.list.lastname" [translateValues]="{ username: account.lastName }" *ngIf="account"></h5>
+        <h5 customTranslate="user-info.list.email" [translateValues]="{ username: account.email }" *ngIf="account"></h5>
+        <h5 customTranslate="user-info.list.language" [translateValues]="{ username: account.langKey }" *ngIf="account"></h5>
+      </div>
+    </div>
+  </div>
+</div>

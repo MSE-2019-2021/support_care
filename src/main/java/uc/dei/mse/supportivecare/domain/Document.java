@@ -18,15 +18,16 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-    @SequenceGenerator(name = "sequenceGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen_document_id_seq")
+    @SequenceGenerator(name = "gen_document_id_seq", sequenceName = "document_id_seq", initialValue = 1, allocationSize = 1)
     private Long id;
 
     /**
      * Título.
      */
     @NotNull
-    @Column(name = "title", nullable = false)
+    @Size(max = 255)
+    @Column(name = "title", length = 255, nullable = false)
     private String title;
 
     /**
@@ -39,7 +40,8 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     /**
      * Tipo de ficheiro.
      */
-    @Column(name = "mime_type")
+    @Size(max = 50)
+    @Column(name = "mime_type", length = 50)
     private String mimeType;
 
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
@@ -67,7 +69,7 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public Document title(String title) {
@@ -80,7 +82,7 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     }
 
     public Long getSize() {
-        return size;
+        return this.size;
     }
 
     public Document size(Long size) {
@@ -93,7 +95,7 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     }
 
     public String getMimeType() {
-        return mimeType;
+        return this.mimeType;
     }
 
     public Document mimeType(String mimeType) {
@@ -106,11 +108,11 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     }
 
     public Content getContent() {
-        return content;
+        return this.content;
     }
 
     public Document content(Content content) {
-        this.content = content;
+        this.setContent(content);
         return this;
     }
 
@@ -119,11 +121,11 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     }
 
     public Outcome getOutcome() {
-        return outcome;
+        return this.outcome;
     }
 
     public Document outcome(Outcome outcome) {
-        this.outcome = outcome;
+        this.setOutcome(outcome);
         return this;
     }
 
@@ -146,7 +148,8 @@ public class Document extends AbstractAuditingEntity implements Serializable {
 
     @Override
     public int hashCode() {
-        return 31;
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
     }
 
     // prettier-ignore
