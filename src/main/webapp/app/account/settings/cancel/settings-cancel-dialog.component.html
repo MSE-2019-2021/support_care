@@ -1,0 +1,19 @@
+<form name="cancelForm" (ngSubmit)="cancel()">
+  <div class="modal-header">
+    <h5 class="modal-title mb-1" data-cy="passwordCancelDialogHeading" customTranslate="settings.cancel.title">Deseja sair da edição de perfil</h5>
+  </div>
+
+  <div class="modal-body">
+    <p customTranslate="settings.cancel.question">Ao sair irá perder toda a informação inserida.</p>
+  </div>
+
+  <div class="modal-footer">
+    <button data-cy="entityConfirmCancelButton" (click)="cancel(); goBack()" type="button" class="btn btn-danger">
+      <span class="button-text" customTranslate="settings.form.leave">Sair da edição</span>
+    </button>
+
+    <button type="button" class="btn button-transparent mr-auto" data-dismiss="modal" (click)="cancel()">
+      <span class="button-text list-text-color" customTranslate="settings.form.cancel">Cancelar</span>
+    </button>
+  </div>
+</form>

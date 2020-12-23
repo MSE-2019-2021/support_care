@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { LANGUAGES } from 'app/config/language.constants';
-import { SettingsCancelDialogComponent } from 'app/account/settings/cancel/settings-cancel-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'custom-settings',
-  templateUrl: './settings.component.html',
+  selector: 'custom-user-info',
+  templateUrl: './user-info.component.html',
 })
-export class SettingsComponent implements OnInit {
+export class UserInfoComponent implements OnInit {
   account!: Account;
   success = false;
   languages = LANGUAGES;
@@ -24,8 +24,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private fb: FormBuilder,
     private translateService: TranslateService,
+    private fb: FormBuilder,
     protected modalService: NgbModal
   ) {}
 
@@ -40,32 +40,6 @@ export class SettingsComponent implements OnInit {
         });
 
         this.account = account;
-      }
-    });
-  }
-
-  cancel(): void {
-    this.modalService.open(SettingsCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-  }
-  previousState(): void {
-    window.history.back();
-  }
-
-  save(): void {
-    this.success = false;
-
-    this.account.firstName = this.settingsForm.get('firstName')!.value;
-    this.account.lastName = this.settingsForm.get('lastName')!.value;
-    this.account.email = this.settingsForm.get('email')!.value;
-    this.account.langKey = this.settingsForm.get('langKey')!.value;
-
-    this.accountService.save(this.account).subscribe(() => {
-      this.success = true;
-
-      this.accountService.authenticate(this.account);
-
-      if (this.account.langKey !== this.translateService.currentLang) {
-        this.translateService.use(this.account.langKey);
       }
     });
   }
