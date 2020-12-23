@@ -36,7 +36,7 @@ public class DocumentMapper {
     public DocumentDTO multiPartFileToDocument(MultipartFile file) {
         DocumentDTO document = new DocumentDTO();
         document.setTitle(file.getOriginalFilename());
-        document.setSize(new Long(file.getSize()));
+        document.setSize(file.getSize());
         document.setMimeType(file.getContentType());
         try {
             document.addContent(file.getBytes());

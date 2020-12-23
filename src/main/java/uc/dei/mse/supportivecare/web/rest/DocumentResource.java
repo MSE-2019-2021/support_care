@@ -145,7 +145,7 @@ public class DocumentResource {
     @GetMapping("/documents/{id}/$content")
     @Timed
     public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
-        Document document = documentRepository.findOneById(id).orElseThrow(DocumentNotFoundException::new);
+        DocumentDTO document = documentService.findOne(id).orElseThrow(DocumentNotFoundException::new);
 
         return ResponseEntity
             .ok()

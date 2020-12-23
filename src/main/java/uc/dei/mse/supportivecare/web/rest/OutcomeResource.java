@@ -27,6 +27,7 @@ import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.repository.OutcomeRepository;
+import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
@@ -54,9 +55,17 @@ public class OutcomeResource {
 
     private final OutcomeQueryService outcomeQueryService;
 
-    public OutcomeResource(OutcomeService outcomeService, OutcomeQueryService outcomeQueryService, DocumentMapper documentMapper) {
+    private final DocumentService documentService;
+
+    public OutcomeResource(
+        OutcomeService outcomeService,
+        OutcomeQueryService outcomeQueryService,
+        DocumentMapper documentMapper,
+        DocumentService documentService
+    ) {
         this.outcomeService = outcomeService;
         this.outcomeQueryService = outcomeQueryService;
+        this.documentService = documentService;
         this.documentMapper = documentMapper;
     }
 
@@ -80,6 +89,7 @@ public class OutcomeResource {
         documents.forEach(outcomeDTO::addDocument);
 
         OutcomeDTO result = outcomeService.save(outcomeDTO);
+
         return ResponseEntity
             .created(new URI("/api/outcomes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -96,15 +106,21 @@ public class OutcomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/outcomes")
-    public ResponseEntity<OutcomeDTO> updateOutcome(@Valid @RequestBody OutcomeDTO outcomeDTO) throws URISyntaxException {
+    public ResponseEntity<OutcomeDTO> updateOutcome(@Valid @RequestPart OutcomeDTO outcomeDTO, @RequestPart List<MultipartFile> files)
+        throws URISyntaxException {
         log.debug("REST request to update Outcome : {}", outcomeDTO);
         if (outcomeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        Set<DocumentDTO> documents = documentMapper.multiPartFilesToDocuments(files);
+        documents.forEach(outcomeDTO::addDocument);
+
         OutcomeDTO result = outcomeService.save(outcomeDTO);
+
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, outcomeDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 

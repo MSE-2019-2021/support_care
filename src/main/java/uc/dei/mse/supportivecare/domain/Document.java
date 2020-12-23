@@ -1,5 +1,6 @@
 package uc.dei.mse.supportivecare.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -44,14 +45,14 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     @Column(name = "mime_type", length = 50)
     private String mimeType;
 
-    @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
+    @JsonIgnore
     private Content content;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = { "documents", "symptoms" }, allowSetters = true)
+    @JsonIgnore
     private Outcome outcome;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
