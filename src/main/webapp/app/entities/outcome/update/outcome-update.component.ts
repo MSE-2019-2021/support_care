@@ -51,7 +51,7 @@ export class OutcomeUpdateComponent implements OnInit {
     this.isSaving = true;
     const outcome = this.createFromForm();
     if (outcome.id !== undefined) {
-      this.subscribeToSaveResponse(this.outcomeService.update(outcome));
+      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files));
     } else {
       this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
     }

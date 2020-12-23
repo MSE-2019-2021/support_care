@@ -20,25 +20,35 @@ export class OutcomeService {
   } */
 
   create(outcome: IOutcome, files: FileList): Observable<EntityResponseType> {
-    const outcomeMultipartFormParam = 'outcome';
-    const filesMultipartFormParam = 'documents';
+    const outcomeMultipartFormParam = 'outcomeDTO';
+    const filesMultipartFormParam = 'files';
 
     const formData: FormData = new FormData();
     const outcomeAsJsonBlob: Blob = new Blob([JSON.stringify(outcome)], { type: 'application/json' });
 
     formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
 
-    if (files.length) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append(filesMultipartFormParam, files.item(i)!);
-      }
+    for (let i = 0; i < files.length; i++) {
+      formData.append(filesMultipartFormParam, files.item(i)!);
     }
 
     return this.http.post<IOutcome>(this.resourceUrl, formData, { observe: 'response' });
   }
 
-  update(outcome: IOutcome): Observable<EntityResponseType> {
-    return this.http.put<IOutcome>(this.resourceUrl, outcome, { observe: 'response' });
+  update(outcome: IOutcome, files: FileList): Observable<EntityResponseType> {
+    const outcomeMultipartFormParam = 'outcomeDTO';
+    const filesMultipartFormParam = 'files';
+
+    const formData: FormData = new FormData();
+    const outcomeAsJsonBlob: Blob = new Blob([JSON.stringify(outcome)], { type: 'application/json' });
+
+    formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append(filesMultipartFormParam, files.item(i)!);
+    }
+
+    return this.http.put<IOutcome>(this.resourceUrl, formData, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
