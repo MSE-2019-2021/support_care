@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { PasswordService } from './password.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PasswordCancelDialogComponent } from 'app/account/password/cancel/password-cancel-dialog.component';
 
 @Component({
   selector: 'custom-password',
@@ -21,10 +23,22 @@ export class PasswordComponent implements OnInit {
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private passwordService: PasswordService, private accountService: AccountService, private fb: FormBuilder) {}
+  constructor(
+    private passwordService: PasswordService,
+    private accountService: AccountService,
+    private fb: FormBuilder,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.account$ = this.accountService.identity();
+  }
+  previousState(): void {
+    window.history.back();
+  }
+
+  cancel(): void {
+    this.modalService.open(PasswordCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 
   changePassword(): void {

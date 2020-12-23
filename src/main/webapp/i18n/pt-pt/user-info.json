@@ -1,0 +1,13 @@
+{
+  "user-info": {
+    "title": "O meu perfil",
+    "list": {
+      "name": "<strong>Primeiro nome</strong> <p> {{username}} </p>",
+      "lastname": "<strong>Último nome</strong> <p> {{username}} </p>",
+      "email": "<strong>Email associado</strong> <p> {{username}} </p>",
+      "language": "<strong>Idioma predefinido</strong> <p> {{username}} </p>"
+    },
+    "password": "Alterar palavra-passe",
+    "profile": "Editar perfil"
+  }
+}
