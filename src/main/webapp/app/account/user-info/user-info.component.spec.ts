@@ -1,11 +1,11 @@
-jest.mock('ng-jhipster');
+jest.mock('@ngx-translate/core');
 jest.mock('app/core/auth/account.service');
 
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
-import { throwError, of } from 'rxjs';
-
+import { of } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { UserInfoComponent } from 'app/account/user-info/user-info.component';
@@ -31,7 +31,7 @@ describe('Component Tests', () => {
         TestBed.configureTestingModule({
           imports: [HttpClientTestingModule],
           declarations: [UserInfoComponent],
-          providers: [FormBuilder, AccountService],
+          providers: [FormBuilder, TranslateService, AccountService],
         })
           .overrideTemplate(UserInfoComponent, '')
           .compileComponents();

@@ -1,4 +1,3 @@
-jest.mock('ng-jhipster');
 jest.mock('@ng-bootstrap/ng-bootstrap');
 
 import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
