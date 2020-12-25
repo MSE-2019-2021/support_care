@@ -74,14 +74,42 @@
           </select>
         </div>
       </div>
-
-      <div class="sectionWrapper">
-        <div class="form-group">
-          <label customTranslate="supportivecareApp.activeSubstance.notice" for="field_notices">Notice</label>
-          <select class="form-control" id="field_notices" data-cy="notice" multiple name="notices" formControlName="notices">
-            <option [ngValue]="getSelectedNotice(noticeOption, editForm.get('notices')!.value)" *ngFor="let noticeOption of notices; trackBy: trackNoticeById">{{ noticeOption.description }}</option>
-          </select>
-        </div>
+      <ng-container>
+        <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+          <ngb-panel *ngFor="let notice of getNotices().controls; let i = index" id="{{ 'notice' + i }}">
+            <ng-template ngbPanelHeader let-opened="opened">
+              <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('notice' + i)">
+                <button ngbPanelToggle class="btn btn-link text-primary m-0 font-weight-bold" (click)="acc.toggle('notice' + i)" customTranslate="supportivecareApp.activeSubstance.notice">
+                  Observation
+                </button>
+                <button class="btn btn-link text-primary m-0" (click)="deleteNotice(i)" customTranslate="supportivecareApp.activeSubstance.actions.removeObservation">
+                  <fa-icon icon="minus"></fa-icon> Remove Observation
+                </button>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent style="cursor: auto">
+              <div style="cursor: auto" [formGroup]="$any(notice)">
+                <div class="form-group col-lg-12">
+                  <label for="field_activeSubstance_name" class="form-control-label" style="border: none" customTranslate="supportivecareApp.notice.name">Name</label>
+                  <input type="text" class="form-control" name="name" id="field_activeSubstance_name" formControlName="description" />
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_activeSubstance_evaluation" class="form-control-label" customTranslate="supportivecareApp.notice.evaluation">Evaluation</label>
+                  <input type="text" class="form-control" name="evaluation" id="field_activeSubstance_evaluation" formControlName="evaluation" />
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_activeSubstance_intervention" class="form-control-label" customTranslate="supportivecareApp.notice.intervention">Intervention</label>
+                  <input type="text" class="form-control" name="intervention" id="field_activeSubstance_intervention" formControlName="intervention" />
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </ng-container>
+      <div>
+        <button type="button" class="btn btn-link text-primary m-0" (click)="addNotice()" customTranslate="supportivecareApp.activeSubstance.actions.addObservation">
+          <fa-icon icon="plus"></fa-icon> Add observation
+        </button>
       </div>
     </div>
 

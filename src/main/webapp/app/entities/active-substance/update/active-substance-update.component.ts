@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -26,8 +26,8 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     dosage: [null, [Validators.required, Validators.maxLength(30)]],
     form: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
-    notices: [],
     administration: [],
+    notices: new FormArray([]),
   });
 
   constructor(
@@ -125,5 +125,27 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  getNotices(): FormArray {
+    return this.editForm.controls.notices as FormArray;
+  }
+
+  addNotice(): void {
+    const currentActiveSubstance = this.editForm.controls;
+    const currentNotices = currentActiveSubstance.notices as FormArray;
+    currentNotices.push(
+      this.fb.group({
+        description: ['', Validators.required],
+        evaluation: ['', []],
+        intervention: ['', []],
+      })
+    );
+  }
+
+  deleteNotice(i: number): void {
+    const currentActiveSubstance = this.editForm.controls;
+    const currentNotices = currentActiveSubstance.notices as FormArray;
+    currentNotices.removeAt(i);
   }
 }

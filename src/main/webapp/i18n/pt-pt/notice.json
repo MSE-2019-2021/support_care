@@ -18,6 +18,7 @@
         "title": "Observação"
       },
       "id": "ID",
+      "name": "Nome",
       "description": "Descrição",
       "evaluation": "Avaliação",
       "intervention": "Intervenção interdependente",
