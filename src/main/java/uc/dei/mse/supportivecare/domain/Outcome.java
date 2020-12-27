@@ -40,7 +40,7 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     private String description;
 
     @OneToMany(mappedBy = "outcome", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "content", "outcome" }, allowSetters = true)
     private Set<Document> documents = new HashSet<>();
 

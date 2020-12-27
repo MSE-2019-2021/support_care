@@ -104,7 +104,7 @@
     "@angular/compiler-cli": "11.0.5",
     "@angular/service-worker": "11.0.5",
     "@openapitools/openapi-generator-cli": "1.0.13-4.3.1",
-    "@types/file-saver": "^2.0.1",    
+    "@types/file-saver": "^2.0.1",
     "@types/jest": "26.0.19",
     "@types/node": "13.13.4",
     "@typescript-eslint/eslint-plugin": "4.11.0",

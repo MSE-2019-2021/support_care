@@ -1,6 +1,5 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import io.micrometer.core.annotation.Timed;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -48,16 +47,9 @@ public class DocumentResource {
 
     private final DocumentQueryService documentQueryService;
 
-    private final DocumentRepository documentRepository;
-
-    public DocumentResource(
-        DocumentService documentService,
-        DocumentQueryService documentQueryService,
-        DocumentRepository documentRepository
-    ) {
+    public DocumentResource(DocumentService documentService, DocumentQueryService documentQueryService) {
         this.documentService = documentService;
         this.documentQueryService = documentQueryService;
-        this.documentRepository = documentRepository;
     }
 
     /**
@@ -143,9 +135,8 @@ public class DocumentResource {
     }
 
     @GetMapping("/documents/{id}/$content")
-    @Timed
     public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
-        DocumentDTO document = documentService.findOne(id).orElseThrow(DocumentNotFoundException::new);
+        DocumentDTO document = documentService.findOneById(id).orElseThrow(DocumentNotFoundException::new);
 
         return ResponseEntity
             .ok()

@@ -33,6 +33,7 @@ import uc.dei.mse.supportivecare.service.OutcomeService;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
+import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;
 import uc.dei.mse.supportivecare.service.mapper.DocumentMapper;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
@@ -46,7 +47,7 @@ public class OutcomeResource {
     private final Logger log = LoggerFactory.getLogger(OutcomeResource.class);
 
     private static final String ENTITY_NAME = "outcome";
-    private final DocumentMapper documentMapper;
+    private final DocumentContentMapper documentContentMapper;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -60,13 +61,13 @@ public class OutcomeResource {
     public OutcomeResource(
         OutcomeService outcomeService,
         OutcomeQueryService outcomeQueryService,
-        DocumentMapper documentMapper,
+        DocumentContentMapper documentContentMapper,
         DocumentService documentService
     ) {
         this.outcomeService = outcomeService;
         this.outcomeQueryService = outcomeQueryService;
         this.documentService = documentService;
-        this.documentMapper = documentMapper;
+        this.documentContentMapper = documentContentMapper;
     }
 
     /**
@@ -77,7 +78,6 @@ public class OutcomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/outcomes")
-    @Timed
     public ResponseEntity<OutcomeDTO> createOutcome(@Valid @RequestPart OutcomeDTO outcomeDTO, @RequestPart List<MultipartFile> files)
         throws URISyntaxException, IOException {
         log.debug("REST request to save Outcome : {}", outcomeDTO);
@@ -85,7 +85,7 @@ public class OutcomeResource {
             throw new BadRequestAlertException("A new outcome cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        Set<DocumentDTO> documents = documentMapper.multiPartFilesToDocuments(files);
+        Set<DocumentDTO> documents = documentContentMapper.multiPartFilesToDocuments(files);
         documents.forEach(outcomeDTO::addDocument);
 
         OutcomeDTO result = outcomeService.save(outcomeDTO);
@@ -113,7 +113,7 @@ public class OutcomeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Set<DocumentDTO> documents = documentMapper.multiPartFilesToDocuments(files);
+        Set<DocumentDTO> documents = documentContentMapper.multiPartFilesToDocuments(files);
         documents.forEach(outcomeDTO::addDocument);
 
         OutcomeDTO result = outcomeService.save(outcomeDTO);
