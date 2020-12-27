@@ -45,14 +45,14 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     @Column(name = "mime_type", length = 50)
     private String mimeType;
 
+    @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
-    @JsonIgnore
     private Content content;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnore
+    @JsonIgnoreProperties(value = { "documents", "symptoms" }, allowSetters = true)
     private Outcome outcome;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

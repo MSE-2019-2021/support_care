@@ -5,24 +5,36 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.domain.Outcome;
 import uc.dei.mse.supportivecare.domain.Symptom;
 import uc.dei.mse.supportivecare.repository.OutcomeRepository;
+import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
+import uc.dei.mse.supportivecare.service.OutcomeService;
 import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
+import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;
 import uc.dei.mse.supportivecare.service.mapper.OutcomeMapper;
 
 /**
@@ -54,6 +66,15 @@ class OutcomeResourceIT {
     @Autowired
     private MockMvc restOutcomeMockMvc;
 
+    @Autowired
+    private OutcomeService outcomeService;
+
+    @Autowired
+    private DocumentContentMapper documentContentMapper;
+
+    @Autowired
+    private DocumentService documentService;
+
     private Outcome outcome;
 
     /**
@@ -78,6 +99,17 @@ class OutcomeResourceIT {
         return outcome;
     }
 
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        final OutcomeResource outcomeResource = new OutcomeResource(
+            outcomeService,
+            outcomeQueryService,
+            documentContentMapper,
+            documentService
+        );
+    }
+
     @BeforeEach
     public void initTest() {
         outcome = createEntity(em);
@@ -89,9 +121,16 @@ class OutcomeResourceIT {
         int databaseSizeBeforeCreate = outcomeRepository.findAll().size();
         // Create the Outcome
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(outcome);
-        restOutcomeMockMvc
-            .perform(post("/api/outcomes").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(outcomeDTO)))
-            .andExpect(status().isCreated());
+        MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
+
+        MockMultipartFile outcome = new MockMultipartFile(
+            "outcomeDTO",
+            "outcomeDTO",
+            MediaType.APPLICATION_JSON_VALUE,
+            TestUtil.convertObjectToJsonBytes(outcomeDTO)
+        );
+
+        restOutcomeMockMvc.perform(multipart("/api/outcomes").file(outcome).file(file)).andExpect(status().isCreated());
 
         // Validate the Outcome in the database
         List<Outcome> outcomeList = outcomeRepository.findAll();
@@ -107,13 +146,19 @@ class OutcomeResourceIT {
         // Create the Outcome with an existing ID
         outcome.setId(1L);
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(outcome);
+        MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
+
+        MockMultipartFile outcome = new MockMultipartFile(
+            "outcomeDTO",
+            "outcomeDTO",
+            MediaType.APPLICATION_JSON_VALUE,
+            TestUtil.convertObjectToJsonBytes(outcomeDTO)
+        );
 
         int databaseSizeBeforeCreate = outcomeRepository.findAll().size();
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restOutcomeMockMvc
-            .perform(post("/api/outcomes").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(outcomeDTO)))
-            .andExpect(status().isBadRequest());
+        restOutcomeMockMvc.perform(multipart("/api/outcomes").file(outcome).file(file)).andExpect(status().isBadRequest());
 
         // Validate the Outcome in the database
         List<Outcome> outcomeList = outcomeRepository.findAll();
@@ -129,10 +174,16 @@ class OutcomeResourceIT {
 
         // Create the Outcome, which fails.
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(outcome);
+        MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
 
-        restOutcomeMockMvc
-            .perform(post("/api/outcomes").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(outcomeDTO)))
-            .andExpect(status().isBadRequest());
+        MockMultipartFile outcome = new MockMultipartFile(
+            "outcomeDTO",
+            "outcomeDTO",
+            MediaType.APPLICATION_JSON_VALUE,
+            TestUtil.convertObjectToJsonBytes(outcomeDTO)
+        );
+
+        restOutcomeMockMvc.perform(multipart("/api/outcomes").file(outcome).file(file)).andExpect(status().isBadRequest());
 
         List<Outcome> outcomeList = outcomeRepository.findAll();
         assertThat(outcomeList).hasSize(databaseSizeBeforeTest);
@@ -442,10 +493,28 @@ class OutcomeResourceIT {
         em.detach(updatedOutcome);
         updatedOutcome.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(updatedOutcome);
+        MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
 
-        restOutcomeMockMvc
-            .perform(put("/api/outcomes").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(outcomeDTO)))
-            .andExpect(status().isOk());
+        MockMultipartFile outcome = new MockMultipartFile(
+            "outcomeDTO",
+            "outcomeDTO",
+            MediaType.APPLICATION_JSON_VALUE,
+            TestUtil.convertObjectToJsonBytes(outcomeDTO)
+        );
+
+        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.fileUpload("/api/outcomes");
+
+        builder.with(
+            new RequestPostProcessor() {
+                @Override
+                public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                    request.setMethod("PUT");
+                    return request;
+                }
+            }
+        );
+
+        restOutcomeMockMvc.perform(builder.file(outcome).file(file)).andExpect(status().isOk());
 
         // Validate the Outcome in the database
         List<Outcome> outcomeList = outcomeRepository.findAll();
@@ -462,11 +531,29 @@ class OutcomeResourceIT {
 
         // Create the Outcome
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(outcome);
+        MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
+
+        MockMultipartFile outcome = new MockMultipartFile(
+            "outcomeDTO",
+            "outcomeDTO",
+            MediaType.APPLICATION_JSON_VALUE,
+            TestUtil.convertObjectToJsonBytes(outcomeDTO)
+        );
+
+        MockMultipartHttpServletRequestBuilder builder = MockMvcRequestBuilders.fileUpload("/api/outcomes");
+
+        builder.with(
+            new RequestPostProcessor() {
+                @Override
+                public MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                    request.setMethod("PUT");
+                    return request;
+                }
+            }
+        );
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restOutcomeMockMvc
-            .perform(put("/api/outcomes").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(outcomeDTO)))
-            .andExpect(status().isBadRequest());
+        restOutcomeMockMvc.perform(builder.file(outcome).file(file)).andExpect(status().isBadRequest());
 
         // Validate the Outcome in the database
         List<Outcome> outcomeList = outcomeRepository.findAll();

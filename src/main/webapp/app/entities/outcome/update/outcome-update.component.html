@@ -35,6 +35,11 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label class="form-control-label" for="field_documents" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate">Attachment</label>
+        <input type="file" (change)="handleFileInput($event)" id="field_documents" multiple />
+      </div>
+
       <div>
         <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>

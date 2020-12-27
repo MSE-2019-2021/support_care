@@ -37,8 +37,6 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
 
     private Set<DocumentDTO> documents = new HashSet<>();
 
-    private Set<OutcomeDTO> outcome;
-
     public Long getId() {
         return id;
     }
@@ -63,8 +61,12 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
         this.description = description;
     }
 
-    public void setOutcome(Set<OutcomeDTO> outcome) {
-        this.outcome = outcome;
+    public void setOutcome(Set<OutcomeDTO> outcomes) {
+        this.outcomes = outcomes;
+    }
+
+    public Set<OutcomeDTO> getOutcomes() {
+        return outcomes;
     }
 
     @Override
@@ -95,6 +97,7 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", outcomes='" + getOutcomes() + "'" +
             "}";
     }
 

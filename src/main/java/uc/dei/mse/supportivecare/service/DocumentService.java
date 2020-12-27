@@ -99,6 +99,12 @@ public class DocumentService {
         return documentRepository.findById(id).map(documentMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<DocumentDTO> findOneById(Long id) {
+        log.debug("Request to get Document : {}", id);
+        return documentRepository.findOneById(id).map(documentMapper::toDto);
+    }
+
     /**
      * Delete the document by id.
      *
