@@ -76,6 +76,11 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
         return content;
     }
 
+    public DocumentDTO content(ContentDTO content) {
+        this.setContent(content);
+        return this;
+    }
+
     public void setContent(ContentDTO content) {
         this.content = content;
     }
