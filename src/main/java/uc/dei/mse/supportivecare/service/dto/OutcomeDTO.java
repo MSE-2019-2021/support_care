@@ -69,6 +69,14 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
         return outcomes;
     }
 
+    public Set<DocumentDTO> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Set<DocumentDTO> documents) {
+        this.documents = documents;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
