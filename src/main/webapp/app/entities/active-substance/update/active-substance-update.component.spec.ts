@@ -134,9 +134,9 @@ describe('Component Tests', () => {
     });
     describe('Handle notices Form Array', () => {
       it('Should add and delete a notice from the form array', () => {
-        const notice = new Notice(111);
+        const notice = new Notice(111, 'notice', '', '');
 
-        comp.addNotice(notice);
+        comp.addNotice({ notice });
         comp.deleteNotice(0);
 
         expect(comp.getNotices().length).toBe(0);
