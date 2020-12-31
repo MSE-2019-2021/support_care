@@ -5,7 +5,7 @@ jest.mock('@angular/router');
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -21,6 +21,7 @@ describe('Component Tests', () => {
     let comp: ActiveSubstanceUpdateComponent;
     let fixture: ComponentFixture<ActiveSubstanceUpdateComponent>;
     let service: ActiveSubstanceService;
+    let fb: FormBuilder;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,6 +35,7 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(ActiveSubstanceUpdateComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(ActiveSubstanceService);
+      fb = TestBed.inject(FormBuilder);
     });
 
     describe('save', () => {
@@ -128,6 +130,21 @@ describe('Component Tests', () => {
           expect(result === option).toEqual(true);
           expect(result === selected).toEqual(false);
         });
+      });
+    });
+    describe('Handle notices Form Array', () => {
+      it('Should add and delete a notice from the form array', () => {
+        const notice = new Notice(111);
+
+        comp.addNotice(notice);
+        comp.deleteNotice(0);
+
+        expect(comp.getNotices().length).toBe(0);
+      });
+      it('Should add an empty notice to the form array', () => {
+        comp.addNotice();
+
+        expect(comp.getNotices().length).toBe(1);
       });
     });
   });
