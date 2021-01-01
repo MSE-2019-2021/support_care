@@ -105,7 +105,7 @@ describe('Symptom e2e test', () => {
 
     cy.setFieldSelectToLastOfEntity('outcome');
 
-    cy.setFieldSelectToLastOfEntity('toxicityRate');
+    // cy.setFieldSelectToLastOfEntity('toxicityRate'); - This is commented because toxicity rates is not a select field now
 
     cy.get(entityCreateSaveButtonSelector).click({ force: true });
     cy.scrollTo('top', { ensureScrollable: false });
