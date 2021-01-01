@@ -127,25 +127,13 @@ export class SymptomUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackTherapeuticRegimeById(index: number, item: ITherapeuticRegime): number {
-    return item.id!;
-  }
-
-  trackOutcomeById(index: number, item: IOutcome): number {
-    return item.id!;
-  }
-
-  trackToxicityRateById(index: number, item: IToxicityRate): number {
-    return item.id!;
-  }
-
   getSelectedTherapeuticRegime(options: ITherapeuticRegime[]): { id: number; text: string }[] {
     const dropdownList: { id: number; text: string }[] = [];
     if (typeof options !== 'undefined' && options.length > 0) {
       options.forEach(value => {
         dropdownList.push({
           id: value.id!,
-          text: value.name!,
+          text: value.acronym!,
         });
       });
     }

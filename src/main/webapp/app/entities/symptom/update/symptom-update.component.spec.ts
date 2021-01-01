@@ -41,6 +41,9 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new Symptom(123);
+        entity.toxicityRates = [];
+        entity.outcomes = [];
+        entity.therapeuticRegimes = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -55,6 +58,9 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Symptom();
+        entity.toxicityRates = [];
+        entity.outcomes = [];
+        entity.therapeuticRegimes = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -70,6 +76,9 @@ describe('Component Tests', () => {
     describe('is editing', () => {
       it('should return true when editing component', () => {
         const entity = new Symptom(123);
+        entity.toxicityRates = [];
+        entity.outcomes = [];
+        entity.therapeuticRegimes = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
 
@@ -83,108 +92,48 @@ describe('Component Tests', () => {
       });
     });
 
-    describe('Tracking relationships identifiers', () => {
-      describe('trackTherapeuticRegimeById', () => {
-        it('Should return tracked TherapeuticRegime primary key', () => {
-          const entity = new TherapeuticRegime(123);
-          const trackResult = comp.trackTherapeuticRegimeById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
-      });
+    describe('Handle toxicity rates Form Array', () => {
+      it('Should add and delete a toxity rate from the form array', () => {
+        const toxicityRate = new ToxicityRate(111, 'toxicityRate', '', '', '', '', '');
 
-      describe('trackOutcomeById', () => {
-        it('Should return tracked Outcome primary key', () => {
-          const entity = new Outcome(123);
-          const trackResult = comp.trackOutcomeById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
-      });
+        comp.addToxicityRate(toxicityRate);
+        comp.deleteToxicityRate(0);
 
-      describe('trackToxicityRateById', () => {
-        it('Should return tracked ToxicityRate primary key', () => {
-          const entity = new ToxicityRate(123);
-          const trackResult = comp.trackToxicityRateById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
+        expect(comp.getToxicityRates().length).toBe(0);
+      });
+      it('Should add a new toxicity rate to the form array', () => {
+        comp.addToxicityRate();
+
+        expect(comp.getToxicityRates().length).toBe(1);
       });
     });
 
     describe('Getting selected relationships', () => {
-      describe('getSelectedTherapeuticRegime', () => {
-        it('Should return option if no TherapeuticRegime is selected', () => {
-          const option = new TherapeuticRegime(123);
-          const result = comp.getSelectedTherapeuticRegime(option);
-          expect(result === option).toEqual(true);
-        });
-
-        it('Should return selected TherapeuticRegime for according option', () => {
-          const option = new TherapeuticRegime(123);
-          const selected = new TherapeuticRegime(123);
-          const selected2 = new TherapeuticRegime(456);
-          const result = comp.getSelectedTherapeuticRegime(option, [selected2, selected]);
-          expect(result === selected).toEqual(true);
-          expect(result === selected2).toEqual(false);
-          expect(result === option).toEqual(false);
-        });
-
-        it('Should return option if this TherapeuticRegime is not selected', () => {
-          const option = new TherapeuticRegime(123);
-          const selected = new TherapeuticRegime(456);
-          const result = comp.getSelectedTherapeuticRegime(option, [selected]);
-          expect(result === option).toEqual(true);
-          expect(result === selected).toEqual(false);
-        });
-      });
-
       describe('getSelectedOutcome', () => {
-        it('Should return option if no Outcome is selected', () => {
-          const option = new Outcome(123);
-          const result = comp.getSelectedOutcome(option);
-          expect(result === option).toEqual(true);
+        it('Should return no option if no outcome is available', () => {
+          const result = comp.getSelectedOutcome([]);
+          expect(result).toEqual([]);
         });
 
-        it('Should return selected Outcome for according option', () => {
-          const option = new Outcome(123);
-          const selected = new Outcome(123);
-          const selected2 = new Outcome(456);
-          const result = comp.getSelectedOutcome(option, [selected2, selected]);
-          expect(result === selected).toEqual(true);
-          expect(result === selected2).toEqual(false);
-          expect(result === option).toEqual(false);
-        });
-
-        it('Should return option if this Outcome is not selected', () => {
-          const option = new Outcome(123);
-          const selected = new Outcome(456);
-          const result = comp.getSelectedOutcome(option, [selected]);
-          expect(result === option).toEqual(true);
-          expect(result === selected).toEqual(false);
+        it('Should return option if outcome is available', () => {
+          const option = new Outcome(123, 'name', 'description');
+          const list = [option];
+          const result = comp.getSelectedOutcome(list);
+          expect(result).toEqual([{ id: 123, text: 'name' }]);
         });
       });
 
-      describe('getSelectedToxicityRate', () => {
-        it('Should return option if no ToxicityRate is selected', () => {
-          const option = new ToxicityRate(123);
-          const result = comp.getSelectedToxicityRate(option);
-          expect(result === option).toEqual(true);
+      describe('getSelectedTherapeuticRegimes', () => {
+        it('Should return no option if no therapeutic regime is available', () => {
+          const result = comp.getSelectedTherapeuticRegime([]);
+          expect(result).toEqual([]);
         });
 
-        it('Should return selected ToxicityRate for according option', () => {
-          const option = new ToxicityRate(123);
-          const selected = new ToxicityRate(123);
-          const selected2 = new ToxicityRate(456);
-          const result = comp.getSelectedToxicityRate(option, [selected2, selected]);
-          expect(result === selected).toEqual(true);
-          expect(result === selected2).toEqual(false);
-          expect(result === option).toEqual(false);
-        });
-
-        it('Should return option if this ToxicityRate is not selected', () => {
-          const option = new ToxicityRate(123);
-          const selected = new ToxicityRate(456);
-          const result = comp.getSelectedToxicityRate(option, [selected]);
-          expect(result === option).toEqual(true);
-          expect(result === selected).toEqual(false);
+        it('Should return option if therapeutic regime is available', () => {
+          const option = new TherapeuticRegime(123, 'name', 'acronym');
+          const list = [option];
+          const result = comp.getSelectedTherapeuticRegime(list);
+          expect(result).toEqual([{ id: 123, text: 'acronym' }]);
         });
       });
     });
