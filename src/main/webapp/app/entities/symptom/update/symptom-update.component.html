@@ -1,71 +1,133 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomUpdateHeading" *ngIf="isEditing()" customTranslate="supportivecareApp.symptom.home.editLabel"></h2>
-      <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomCreateHeading" *ngIf="!isEditing()" customTranslate="supportivecareApp.symptom.home.createLabel"></h2>
-      <div>
-        <custom-alert-error></custom-alert-error>
-        <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.symptom.name" for="field_name" [ngbTooltip]="'supportivecareApp.symptom.help.name' | translate">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
-              This field cannot be longer than 255 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.symptom.notice" for="field_notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
-          <input type="text" class="form-control" name="notice" id="field_notice" data-cy="notice" formControlName="notice" />
-          <div *ngIf="editForm.get('notice')!.invalid && (editForm.get('notice')!.dirty || editForm.get('notice')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('notice')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-              This field cannot be longer than 1000 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label customTranslate="supportivecareApp.symptom.therapeuticRegime" for="field_therapeuticRegimes">Therapeutic Regime</label>
-          <select class="form-control" id="field_therapeuticRegimes" data-cy="therapeuticRegime" multiple name="therapeuticRegimes" formControlName="therapeuticRegimes">
-            <option
-              [ngValue]="getSelectedTherapeuticRegime(therapeuticRegimeOption, editForm.get('therapeuticRegimes')!.value)"
-              *ngFor="let therapeuticRegimeOption of therapeuticregimes; trackBy: trackTherapeuticRegimeById"
-            >
-              {{ therapeuticRegimeOption.name }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label customTranslate="supportivecareApp.symptom.outcome" for="field_outcomes">Outcome</label>
-          <select class="form-control" id="field_outcomes" data-cy="outcome" multiple name="outcomes" formControlName="outcomes">
-            <option [ngValue]="getSelectedOutcome(outcomeOption, editForm.get('outcomes')!.value)" *ngFor="let outcomeOption of outcomes; trackBy: trackOutcomeById">
-              {{ outcomeOption.name }}
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label customTranslate="supportivecareApp.symptom.toxicityRate" for="field_toxicityRates">Toxicity Rate</label>
-          <select class="form-control" id="field_toxicityRates" data-cy="toxicityRate" multiple name="toxicityRates" formControlName="toxicityRates">
-            <option [ngValue]="getSelectedToxicityRate(toxicityRateOption, editForm.get('toxicityRates')!.value)" *ngFor="let toxicityRateOption of toxicityrates; trackBy: trackToxicityRateById">
-              {{ toxicityRateOption.name }}
-            </option>
-          </select>
+<div class="entityWrapper">
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomUpdateHeading" *ngIf="isEditing()" customTranslate="supportivecareApp.symptom.home.editLabel"></h2>
+    <h2 class="list-text-color-bold" id="custom-drug-heading" data-cy="SymptomCreateHeading" *ngIf="!isEditing()" customTranslate="supportivecareApp.symptom.home.createLabel"></h2>
+    <div class="mainWrapper entityInfoWrapper">
+      <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4" customTranslate="supportivecareApp.therapeuticRegime.generalInfo"></h5>
+      <custom-alert-error></custom-alert-error>
+      <div class="form-group col-lg-9">
+        <label class="form-control-label" customTranslate="supportivecareApp.symptom.name" for="field_name" [ngbTooltip]="'supportivecareApp.symptom.help.name' | translate">Name</label>
+        <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+          <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+            This field cannot be longer than 255 characters.
+          </small>
         </div>
       </div>
 
-      <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
-        </button>
+      <div class="form-group col-lg-9">
+        <label class="form-control-label" customTranslate="supportivecareApp.symptom.therapeuticRegime" for="field_therapeuticRegimes">Therapeutic Regime</label>
+        <ng-multiselect-dropdown
+          style="display: flex"
+          [placeholder]="'...'"
+          [data]="getSelectedTherapeuticRegime(therapeuticregimes)"
+          formControlName="therapeuticRegimes"
+          id="field_therapeuticRegimes"
+          data-cy="therapeuticRegime"
+          [settings]="dropdownSettings"
+        >
+        </ng-multiselect-dropdown>
+        <div *ngIf="editForm.get('outcomes')!.invalid && (editForm.get('outcomes')!.dirty || editForm.get('outcomes')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('outcomes')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+        </div>
+      </div>
 
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-          <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
+      <div class="form-group col-lg-9">
+        <label class="form-control-label" customTranslate="supportivecareApp.symptom.outcome" for="field_outcomes">Outcome</label>
+        <ng-multiselect-dropdown
+          style="display: flex"
+          [placeholder]="'...'"
+          [data]="getSelectedOutcome(outcomes)"
+          formControlName="outcomes"
+          id="field_outcomes"
+          data-cy="outcome"
+          [settings]="dropdownSettings"
+        >
+        </ng-multiselect-dropdown>
+        <div *ngIf="editForm.get('outcomes')!.invalid && (editForm.get('outcomes')!.dirty || editForm.get('outcomes')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('outcomes')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+        </div>
+      </div>
+
+      <div class="form-group col-lg-12">
+        <label class="form-control-label" customTranslate="supportivecareApp.symptom.notice" for="field_notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
+        <textarea type="text" rows="3" class="form-control" name="notice" id="field_notice" data-cy="notice" formControlName="notice"> </textarea>
+        <div *ngIf="editForm.get('notice')!.invalid && (editForm.get('notice')!.dirty || editForm.get('notice')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('notice')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+            This field cannot be longer than 1000 characters.
+          </small>
+        </div>
+      </div>
+
+      <ng-container>
+        <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+          <ngb-panel *ngFor="let notice of getToxicityRates().controls; let i = index" id="{{ 'toxicityRate' + i }}">
+            <ng-template ngbPanelHeader let-opened="opened">
+              <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('toxicityRate' + i)">
+                <button ngbPanelToggle class="btn btn-link text-primary m-0 font-weight-bold" (click)="acc.toggle('toxicityRate' + i)" customTranslate="supportivecareApp.symptom.toxicityRate">
+                  Toxicity Rate
+                </button>
+                <button class="btn btn-link text-primary m-0" (click)="deleteToxicityRate(i)">
+                  <fa-icon icon="minus"></fa-icon> <span customTranslate="supportivecareApp.symptom.actions.removeToxicityRate"> Remove Toxicity Rate </span>
+                </button>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent style="cursor: auto">
+              <div style="cursor: auto" [formGroup]="$any(notice)">
+                <input type="hidden" class="form-control" name="id" id="field_activeSubstance_id" formControlName="id" />
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_name" class="form-control-label" style="border: none" customTranslate="supportivecareApp.toxicityRate.name">Name</label>
+                  <input type="text" class="form-control" name="name" id="field_toxicityRate_name" formControlName="name" />
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_description" class="form-control-label" customTranslate="supportivecareApp.toxicityRate.description">Description</label>
+                  <textarea type="text" rows="3" class="form-control" name="description" id="field_toxicityRate_description" formControlName="description"> </textarea>
+                </div>
+                <div style="margin-bottom: 1%">
+                  <span class="list-text-color-bold col-lg-12 mt-4 mb-4" customTranslate="supportivecareApp.toxicityRate.recommendedInterventions"
+                    >Recommended interventions associated with the toxicity Rate</span
+                  >
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_notice" class="form-control-label" customTranslate="supportivecareApp.toxicityRate.notice">Notice</label>
+                  <textarea type="text" rows="2" class="form-control" name="notice" id="field_toxicityRate_notice" formControlName="notice"> </textarea>
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_autonomousIntervention" class="form-control-label" customTranslate="supportivecareApp.toxicityRate.autonomousIntervention"
+                    >Autonomous Intervention</label
+                  >
+                  <textarea type="text" rows="2" class="form-control" name="autonomousIntervention" id="field_toxicityRate_autonomousIntervention" formControlName="autonomousIntervention"></textarea>
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_interdependentIntervention" class="form-control-label" customTranslate="supportivecareApp.toxicityRate.interdependentIntervention"
+                    >Interdependent Intervention</label
+                  >
+                  <textarea type="text" rows="2" class="form-control" name="interdependentIntervention" id="field_toxicityRate_interdependentIntervention" formControlName="interdependentIntervention">
+                  </textarea>
+                </div>
+                <div class="form-group col-lg-12">
+                  <label for="field_toxicityRate_selfManagement" class="form-control-label" customTranslate="supportivecareApp.toxicityRate.selfManagement">Self Management</label>
+                  <textarea type="text" rows="2" class="form-control" name="selfManagement" id="field_toxicityRate_selfManagement" formControlName="selfManagement"> </textarea>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+        </ngb-accordion>
+      </ng-container>
+      <div>
+        <button type="button" class="btn btn-link text-primary m-0" (click)="addToxicityRate()">
+          <fa-icon icon="plus"></fa-icon> <span customTranslate="supportivecareApp.symptom.actions.addToxicityRate"> Add toxicity Rate </span>
         </button>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div>
+      <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()"><fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span></button>
+
+      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+        <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
+      </button>
+    </div>
+  </form>
 </div>

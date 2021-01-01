@@ -39,7 +39,7 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     @Column(name = "notice", length = 1000)
     private String notice;
 
-    @OneToMany(mappedBy = "symptom", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "symptom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "symptom" }, allowSetters = true)
     private Set<ToxicityRate> toxicityRates = new HashSet<>();

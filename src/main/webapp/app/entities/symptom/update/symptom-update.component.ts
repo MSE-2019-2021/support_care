@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -22,14 +22,16 @@ export class SymptomUpdateComponent implements OnInit {
   therapeuticregimes: ITherapeuticRegime[] = [];
   outcomes: IOutcome[] = [];
   toxicityrates: IToxicityRate[] = [];
+  dropdownList: { id: number; text: string }[] = [];
+  dropdownSettings = {};
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     notice: [null, [Validators.maxLength(1000)]],
-    therapeuticRegimes: [],
-    outcomes: [],
-    toxicityRates: [],
+    therapeuticRegimes: [null, Validators.required],
+    outcomes: [null, Validators.required],
+    toxicityRates: new FormArray([]),
   });
 
   constructor(
@@ -42,6 +44,15 @@ export class SymptomUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true,
+    };
     this.activatedRoute.data.subscribe(({ symptom }) => {
       this.updateForm(symptom);
 
@@ -60,10 +71,13 @@ export class SymptomUpdateComponent implements OnInit {
       id: symptom.id,
       name: symptom.name,
       notice: symptom.notice,
-      therapeuticRegimes: symptom.therapeuticRegimes,
-      outcomes: symptom.outcomes,
-      toxicityRates: symptom.toxicityRates,
+      therapeuticRegimes: this.getSelectedTherapeuticRegime(symptom.therapeuticRegimes!),
+      outcomes: this.getSelectedOutcome(symptom.outcomes!),
     });
+    this.editForm.setControl('toxicityRates', this.fb.array(this.getToxicityRates().controls));
+    if (symptom.id) {
+      this.addToxicityRate(symptom.toxicityRates, false);
+    }
   }
 
   previousState(): void {
@@ -125,36 +139,81 @@ export class SymptomUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  getSelectedTherapeuticRegime(option: ITherapeuticRegime, selectedVals?: ITherapeuticRegime[]): ITherapeuticRegime {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
+  getSelectedTherapeuticRegime(options: ITherapeuticRegime[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
+    if (typeof options !== 'undefined' && options.length > 0) {
+      options.forEach(value => {
+        dropdownList.push({
+          id: value.id!,
+          text: value.name!,
+        });
+      });
     }
-    return option;
+    return dropdownList;
   }
 
-  getSelectedOutcome(option: IOutcome, selectedVals?: IOutcome[]): IOutcome {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
-        }
-      }
+  getSelectedOutcome(options: IOutcome[]): { id: number; text: string }[] {
+    const dropdownList: { id: number; text: string }[] = [];
+    if (typeof options !== 'undefined' && options.length > 0) {
+      options.forEach(value => {
+        dropdownList.push({
+          id: value.id!,
+          text: value.name!,
+        });
+      });
     }
-    return option;
+    return dropdownList;
   }
 
-  getSelectedToxicityRate(option: IToxicityRate, selectedVals?: IToxicityRate[]): IToxicityRate {
-    if (selectedVals) {
-      for (let i = 0; i < selectedVals.length; i++) {
-        if (option.id === selectedVals[i].id) {
-          return selectedVals[i];
+  getToxicityRates(): FormArray {
+    return this.editForm.controls.toxicityRates as FormArray;
+  }
+
+  addToxicityRate(toxicityRate: any = {}, newToxicityRate: boolean = true): void {
+    const currentSymptom = this.editForm.controls;
+    const currentToxicityRates = currentSymptom.toxicityRates as FormArray;
+    if (typeof toxicityRate !== 'undefined' && newToxicityRate) {
+      currentToxicityRates.push(
+        this.fb.group({
+          id: [null, []],
+          name: ['', [Validators.required, Validators.maxLength(1000)]],
+          description: ['', [Validators.maxLength(1000)]],
+          notice: ['', [Validators.maxLength(1000)]],
+          autonomousIntervention: ['', [Validators.maxLength(1000)]],
+          interdependentIntervention: [],
+          selfManagement: [],
+        })
+      );
+    } else {
+      toxicityRate.forEach(
+        (obj: {
+          id: null;
+          name: '';
+          description: '';
+          notice: '';
+          autonomousIntervention: '';
+          interdependentIntervention: '';
+          selfManagement: '';
+        }) => {
+          currentToxicityRates.push(
+            this.fb.group({
+              id: [obj.id, []],
+              name: [obj.name, [Validators.required, Validators.maxLength(1000)]],
+              description: [obj.description, [Validators.maxLength(1000)]],
+              notice: [obj.notice, [Validators.maxLength(1000)]],
+              autonomousIntervention: [obj.selfManagement, [Validators.maxLength(1000)]],
+              interdependentIntervention: [obj.interdependentIntervention, [Validators.maxLength(1000)]],
+              selfManagement: [obj.selfManagement, [Validators.maxLength(1000)]],
+            })
+          );
         }
-      }
+      );
     }
-    return option;
+  }
+
+  deleteToxicityRate(i: number): void {
+    const currentSymptom = this.editForm.controls;
+    const currentToxicityRates = currentSymptom.toxicityRates as FormArray;
+    currentToxicityRates.removeAt(i);
   }
 }
