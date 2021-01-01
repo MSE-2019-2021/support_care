@@ -1,11 +1,9 @@
-import { ToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
-
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -21,7 +19,6 @@ describe('Component Tests', () => {
     let comp: ActiveSubstanceUpdateComponent;
     let fixture: ComponentFixture<ActiveSubstanceUpdateComponent>;
     let service: ActiveSubstanceService;
-    let fb: FormBuilder;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -35,7 +32,6 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(ActiveSubstanceUpdateComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(ActiveSubstanceService);
-      fb = TestBed.inject(FormBuilder);
     });
 
     describe('save', () => {
