@@ -20,8 +20,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
-import uc.dei.mse.supportivecare.domain.Document;
-import uc.dei.mse.supportivecare.repository.DocumentRepository;
 import uc.dei.mse.supportivecare.service.DocumentQueryService;
 import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.dto.DocumentCriteria;

@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Lob;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.domain.Document;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Content} entity.
@@ -25,8 +24,6 @@ public class ContentDTO extends AbstractAuditingDTO implements Serializable {
     private byte[] data;
 
     private String dataContentType;
-
-    private DocumentDTO document;
 
     public Long getId() {
         return id;
@@ -50,25 +47,6 @@ public class ContentDTO extends AbstractAuditingDTO implements Serializable {
 
     public void setDataContentType(String dataContentType) {
         this.dataContentType = dataContentType;
-    }
-
-    public DocumentDTO getDocument() {
-        return this.document;
-    }
-
-    public ContentDTO document(DocumentDTO document) {
-        this.setDocument(document);
-        return this;
-    }
-
-    public void setDocument(DocumentDTO document) {
-        if (this.document != null) {
-            this.document.setContent(null);
-        }
-        if (document != null) {
-            document.setContent(this);
-        }
-        this.document = document;
     }
 
     @Override

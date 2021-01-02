@@ -4,14 +4,12 @@ import java.util.Set;
 import org.mapstruct.*;
 import uc.dei.mse.supportivecare.domain.*;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
-import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 
 /**
  * Mapper for the entity {@link Document} and its DTO {@link DocumentDTO}.
  */
 @Mapper(componentModel = "spring", uses = { ContentMapper.class, OutcomeMapper.class })
 public interface DocumentMapper extends EntityMapper<DocumentDTO, Document> {
-    @Named("document")
     @Mapping(target = "content", source = "content", qualifiedByName = "id")
     @Mapping(target = "outcome", source = "outcome", qualifiedByName = "name")
     DocumentDTO toDto(Document document);

@@ -1,9 +1,6 @@
 package uc.dei.mse.supportivecare.web.rest;
 
-import static com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat.URI;
-
 import io.jsonwebtoken.io.IOException;
-import io.micrometer.core.annotation.Timed;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,8 +22,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
-import uc.dei.mse.supportivecare.domain.Document;
-import uc.dei.mse.supportivecare.repository.OutcomeRepository;
 import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
@@ -34,7 +29,6 @@ import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;
-import uc.dei.mse.supportivecare.service.mapper.DocumentMapper;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
 /**
