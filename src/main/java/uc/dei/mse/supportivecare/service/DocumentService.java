@@ -100,9 +100,9 @@ public class DocumentService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<DocumentDTO> findOneById(Long id) {
+    public Optional<DocumentDTO> findOneWithContentById(Long id) {
         log.debug("Request to get Document : {}", id);
-        return documentRepository.findOneById(id).map(documentMapper::toDto);
+        return documentRepository.findOneWithContentById(id).map(documentMapper::toDtoWithContent);
     }
 
     /**

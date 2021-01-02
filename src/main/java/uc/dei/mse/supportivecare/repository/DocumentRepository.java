@@ -12,5 +12,5 @@ import uc.dei.mse.supportivecare.domain.Document;
 @Repository
 public interface DocumentRepository extends JpaRepository<Document, Long>, JpaSpecificationExecutor<Document> {
     @EntityGraph(attributePaths = "content")
-    Optional<Document> findOneById(Long id);
+    Optional<Document> findOneWithContentById(Long id);
 }
