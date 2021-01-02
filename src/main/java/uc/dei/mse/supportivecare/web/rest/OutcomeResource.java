@@ -79,9 +79,7 @@ public class OutcomeResource {
             throw new BadRequestAlertException("A new outcome cannot already have an ID", ENTITY_NAME, "idexists");
         }
 
-        Set<DocumentDTO> documents = documentContentMapper.multiPartFilesToDocuments(files);
-        documents.forEach(outcomeDTO::addDocument);
-
+        outcomeDTO.setDocuments(documentContentMapper.multiPartFilesToDocuments(files));
         OutcomeDTO result = outcomeService.save(outcomeDTO);
 
         return ResponseEntity
@@ -107,9 +105,7 @@ public class OutcomeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        Set<DocumentDTO> documents = documentContentMapper.multiPartFilesToDocuments(files);
-        documents.forEach(outcomeDTO::addDocument);
-
+        outcomeDTO.setDocuments(documentContentMapper.multiPartFilesToDocuments(files));
         OutcomeDTO result = outcomeService.save(outcomeDTO);
 
         return ResponseEntity

@@ -14,6 +14,11 @@ public interface DocumentMapper extends EntityMapper<DocumentDTO, Document> {
     @Mapping(target = "outcome", source = "outcome", qualifiedByName = "name")
     DocumentDTO toDto(Document document);
 
+    @Named("withContent")
+    @Mapping(target = "content", source = "content")
+    @Mapping(target = "outcome", ignore = true)
+    DocumentDTO toDtoWithContent(Document document);
+
     @Named("nameSet")
     @BeanMapping(ignoreByDefault = true)
     @Mapping(target = "name", source = "name")
