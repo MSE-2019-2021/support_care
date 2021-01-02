@@ -8,7 +8,6 @@ import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 /**
  * Mapper for the entity {@link Outcome} and its DTO {@link OutcomeDTO}.
  */
-
 @Mapper(componentModel = "spring", uses = { DocumentMapper.class })
 public interface OutcomeMapper extends EntityMapper<OutcomeDTO, Outcome> {
     @Mapping(target = "documents", source = "documents", qualifiedByName = "nameSet")

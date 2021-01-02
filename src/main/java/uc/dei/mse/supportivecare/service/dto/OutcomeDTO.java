@@ -7,8 +7,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.validation.constraints.*;
-import uc.dei.mse.supportivecare.domain.Document;
-import uc.dei.mse.supportivecare.domain.Outcome;
 
 /**
  * A DTO for the {@link uc.dei.mse.supportivecare.domain.Outcome} entity.
@@ -32,8 +30,6 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
     @Size(max = 1000)
     @ApiModelProperty(value = "Descrição.")
     private String description;
-
-    private Set<OutcomeDTO> outcomes = new HashSet<>();
 
     private Set<DocumentDTO> documents = new HashSet<>();
 
@@ -59,14 +55,6 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setOutcome(Set<OutcomeDTO> outcomes) {
-        this.outcomes = outcomes;
-    }
-
-    public Set<OutcomeDTO> getOutcomes() {
-        return outcomes;
     }
 
     public Set<DocumentDTO> getDocuments() {
@@ -105,7 +93,7 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
-            ", outcomes='" + getOutcomes() + "'" +
+            ", documents=" + getDocuments() +
             "}";
     }
 

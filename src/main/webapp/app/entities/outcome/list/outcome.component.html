@@ -3,7 +3,7 @@
     <h2 class="h2-color" id="page-heading" data-cy="OutcomeHeading" customTranslate="supportivecareApp.outcome.home.title"></h2>
     <button *customHasAnyAuthority="'ROLE_USER'" id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity button-create" [routerLink]="['/outcome/new']">
       <fa-icon icon="file-medical-alt" slot="start"></fa-icon>
-      <span  customTranslate="supportivecareApp.outcome.home.createLabel"></span>
+      <span customTranslate="supportivecareApp.outcome.home.createLabel"></span>
     </button>
   </div>
   <custom-alert-error></custom-alert-error>
@@ -14,13 +14,13 @@
   <div class="table-responsive" id="entities" *ngIf="outcomes && outcomes.length > 0">
     <table class="table table-striped border-style" aria-describedby="page-heading">
       <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-      <tr *ngFor="let outcome of outcomes; trackBy: trackId" data-cy="entityTable">
-        <td class= "table-item" [routerLink]="['/outcome', outcome.id, 'view']">
-          <a data-cy="entityDetailsButton" [routerLink]="['/outcome', outcome.id, 'view']">
-            <span class="list-text-color-bold"> {{ outcome.name }} </span>
-          </a>
-        </td>
-      </tr>
+        <tr *ngFor="let outcome of outcomes; trackBy: trackId" data-cy="entityTable">
+          <td class="table-item" [routerLink]="['/outcome', outcome.id, 'view']">
+            <a data-cy="entityDetailsButton" [routerLink]="['/outcome', outcome.id, 'view']">
+              <span class="list-text-color-bold"> {{ outcome.name }} </span>
+            </a>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
