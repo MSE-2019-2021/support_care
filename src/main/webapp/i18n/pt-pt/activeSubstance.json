@@ -32,6 +32,10 @@
         "dosage": "Dosagem.",
         "form": "Forma Farmacêutica.",
         "description": "Descrição geral."
+      },
+      "actions": {
+        "addObservation": "Adicionar observação",
+        "removeObservation": "Remover observação"
       }
     }
   }

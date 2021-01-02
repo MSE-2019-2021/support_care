@@ -18,6 +18,7 @@
         "title": "Notice"
       },
       "id": "ID",
+      "name": "Name",
       "description": "Description",
       "evaluation": "Evaluation",
       "intervention": "Interdependent intervention",

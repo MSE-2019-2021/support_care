@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { IActiveSubstance, ActiveSubstance } from '../active-substance.model';
 import { ActiveSubstanceService } from '../service/active-substance.service';
 import { INotice } from 'app/entities/notice/notice.model';
-import { NoticeService } from 'app/entities/notice/service/notice.service';
 import { IAdministration } from 'app/entities/administration/administration.model';
 import { AdministrationService } from 'app/entities/administration/service/administration.service';
+import { NoticeService } from 'app/entities/notice/service/notice.service';
 
 @Component({
   selector: 'custom-active-substance-update',
@@ -26,14 +26,14 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     dosage: [null, [Validators.required, Validators.maxLength(30)]],
     form: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
-    notices: [],
     administration: [],
+    notices: new FormArray([]),
   });
 
   constructor(
     protected activeSubstanceService: ActiveSubstanceService,
-    protected noticeService: NoticeService,
     protected administrationService: AdministrationService,
+    protected noticeService: NoticeService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -41,8 +41,6 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ activeSubstance }) => {
       this.updateForm(activeSubstance);
-
-      this.noticeService.query().subscribe((res: HttpResponse<INotice[]>) => (this.notices = res.body ?? []));
 
       this.administrationService.query().subscribe((res: HttpResponse<IAdministration[]>) => (this.administrations = res.body ?? []));
     });
@@ -56,8 +54,11 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       form: activeSubstance.form,
       description: activeSubstance.description,
       administration: activeSubstance.administration,
-      notices: activeSubstance.notices,
     });
+    this.editForm.setControl('notices', this.fb.array(this.getNotices().controls));
+    if (activeSubstance.id) {
+      this.addNotice(activeSubstance.notices, false);
+    }
   }
 
   previousState(): void {
@@ -125,5 +126,41 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  getNotices(): FormArray {
+    return this.editForm.controls.notices as FormArray;
+  }
+
+  addNotice(notice: any = {}, newNotice: boolean = true): void {
+    const currentActiveSubstance = this.editForm.controls;
+    const currentNotices = currentActiveSubstance.notices as FormArray;
+    if (typeof notice !== 'undefined' && newNotice) {
+      currentNotices.push(
+        this.fb.group({
+          id: [null, []],
+          description: ['', Validators.required, Validators.maxLength(1000)],
+          evaluation: ['', Validators.maxLength(1000)],
+          intervention: ['', Validators.maxLength(1000)],
+        })
+      );
+    } else {
+      notice.forEach((obj: { id: null; description: ''; evaluation: ''; intervention: '' }) => {
+        currentNotices.push(
+          this.fb.group({
+            id: [obj.id],
+            description: [obj.description, [Validators.required, Validators.maxLength(1000)]],
+            evaluation: [obj.evaluation, Validators.maxLength(1000)],
+            intervention: [obj.intervention, Validators.maxLength(1000)],
+          })
+        );
+      });
+    }
+  }
+
+  deleteNotice(i: number): void {
+    const currentActiveSubstance = this.editForm.controls;
+    const currentNotices = currentActiveSubstance.notices as FormArray;
+    currentNotices.removeAt(i);
   }
 }
