@@ -55,7 +55,7 @@ public class ActiveSubstance extends AbstractAuditingEntity implements Serializa
     @Column(name = "description", length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "activeSubstance", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "activeSubstance", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "activeSubstance" }, allowSetters = true)
     private Set<Notice> notices = new HashSet<>();

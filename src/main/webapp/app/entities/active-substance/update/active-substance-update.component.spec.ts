@@ -1,5 +1,3 @@
-import { ToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
-
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
@@ -40,6 +38,7 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new ActiveSubstance(123);
+        entity.notices = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -54,6 +53,7 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new ActiveSubstance();
+        entity.notices = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -69,6 +69,7 @@ describe('Component Tests', () => {
     describe('is editing', () => {
       it('should return true when editing component', () => {
         const entity = new ActiveSubstance(123);
+        entity.notices = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
 
@@ -125,6 +126,21 @@ describe('Component Tests', () => {
           expect(result === option).toEqual(true);
           expect(result === selected).toEqual(false);
         });
+      });
+    });
+    describe('Handle notices Form Array', () => {
+      it('Should add and delete a notice from the form array', () => {
+        const notice = new Notice(111, 'notice', '', '');
+
+        comp.addNotice(notice);
+        comp.deleteNotice(0);
+
+        expect(comp.getNotices().length).toBe(0);
+      });
+      it('Should add an empty notice to the form array', () => {
+        comp.addNotice();
+
+        expect(comp.getNotices().length).toBe(1);
       });
     });
   });
