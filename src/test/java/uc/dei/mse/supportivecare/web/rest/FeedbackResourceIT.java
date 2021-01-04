@@ -32,7 +32,7 @@ import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
 @WithMockUser
 class FeedbackResourceIT {
 
-    private static final EntityFeedback DEFAULT_ENTITY_NAME = EntityFeedback.DRUG;
+    private static final EntityFeedback DEFAULT_ENTITY_NAME = EntityFeedback.ACTIVE_SUBSTANCE;
     private static final EntityFeedback UPDATED_ENTITY_NAME = EntityFeedback.THERAPEUTIC_REGIME;
 
     private static final Long DEFAULT_ENTITY_ID = 1L;

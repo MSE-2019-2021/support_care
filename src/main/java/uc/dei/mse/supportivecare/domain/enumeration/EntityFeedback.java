@@ -4,7 +4,7 @@ package uc.dei.mse.supportivecare.domain.enumeration;
  * The EntityFeedback enumeration.
  */
 public enum EntityFeedback {
-    DRUG("Drug"),
+    ACTIVE_SUBSTANCE("ActiveSubstance"),
     THERAPEUTIC_REGIME("TherapeuticRegime"),
     OUTCOME("Outcome"),
     SYMPTOM("Symptom");
