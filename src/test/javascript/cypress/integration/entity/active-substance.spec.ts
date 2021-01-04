@@ -60,7 +60,7 @@ describe.only('ActiveSubstance e2e test', () => {
   //   cy.visit('/');
   // });
 
-  it('should load create ActiveSubstance page', () => {
+  /*it('should load create ActiveSubstance page', () => {
     cy.server();
     cy.route('GET', '/api/active-substances*').as('entitiesRequest');
     cy.visit('/');
@@ -70,7 +70,7 @@ describe.only('ActiveSubstance e2e test', () => {
     cy.getEntityCreateHeading('ActiveSubstance');
     cy.get(entityCreateSaveButtonSelector).should('exist');
     cy.visit('/');
-  });
+  });*/
 
   // it('should load edit ActiveSubstance page', () => {
   //   cy.server();
