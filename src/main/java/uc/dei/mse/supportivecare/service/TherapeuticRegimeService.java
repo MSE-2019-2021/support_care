@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.TherapeuticRegime;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.TherapeuticRegimeRepository;
 import uc.dei.mse.supportivecare.service.dto.TherapeuticRegimeDTO;
 import uc.dei.mse.supportivecare.service.mapper.TherapeuticRegimeMapper;
@@ -25,12 +26,16 @@ public class TherapeuticRegimeService {
 
     private final TherapeuticRegimeMapper therapeuticRegimeMapper;
 
+    private final FeedbackService feedbackService;
+
     public TherapeuticRegimeService(
         TherapeuticRegimeRepository therapeuticRegimeRepository,
-        TherapeuticRegimeMapper therapeuticRegimeMapper
+        TherapeuticRegimeMapper therapeuticRegimeMapper,
+        FeedbackService feedbackService
     ) {
         this.therapeuticRegimeRepository = therapeuticRegimeRepository;
         this.therapeuticRegimeMapper = therapeuticRegimeMapper;
+        this.feedbackService = feedbackService;
     }
 
     /**
@@ -139,5 +144,6 @@ public class TherapeuticRegimeService {
     public void delete(Long id) {
         log.debug("Request to delete TherapeuticRegime : {}", id);
         therapeuticRegimeRepository.deleteById(id);
+        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.THERAPEUTIC_REGIME, id);
     }
 }
