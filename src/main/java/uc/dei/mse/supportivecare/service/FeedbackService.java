@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Feedback;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
 import uc.dei.mse.supportivecare.service.dto.FeedbackDTO;
 import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
@@ -119,5 +120,16 @@ public class FeedbackService {
     public void delete(Long id) {
         log.debug("Request to delete Feedback : {}", id);
         feedbackRepository.deleteById(id);
+    }
+
+    /**
+     * Delete the feedback by entity id.
+     *
+     * @param entityFeedback the entity feedback.
+     * @param entityId the entity id.
+     */
+    public void deleteByEntityNameAndEntityId(EntityFeedback entityFeedback, Long entityId) {
+        log.debug("Request to delete Feedback by Entity Id: {} {}", entityFeedback, entityId);
+        feedbackRepository.deleteByEntityNameAndEntityId(entityFeedback, entityId);
     }
 }

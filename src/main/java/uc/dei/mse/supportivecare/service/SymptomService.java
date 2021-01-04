@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Symptom;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.SymptomRepository;
 import uc.dei.mse.supportivecare.service.dto.SymptomDTO;
 import uc.dei.mse.supportivecare.service.mapper.SymptomMapper;
@@ -25,9 +26,12 @@ public class SymptomService {
 
     private final SymptomMapper symptomMapper;
 
-    public SymptomService(SymptomRepository symptomRepository, SymptomMapper symptomMapper) {
+    private final FeedbackService feedbackService;
+
+    public SymptomService(SymptomRepository symptomRepository, SymptomMapper symptomMapper, FeedbackService feedbackService) {
         this.symptomRepository = symptomRepository;
         this.symptomMapper = symptomMapper;
+        this.feedbackService = feedbackService;
     }
 
     /**
@@ -112,5 +116,6 @@ public class SymptomService {
     public void delete(Long id) {
         log.debug("Request to delete Symptom : {}", id);
         symptomRepository.deleteById(id);
+        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.SYMPTOM, id);
     }
 }
