@@ -21,15 +21,15 @@
       },
       "generalInfo": "Informações gerais",
       "id": "ID",
-      "name": "Name",
-      "notice": "Informação ao enfermeiro.",
+      "name": "Nome",
+      "notice": "Informação ao enfermeiro",
       "therapeuticRegime": "Regimes terapêuticos associados",
       "outcome": "Avaliação do sintoma",
       "toxicityRate": "Grau de manifestação do sintoma",
       "irt1": "Descrição do grau de manifestação do sintoma",
       "help": {
-        "name": "Nome.",
-        "notice": "Informação ao enfermeiro."
+        "name": "Nome",
+        "notice": "Informação ao enfermeiro"
       },
       "actions": {
         "addToxicityRate": "Adicionar grau de manifestação do sintoma",

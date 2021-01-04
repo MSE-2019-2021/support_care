@@ -15,7 +15,6 @@ import { TherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-r
 import { Outcome } from 'app/entities/outcome/outcome.model';
 
 import { SymptomUpdateComponent } from './symptom-update.component';
-import { ActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 
 describe('Component Tests', () => {
   describe('Symptom Management Update Component', () => {
