@@ -29,6 +29,10 @@
       "help": {
         "name": "Nome.",
         "notice": "Informação ao enfermeiro."
+      },
+      "actions": {
+        "addToxicityRate": "Add toxicity rate",
+        "removeToxicityRate": "Remove toxicity rate"
       }
     }
   }

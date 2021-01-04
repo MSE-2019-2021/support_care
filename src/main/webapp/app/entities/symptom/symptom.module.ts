@@ -6,9 +6,10 @@ import { SymptomDetailComponent } from './detail/symptom-detail.component';
 import { SymptomUpdateComponent } from './update/symptom-update.component';
 import { SymptomDeleteDialogComponent } from './delete/symptom-delete-dialog.component';
 import { SymptomRoutingModule } from './route/symptom-routing.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
-  imports: [SharedModule, SymptomRoutingModule],
+  imports: [SharedModule, SymptomRoutingModule, NgMultiSelectDropDownModule],
   declarations: [SymptomComponent, SymptomDetailComponent, SymptomUpdateComponent, SymptomDeleteDialogComponent],
   entryComponents: [SymptomDeleteDialogComponent],
 })

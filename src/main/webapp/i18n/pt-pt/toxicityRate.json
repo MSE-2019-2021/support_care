@@ -19,10 +19,10 @@
       },
       "id": "ID",
       "name": "Nome",
-      "description": "Descrição do grau de manifestação do sintoma",
+      "description": "Descrição",
       "notice": "Informação ao doente",
-      "autonomousIntervention": "Intervenção autónoman",
-      "interdependentIntervention": "Intervenção interdependente",
+      "autonomousIntervention": "Intervenções autónomas de enfermagem",
+      "interdependentIntervention": "Intervenções interdependentes de enfermagem",
       "selfManagement": "Suporte para auto-gestão",
       "symptom": "Symptom",
       "help": {
@@ -31,8 +31,9 @@
         "notice": "Informação ao doente.",
         "autonomousIntervention": "Intervenção autónoma.",
         "interdependentIntervention": "Intervenção interdependente.",
-        "selfManagement": "Suporte para auto-gestão."
-      }
+        "selfManagement": "Apoio à auto-gestão do sintoma"
+      },
+      "recommendedInterventions": "Intervenções recomendadas associadas ao grau"
     }
   }
 }

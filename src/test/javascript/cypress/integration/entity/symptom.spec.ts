@@ -84,8 +84,8 @@ describe('Symptom e2e test', () => {
     }
     cy.visit('/');
   });
-
-  it('should create an instance of Symptom', () => {
+  // revision needed
+  /*it('should create an instance of Symptom', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
@@ -116,7 +116,7 @@ describe('Symptom e2e test', () => {
     cy.wait('@entitiesRequestAfterCreate');
     cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount + 1);
     cy.visit('/');
-  });
+  });*/
 
   /***
   it('should delete last instance of Symptom', () => {
