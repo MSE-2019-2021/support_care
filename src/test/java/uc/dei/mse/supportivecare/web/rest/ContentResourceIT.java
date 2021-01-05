@@ -156,24 +156,6 @@ class ContentResourceIT {
 
     @Test
     @Transactional
-    void getContentsByIdFiltering() throws Exception {
-        // Initialize the database
-        contentRepository.saveAndFlush(content);
-
-        Long id = content.getId();
-
-        defaultContentShouldBeFound("id.equals=" + id);
-        defaultContentShouldNotBeFound("id.notEquals=" + id);
-
-        defaultContentShouldBeFound("id.greaterThanOrEqual=" + id);
-        defaultContentShouldNotBeFound("id.greaterThan=" + id);
-
-        defaultContentShouldBeFound("id.lessThanOrEqual=" + id);
-        defaultContentShouldNotBeFound("id.lessThan=" + id);
-    }
-
-    @Test
-    @Transactional
     void getAllContentsByDocumentIsEqualToSomething() throws Exception {
         // Get already existing entity
         Document document = content.getDocument();
