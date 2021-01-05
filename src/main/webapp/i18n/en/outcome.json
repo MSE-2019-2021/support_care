@@ -4,24 +4,25 @@
       "home": {
         "title": "Available PROMs",
         "refreshListLabel": "Refresh list",
-        "createLabel": "Create outcome",
-        "editLabel": "Edit outcome",
-        "createOrEditLabel": "Create or edit a Outcome",
-        "notFound": "No Outcomes found"
+        "createLabel": "Create PROM",
+        "editLabel": "Edit PROM",
+        "notFound": "No PROMs found"
       },
-      "created": "A new Outcome is created with identifier {{ param }}",
-      "updated": "A Outcome is updated with identifier {{ param }}",
-      "deleted": "A Outcome is deleted with identifier {{ param }}",
+      "created": "PROM was successfully created",
+      "updated": "PROM was successfully updated",
+      "deleted": "PROM successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete Outcome {{ id }}?"
+        "question": "Are you sure you want to delete {{ name }}?"
       },
       "detail": {
-        "title": "Outcome"
+        "title": "PROM"
       },
       "id": "ID",
       "name": "Name",
+      "generalInfo": "General Information",
       "description": "Description",
-      "document": "Document",
+      "attachment": "Attachment (files upload)",
+      "attachmentUpload": "Upload file",
       "symptom": "Symptom",
       "help": {
         "name": "Nome.",

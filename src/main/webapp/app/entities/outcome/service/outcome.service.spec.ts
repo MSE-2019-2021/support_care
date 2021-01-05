@@ -41,10 +41,11 @@ describe('Service Tests', () => {
           },
           elemDefault
         );
+        const files = {} as FileList;
 
         const expected = Object.assign({}, returnedFromService);
 
-        service.create(new Outcome()).subscribe(resp => (expectedResult = resp.body));
+        service.create(new Outcome(), files).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'POST' });
         req.flush(returnedFromService);
@@ -61,9 +62,11 @@ describe('Service Tests', () => {
           elemDefault
         );
 
+        const files = {} as FileList;
+
         const expected = Object.assign({}, returnedFromService);
 
-        service.update(expected).subscribe(resp => (expectedResult = resp.body));
+        service.update(expected, files).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'PUT' });
         req.flush(returnedFromService);

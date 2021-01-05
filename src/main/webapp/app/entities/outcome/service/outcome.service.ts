@@ -28,8 +28,10 @@ export class OutcomeService {
 
     formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
 
-    for (let i = 0; i < files.length; i++) {
-      formData.append(filesMultipartFormParam, files.item(i)!);
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append(filesMultipartFormParam, files.item(i)!);
+      }
     }
 
     return this.http.post<IOutcome>(this.resourceUrl, formData, { observe: 'response' });

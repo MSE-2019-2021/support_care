@@ -36,28 +36,32 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new Outcome(123);
+        const files = {} as FileList;
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
+        comp.files = files;
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
-        expect(service.update).toHaveBeenCalledWith(entity);
+        expect(service.update).toHaveBeenCalledWith(entity, files);
         expect(comp.isSaving).toEqual(false);
       }));
 
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Outcome();
+        const files = {} as FileList;
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
+        comp.files = files;
         // WHEN
         comp.save();
         tick(); // simulate async
 
         // THEN
-        expect(service.create).toHaveBeenCalledWith(entity);
+        expect(service.create).toHaveBeenCalledWith(entity, files);
         expect(comp.isSaving).toEqual(false);
       }));
     });
