@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = TestBed.inject(FeedbackService);
       httpMock = TestBed.inject(HttpTestingController);
 
-      elemDefault = new Feedback(0, EntityFeedback.DRUG, 0, false, 'AAAAAAA', false, false);
+      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, false, 'AAAAAAA', false, false);
     });
 
     describe('Service methods', () => {
