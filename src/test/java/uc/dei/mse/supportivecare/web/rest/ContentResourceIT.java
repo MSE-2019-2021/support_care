@@ -124,25 +124,6 @@ class ContentResourceIT {
 
     @Test
     @Transactional
-    void createContentWithExistingId() throws Exception {
-        // Create the Content with an existing ID
-        content.setId(1L);
-        ContentDTO contentDTO = contentMapper.toDto(content);
-
-        int databaseSizeBeforeCreate = contentRepository.findAll().size();
-
-        // An entity with an existing ID cannot be created, so this API call must fail
-        restContentMockMvc
-            .perform(post("/api/contents").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(contentDTO)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the Content in the database
-        List<Content> contentList = contentRepository.findAll();
-        assertThat(contentList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
     void getAllContents() throws Exception {
         // Initialize the database
         contentRepository.saveAndFlush(content);
@@ -250,33 +231,6 @@ class ContentResourceIT {
     void getNonExistingContent() throws Exception {
         // Get the content
         restContentMockMvc.perform(get("/api/contents/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
-    void updateContent() throws Exception {
-        // Initialize the database
-        contentRepository.saveAndFlush(content);
-
-        int databaseSizeBeforeUpdate = contentRepository.findAll().size();
-
-        // Update the content
-        Content updatedContent = contentRepository.findById(content.getId()).get();
-        // Disconnect from session so that the updates on updatedContent are not directly saved in db
-        em.detach(updatedContent);
-        updatedContent.data(UPDATED_DATA).dataContentType(UPDATED_DATA_CONTENT_TYPE);
-        ContentDTO contentDTO = contentMapper.toDto(updatedContent);
-
-        restContentMockMvc
-            .perform(put("/api/contents").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(contentDTO)))
-            .andExpect(status().isOk());
-
-        // Validate the Content in the database
-        List<Content> contentList = contentRepository.findAll();
-        assertThat(contentList).hasSize(databaseSizeBeforeUpdate);
-        Content testContent = contentList.get(contentList.size() - 1);
-        assertThat(testContent.getData()).isEqualTo(UPDATED_DATA);
-        assertThat(testContent.getDataContentType()).isEqualTo(UPDATED_DATA_CONTENT_TYPE);
     }
 
     @Test

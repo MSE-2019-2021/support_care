@@ -10,6 +10,7 @@ import { OutcomeService } from '../service/outcome.service';
 @Component({
   selector: 'custom-outcome-update',
   templateUrl: './outcome-update.component.html',
+  styleUrls: ['./updateOutcome.scss'],
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
@@ -55,6 +56,11 @@ export class OutcomeUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
     }
+  }
+
+  isEditing(): boolean {
+    const outcome = this.createFromForm();
+    return !!outcome.id;
   }
 
   private createFromForm(): IOutcome {

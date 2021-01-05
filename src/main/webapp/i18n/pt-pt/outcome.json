@@ -6,12 +6,11 @@
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar PROM",
         "editLabel": "Editar PROM",
-        "createOrEditLabel": "Criar ou editar PROM",
         "notFound": "Nenhum PROM encontrado"
       },
-      "created": "Um novo PROM foi criado com o identificador {{ param }}",
-      "updated": "PROM com identificador {{ param }} foi actualizado",
-      "deleted": "PROM com identificador {{ param }} foi eliminado",
+      "created": "PROM criado com sucesso",
+      "updated": "PROM actualizado com sucesso",
+      "deleted": "PROM eliminado com sucesso",
       "delete": {
         "question": "Tem a certeza que pretende eliminar o PROM {{ id }}?"
       },
@@ -20,8 +19,10 @@
       },
       "id": "ID",
       "name": "Nome",
+      "generalInfo": "Informações gerais",
       "description": "Descrição",
-      "document": "Documento",
+      "attachment": "Anexo (carregamento de ficheiros)",
+      "attachmentUpload": "Carregar ficheiro",
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",

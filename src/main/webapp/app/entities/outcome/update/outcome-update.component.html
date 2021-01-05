@@ -1,54 +1,53 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="custom-outcome-heading" data-cy="OutcomeCreateUpdateHeading" customTranslate="supportivecareApp.outcome.home.createOrEditLabel">Create or edit a Outcome</h2>
+<div class="entityWrapper">
+  <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <h2 class="list-text-color-bold" id="custom-outcome-edit-heading" data-cy="TherapeuticRegimeUpdateHeading" *ngIf="isEditing()" customTranslate="supportivecareApp.outcome.home.editLabel"></h2>
+    <h2 class="list-text-color-bold" id="custom-outcome-create-heading" data-cy="TherapeuticRegimeCreateHeading" *ngIf="!isEditing()" customTranslate="supportivecareApp.outcome.home.createLabel"></h2>
+    <div class="mainWrapper entityInfoWrapper">
+      <h5 class="list-text-color-bold mt-4 mb-4" customTranslate="supportivecareApp.outcome.generalInfo"></h5>
+      <custom-alert-error></custom-alert-error>
 
-      <div>
-        <custom-alert-error></custom-alert-error>
+      <div class="form-group" [hidden]="editForm.get('id')?.value == null">
+        <label class="form-control-label" customTranslate="global.field.id" for="field_id">ID</label>
+        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" readonly />
+      </div>
 
-        <div class="form-group" [hidden]="editForm.get('id')?.value == null">
-          <label class="form-control-label" customTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" readonly />
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.outcome.name" for="field_name" [ngbTooltip]="'supportivecareApp.outcome.help.name' | translate">Name</label>
-          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
-              This field cannot be longer than 255 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label" customTranslate="supportivecareApp.outcome.description" for="field_description" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate"
-            >Description</label
-          >
-          <input type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description" />
-          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-              This field cannot be longer than 1000 characters.
-            </small>
-          </div>
+      <div class="form-group">
+        <label class="form-control-label" customTranslate="supportivecareApp.outcome.name" for="field_name" [ngbTooltip]="'supportivecareApp.outcome.help.name' | translate">Name</label>
+        <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+          <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+            This field cannot be longer than 255 characters.
+          </small>
         </div>
       </div>
 
       <div class="form-group">
-        <label class="form-control-label" for="field_documents" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate">Attachment</label>
-        <input type="file" (change)="handleFileInput($event)" id="field_documents" multiple />
+        <label class="form-control-label" customTranslate="supportivecareApp.outcome.description" for="field_description" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate"
+          >Description</label
+        >
+        <textarea type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description"></textarea>
+        <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+            This field cannot be longer than 1000 characters.
+          </small>
+        </div>
       </div>
 
-      <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-          <fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
-        </button>
-
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-          <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
-        </button>
+      <div class="form-group">
+        <label customTranslate="supportivecareApp.outcome.attachment"></label>
+        <label class="btn fileButton" for="field_documents"
+          ><fa-icon icon="file-upload" class="uploadIcon"></fa-icon> <span class="attachmentSpan" customTranslate="supportivecareApp.outcome.attachmentUpload"></span
+        ></label>
+        <input class="hideInput" type="file" (change)="handleFileInput($event)" id="field_documents" multiple />
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div class="updateButtons">
+      <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn btn-primary button-create">
+        <fa-icon icon="save"></fa-icon>&nbsp;<span customTranslate="entity.action.save"></span>
+      </button>
+      <button type="button" id="cancel-save" class="btn btn-danger" (click)="previousState()"><fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel"></span></button>
+    </div>
+  </form>
 </div>
