@@ -194,7 +194,7 @@ public class FeedbackResource {
         @Valid @RequestBody FeedbackDTO feedbackDTO
     ) throws URISyntaxException {
         log.debug("REST request to manage Feedback for entity name and Id: {} {}: {}", entityName, entityId, feedbackDTO);
-        if (feedbackDTO.getEntityName() != entityName || feedbackDTO.getEntityId() != entityId) {
+        if (!feedbackDTO.getEntityName().equals(entityName) || !feedbackDTO.getEntityId().equals(entityId)) {
             throw new BadRequestAlertException("The feedback is incorrect", ENTITY_NAME, "wrongEntity");
         }
         String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
