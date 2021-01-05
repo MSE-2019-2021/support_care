@@ -8,7 +8,7 @@ import { TherapeuticRegimeUpdateComponent } from './update/therapeutic-regime-up
 import { TherapeuticRegimeDeleteDialogComponent } from './delete/therapeutic-regime-delete-dialog.component';
 import { TherapeuticRegimeCancelDialogComponent } from './cancel/therapeutic-regime-cancel-dialog.component';
 import { TherapeuticRegimeRoutingModule } from './route/therapeutic-regime-routing.module';
-import { TherapeuticRegimeCreateFeedbackDialogComponent } from 'app/entities/therapeutic-regime/detail/create-feedback/therapeutic-regime-create-feedback-dialog.component';
+import { DefineReasonDialogComponent } from '../feedback/define-reason/define-reason-dialog.component';
 
 @NgModule({
   imports: [SharedModule, TherapeuticRegimeRoutingModule, NgMultiSelectDropDownModule],
@@ -18,7 +18,7 @@ import { TherapeuticRegimeCreateFeedbackDialogComponent } from 'app/entities/the
     TherapeuticRegimeUpdateComponent,
     TherapeuticRegimeDeleteDialogComponent,
     TherapeuticRegimeCancelDialogComponent,
-    TherapeuticRegimeCreateFeedbackDialogComponent,
+    DefineReasonDialogComponent,
   ],
   entryComponents: [TherapeuticRegimeDeleteDialogComponent, TherapeuticRegimeCancelDialogComponent],
 })

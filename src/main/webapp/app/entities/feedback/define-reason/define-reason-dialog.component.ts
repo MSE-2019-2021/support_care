@@ -10,9 +10,9 @@ import { Location } from '@angular/common';
 
 @Component({
   selector: 'custom-create-feedback-dialog',
-  templateUrl: './therapeutic-regime-create-feedback-dialog.component.html',
+  templateUrl: './define-reason-dialog.component.html',
 })
-export class TherapeuticRegimeCreateFeedbackDialogComponent implements OnInit {
+export class DefineReasonDialogComponent implements OnInit {
   isSaving = false;
 
   editForm = this.fb.group({

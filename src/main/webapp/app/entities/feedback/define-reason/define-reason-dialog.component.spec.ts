@@ -4,23 +4,23 @@ import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/cor
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { TherapeuticRegimeCreateFeedbackDialogComponent } from './therapeutic-regime-create-feedback-dialog.component';
+import { DefineReasonDialogComponent } from './define-reason-dialog.component';
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Cancel Component', () => {
-    let comp: TherapeuticRegimeCreateFeedbackDialogComponent;
-    let fixture: ComponentFixture<TherapeuticRegimeCreateFeedbackDialogComponent>;
+    let comp: DefineReasonDialogComponent;
+    let fixture: ComponentFixture<DefineReasonDialogComponent>;
     let mockActiveModal: NgbActiveModal;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
-        declarations: [TherapeuticRegimeCreateFeedbackDialogComponent],
+        declarations: [DefineReasonDialogComponent],
         providers: [NgbActiveModal],
       })
-        .overrideTemplate(TherapeuticRegimeCreateFeedbackDialogComponent, '')
+        .overrideTemplate(DefineReasonDialogComponent, '')
         .compileComponents();
-      fixture = TestBed.createComponent(TherapeuticRegimeCreateFeedbackDialogComponent);
+      fixture = TestBed.createComponent(DefineReasonDialogComponent);
       comp = fixture.componentInstance;
       mockActiveModal = TestBed.inject(NgbActiveModal);
     });
@@ -30,7 +30,7 @@ describe('Component Tests', () => {
         [],
         fakeAsync(() => {
           // WHEN
-          comp.confirmCancel();
+          comp.save();
           tick();
 
           // THEN

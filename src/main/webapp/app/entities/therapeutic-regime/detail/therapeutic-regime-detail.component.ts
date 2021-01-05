@@ -4,10 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITherapeuticRegime } from '../therapeutic-regime.model';
 import { TherapeuticRegimeDeleteDialogComponent } from '../delete/therapeutic-regime-delete-dialog.component';
-import { TherapeuticRegimeCreateFeedbackDialogComponent } from '../detail/create-feedback/therapeutic-regime-create-feedback-dialog.component';
+import { DefineReasonDialogComponent } from '../../feedback/define-reason/define-reason-dialog.component';
 import { IFeedback, Feedback } from 'app/entities/feedback/feedback.model';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
-import { PasswordCancelDialogComponent } from 'app/account/password/cancel/password-cancel-dialog.component';
 
 @Component({
   selector: 'custom-therapeutic-regime-detail',
@@ -40,6 +39,6 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   }
 
   createFeedback(): void {
-    this.modalService.open(TherapeuticRegimeCreateFeedbackDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+    this.modalService.open(DefineReasonDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
