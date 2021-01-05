@@ -1,6 +1,9 @@
 {
   "supportivecareApp": {
     "feedback": {
+      "thumbs-up": {
+        "title": "Was this information helpful?"
+      },
       "home": {
         "title": "Feedbacks",
         "refreshListLabel": "Refresh list",

@@ -4,6 +4,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ITherapeuticRegime } from '../therapeutic-regime.model';
 import { TherapeuticRegimeDeleteDialogComponent } from '../delete/therapeutic-regime-delete-dialog.component';
+import { TherapeuticRegimeCreateFeedbackDialogComponent } from '../detail/create-feedback/therapeutic-regime-create-feedback-dialog.component';
+import { IFeedback, Feedback } from 'app/entities/feedback/feedback.model';
+import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
+import { PasswordCancelDialogComponent } from 'app/account/password/cancel/password-cancel-dialog.component';
 
 @Component({
   selector: 'custom-therapeutic-regime-detail',
@@ -12,7 +16,7 @@ import { TherapeuticRegimeDeleteDialogComponent } from '../delete/therapeutic-re
 export class TherapeuticRegimeDetailComponent implements OnInit {
   therapeuticRegime: ITherapeuticRegime | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute, protected modalService: NgbModal) {}
+  constructor(protected activatedRoute: ActivatedRoute, protected modalService: NgbModal, protected feedbackService: FeedbackService) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
@@ -33,5 +37,9 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
         this.previousState();
       }
     });
+  }
+
+  createFeedback(): void {
+    this.modalService.open(TherapeuticRegimeCreateFeedbackDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
