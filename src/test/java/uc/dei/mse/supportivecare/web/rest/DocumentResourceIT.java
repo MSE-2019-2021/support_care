@@ -40,8 +40,13 @@ class DocumentResourceIT {
     private static final Long UPDATED_SIZE = 2L;
     private static final Long SMALLER_SIZE = 1L - 1L;
 
-    private static final String DEFAULT_MIME_TYPE = "AAAAAAAAAA";
-    private static final String UPDATED_MIME_TYPE = "BBBBBBBBBB";
+    private static final String DEFAULT_MIME_TYPE = "text/plain";
+    private static final String UPDATED_MIME_TYPE = "text/plain";
+
+    private static final byte[] DEFAULT_DATA = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_DATA = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_DATA_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_DATA_CONTENT_TYPE = "image/png";
 
     @Autowired
     private DocumentRepository documentRepository;
@@ -67,7 +72,8 @@ class DocumentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Document createEntity(EntityManager em) {
-        Document document = new Document().title(DEFAULT_TITLE).size(DEFAULT_SIZE).mimeType(DEFAULT_MIME_TYPE);
+        Content content = new Content().data(DEFAULT_DATA).dataContentType(DEFAULT_DATA_CONTENT_TYPE);
+        Document document = new Document().title(DEFAULT_TITLE).size(DEFAULT_SIZE).mimeType(DEFAULT_MIME_TYPE).content(content);
         // Add required entity
         Outcome outcome;
         if (TestUtil.findAll(em, Outcome.class).isEmpty()) {
@@ -88,7 +94,8 @@ class DocumentResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Document createUpdatedEntity(EntityManager em) {
-        Document document = new Document().title(UPDATED_TITLE).size(UPDATED_SIZE).mimeType(UPDATED_MIME_TYPE);
+        Content content = new Content().data(UPDATED_DATA).dataContentType(UPDATED_DATA_CONTENT_TYPE);
+        Document document = new Document().title(UPDATED_TITLE).size(UPDATED_SIZE).mimeType(UPDATED_MIME_TYPE).content(content);
         // Add required entity
         Outcome outcome;
         if (TestUtil.findAll(em, Outcome.class).isEmpty()) {
@@ -213,6 +220,19 @@ class DocumentResourceIT {
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.size").value(DEFAULT_SIZE.intValue()))
             .andExpect(jsonPath("$.mimeType").value(DEFAULT_MIME_TYPE));
+    }
+
+    @Test
+    @Transactional
+    void getDownloadDocument() throws Exception {
+        // Initialize the database
+        documentRepository.saveAndFlush(document);
+
+        // Get the document
+        restDocumentMockMvc
+            .perform(get("/api/documents/{id}/$content", document.getId()))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.parseMediaType(document.getMimeType())));
     }
 
     @Test
