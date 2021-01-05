@@ -18,7 +18,7 @@
           <span customTranslate="supportivecareApp.feedback.entityName" [ngbTooltip]="'supportivecareApp.feedback.help.entityName' | translate">Entity Name</span>
         </dt>
         <dd>
-          <span customTranslate="{{ 'supportivecareApp.EntityFeedback.' + feedback.entityName }}">{{ feedback.entityName }}</span>
+          <span customTranslate="{{ 'supportivecareApp.EntityFeedback.' + getEntityFeedbackKey(feedback.entityName!) }}">{{ feedback.entityName }}</span>
         </dd>
         <dt>
           <span customTranslate="supportivecareApp.feedback.entityId" [ngbTooltip]="'supportivecareApp.feedback.help.entityId' | translate">Entity Id</span>

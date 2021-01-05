@@ -42,7 +42,7 @@
           <td>
             <a [routerLink]="['/feedback', feedback.id, 'view']">{{ feedback.id }}</a>
           </td>
-          <td customTranslate="{{ 'supportivecareApp.EntityFeedback.' + feedback.entityName }}">{{ feedback.entityName }}</td>
+          <td customTranslate="{{ 'supportivecareApp.EntityFeedback.' + getEntityFeedbackKey(feedback.entityName!) }}">{{ feedback.entityName }}</td>
           <td>{{ feedback.entityId }}</td>
           <td>{{ feedback.thumb }}</td>
           <td>{{ feedback.reason }}</td>

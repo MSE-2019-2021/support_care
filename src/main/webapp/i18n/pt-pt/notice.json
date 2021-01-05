@@ -22,7 +22,7 @@
       "description": "Descrição",
       "evaluation": "Avaliação",
       "intervention": "Intervenção interdependente",
-      "drug": "Medicamento",
+      "activeSubstance": "Substancia Activa",
       "help": {
         "description": "Descrição.",
         "evaluation": "Avaliação.",
