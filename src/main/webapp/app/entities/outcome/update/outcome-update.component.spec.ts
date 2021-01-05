@@ -65,5 +65,30 @@ describe('Component Tests', () => {
         expect(comp.isSaving).toEqual(false);
       }));
     });
+
+    it('Should return file input', () => {
+      const entity = new Outcome();
+      const files = {} as FileList;
+      spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+      const targetFiles = ({ target: { files: {} } } as unknown) as Event;
+      comp.handleFileInput(targetFiles);
+      expect(comp.files).toEqual({});
+    });
+
+    describe('is editing', () => {
+      it('should return true when editing component', () => {
+        const entity = new Outcome(123);
+        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+        comp.updateForm(entity);
+
+        expect(comp.isEditing()).toBeTruthy();
+      });
+
+      it('should return false when creating component', () => {
+        const entity = new Outcome();
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        expect(comp.isEditing()).toBeFalsy();
+      });
+    });
   });
 });

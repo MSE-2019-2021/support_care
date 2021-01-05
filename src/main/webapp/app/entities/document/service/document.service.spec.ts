@@ -11,6 +11,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IDocument;
     let expectedResult: IDocument | IDocument[] | boolean | null;
+    let expectDownload: Blob;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -98,6 +99,10 @@ describe('Service Tests', () => {
         const req = httpMock.expectOne({ method: 'DELETE' });
         req.flush({ status: 200 });
         expect(expectedResult);
+      });
+
+      it('should download a document', () => {
+        service.download(123);
       });
     });
 
