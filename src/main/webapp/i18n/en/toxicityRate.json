@@ -32,7 +32,8 @@
         "autonomousIntervention": "Intervenção autónoma.",
         "interdependentIntervention": "Intervenção interdependente.",
         "selfManagement": "Suporte para auto-gestão."
-      }
+      },
+      "recommendedInterventions": "Recommended interventions associated with the toxicity Rate"
     }
   }
 }
