@@ -26,7 +26,6 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
      * Nome da entidade.
      */
     @NotNull
-    @Enumerated(EnumType.STRING)
     @Column(name = "entity_name", nullable = false)
     private EntityFeedback entityName;
 

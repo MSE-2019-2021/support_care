@@ -5,7 +5,7 @@
       "fieldName": "entityName",
       "fieldType": "EntityFeedback",
       "javadoc": "Nome da entidade.",
-      "fieldValues": "DRUG (Drug),THERAPEUTIC_REGIME (TherapeuticRegime),OUTCOME (Outcome),SYMPTOM (Symptom)",
+      "fieldValues": "ACTIVE_SUBSTANCE (active-substance),THERAPEUTIC_REGIME (therapeutic-regime),OUTCOME (outcome),SYMPTOM (symptom)",
       "fieldValidateRules": ["required"]
     },
     {
