@@ -187,24 +187,6 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
-    void checkThumbIsRequired() throws Exception {
-        int databaseSizeBeforeTest = feedbackRepository.findAll().size();
-        // set the field null
-        feedback.setThumb(null);
-
-        // Create the Feedback, which fails.
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
-
-        restFeedbackMockMvc
-            .perform(post("/api/feedbacks").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(feedbackDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void checkSolvedIsRequired() throws Exception {
         int databaseSizeBeforeTest = feedbackRepository.findAll().size();
         // set the field null
