@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Feedback;
@@ -131,5 +132,41 @@ public class FeedbackService {
     public void deleteByEntityNameAndEntityId(EntityFeedback entityFeedback, Long entityId) {
         log.debug("Request to delete Feedback by Entity Id: {} {}", entityFeedback, entityId);
         feedbackRepository.deleteByEntityNameAndEntityId(entityFeedback, entityId);
+    }
+
+    /**
+     * Manage a feedback by the entity name, entity id and user.
+     *
+     * @param feedbackDTO the entity to manage.
+     * @return the HttpStatus:
+     *      - {@code 201 (Created)} and with body the new feedbackDTO or,
+     *      - {@code 200 (Updated)} and with body the new feedbackDTO or,
+     *      - {@code 204 (NO_CONTENT)}
+     */
+    public HttpStatus manage(FeedbackDTO feedbackDTO) {
+        HttpStatus status;
+        if (feedbackDTO.getThumb() == null) {
+            log.debug("Request to delete Feedback : {}", feedbackDTO);
+            feedbackRepository.deleteByEntityNameAndEntityIdAndCreatedBy(
+                feedbackDTO.getEntityName(),
+                feedbackDTO.getEntityId(),
+                feedbackDTO.getCreatedBy()
+            );
+            status = HttpStatus.NO_CONTENT;
+        } else {
+            if (
+                feedbackRepository.existsByEntityNameAndEntityIdAndCreatedBy(
+                    feedbackDTO.getEntityName(),
+                    feedbackDTO.getEntityId(),
+                    feedbackDTO.getCreatedBy()
+                )
+            ) {
+                status = HttpStatus.OK;
+            } else {
+                status = HttpStatus.CREATED;
+            }
+            this.save(feedbackDTO);
+        }
+        return status;
     }
 }

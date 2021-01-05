@@ -12,4 +12,8 @@ import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, Long>, JpaSpecificationExecutor<Feedback> {
     void deleteByEntityNameAndEntityId(EntityFeedback entityFeedback, Long entityId);
+
+    boolean existsByEntityNameAndEntityIdAndCreatedBy(EntityFeedback entityFeedback, Long entityId, String createdBy);
+
+    void deleteByEntityNameAndEntityIdAndCreatedBy(EntityFeedback entityFeedback, Long entityId, String createdBy);
 }

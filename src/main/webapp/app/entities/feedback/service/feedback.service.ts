@@ -35,4 +35,8 @@ export class FeedbackService {
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  manage(entityName: string, entityId: number, feedback: IFeedback): Observable<HttpResponse<{}>> {
+    return this.http.post(`${this.resourceUrl}/${entityName}/${entityId}`, feedback, { observe: 'response' });
+  }
 }

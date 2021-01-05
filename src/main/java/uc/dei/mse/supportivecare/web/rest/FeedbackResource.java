@@ -19,6 +19,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+import uc.dei.mse.supportivecare.config.Constants;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
+import uc.dei.mse.supportivecare.security.SecurityUtils;
 import uc.dei.mse.supportivecare.service.FeedbackQueryService;
 import uc.dei.mse.supportivecare.service.FeedbackService;
 import uc.dei.mse.supportivecare.service.dto.FeedbackCriteria;
@@ -169,5 +172,37 @@ public class FeedbackResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code POST  /feedbacks} : Create a new feedback.
+     *
+     * @param entityName the entity name of the feedbackDTO to save.
+     * @param entityId the entity id of the feedbackDTO to save.
+     * @param feedbackDTO the feedbackDTO to save.
+     * @return the {@link ResponseEntity} with status:
+     *      - {@code 201 (Created)} or,
+     *      - {@code 200 (Updated)} or,
+     *      - {@code 204 (NO_CONTENT)} or,
+     *      - {@code 400 (Bad Request)} if the feedback is incorrect.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/feedbacks/{entityName}/{entityId}")
+    public ResponseEntity<Void> manageFeedbackFromUser(
+        @PathVariable EntityFeedback entityName,
+        @PathVariable Long entityId,
+        @Valid @RequestBody FeedbackDTO feedbackDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to manage Feedback for entity name and Id: {} {}: {}", entityName, entityId, feedbackDTO);
+        if (feedbackDTO.getEntityName() != entityName || feedbackDTO.getEntityId() != entityId) {
+            throw new BadRequestAlertException("The feedback is incorrect", ENTITY_NAME, "wrongEntity");
+        }
+        String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
+        if (feedbackDTO.getCreatedBy() == null) {
+            feedbackDTO.setCreatedBy(currentUser);
+        } else if (feedbackDTO.getCreatedBy() != currentUser) {
+            throw new BadRequestAlertException("The feedback do not belongs to the current user", ENTITY_NAME, "wrongUser");
+        }
+        return ResponseEntity.status(feedbackService.manage(feedbackDTO)).build();
     }
 }
