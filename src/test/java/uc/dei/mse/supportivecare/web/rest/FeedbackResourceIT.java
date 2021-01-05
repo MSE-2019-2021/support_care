@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.IntegrationTest;
+import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.Feedback;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
@@ -896,6 +897,98 @@ class FeedbackResourceIT {
         // Delete the feedback
         restFeedbackMockMvc
             .perform(delete("/api/feedbacks/{id}", feedback.getId()).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent());
+
+        // Validate the database contains one less item
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    void manageFeedback_create() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isCreated());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate + 1);
+        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
+        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
+        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
+        assertThat(testFeedback.getThumb()).isEqualTo(DEFAULT_THUMB);
+        assertThat(testFeedback.getReason()).isEqualTo(DEFAULT_REASON);
+        assertThat(testFeedback.getSolved()).isEqualTo(DEFAULT_SOLVED);
+        assertThat(testFeedback.getAnonym()).isEqualTo(DEFAULT_ANONYM);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedback_update() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM);
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
+        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
+        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
+        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
+        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
+        assertThat(testFeedback.getReason()).isEqualTo(UPDATED_REASON);
+        assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
+        assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedback_delete() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeDelete = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(null);
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        // Delete the feedback
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

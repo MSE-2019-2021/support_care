@@ -200,7 +200,7 @@ public class FeedbackResource {
         String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
         if (feedbackDTO.getCreatedBy() == null) {
             feedbackDTO.setCreatedBy(currentUser);
-        } else if (feedbackDTO.getCreatedBy() != currentUser) {
+        } else if (!currentUser.equals(feedbackDTO.getCreatedBy())) {
             throw new BadRequestAlertException("The feedback do not belongs to the current user", ENTITY_NAME, "wrongUser");
         }
         return ResponseEntity.status(feedbackService.manage(feedbackDTO)).build();
