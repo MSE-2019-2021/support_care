@@ -13,7 +13,7 @@ import { IDocument } from 'app/entities/document/document.model';
 export class OutcomeDetailComponent implements OnInit {
   outcome: IOutcome | null = null;
 
-  constructor(protected activatedRoute: ActivatedRoute, private documentService: DocumentService) {}
+  constructor(private activatedRoute: ActivatedRoute, private documentService: DocumentService) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ outcome }) => {

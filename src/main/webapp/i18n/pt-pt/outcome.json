@@ -12,7 +12,7 @@
       "updated": "PROM actualizado com sucesso",
       "deleted": "PROM eliminado com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o PROM {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar {{ name }}?"
       },
       "detail": {
         "title": "PROM"
