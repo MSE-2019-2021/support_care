@@ -116,44 +116,6 @@ class DocumentResourceIT {
 
     @Test
     @Transactional
-    void createDocument() throws Exception {
-        int databaseSizeBeforeCreate = documentRepository.findAll().size();
-        // Create the Document
-        DocumentDTO documentDTO = documentMapper.toDto(document);
-        restDocumentMockMvc
-            .perform(post("/api/documents").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(documentDTO)))
-            .andExpect(status().isCreated());
-
-        // Validate the Document in the database
-        List<Document> documentList = documentRepository.findAll();
-        assertThat(documentList).hasSize(databaseSizeBeforeCreate + 1);
-        Document testDocument = documentList.get(documentList.size() - 1);
-        assertThat(testDocument.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testDocument.getSize()).isEqualTo(DEFAULT_SIZE);
-        assertThat(testDocument.getMimeType()).isEqualTo(DEFAULT_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
-    void createDocumentWithExistingId() throws Exception {
-        // Create the Document with an existing ID
-        document.setId(1L);
-        DocumentDTO documentDTO = documentMapper.toDto(document);
-
-        int databaseSizeBeforeCreate = documentRepository.findAll().size();
-
-        // An entity with an existing ID cannot be created, so this API call must fail
-        restDocumentMockMvc
-            .perform(post("/api/documents").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(documentDTO)))
-            .andExpect(status().isBadRequest());
-
-        // Validate the Document in the database
-        List<Document> documentList = documentRepository.findAll();
-        assertThat(documentList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
     void checkTitleIsRequired() throws Exception {
         int databaseSizeBeforeTest = documentRepository.findAll().size();
         // set the field null
@@ -437,84 +399,6 @@ class DocumentResourceIT {
 
     @Test
     @Transactional
-    void getAllDocumentsByMimeTypeIsEqualToSomething() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType equals to DEFAULT_MIME_TYPE
-        defaultDocumentShouldBeFound("mimeType.equals=" + DEFAULT_MIME_TYPE);
-
-        // Get all the documentList where mimeType equals to UPDATED_MIME_TYPE
-        defaultDocumentShouldNotBeFound("mimeType.equals=" + UPDATED_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDocumentsByMimeTypeIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType not equals to DEFAULT_MIME_TYPE
-        defaultDocumentShouldNotBeFound("mimeType.notEquals=" + DEFAULT_MIME_TYPE);
-
-        // Get all the documentList where mimeType not equals to UPDATED_MIME_TYPE
-        defaultDocumentShouldBeFound("mimeType.notEquals=" + UPDATED_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDocumentsByMimeTypeIsInShouldWork() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType in DEFAULT_MIME_TYPE or UPDATED_MIME_TYPE
-        defaultDocumentShouldBeFound("mimeType.in=" + DEFAULT_MIME_TYPE + "," + UPDATED_MIME_TYPE);
-
-        // Get all the documentList where mimeType equals to UPDATED_MIME_TYPE
-        defaultDocumentShouldNotBeFound("mimeType.in=" + UPDATED_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDocumentsByMimeTypeIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType is not null
-        defaultDocumentShouldBeFound("mimeType.specified=true");
-
-        // Get all the documentList where mimeType is null
-        defaultDocumentShouldNotBeFound("mimeType.specified=false");
-    }
-
-    @Test
-    @Transactional
-    void getAllDocumentsByMimeTypeContainsSomething() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType contains DEFAULT_MIME_TYPE
-        defaultDocumentShouldBeFound("mimeType.contains=" + DEFAULT_MIME_TYPE);
-
-        // Get all the documentList where mimeType contains UPDATED_MIME_TYPE
-        defaultDocumentShouldNotBeFound("mimeType.contains=" + UPDATED_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
-    void getAllDocumentsByMimeTypeNotContainsSomething() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        // Get all the documentList where mimeType does not contain DEFAULT_MIME_TYPE
-        defaultDocumentShouldNotBeFound("mimeType.doesNotContain=" + DEFAULT_MIME_TYPE);
-
-        // Get all the documentList where mimeType does not contain UPDATED_MIME_TYPE
-        defaultDocumentShouldBeFound("mimeType.doesNotContain=" + UPDATED_MIME_TYPE);
-    }
-
-    @Test
-    @Transactional
     void getAllDocumentsByContentIsEqualToSomething() throws Exception {
         // Initialize the database
         documentRepository.saveAndFlush(document);
@@ -596,34 +480,6 @@ class DocumentResourceIT {
     void getNonExistingDocument() throws Exception {
         // Get the document
         restDocumentMockMvc.perform(get("/api/documents/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
-    void updateDocument() throws Exception {
-        // Initialize the database
-        documentRepository.saveAndFlush(document);
-
-        int databaseSizeBeforeUpdate = documentRepository.findAll().size();
-
-        // Update the document
-        Document updatedDocument = documentRepository.findById(document.getId()).get();
-        // Disconnect from session so that the updates on updatedDocument are not directly saved in db
-        em.detach(updatedDocument);
-        updatedDocument.title(UPDATED_TITLE).size(UPDATED_SIZE).mimeType(UPDATED_MIME_TYPE);
-        DocumentDTO documentDTO = documentMapper.toDto(updatedDocument);
-
-        restDocumentMockMvc
-            .perform(put("/api/documents").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(documentDTO)))
-            .andExpect(status().isOk());
-
-        // Validate the Document in the database
-        List<Document> documentList = documentRepository.findAll();
-        assertThat(documentList).hasSize(databaseSizeBeforeUpdate);
-        Document testDocument = documentList.get(documentList.size() - 1);
-        assertThat(testDocument.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testDocument.getSize()).isEqualTo(UPDATED_SIZE);
-        assertThat(testDocument.getMimeType()).isEqualTo(UPDATED_MIME_TYPE);
     }
 
     @Test
