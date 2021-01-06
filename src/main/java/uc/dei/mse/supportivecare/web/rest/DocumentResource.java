@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,6 +25,7 @@ import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.dto.DocumentCriteria;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
+import uc.dei.mse.supportivecare.web.rest.errors.DocumentNotFoundException;
 
 /**
  * REST controller for managing {@link uc.dei.mse.supportivecare.domain.Document}.
@@ -128,6 +130,17 @@ public class DocumentResource {
         Page<DocumentDTO> page = documentQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/documents/{id}/$content")
+    public ResponseEntity<byte[]> getDocumentContent(@PathVariable Long id) {
+        DocumentDTO document = documentService.findOneWithContentById(id).orElseThrow(DocumentNotFoundException::new);
+
+        return ResponseEntity
+            .ok()
+            .contentType(MediaType.parseMediaType(document.getMimeType()))
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + document.getTitle() + "\"")
+            .body(document.retrieveContent());
     }
 
     /**

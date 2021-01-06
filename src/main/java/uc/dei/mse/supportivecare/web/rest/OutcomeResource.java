@@ -1,9 +1,11 @@
 package uc.dei.mse.supportivecare.web.rest;
 
+import io.jsonwebtoken.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -15,14 +17,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
+import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
+import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
 /**
@@ -35,6 +41,7 @@ public class OutcomeResource {
     private final Logger log = LoggerFactory.getLogger(OutcomeResource.class);
 
     private static final String ENTITY_NAME = "outcome";
+    private final DocumentContentMapper documentContentMapper;
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -43,9 +50,18 @@ public class OutcomeResource {
 
     private final OutcomeQueryService outcomeQueryService;
 
-    public OutcomeResource(OutcomeService outcomeService, OutcomeQueryService outcomeQueryService) {
+    private final DocumentService documentService;
+
+    public OutcomeResource(
+        OutcomeService outcomeService,
+        OutcomeQueryService outcomeQueryService,
+        DocumentContentMapper documentContentMapper,
+        DocumentService documentService
+    ) {
         this.outcomeService = outcomeService;
         this.outcomeQueryService = outcomeQueryService;
+        this.documentService = documentService;
+        this.documentContentMapper = documentContentMapper;
     }
 
     /**
@@ -56,12 +72,16 @@ public class OutcomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/outcomes")
-    public ResponseEntity<OutcomeDTO> createOutcome(@Valid @RequestBody OutcomeDTO outcomeDTO) throws URISyntaxException {
+    public ResponseEntity<OutcomeDTO> createOutcome(@Valid @RequestPart OutcomeDTO outcomeDTO, @RequestPart List<MultipartFile> files)
+        throws URISyntaxException, IOException {
         log.debug("REST request to save Outcome : {}", outcomeDTO);
         if (outcomeDTO.getId() != null) {
             throw new BadRequestAlertException("A new outcome cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        outcomeDTO.setDocuments(documentContentMapper.multiPartFilesToDocuments(files));
         OutcomeDTO result = outcomeService.save(outcomeDTO);
+
         return ResponseEntity
             .created(new URI("/api/outcomes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -78,15 +98,19 @@ public class OutcomeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/outcomes")
-    public ResponseEntity<OutcomeDTO> updateOutcome(@Valid @RequestBody OutcomeDTO outcomeDTO) throws URISyntaxException {
+    public ResponseEntity<OutcomeDTO> updateOutcome(@Valid @RequestPart OutcomeDTO outcomeDTO, @RequestPart List<MultipartFile> files)
+        throws URISyntaxException {
         log.debug("REST request to update Outcome : {}", outcomeDTO);
         if (outcomeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        outcomeDTO.setDocuments(documentContentMapper.multiPartFilesToDocuments(files));
         OutcomeDTO result = outcomeService.save(outcomeDTO);
+
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, outcomeDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 

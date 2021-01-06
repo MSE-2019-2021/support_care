@@ -10,14 +10,17 @@ import { OutcomeService } from '../service/outcome.service';
 @Component({
   selector: 'custom-outcome-update',
   templateUrl: './outcome-update.component.html',
+  styleUrls: ['./updateOutcome.scss'],
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
+  files: any;
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
+    documents: [],
   });
 
   constructor(protected outcomeService: OutcomeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -28,11 +31,16 @@ export class OutcomeUpdateComponent implements OnInit {
     });
   }
 
+  handleFileInput(event: Event): void {
+    this.files = (<HTMLInputElement>event.target).files!;
+  }
+
   updateForm(outcome: IOutcome): void {
     this.editForm.patchValue({
       id: outcome.id,
       name: outcome.name,
       description: outcome.description,
+      documents: outcome.documents,
     });
   }
 
@@ -44,10 +52,15 @@ export class OutcomeUpdateComponent implements OnInit {
     this.isSaving = true;
     const outcome = this.createFromForm();
     if (outcome.id !== undefined) {
-      this.subscribeToSaveResponse(this.outcomeService.update(outcome));
+      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files));
     } else {
-      this.subscribeToSaveResponse(this.outcomeService.create(outcome));
+      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
     }
+  }
+
+  isEditing(): boolean {
+    const outcome = this.createFromForm();
+    return !!outcome.id;
   }
 
   private createFromForm(): IOutcome {
@@ -56,6 +69,7 @@ export class OutcomeUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
+      documents: this.editForm.get(['documents'])!.value,
     };
   }
 

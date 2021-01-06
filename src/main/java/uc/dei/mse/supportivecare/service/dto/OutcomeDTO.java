@@ -3,7 +3,9 @@ package uc.dei.mse.supportivecare.service.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.validation.constraints.*;
 
 /**
@@ -29,6 +31,8 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
+    private Set<DocumentDTO> documents = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -51,6 +55,14 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<DocumentDTO> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Set<DocumentDTO> documents) {
+        this.documents = documents;
     }
 
     @Override
@@ -81,6 +93,13 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", documents=" + getDocuments() +
             "}";
+    }
+
+    public OutcomeDTO addDocument(DocumentDTO document) {
+        this.documents.add(document);
+        document.setOutcome(this);
+        return this;
     }
 }

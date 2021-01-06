@@ -1,5 +1,6 @@
 package uc.dei.mse.supportivecare.service.mapper;
 
+import java.util.Set;
 import org.mapstruct.*;
 import uc.dei.mse.supportivecare.domain.*;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
@@ -12,4 +13,14 @@ public interface DocumentMapper extends EntityMapper<DocumentDTO, Document> {
     @Mapping(target = "content", source = "content", qualifiedByName = "id")
     @Mapping(target = "outcome", source = "outcome", qualifiedByName = "name")
     DocumentDTO toDto(Document document);
+
+    @Named("withContent")
+    @Mapping(target = "content", source = "content")
+    @Mapping(target = "outcome", ignore = true)
+    DocumentDTO toDtoWithContent(Document document);
+
+    @Named("nameSet")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "name", source = "name")
+    Set<DocumentDTO> toDtoNameSet(Set<Document> document);
 }

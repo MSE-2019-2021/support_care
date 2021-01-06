@@ -5,6 +5,31 @@ import { IOutcome, Outcome } from '../outcome.model';
 
 import { OutcomeService } from './outcome.service';
 
+interface MockFile {
+  name: string;
+  body: string;
+  mimeType: string;
+}
+
+const createFileFromMockFile = (file: MockFile): File => {
+  const blob = new Blob([file.body], { type: file.mimeType }) as any;
+  blob['lastModifiedDate'] = new Date();
+  blob['name'] = file.name;
+  return blob as File;
+};
+
+const createMockFileList = (files: MockFile[]): FileList => {
+  const fileList: FileList = {
+    length: files.length,
+    item(index: number): File {
+      return fileList[index];
+    },
+  };
+  files.forEach((file, index) => (fileList[index] = createFileFromMockFile(file)));
+
+  return fileList;
+};
+
 describe('Service Tests', () => {
   describe('Outcome Service', () => {
     let service: OutcomeService;
@@ -34,7 +59,7 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject(elemDefault);
       });
 
-      it('should create a Outcome', () => {
+      it('should create a Outcome with no files', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
@@ -42,16 +67,43 @@ describe('Service Tests', () => {
           elemDefault
         );
 
+        const files = {} as FileList;
+
         const expected = Object.assign({}, returnedFromService);
 
-        service.create(new Outcome()).subscribe(resp => (expectedResult = resp.body));
+        service.create(new Outcome(), files).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'POST' });
         req.flush(returnedFromService);
         expect(expectedResult).toMatchObject(expected);
       });
 
-      it('should update a Outcome', () => {
+      it('should create a Outcome with files', () => {
+        const returnedFromService = Object.assign(
+          {
+            id: 0,
+          },
+          elemDefault
+        );
+
+        const fileList = createMockFileList([
+          {
+            body: 'test',
+            mimeType: 'text/plain',
+            name: 'test.txt',
+          },
+        ]);
+
+        const expected = Object.assign({}, returnedFromService);
+
+        service.create(new Outcome(), fileList).subscribe(resp => (expectedResult = resp.body));
+
+        const req = httpMock.expectOne({ method: 'POST' });
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject(expected);
+      });
+
+      it('should update a Outcome with no files', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
@@ -61,9 +113,38 @@ describe('Service Tests', () => {
           elemDefault
         );
 
+        const files = {} as FileList;
+
         const expected = Object.assign({}, returnedFromService);
 
-        service.update(expected).subscribe(resp => (expectedResult = resp.body));
+        service.update(expected, files).subscribe(resp => (expectedResult = resp.body));
+
+        const req = httpMock.expectOne({ method: 'PUT' });
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject(expected);
+      });
+
+      it('should update a Outcome with no files', () => {
+        const returnedFromService = Object.assign(
+          {
+            id: 1,
+            name: 'BBBBBB',
+            description: 'BBBBBB',
+          },
+          elemDefault
+        );
+
+        const fileList = createMockFileList([
+          {
+            body: 'test',
+            mimeType: 'text/plain',
+            name: 'test.txt',
+          },
+        ]);
+
+        const expected = Object.assign({}, returnedFromService);
+
+        service.update(expected, fileList).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'PUT' });
         req.flush(returnedFromService);

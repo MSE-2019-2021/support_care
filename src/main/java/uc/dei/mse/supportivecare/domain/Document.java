@@ -45,7 +45,7 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     private String mimeType;
 
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(unique = true)
     private Content content;
 

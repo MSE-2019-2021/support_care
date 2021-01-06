@@ -2,7 +2,7 @@ package uc.dei.mse.supportivecare.service.mapper;
 
 import java.util.Set;
 import org.mapstruct.*;
-import uc.dei.mse.supportivecare.domain.*;
+import uc.dei.mse.supportivecare.domain.Notice;
 import uc.dei.mse.supportivecare.service.dto.NoticeDTO;
 
 /**

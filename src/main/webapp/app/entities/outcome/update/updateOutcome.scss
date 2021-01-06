@@ -1,0 +1,33 @@
+.hideInput {
+  display: none;
+}
+
+.fileButton {
+  background: #f6f6f6;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+}
+
+.fileButton:hover {
+  background: #cad3ea;
+}
+
+.uploadIcon {
+  color: #5c88f6;
+  width: 16px;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.attachmentSpan {
+  color: #5c88f6;
+}
+
+.updateButtons {
+  margin-top: 20px;
+}
