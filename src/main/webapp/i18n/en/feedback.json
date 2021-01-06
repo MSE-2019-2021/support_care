@@ -1,6 +1,13 @@
 {
   "supportivecareApp": {
     "feedback": {
+      "dialog": {
+        "title": "Help us to improve",
+        "body": "Help us to improve this information, justifying the negative feedback. Improvements will be made as soon as possible.",
+        "tip": "Please provide a reason...",
+        "anonym": "Send anonymously",
+        "send-button": "Send"
+      },
       "thumbs-up": {
         "title": "Was this information helpful?"
       },

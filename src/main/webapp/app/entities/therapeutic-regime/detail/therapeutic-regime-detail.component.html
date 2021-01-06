@@ -97,17 +97,16 @@
       </div>
     </div>
 
-    <div>
-      <h5 class="col-lg-12 mt-4 mb-4 list-text-color-bold" customTranslate="supportivecareApp.feedback.thumbs-up.title">Usefull info?</h5>
-
-      <div class="radio">
-        <button type="button" class="btn" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked data-cy="entityFeedbackUpButton">
-          <fa-icon icon="thumbs-up"></fa-icon>
-        </button>
-        <button type="button" (click)="createFeedback()" class="btn" type="radio" name="optionsRadios" id="optionsRadios2" value="option2" data-cy="entityFeedbackDownButton">
-          <fa-icon icon="thumbs-down"></fa-icon>
-        </button>
-      </div>
+    <div class="thumbsWrapper">
+      <h5 class="list-text-color-bold" customTranslate="supportivecareApp.feedback.thumbs-up.title">Usefull info?</h5>
+      <button type="button" class="btn" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked data-cy="entityFeedbackUpButton">
+        <fa-icon icon="thumbs-up"></fa-icon>
+      </button>
+      <button type="button" (click)="createFeedback()" class="btn" type="radio" name="optionsRadios" id="optionsRadios2" value="option2" data-cy="entityFeedbackDownButton">
+        <fa-icon icon="thumbs-down"></fa-icon>
+      </button>
     </div>
+    <hr class="hrStyle" />
+    <div class="feedbackWrapper"></div>
   </div>
 </div>
