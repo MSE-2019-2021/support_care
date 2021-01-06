@@ -11,6 +11,9 @@
       "thumbs-up": {
         "title": "Was this information helpful?"
       },
+      "improvements-sugestion": {
+        "title": "Improvements sugestion"
+      },
       "home": {
         "title": "Feedbacks",
         "refreshListLabel": "Refresh list",
