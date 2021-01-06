@@ -22,9 +22,9 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    name: [null, [Validators.required, Validators.maxLength(255)]],
-    dosage: [null, [Validators.required, Validators.maxLength(30)]],
-    form: [null, [Validators.required, Validators.maxLength(255)]],
+    name: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(255)]],
+    dosage: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(30)]],
+    form: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
     administration: [],
     notices: new FormArray([]),
