@@ -24,7 +24,7 @@ export class DefineReasonDialogComponent implements OnInit {
     solved: [null, [Validators.required]],
     anonym: [null, [Validators.required]],
   });
-  //therapeuticRegime.id
+
   constructor(
     private _location: Location,
     public activeModal: NgbActiveModal,

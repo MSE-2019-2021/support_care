@@ -12,7 +12,9 @@ import uc.dei.mse.supportivecare.domain.Feedback;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
 import uc.dei.mse.supportivecare.service.dto.FeedbackDTO;
+import uc.dei.mse.supportivecare.service.dto.ThumbDTO;
 import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
+import uc.dei.mse.supportivecare.service.mapper.ThumbMapper;
 
 /**
  * Service Implementation for managing {@link Feedback}.
@@ -27,9 +29,12 @@ public class FeedbackService {
 
     private final FeedbackMapper feedbackMapper;
 
-    public FeedbackService(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper) {
+    private final ThumbMapper thumbMapper;
+
+    public FeedbackService(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper, ThumbMapper thumbMapper) {
         this.feedbackRepository = feedbackRepository;
         this.feedbackMapper = feedbackMapper;
+        this.thumbMapper = thumbMapper;
     }
 
     /**
@@ -143,7 +148,7 @@ public class FeedbackService {
      *      - {@code 200 (Updated)} and with body the new feedbackDTO or,
      *      - {@code 204 (NO_CONTENT)}
      */
-    public HttpStatus manage(FeedbackDTO feedbackDTO) {
+    public HttpStatus manageFeedbackFromEntity(FeedbackDTO feedbackDTO) {
         HttpStatus status;
         if (feedbackDTO.getThumb() == null) {
             log.debug("Request to delete Feedback : {}", feedbackDTO);
@@ -168,5 +173,20 @@ public class FeedbackService {
             this.save(feedbackDTO);
         }
         return status;
+    }
+
+    /**
+     * Count likes/dislikes feedback by the entity name, entity id and user.
+     *
+     * @param entityFeedback the entity feedback.
+     * @param entityId the entity id.
+     * @return the thumb detail.
+     */
+    @Transactional(readOnly = true)
+    public ThumbDTO countFeedbacksFromEntity(EntityFeedback entityFeedback, Long entityId, String currentUser) {
+        log.debug("Request to count Feedbacks for entity name and Id, and User: {} {} {}", entityFeedback, entityId, currentUser);
+        return thumbMapper.toDTO(
+            feedbackRepository.countAllByEntityNameAndEntityIdAndCreatedBy(entityFeedback.getValue(), entityId, currentUser)
+        );
     }
 }

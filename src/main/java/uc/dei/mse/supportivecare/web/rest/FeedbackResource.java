@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +25,7 @@ import uc.dei.mse.supportivecare.service.FeedbackQueryService;
 import uc.dei.mse.supportivecare.service.FeedbackService;
 import uc.dei.mse.supportivecare.service.dto.FeedbackCriteria;
 import uc.dei.mse.supportivecare.service.dto.FeedbackDTO;
+import uc.dei.mse.supportivecare.service.dto.ThumbDTO;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
 /**
@@ -175,7 +175,7 @@ public class FeedbackResource {
     }
 
     /**
-     * {@code POST  /feedbacks} : Create a new feedback.
+     * {@code POST  /feedbacks/:entityName/:entityId} : Create a new feedback for an Entity.
      *
      * @param entityName the entity name of the feedbackDTO to save.
      * @param entityId the entity id of the feedbackDTO to save.
@@ -188,7 +188,7 @@ public class FeedbackResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/feedbacks/{entityName}/{entityId}")
-    public ResponseEntity<Void> manageFeedbackFromUser(
+    public ResponseEntity<Void> manageFeedbackFromEntity(
         @PathVariable EntityFeedback entityName,
         @PathVariable Long entityId,
         @Valid @RequestBody FeedbackDTO feedbackDTO
@@ -203,6 +203,19 @@ public class FeedbackResource {
         } else if (!currentUser.equals(feedbackDTO.getCreatedBy())) {
             throw new BadRequestAlertException("The feedback do not belongs to the current user", ENTITY_NAME, "wrongUser");
         }
-        return ResponseEntity.status(feedbackService.manage(feedbackDTO)).build();
+        return ResponseEntity.status(feedbackService.manageFeedbackFromEntity(feedbackDTO)).build();
+    }
+
+    /**
+     * {@code GET  /feedbacks/:entityName/:entityId/count} : count all feedbacks for an Entity.
+     *
+     * @param entityName the entity name of the feedbackDTO to save.
+     * @param entityId the entity id of the feedbackDTO to save.
+     */
+    @GetMapping("/feedbacks/{entityName}/{entityId}/count")
+    public ResponseEntity<ThumbDTO> countFeedbacksFromEntity(@PathVariable EntityFeedback entityName, @PathVariable Long entityId) {
+        log.debug("REST request to count Feedbacks for entity name and Id: {} {}", entityName, entityId);
+        String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
+        return ResponseEntity.ok().body(feedbackService.countFeedbacksFromEntity(entityName, entityId, currentUser));
     }
 }

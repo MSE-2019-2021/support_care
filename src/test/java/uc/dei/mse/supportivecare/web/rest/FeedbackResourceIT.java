@@ -2,6 +2,7 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -888,7 +889,7 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
-    void manageFeedback_create() throws Exception {
+    void manageFeedbackFromEntity_create() throws Exception {
         int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
         // Create the Feedback
         FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
@@ -915,7 +916,7 @@ class FeedbackResourceIT {
     @Test
     @Transactional
     @WithMockUser(username = Constants.SYSTEM)
-    void manageFeedback_update() throws Exception {
+    void manageFeedbackFromEntity_update() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
@@ -951,7 +952,7 @@ class FeedbackResourceIT {
     @Test
     @Transactional
     @WithMockUser(username = Constants.SYSTEM)
-    void manageFeedback_delete() throws Exception {
+    void manageFeedbackFromEntity_delete() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
@@ -976,5 +977,24 @@ class FeedbackResourceIT {
         // Validate the database contains one less item
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void countFeedbacksFromEntity() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        restFeedbackMockMvc
+            .perform(
+                get("/api/feedbacks/{entityName}/{entityId}/count", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.countThumbUp", is(0)))
+            .andExpect(jsonPath("$.countThumbDown", is(1)))
+            .andExpect(jsonPath("$.thumb", is(DEFAULT_THUMB.booleanValue())));
     }
 }
