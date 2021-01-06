@@ -1,16 +1,13 @@
 jest.mock('@angular/router');
 
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { TherapeuticRegimeService } from '../service/therapeutic-regime.service';
-import { TherapeuticRegime } from '../therapeutic-regime.model';
-import { ActiveSubstance, IActiveSubstance } from 'app/entities/active-substance/active-substance.model';
+import { ActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 import { Treatment } from 'app/entities/treatment/treatment.model';
 
 import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
