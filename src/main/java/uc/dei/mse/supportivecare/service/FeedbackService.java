@@ -180,6 +180,7 @@ public class FeedbackService {
      *
      * @param entityFeedback the entity feedback.
      * @param entityId the entity id.
+     * @param currentUser the current user.
      * @return the thumb detail.
      */
     @Transactional(readOnly = true)

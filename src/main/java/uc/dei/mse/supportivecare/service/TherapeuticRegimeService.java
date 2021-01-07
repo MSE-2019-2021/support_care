@@ -118,6 +118,7 @@ public class TherapeuticRegimeService {
     /**
      * Get all the therapeuticRegimes with eager load of many-to-many relationships.
      *
+     * @param pageable the page.
      * @return the list of entities.
      */
     public Page<TherapeuticRegimeDTO> findAllWithEagerRelationships(Pageable pageable) {

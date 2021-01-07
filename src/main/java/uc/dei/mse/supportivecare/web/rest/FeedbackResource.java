@@ -211,6 +211,7 @@ public class FeedbackResource {
      *
      * @param entityName the entity name of the feedbackDTO to save.
      * @param entityId the entity id of the feedbackDTO to save.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the thumbDTO, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/feedbacks/{entityName}/{entityId}/count")
     public ResponseEntity<ThumbDTO> countFeedbacksFromEntity(@PathVariable EntityFeedback entityName, @PathVariable Long entityId) {

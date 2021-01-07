@@ -90,6 +90,7 @@ public class SymptomService {
     /**
      * Get all the symptoms with eager load of many-to-many relationships.
      *
+     * @param pageable the page.
      * @return the list of entities.
      */
     public Page<SymptomDTO> findAllWithEagerRelationships(Pageable pageable) {

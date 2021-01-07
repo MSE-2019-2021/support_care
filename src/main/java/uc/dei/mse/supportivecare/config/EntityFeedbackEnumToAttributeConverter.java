@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 
 /**
- * AttributeConverter<EntityFeedback, String>. Implements the following methods :
+ * {@code AttributeConverter<EntityFeedback, String>}. Implements the following methods :
  * <ul>
  * <li>convertToDatabaseColumn : (given an Enum returns a String)
  * <li>convertToEntityAttribute : (given a String returns an Enum)
