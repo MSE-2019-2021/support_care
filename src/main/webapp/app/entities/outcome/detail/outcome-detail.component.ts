@@ -6,7 +6,6 @@ import { IOutcome } from '../outcome.model';
 import { DocumentService } from 'app/entities/document/service/document.service';
 import { IDocument } from 'app/entities/document/document.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OutcomeDeleteDialogComponent } from 'app/entities/outcome/delete/outcome-delete-dialog.component';
 
 @Component({
   selector: 'custom-outcome-detail',
@@ -31,10 +30,5 @@ export class OutcomeDetailComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
-  }
-
-  delete(outcome: IOutcome): void {
-    const modalRef = this.modalService.open(OutcomeDeleteDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.outcome = outcome;
   }
 }
