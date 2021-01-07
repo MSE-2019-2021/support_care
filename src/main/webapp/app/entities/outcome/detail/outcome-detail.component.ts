@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 
 import { IOutcome } from '../outcome.model';
 import { DocumentService } from 'app/entities/document/service/document.service';
@@ -23,7 +23,7 @@ export class OutcomeDetailComponent implements OnInit {
 
   downloadDocument(document: IDocument): void {
     this.documentService.download(document.id!).subscribe(file => {
-      FileSaver.saveAs(file, document.title);
+      saveAs(file, document.title);
     });
   }
 
