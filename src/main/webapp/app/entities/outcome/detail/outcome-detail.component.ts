@@ -5,6 +5,7 @@ import * as FileSaver from 'file-saver';
 import { IOutcome } from '../outcome.model';
 import { DocumentService } from 'app/entities/document/service/document.service';
 import { IDocument } from 'app/entities/document/document.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'custom-outcome-detail',
@@ -13,7 +14,7 @@ import { IDocument } from 'app/entities/document/document.model';
 export class OutcomeDetailComponent implements OnInit {
   outcome: IOutcome | null = null;
 
-  constructor(private activatedRoute: ActivatedRoute, private documentService: DocumentService) {}
+  constructor(private activatedRoute: ActivatedRoute, private documentService: DocumentService, protected modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ outcome }) => {
