@@ -6,7 +6,6 @@ import { IOutcome } from '../outcome.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { OutcomeService } from '../service/outcome.service';
-import { OutcomeDeleteDialogComponent } from '../delete/outcome-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
@@ -70,17 +69,6 @@ export class OutcomeComponent implements OnInit {
 
   trackId(index: number, item: IOutcome): number {
     return item.id!;
-  }
-
-  delete(outcome: IOutcome): void {
-    const modalRef = this.modalService.open(OutcomeDeleteDialogComponent, { centered: true, size: 'md', backdrop: 'static' });
-    modalRef.componentInstance.outcome = outcome;
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'deleted') {
-        this.reset();
-      }
-    });
   }
 
   sort(): string[] {
