@@ -1,47 +1,39 @@
-<div class="row justify-content-center">
-  <div class="col-8">
-    <div *ngIf="outcome">
-      <h2 data-cy="outcomeDetailsHeading"><span customTranslate="supportivecareApp.outcome.detail.title">Outcome</span></h2>
+<div class="entityWrapper">
+  <div *ngIf="outcome">
+    <button type="submit" [routerLink]="['/outcome']" class="btn button-transparent" data-cy="entityDetailsBackButton">
+      <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="entity.action.back">Back</span>
+    </button>
+    <button *customHasAnyAuthority="'ROLE_USER'" type="button" data-cy="entityEditButton" [routerLink]="['/outcome', outcome.id, 'edit']" class="btn btn-primary float-right button-create">
+      <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
+    </button>
+    <button *customHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(outcome)" class="btn button-transparent float-right button-delete" data-cy="entityDeleteButton">
+      <fa-icon class="red-icon" icon="trash"></fa-icon>
+    </button>
+    <h2 class="h2-color" data-cy="outcomeDetailsHeading">{{ outcome.name }}</h2>
 
-      <hr />
-
+    <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
-
       <custom-alert></custom-alert>
 
-      <dl class="row-md jh-entity-details">
-        <dt><span customTranslate="global.field.id">ID</span></dt>
-        <dd>
-          <span>{{ outcome.id }}</span>
-        </dd>
-        <dt>
-          <span customTranslate="supportivecareApp.outcome.name" [ngbTooltip]="'supportivecareApp.outcome.help.name' | translate">Name</span>
-        </dt>
-        <dd>
-          <span>{{ outcome.name }}</span>
-        </dd>
-        <dt>
-          <span customTranslate="supportivecareApp.outcome.description" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate">Description</span>
-        </dt>
-        <dd>
-          <span>{{ outcome.description }}</span>
-        </dd>
-      </dl>
-      <dl class="row-md jh-entity-details" *ngFor="let document of outcome.documents">
-        <dt>
-          <span>
-            <a (click)="downloadDocument(document)">{{ document.title }}</a>
-          </span>
-        </dt>
-      </dl>
-
-      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span customTranslate="entity.action.back">Back</span>
-      </button>
-
-      <button type="button" [routerLink]="['/outcome', outcome.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span>
-      </button>
+      <div class="sectionWrapper">
+        <h5 class="list-text-color-bold col-lg-12 mt-4 mb-4" customTranslate="supportivecareApp.outcome.generalInfo"></h5>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.outcome.description" [ngbTooltip]="'supportivecareApp.outcome.help.description' | translate"
+            >Description</label
+          >
+          <p>
+            <span>{{ outcome.description }}</span>
+          </p>
+        </div>
+        <div class="form-group col-lg-9">
+          <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.outcome.attachment" [ngbTooltip]="'supportivecareApp.outcome.help.attachment' | translate">File</label>
+          <div *ngFor="let document of outcome.documents">
+            <span>
+              <a class="btn-link" (click)="downloadDocument(document)">{{ document.title }}</a>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
