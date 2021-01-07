@@ -32,8 +32,8 @@
       },
       "action": {
         "delete": {
-          "title": "Deseja apagar este regime terapêutico?",
-          "body": "Ao confirmar esta ação, toda a informação relativa a este regime terapêutico será perdida."
+          "title": "Deseja apagar este PROM?",
+          "body": "Ao confirmar esta ação, toda a informação relativa a este PROM será perdida."
         }
       }
     }

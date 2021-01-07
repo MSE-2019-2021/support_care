@@ -19,6 +19,7 @@ export class OutcomeDeleteDialogComponent {
   confirmDelete(id: number): void {
     this.outcomeService.delete(id).subscribe(() => {
       this.activeModal.close('deleted');
+      window.history.back();
     });
   }
 }

@@ -32,8 +32,8 @@
       },
       "action": {
         "delete": {
-          "title": "Do you wish to delete this therapeutic regime?",
-          "body": "Upon confirming this action, all information related to this therapeutic regime will be lost."
+          "title": "Do you wish to delete this PROM?",
+          "body": "Upon confirming this action, all information related to this PROM will be lost."
         }
       }
     }
