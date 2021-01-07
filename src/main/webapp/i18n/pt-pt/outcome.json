@@ -21,6 +21,7 @@
       "name": "Nome",
       "generalInfo": "Informações gerais",
       "description": "Descrição",
+      "attachmentDetails": "Anexo",
       "attachment": "Anexo (carregamento de ficheiros)",
       "attachmentUpload": "Carregar ficheiro",
       "symptom": "Sintoma",

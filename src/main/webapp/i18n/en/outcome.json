@@ -21,6 +21,7 @@
       "name": "Name",
       "generalInfo": "General Information",
       "description": "Description",
+      "attachmentDetails": "Attachment",
       "attachment": "Attachment (files upload)",
       "attachmentUpload": "Upload file",
       "symptom": "Symptom",
