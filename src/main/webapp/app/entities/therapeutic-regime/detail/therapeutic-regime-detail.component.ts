@@ -22,7 +22,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   therapeuticRegime: ITherapeuticRegime | null = null;
   thumb: IThumb;
   feedbacks: IFeedback[];
-  isLoading = false;
+  isSaving = false;
   itemsPerPage: number;
   links: { [key: string]: number };
   page: number;
@@ -64,28 +64,20 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
     });
   }
 
-  loadFeedback(): void {
+  protected loadFeedback(): void {
     this.getThumbs();
     this.loadAll();
   }
 
-  getThumbs(): void {
-    this.isLoading = true;
-
-    this.feedbackService.countFeedbacksFromEntity(EntityFeedback.THERAPEUTIC_REGIME, this.therapeuticRegime?.id ?? 0).subscribe(
-      (res: HttpResponse<IThumb>) => {
-        this.isLoading = false;
+  protected getThumbs(): void {
+    this.feedbackService
+      .countFeedbacksFromEntity(EntityFeedback.THERAPEUTIC_REGIME, this.therapeuticRegime?.id ?? 0)
+      .subscribe((res: HttpResponse<IThumb>) => {
         this.thumb = res.body ?? new Thumb();
-      },
-      () => {
-        this.isLoading = false;
-      }
-    );
+      });
   }
 
-  loadAll(): void {
-    this.isLoading = true;
-
+  protected loadAll(): void {
     this.feedbackService
       .query(
         Object.assign(
@@ -98,15 +90,9 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
           this.getCriteria()
         )
       )
-      .subscribe(
-        (res: HttpResponse<ITherapeuticRegime[]>) => {
-          this.isLoading = false;
-          this.paginateFeedbacks(res.body, res.headers);
-        },
-        () => {
-          this.isLoading = false;
-        }
-      );
+      .subscribe((res: HttpResponse<ITherapeuticRegime[]>) => {
+        this.paginateFeedbacks(res.body, res.headers);
+      });
   }
 
   loadPage(page: number): void {
@@ -118,11 +104,11 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
     return item.id!;
   }
 
-  sort(): string[] {
+  protected sort(): string[] {
     return ['id,asc'];
   }
 
-  getCriteria(): {} {
+  protected getCriteria(): {} {
     return {
       'entityName.equals': EntityFeedback.THERAPEUTIC_REGIME.valueOf(),
       'entityId.equals': this.therapeuticRegime?.id,
@@ -140,7 +126,10 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   }
 
   manageFeedback(thumbUp: boolean): void {
+    this.isSaving = false;
     const userFeedback = new Feedback();
+    userFeedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
+    userFeedback.entityId = this.therapeuticRegime?.id;
 
     // When click on Thumb Up
     if (thumbUp) {
@@ -173,11 +162,11 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
     // Update/Delete user Feedback
     this.feedbackService.manageFeedbackFromEntity(userFeedback).subscribe(
       () => {
-        this.isLoading = false;
+        this.isSaving = false;
         this.loadFeedback();
       },
       () => {
-        this.isLoading = false;
+        this.isSaving = false;
       }
     );
   }

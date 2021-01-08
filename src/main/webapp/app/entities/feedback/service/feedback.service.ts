@@ -43,6 +43,6 @@ export class FeedbackService {
   }
 
   countFeedbacksFromEntity(entityName: EntityFeedback, entityId: number): Observable<EntityResponseType> {
-    return this.http.get<IThumb>(`${this.resourceUrl}/${entityName.valueOf()}/${entityId}`, { observe: 'response' });
+    return this.http.get<IThumb>(`${this.resourceUrl}/${entityName.valueOf()}/${entityId}/count`, { observe: 'response' });
   }
 }
