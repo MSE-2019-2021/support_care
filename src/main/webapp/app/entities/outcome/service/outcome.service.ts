@@ -33,7 +33,7 @@ export class OutcomeService {
     return this.http.post<IOutcome>(this.resourceUrl, formData, { observe: 'response' });
   }
 
-  update(outcome: IOutcome, files: FileList): Observable<EntityResponseType> {
+  update(outcome: IOutcome, files?: FileList): Observable<EntityResponseType> {
     const outcomeMultipartFormParam = 'outcomeDTO';
     const filesMultipartFormParam = 'files';
 
@@ -41,6 +41,7 @@ export class OutcomeService {
     const outcomeAsJsonBlob: Blob = new Blob([JSON.stringify(outcome)], { type: 'application/json' });
 
     formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
+
     if (files) {
       for (let i = 0; i < files.length; i++) {
         formData.append(filesMultipartFormParam, files.item(i)!);
