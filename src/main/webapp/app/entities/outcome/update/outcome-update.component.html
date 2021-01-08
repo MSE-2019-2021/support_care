@@ -36,11 +36,17 @@
 
       <div class="form-group">
         <label customTranslate="supportivecareApp.outcome.attachment"></label>
-        <label class="btn fileButton" for="field_documents"
-          ><fa-icon icon="file-upload" class="uploadIcon"></fa-icon> <span class="attachmentSpan" customTranslate="supportivecareApp.outcome.attachmentUpload"></span
-        ></label>
-        <input class="hideInput" type="file" (change)="handleFileInput($event)" id="field_documents" multiple />
+        <div class="documentWrapper" *ngFor="let document of getDocuments().value; let id = index" id="{{ 'document' + id }}">
+          <div>
+            <p>{{ document.title }}</p>
+            <button class="btn" (click)="removeDocument(id)"><fa-icon icon="trash"></fa-icon></button>
+          </div>
+        </div>
       </div>
+      <label class="btn fileButton" for="field_documents"
+        ><fa-icon icon="file-upload" class="uploadIcon"></fa-icon> <span class="attachmentSpan" customTranslate="supportivecareApp.outcome.attachmentUpload"></span
+      ></label>
+      <input type="file" (change)="handleFileInput($event)" id="field_documents" multiple files />
     </div>
 
     <div class="updateButtons">
