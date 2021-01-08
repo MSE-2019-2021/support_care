@@ -1,6 +1,6 @@
 <div class="row justify-content-center" class="modal-header">
   <div class="col-8" class="modal-body">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+    <form name="editForm" role="form" novalidate (ngSubmit)="confirm()" [formGroup]="editForm">
       <h2 class="font-weight-bold" id="custom-feedback-heading" data-cy="FeedbackCreateUpdateHeading" customTranslate="supportivecareApp.feedback.dialog.title">Help us to improve</h2>
       <label customTranslate="supportivecareApp.feedback.dialog.body">Help us to improve this information</label>
       <div>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="dialogButtons">
-        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary button-create" (click)="save(); goBack()">
+        <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary button-create" (click)="confirm()">
           <span customTranslate="supportivecareApp.feedback.dialog.send-button">Save</span>
         </button>
         <button type="button" id="cancel-save" class="btn button-transparent" data-dismiss="modal" (click)="cancel()">
