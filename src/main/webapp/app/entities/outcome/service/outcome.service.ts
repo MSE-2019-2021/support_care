@@ -15,7 +15,7 @@ export class OutcomeService {
 
   constructor(protected http: HttpClient) {}
 
-  create(outcome: IOutcome, files: FileList): Observable<EntityResponseType> {
+  create(outcome: IOutcome, files?: FileList): Observable<EntityResponseType> {
     const outcomeMultipartFormParam = 'outcomeDTO';
     const filesMultipartFormParam = 'files';
 
@@ -24,7 +24,7 @@ export class OutcomeService {
 
     formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
 
-    if (files) {
+    if (files?.length) {
       for (let i = 0; i < files.length; i++) {
         formData.append(filesMultipartFormParam, files.item(i)!);
       }
@@ -42,7 +42,7 @@ export class OutcomeService {
 
     formData.append(outcomeMultipartFormParam, outcomeAsJsonBlob);
 
-    if (files) {
+    if (files?.length) {
       for (let i = 0; i < files.length; i++) {
         formData.append(filesMultipartFormParam, files.item(i)!);
       }

@@ -3,7 +3,6 @@ package uc.dei.mse.supportivecare.service;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,6 @@ import uc.dei.mse.supportivecare.repository.OutcomeRepository;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 import uc.dei.mse.supportivecare.service.mapper.OutcomeMapper;
-import uc.dei.mse.supportivecare.web.rest.errors.DocumentNotFoundException;
 
 /**
  * Service Implementation for managing {@link Outcome}.

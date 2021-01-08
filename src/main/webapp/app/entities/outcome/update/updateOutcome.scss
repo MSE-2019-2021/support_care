@@ -47,4 +47,24 @@
 
 .documentWrapper button {
   color: #5c88f6;
+  width: 50px;
+}
+
+.documentWrapper button:hover {
+  background-color: #e6e6e6;
+}
+
+.oldFilesWrapper {
+  display: flex;
+  min-width: 400px;
+  justify-content: space-between;
+}
+
+.newDocumentWrapper {
+  display: flex;
+  height: 50px;
+}
+
+.newFileSpan {
+  color: #5c88f6;
 }
