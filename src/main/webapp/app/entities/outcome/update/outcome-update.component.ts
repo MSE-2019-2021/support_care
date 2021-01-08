@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 
 import { IOutcome, Outcome } from '../outcome.model';
 import { OutcomeService } from '../service/outcome.service';
-import { IDocument } from 'app/entities/document/document.model';
 
 @Component({
   selector: 'custom-outcome-update',
@@ -15,7 +14,7 @@ import { IDocument } from 'app/entities/document/document.model';
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
-  files: any;
+  files = {};
 
   editForm = this.fb.group({
     id: [],
@@ -34,6 +33,10 @@ export class OutcomeUpdateComponent implements OnInit {
 
   handleFileInput(event: Event): void {
     this.files = (<HTMLInputElement>event.target).files!;
+  }
+
+  getFiles(): any {
+    return this.files;
   }
 
   updateForm(outcome: IOutcome): void {
@@ -62,17 +65,7 @@ export class OutcomeUpdateComponent implements OnInit {
   addDocument(document: any = {}, newDocument: boolean = true): void {
     const currentOutcome = this.editForm.controls;
     const currentDocuments = currentOutcome.documents as FormArray;
-    if (typeof document !== 'undefined' && newDocument) {
-      currentDocuments.push(
-        this.fb.group({
-          id: [null, []],
-          title: ['', Validators.required, Validators.maxLength(1000)],
-          size: [''],
-          mimeType: [''],
-          content: [''],
-        })
-      );
-    } else {
+    if (!newDocument) {
       document.forEach((obj: { id: null; title: ''; size: ''; mimeType: ''; content: '' }) => {
         currentDocuments.push(
           this.fb.group({
@@ -95,9 +88,9 @@ export class OutcomeUpdateComponent implements OnInit {
     this.isSaving = true;
     const outcome = this.createFromForm();
     if (outcome.id !== undefined) {
-      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files));
+      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files as FileList));
     } else {
-      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
+      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files as FileList));
     }
   }
 

@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 
 import { OutcomeService } from '../service/outcome.service';
 import { Outcome } from '../outcome.model';
+import { Document } from 'app/entities/document/document.model';
 
 import { OutcomeUpdateComponent } from './outcome-update.component';
 
@@ -37,6 +38,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new Outcome(123);
         const files = {} as FileList;
+        entity.documents = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         comp.files = files;
@@ -53,6 +55,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new Outcome();
         const files = {} as FileList;
+        entity.documents = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         comp.files = files;
@@ -68,16 +71,27 @@ describe('Component Tests', () => {
 
     it('Should return file input', () => {
       const entity = new Outcome();
-      const files = {} as FileList;
       spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
       const targetFiles = ({ target: { files: {} } } as unknown) as Event;
       comp.handleFileInput(targetFiles);
       expect(comp.files).toEqual({});
     });
 
+    describe('Handle document Form Array', () => {
+      it('Should add and delete a document from the form array', () => {
+        const document = new Document(111);
+
+        comp.addDocument(document);
+        comp.removeDocument(0);
+
+        expect(comp.getDocuments().length).toBe(0);
+      });
+    });
+
     describe('is editing', () => {
       it('should return true when editing component', () => {
         const entity = new Outcome(123);
+        entity.documents = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
 
@@ -89,6 +103,15 @@ describe('Component Tests', () => {
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         expect(comp.isEditing()).toBeFalsy();
       });
+    });
+
+    it('should return outcome files', () => {
+      const entity = new Outcome(123);
+      entity.documents = [];
+      const files = {} as FileList;
+      comp.files = files;
+
+      expect(comp.getFiles()).toEqual({});
     });
   });
 });
