@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
-import { IFeedback, Feedback } from '../feedback.model';
+import { Feedback, IFeedback } from '../feedback.model';
 
 import { FeedbackService } from './feedback.service';
 
@@ -105,6 +105,35 @@ describe('Service Tests', () => {
         const req = httpMock.expectOne({ method: 'DELETE' });
         req.flush({ status: 200 });
         expect(expectedResult);
+      });
+
+      it('should update an entity Feedback', () => {
+        const feedback = new Feedback();
+        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
+        feedback.entityId = 123;
+
+        service.manageFeedbackFromEntity(feedback).subscribe(resp => (expectedResult = resp.ok));
+        const req = httpMock.expectOne({ method: 'POST' });
+        req.flush({ status: 200 });
+        expect(expectedResult);
+      });
+
+      it('should count thumbs for an entity Feedback', () => {
+        const returnedFromService = Object.assign(
+          {
+            countThumbUp: 1,
+            countThumbDown: 0,
+            thumb: true,
+          },
+          elemDefault
+        );
+
+        const expected = Object.assign({}, returnedFromService);
+
+        service.countFeedbacksFromEntity(EntityFeedback.THERAPEUTIC_REGIME, 123).subscribe(resp => (expectedResult = resp.body));
+        const req = httpMock.expectOne({ method: 'GET' });
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject(expected);
       });
     });
 
