@@ -981,6 +981,73 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
+    void manageFeedbackFromEntity_wrongEntityName() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", "test", feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void manageFeedbackFromEntity_wrongEntityId() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), 456)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedbackFromEntity_wrongUser() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM).setCreatedBy("user");
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
     @WithMockUser(username = Constants.SYSTEM)
     void countFeedbacksFromEntity() throws Exception {
         // Initialize the database
