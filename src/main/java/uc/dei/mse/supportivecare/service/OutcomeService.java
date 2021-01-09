@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Outcome;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.OutcomeRepository;
 import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
@@ -28,12 +29,20 @@ public class OutcomeService {
 
     private final DocumentService documentService;
 
+    private final FeedbackService feedbackService;
+
     private final OutcomeMapper outcomeMapper;
 
-    public OutcomeService(OutcomeRepository outcomeRepository, OutcomeMapper outcomeMapper, DocumentService documentService) {
+    public OutcomeService(
+        OutcomeRepository outcomeRepository,
+        OutcomeMapper outcomeMapper,
+        DocumentService documentService,
+        FeedbackService feedbackService
+    ) {
         this.outcomeRepository = outcomeRepository;
         this.outcomeMapper = outcomeMapper;
         this.documentService = documentService;
+        this.feedbackService = feedbackService;
     }
 
     /**
@@ -125,5 +134,6 @@ public class OutcomeService {
     public void delete(Long id) {
         log.debug("Request to delete Outcome : {}", id);
         outcomeRepository.deleteById(id);
+        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.OUTCOME, id);
     }
 }

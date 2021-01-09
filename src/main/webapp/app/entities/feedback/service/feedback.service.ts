@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IFeedback } from '../feedback.model';
+import { IThumb } from '../thumb.model';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 
 type EntityResponseType = HttpResponse<IFeedback>;
 type EntityArrayResponseType = HttpResponse<IFeedback[]>;
@@ -34,5 +36,13 @@ export class FeedbackService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  manageFeedbackFromEntity(feedback: IFeedback): Observable<HttpResponse<{}>> {
+    return this.http.post(`${this.resourceUrl}/${feedback.entityName!.valueOf()}/${feedback.entityId!}`, feedback, { observe: 'response' });
+  }
+
+  countFeedbacksFromEntity(entityName: EntityFeedback, entityId: number): Observable<EntityResponseType> {
+    return this.http.get<IThumb>(`${this.resourceUrl}/${entityName.valueOf()}/${entityId}/count`, { observe: 'response' });
   }
 }

@@ -19,6 +19,7 @@ export class TherapeuticRegimeDeleteDialogComponent {
   confirmDelete(id: number): void {
     this.therapeuticRegimeService.delete(id).subscribe(() => {
       this.activeModal.close('deleted');
+      window.history.back();
     });
   }
 }

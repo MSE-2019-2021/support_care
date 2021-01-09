@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.ActiveSubstance;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.ActiveSubstanceRepository;
 import uc.dei.mse.supportivecare.service.dto.ActiveSubstanceDTO;
 import uc.dei.mse.supportivecare.service.mapper.ActiveSubstanceMapper;
@@ -25,9 +26,16 @@ public class ActiveSubstanceService {
 
     private final ActiveSubstanceMapper activeSubstanceMapper;
 
-    public ActiveSubstanceService(ActiveSubstanceRepository activeSubstanceRepository, ActiveSubstanceMapper activeSubstanceMapper) {
+    private final FeedbackService feedbackService;
+
+    public ActiveSubstanceService(
+        ActiveSubstanceRepository activeSubstanceRepository,
+        ActiveSubstanceMapper activeSubstanceMapper,
+        FeedbackService feedbackService
+    ) {
         this.activeSubstanceRepository = activeSubstanceRepository;
         this.activeSubstanceMapper = activeSubstanceMapper;
+        this.feedbackService = feedbackService;
     }
 
     /**
@@ -111,5 +119,6 @@ public class ActiveSubstanceService {
     public void delete(Long id) {
         log.debug("Request to delete ActiveSubstance : {}", id);
         activeSubstanceRepository.deleteById(id);
+        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.ACTIVE_SUBSTANCE, id);
     }
 }

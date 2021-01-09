@@ -68,5 +68,15 @@ describe('Component Tests', () => {
         });
       }));
     });
+
+    describe('previousState', () => {
+      it('Should go back', () => {
+        // WHEN
+        comp.previousState();
+
+        // THEN
+        expect(comp.outcome).toEqual(jasmine.objectContaining(null));
+      });
+    });
   });
 });

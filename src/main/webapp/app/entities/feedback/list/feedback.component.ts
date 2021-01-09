@@ -3,6 +3,7 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IFeedback } from '../feedback.model';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { FeedbackService } from '../service/feedback.service';
@@ -98,5 +99,9 @@ export class FeedbackComponent implements OnInit {
         this.feedbacks.push(data[i]);
       }
     }
+  }
+
+  getEntityFeedbackKey(data: EntityFeedback): string {
+    return Object.keys(EntityFeedback)[Object.values(EntityFeedback).indexOf(data)];
   }
 }

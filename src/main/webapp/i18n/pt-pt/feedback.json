@@ -1,6 +1,19 @@
 {
   "supportivecareApp": {
     "feedback": {
+      "dialog": {
+        "title": "Ajude-nos a melhorar",
+        "body": "Ajude-nos a melhorar esta informação, justificando o feedback negativo. Assim que possivel serão feitas melhorias.",
+        "tip": "Apresente uma razão...",
+        "anonym": "Enviar anonimamente",
+        "send-button": "Enviar"
+      },
+      "thumbs-up": {
+        "title": "Esta informação foi-lhe útil?"
+      },
+      "improvements-sugestion": {
+        "title": "Sugestão de melhorias"
+      },
       "home": {
         "title": "Feedbacks",
         "refreshListLabel": "Atualizar lista",

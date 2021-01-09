@@ -22,7 +22,7 @@
       "description": "Description",
       "evaluation": "Evaluation",
       "intervention": "Interdependent intervention",
-      "drug": "Drug",
+      "activeSubstance": "Active substance",
       "help": {
         "description": "Description.",
         "evaluation": "Evaluation.",

@@ -2,6 +2,7 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -16,6 +17,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.IntegrationTest;
+import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.Feedback;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
@@ -32,7 +34,7 @@ import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
 @WithMockUser
 class FeedbackResourceIT {
 
-    private static final EntityFeedback DEFAULT_ENTITY_NAME = EntityFeedback.DRUG;
+    private static final EntityFeedback DEFAULT_ENTITY_NAME = EntityFeedback.ACTIVE_SUBSTANCE;
     private static final EntityFeedback UPDATED_ENTITY_NAME = EntityFeedback.THERAPEUTIC_REGIME;
 
     private static final Long DEFAULT_ENTITY_ID = 1L;
@@ -172,24 +174,6 @@ class FeedbackResourceIT {
         int databaseSizeBeforeTest = feedbackRepository.findAll().size();
         // set the field null
         feedback.setEntityId(null);
-
-        // Create the Feedback, which fails.
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
-
-        restFeedbackMockMvc
-            .perform(post("/api/feedbacks").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(feedbackDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    void checkThumbIsRequired() throws Exception {
-        int databaseSizeBeforeTest = feedbackRepository.findAll().size();
-        // set the field null
-        feedback.setThumb(null);
 
         // Create the Feedback, which fails.
         FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
@@ -901,5 +885,183 @@ class FeedbackResourceIT {
         // Validate the database contains one less item
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    void manageFeedbackFromEntity_create() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isCreated());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate + 1);
+        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
+        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
+        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
+        assertThat(testFeedback.getThumb()).isEqualTo(DEFAULT_THUMB);
+        assertThat(testFeedback.getReason()).isEqualTo(DEFAULT_REASON);
+        assertThat(testFeedback.getSolved()).isEqualTo(DEFAULT_SOLVED);
+        assertThat(testFeedback.getAnonym()).isEqualTo(DEFAULT_ANONYM);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedbackFromEntity_update() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM);
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isOk());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
+        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
+        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
+        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
+        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
+        assertThat(testFeedback.getReason()).isEqualTo(UPDATED_REASON);
+        assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
+        assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedbackFromEntity_delete() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeDelete = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(null);
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        // Delete the feedback
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isNoContent());
+
+        // Validate the database contains one less item
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    void manageFeedbackFromEntity_wrongEntityName() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", "test", feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    void manageFeedbackFromEntity_wrongEntityId() throws Exception {
+        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
+        // Create the Feedback
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), 456)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void manageFeedbackFromEntity_wrongUser() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
+
+        // Update the feedback
+        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
+        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
+        em.detach(updatedFeedback);
+        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM).setCreatedBy("user");
+        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
+
+        restFeedbackMockMvc
+            .perform(
+                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
+            )
+            .andExpect(status().isBadRequest());
+
+        // Validate the Feedback in the database
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
+    }
+
+    @Test
+    @Transactional
+    @WithMockUser(username = Constants.SYSTEM)
+    void countFeedbacksFromEntity() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        restFeedbackMockMvc
+            .perform(
+                get("/api/feedbacks/{entityName}/{entityId}/count", feedback.getEntityName().getValue(), feedback.getEntityId())
+                    .contentType(MediaType.APPLICATION_JSON)
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(jsonPath("$.countThumbUp", is(0)))
+            .andExpect(jsonPath("$.countThumbDown", is(1)))
+            .andExpect(jsonPath("$.thumb", is(DEFAULT_THUMB.booleanValue())));
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!-- Added the unique constraint -->
+    <changeSet id="20210104204954-unique-1" author="DanielFran">
+        <addUniqueConstraint
+            columnNames="entity_name, entity_id, created_by"
+            constraintName="idx_feedback__entity_name_entity_id_created_by"
+            tableName="feedback"/>
+    </changeSet>
+</databaseChangeLog>

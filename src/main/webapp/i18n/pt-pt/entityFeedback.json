@@ -2,10 +2,10 @@
   "supportivecareApp": {
     "EntityFeedback": {
       "null": "",
-      "DRUG": "Drug",
-      "THERAPEUTIC_REGIME": "TherapeuticRegime",
-      "OUTCOME": "Outcome",
-      "SYMPTOM": "Symptom"
+      "ACTIVE_SUBSTANCE": "Substância Ativa",
+      "THERAPEUTIC_REGIME": "Regime Terapêutico",
+      "OUTCOME": "PROM",
+      "SYMPTOM": "Sintoma"
     }
   }
 }

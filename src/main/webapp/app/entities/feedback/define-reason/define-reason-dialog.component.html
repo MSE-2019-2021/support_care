@@ -1,0 +1,48 @@
+<div class="row justify-content-center" class="modal-header">
+  <div class="col-8" class="modal-body">
+    <form name="editForm" role="form" novalidate [formGroup]="editForm">
+      <h2 class="font-weight-bold" id="custom-feedback-heading" data-cy="FeedbackCreateUpdateHeading" customTranslate="supportivecareApp.feedback.dialog.title">Help us to improve</h2>
+      <label customTranslate="supportivecareApp.feedback.dialog.body">Help us to improve this information</label>
+      <div>
+        <custom-alert-error></custom-alert-error>
+
+        <div class="form-group">
+          <textarea
+            style="font-style: italic"
+            placeholder="{{ 'supportivecareApp.feedback.dialog.tip' | translate }}"
+            rows="4"
+            type="text"
+            class="form-control"
+            name="reason"
+            id="field_reason"
+            data-cy="reason"
+            formControlName="reason"
+          >
+          </textarea>
+          <div *ngIf="editForm.get('reason')!.invalid && (editForm.get('reason')!.dirty || editForm.get('reason')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('reason')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+              This field cannot be longer than 1000 characters.
+            </small>
+          </div>
+        </div>
+
+        <div>
+          <input type="checkbox" name="anonym" id="field_anonym" data-cy="anonym" formControlName="anonym" />
+          <label customTranslate="supportivecareApp.feedback.dialog.anonym" for="field_anonym">Anonym</label>
+          <div *ngIf="editForm.get('anonym')!.invalid && (editForm.get('anonym')!.dirty || editForm.get('anonym')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('anonym')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+          </div>
+        </div>
+      </div>
+
+      <div class="dialogButtons">
+        <button type="button" id="save-entity" data-cy="entityCreateSaveButton" class="btn btn-primary button-create" (click)="confirm()">
+          <span customTranslate="supportivecareApp.feedback.dialog.send-button">Save</span>
+        </button>
+        <button type="button" id="cancel-save" class="btn button-transparent" (click)="cancel()">
+          <span class="list-text-color" customTranslate="entity.action.cancel">Cancel</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

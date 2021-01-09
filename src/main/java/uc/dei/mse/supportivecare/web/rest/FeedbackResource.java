@@ -12,17 +12,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
+import uc.dei.mse.supportivecare.config.Constants;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
+import uc.dei.mse.supportivecare.security.SecurityUtils;
 import uc.dei.mse.supportivecare.service.FeedbackQueryService;
 import uc.dei.mse.supportivecare.service.FeedbackService;
 import uc.dei.mse.supportivecare.service.dto.FeedbackCriteria;
 import uc.dei.mse.supportivecare.service.dto.FeedbackDTO;
+import uc.dei.mse.supportivecare.service.dto.ThumbDTO;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 
 /**
@@ -169,5 +172,51 @@ public class FeedbackResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    /**
+     * {@code POST  /feedbacks/:entityName/:entityId} : Create a new feedback for an Entity.
+     *
+     * @param entityName the entity name of the feedbackDTO to save.
+     * @param entityId the entity id of the feedbackDTO to save.
+     * @param feedbackDTO the feedbackDTO to save.
+     * @return the {@link ResponseEntity} with status:
+     *      - {@code 201 (Created)} or,
+     *      - {@code 200 (Updated)} or,
+     *      - {@code 204 (NO_CONTENT)} or,
+     *      - {@code 400 (Bad Request)} if the feedback is incorrect.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PostMapping("/feedbacks/{entityName}/{entityId}")
+    public ResponseEntity<Void> manageFeedbackFromEntity(
+        @PathVariable EntityFeedback entityName,
+        @PathVariable Long entityId,
+        @Valid @RequestBody FeedbackDTO feedbackDTO
+    ) throws URISyntaxException {
+        log.debug("REST request to manage Feedback for entity name and Id: {} {}: {}", entityName, entityId, feedbackDTO);
+        if (!feedbackDTO.getEntityName().equals(entityName) || !feedbackDTO.getEntityId().equals(entityId)) {
+            throw new BadRequestAlertException("The feedback is incorrect", ENTITY_NAME, "wrongEntity");
+        }
+        String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
+        if (feedbackDTO.getCreatedBy() == null) {
+            feedbackDTO.setCreatedBy(currentUser);
+        } else if (!currentUser.equals(feedbackDTO.getCreatedBy())) {
+            throw new BadRequestAlertException("The feedback do not belongs to the current user", ENTITY_NAME, "wrongUser");
+        }
+        return ResponseEntity.status(feedbackService.manageFeedbackFromEntity(feedbackDTO)).build();
+    }
+
+    /**
+     * {@code GET  /feedbacks/:entityName/:entityId/count} : count all feedbacks for an Entity.
+     *
+     * @param entityName the entity name of the feedbackDTO to save.
+     * @param entityId the entity id of the feedbackDTO to save.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the thumbDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/feedbacks/{entityName}/{entityId}/count")
+    public ResponseEntity<ThumbDTO> countFeedbacksFromEntity(@PathVariable EntityFeedback entityName, @PathVariable Long entityId) {
+        log.debug("REST request to count Feedbacks for entity name and Id: {} {}", entityName, entityId);
+        String currentUser = SecurityUtils.getCurrentUserLogin().orElse(Constants.SYSTEM);
+        return ResponseEntity.ok().body(feedbackService.countFeedbacksFromEntity(entityName, entityId, currentUser));
     }
 }

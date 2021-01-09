@@ -1,9 +1,9 @@
 export enum EntityFeedback {
-  DRUG = 'Drug',
+  ACTIVE_SUBSTANCE = 'active-substance',
 
-  THERAPEUTIC_REGIME = 'TherapeuticRegime',
+  THERAPEUTIC_REGIME = 'therapeutic-regime',
 
-  OUTCOME = 'Outcome',
+  OUTCOME = 'outcome',
 
-  SYMPTOM = 'Symptom',
+  SYMPTOM = 'symptom',
 }

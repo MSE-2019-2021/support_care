@@ -68,6 +68,7 @@ public class OutcomeResource {
      * {@code POST  /outcomes} : Create a new outcome.
      *
      * @param outcomeDTO the outcomeDTO to create.
+     * @param files the list of files
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new outcomeDTO, or with status {@code 400 (Bad Request)} if the outcome has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
@@ -92,6 +93,7 @@ public class OutcomeResource {
      * {@code PUT  /outcomes} : Updates an existing outcome.
      *
      * @param outcomeDTO the outcomeDTO to update.
+     * @param files the list of files
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated outcomeDTO,
      * or with status {@code 400 (Bad Request)} if the outcomeDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the outcomeDTO couldn't be updated.

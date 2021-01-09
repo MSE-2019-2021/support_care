@@ -32,7 +32,6 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Polegar.
      */
-    @NotNull
     @ApiModelProperty(value = "Polegar.", required = true)
     private Boolean thumb;
 

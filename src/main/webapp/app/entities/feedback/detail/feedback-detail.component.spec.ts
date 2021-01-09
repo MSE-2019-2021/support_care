@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { Feedback } from '../feedback.model';
 
 import { FeedbackDetailComponent } from './feedback-detail.component';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 
 describe('Component Tests', () => {
   describe('Feedback Management Detail Component', () => {
@@ -34,6 +35,14 @@ describe('Component Tests', () => {
 
         // THEN
         expect(comp.feedback).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
+
+      it('should return Entity Feedback value', () => {
+        // WHEN
+        const result = comp.getEntityFeedbackKey(EntityFeedback.THERAPEUTIC_REGIME);
+
+        // THEN
+        expect(result).toEqual('THERAPEUTIC_REGIME');
       });
     });
   });
