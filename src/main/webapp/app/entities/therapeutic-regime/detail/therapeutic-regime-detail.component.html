@@ -110,18 +110,5 @@
         <span>{{ thumb.countThumbDown }}</span>
       </button>
     </div>
-    <!--
-    <div class="table-responsive" id="feedbacks" *ngIf="feedbacks && feedbacks.length > 0">
-      <hr class="hrStyle" />
-      <h5 class="list-text-color-bold" customTranslate="supportivecareApp.feedback.improvements-sugestion.title">Usefull info?</h5>
-      <table class="table table-striped border-style" aria-describedby="page-heading">
-        <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-          <tr *ngFor="let feedback of feedbacks; trackBy: trackId" data-cy="entityTable">
-            <td>{{ feedback.reason }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
--->
   </div>
 </div>
