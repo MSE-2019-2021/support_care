@@ -1,5 +1,4 @@
-jest.mock('@angular/router');
-
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,6 +9,8 @@ import { FeedbackService } from '../service/feedback.service';
 import { Feedback } from '../feedback.model';
 
 import { FeedbackComponent } from './feedback.component';
+
+jest.mock('@angular/router');
 
 describe('Component Tests', () => {
   describe('Feedback Management Component', () => {
@@ -131,6 +132,14 @@ describe('Component Tests', () => {
 
       // THEN
       expect(result).toEqual(['name,asc', 'id']);
+    });
+
+    it('should return Entity Feedback value', () => {
+      // WHEN
+      const result = comp.getEntityFeedbackKey(EntityFeedback.THERAPEUTIC_REGIME);
+
+      // THEN
+      expect(result).toEqual('THERAPEUTIC_REGIME');
     });
   });
 });
