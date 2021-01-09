@@ -126,41 +126,47 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   }
 
   manageFeedback(thumbUp: boolean): void {
-    this.isSaving = false;
-    const userFeedback = new Feedback();
-    userFeedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
-    userFeedback.entityId = this.therapeuticRegime?.id;
+    this.isSaving = true;
+    const feedback = new Feedback();
+    feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
+    feedback.entityId = this.therapeuticRegime?.id;
 
     // When click on Thumb Up
     if (thumbUp) {
       // If it was already UP, deactivate it (it will delete the feedback in database)
       if (this.thumb.thumb === true) {
-        userFeedback.thumb = undefined;
+        feedback.thumb = undefined;
 
         // Otherwise activate it
       } else {
-        userFeedback.thumb = true;
+        feedback.thumb = true;
       }
+      this.saveFeedback(feedback);
 
       // When click on Thumb Down
     } else {
       // If it was already DOWN, deactivate it (it will delete the feedback in database)
       if (this.thumb.thumb === false) {
-        userFeedback.thumb = undefined;
+        feedback.thumb = undefined;
+        this.saveFeedback(feedback);
 
         // Otherwise activate it
       } else {
-        userFeedback.thumb = false;
-        // TODO: in modal it should just update userFeedback.reason and userFeedback.anonym when confirmed
+        feedback.thumb = false;
         const modalRef = this.modalService.open(DefineReasonDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-        modalRef.componentInstance.feedback = userFeedback;
+        modalRef.componentInstance.feedback = { feedback };
         // unsubscribe not needed because closed completes on modal close
-        modalRef.closed.subscribe();
+        modalRef.closed.subscribe(() => {
+          this.isSaving = false;
+          this.loadFeedback();
+        });
       }
     }
+  }
 
+  protected saveFeedback(feedback: IFeedback): void {
     // Update/Delete user Feedback
-    this.feedbackService.manageFeedbackFromEntity(userFeedback).subscribe(
+    this.feedbackService.manageFeedbackFromEntity(feedback).subscribe(
       () => {
         this.isSaving = false;
         this.loadFeedback();

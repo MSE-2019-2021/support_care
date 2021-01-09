@@ -20,6 +20,6 @@ import { DefineReasonDialogComponent } from '../feedback/define-reason/define-re
     TherapeuticRegimeCancelDialogComponent,
     DefineReasonDialogComponent,
   ],
-  entryComponents: [TherapeuticRegimeDeleteDialogComponent, TherapeuticRegimeCancelDialogComponent],
+  entryComponents: [TherapeuticRegimeDeleteDialogComponent, TherapeuticRegimeCancelDialogComponent, DefineReasonDialogComponent],
 })
 export class TherapeuticRegimeModule {}

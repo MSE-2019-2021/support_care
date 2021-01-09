@@ -6,11 +6,6 @@
       <div>
         <custom-alert-error></custom-alert-error>
 
-        <div class="form-group" [hidden]="editForm.get('id')?.value == null">
-          <label class="form-control-label" customTranslate="global.field.id" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" readonly />
-        </div>
-
         <div class="form-group">
           <textarea
             style="font-style: italic"
