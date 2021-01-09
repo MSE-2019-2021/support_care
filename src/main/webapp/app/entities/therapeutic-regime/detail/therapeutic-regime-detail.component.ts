@@ -90,7 +90,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
           this.getCriteria()
         )
       )
-      .subscribe((res: HttpResponse<ITherapeuticRegime[]>) => {
+      .subscribe((res: HttpResponse<IFeedback[]>) => {
         this.paginateFeedbacks(res.body, res.headers);
       });
   }
@@ -100,7 +100,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
     this.loadAll();
   }
 
-  trackId(index: number, item: ITherapeuticRegime): number {
+  trackId(index: number, item: IFeedback): number {
     return item.id!;
   }
 
