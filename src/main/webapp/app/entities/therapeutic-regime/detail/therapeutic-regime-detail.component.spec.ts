@@ -9,6 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 import { Feedback } from 'app/entities/feedback/feedback.model';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {
@@ -81,6 +82,34 @@ describe('Component Tests', () => {
 
         // THEN
         expect(result).toEqual(123);
+      });
+    });
+
+    describe('manage feedback', () => {
+      it('should save thumb up', () => {
+        // GIVEN
+        const feedback = new Feedback();
+        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
+        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
+
+        // WHEN
+        comp.manageFeedback(true);
+
+        // THEN
+        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
+      });
+
+      it('should save thumb down', () => {
+        // GIVEN
+        const feedback = new Feedback();
+        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
+        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
+
+        // WHEN
+        comp.manageFeedback(true);
+
+        // THEN
+        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
       });
     });
   });
