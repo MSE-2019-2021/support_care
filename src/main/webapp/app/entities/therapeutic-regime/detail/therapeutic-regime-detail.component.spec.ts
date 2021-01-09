@@ -98,19 +98,6 @@ describe('Component Tests', () => {
         // THEN
         expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
       });
-
-      it('should save thumb down', () => {
-        // GIVEN
-        const feedback = new Feedback();
-        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
-
-        // WHEN
-        comp.manageFeedback(true);
-
-        // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
-      });
     });
   });
 });
