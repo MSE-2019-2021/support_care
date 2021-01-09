@@ -8,6 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackService } from '../service/feedback.service';
 
 import { DefineReasonDialogComponent } from './define-reason-dialog.component';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 jest.mock('@ng-bootstrap/ng-bootstrap');
 
@@ -30,6 +31,19 @@ describe('Component Tests', () => {
       comp = fixture.componentInstance;
       service = TestBed.inject(FeedbackService);
       mockActiveModal = TestBed.inject(NgbActiveModal);
+    });
+
+    describe('ngOnInit', () => {
+      it('Should call load all on init', () => {
+        // GIVEN
+        comp.feedback = new Feedback(123);
+
+        // WHEN
+        comp.ngOnInit();
+
+        // THEN
+        expect(comp.feedback).toEqual(jasmine.objectContaining({ id: 123 }));
+      });
     });
 
     describe('confirmSave', () => {
