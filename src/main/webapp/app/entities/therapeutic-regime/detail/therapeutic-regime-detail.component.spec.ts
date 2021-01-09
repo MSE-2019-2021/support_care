@@ -1,4 +1,4 @@
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -6,15 +6,11 @@ import { TherapeuticRegime } from '../therapeutic-regime.model';
 
 import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {
-    let mockActiveModal: NgbActiveModal;
     let comp: TherapeuticRegimeDetailComponent;
     let fixture: ComponentFixture<TherapeuticRegimeDetailComponent>;
-    let service: FeedbackService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,7 +27,6 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeDetailComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(FeedbackService);
     });
 
     describe('OnInit', () => {
