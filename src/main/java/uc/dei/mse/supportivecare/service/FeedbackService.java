@@ -166,6 +166,11 @@ public class FeedbackService {
                     feedbackDTO.getCreatedBy()
                 )
             ) {
+                feedbackRepository.deleteByEntityNameAndEntityIdAndCreatedBy(
+                    feedbackDTO.getEntityName(),
+                    feedbackDTO.getEntityId(),
+                    feedbackDTO.getCreatedBy()
+                );
                 status = HttpStatus.OK;
             } else {
                 status = HttpStatus.CREATED;

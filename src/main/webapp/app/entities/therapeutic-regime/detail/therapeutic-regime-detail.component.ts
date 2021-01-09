@@ -154,7 +154,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
       } else {
         feedback.thumb = false;
         const modalRef = this.modalService.open(DefineReasonDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-        modalRef.componentInstance.feedback = { feedback };
+        modalRef.componentInstance.feedback = feedback;
         // unsubscribe not needed because closed completes on modal close
         modalRef.closed.subscribe(() => {
           this.isSaving = false;
