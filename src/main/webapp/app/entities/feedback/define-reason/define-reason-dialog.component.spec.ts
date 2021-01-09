@@ -1,51 +1,66 @@
-jest.mock('@ng-bootstrap/ng-bootstrap');
-
-import { ComponentFixture, TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { Feedback } from 'app/entities/feedback/feedback.model';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
+import { of } from 'rxjs';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+import { FeedbackService } from '../service/feedback.service';
+
 import { DefineReasonDialogComponent } from './define-reason-dialog.component';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
+
+jest.mock('@ng-bootstrap/ng-bootstrap');
 
 describe('Component Tests', () => {
-  describe('TherapeuticRegime Management Cancel Component', () => {
+  describe('Feedback Management Delete Component', () => {
     let comp: DefineReasonDialogComponent;
     let fixture: ComponentFixture<DefineReasonDialogComponent>;
+    let service: FeedbackService;
     let mockActiveModal: NgbActiveModal;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
         declarations: [DefineReasonDialogComponent],
-        providers: [NgbActiveModal],
+        providers: [NgbActiveModal, FormBuilder],
       })
         .overrideTemplate(DefineReasonDialogComponent, '')
         .compileComponents();
       fixture = TestBed.createComponent(DefineReasonDialogComponent);
       comp = fixture.componentInstance;
+      service = TestBed.inject(FeedbackService);
       mockActiveModal = TestBed.inject(NgbActiveModal);
     });
 
-    describe('confirmCancel', () => {
-      it('Should close on confirmCancel', inject(
-        [],
-        fakeAsync(() => {
-          // WHEN
-          comp.save();
-          tick();
+    describe('confirmSave', () => {
+      it('Should call manage service on confirmSave', fakeAsync(() => {
+        // GIVEN
+        comp.feedback = new Feedback(123);
+        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of({}));
 
-          // THEN
-          expect(mockActiveModal.close).toHaveBeenCalledWith('canceled');
-        })
-      ));
-
-      it('Should dismiss on clear', () => {
         // WHEN
-        comp.cancel();
+        comp.confirm();
+        tick();
 
         // THEN
-        expect(mockActiveModal.close).not.toHaveBeenCalled();
-        expect(mockActiveModal.dismiss).toHaveBeenCalled();
-      });
+        expect(service.manageFeedbackFromEntity).toHaveBeenCalledWith(comp.feedback);
+        expect(mockActiveModal.close).toHaveBeenCalledWith('saved');
+      }));
+
+      it('Should call manage service on clear', fakeAsync(() => {
+        // GIVEN
+        comp.feedback = new Feedback(123);
+        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of({}));
+
+        // WHEN
+        comp.cancel();
+        tick();
+
+        // THEN
+        expect(service.manageFeedbackFromEntity).toHaveBeenCalledWith(comp.feedback);
+        expect(mockActiveModal.close).toHaveBeenCalledWith('saved');
+      }));
     });
   });
 });
