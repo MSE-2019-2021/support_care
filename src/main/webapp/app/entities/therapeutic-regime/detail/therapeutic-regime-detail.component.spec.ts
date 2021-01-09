@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -10,12 +10,17 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 import { Feedback } from 'app/entities/feedback/feedback.model';
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MockNgbModalRef } from 'app/entities/outcome/detail/outcome-detail.component.spec';
+import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic-regime/delete/therapeutic-regime-delete-dialog.component';
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {
     let comp: TherapeuticRegimeDetailComponent;
     let fixture: ComponentFixture<TherapeuticRegimeDetailComponent>;
     let service: FeedbackService;
+    let modalService: NgbModal;
+    let mockModalRef: MockNgbModalRef;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -33,6 +38,8 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(TherapeuticRegimeDetailComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(FeedbackService);
+      modalService = TestBed.inject(NgbModal);
+      mockModalRef = new MockNgbModalRef();
     });
 
     describe('OnInit', () => {
@@ -53,6 +60,24 @@ describe('Component Tests', () => {
         // THEN
         expect(comp.therapeuticRegime).toEqual(jasmine.objectContaining(null));
       });
+    });
+
+    describe('delete', () => {
+      it('should open modal when clicking on delete button', fakeAsync(() => {
+        // GIVEN
+        const therapeuticRegime = new TherapeuticRegime(123);
+        spyOn(modalService, 'open').and.returnValue(mockModalRef);
+
+        // WHEN
+        comp.delete(therapeuticRegime);
+
+        // THEN
+        expect(modalService.open).toHaveBeenCalledWith(TherapeuticRegimeDeleteDialogComponent, {
+          centered: true,
+          size: 'lg',
+          backdrop: 'static',
+        });
+      }));
     });
 
     describe('load feedbacks', () => {
