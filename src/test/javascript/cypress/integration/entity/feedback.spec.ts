@@ -86,40 +86,6 @@ describe('Feedback e2e test', () => {
     cy.visit('/');
   });
 
-  it('should create an instance of Feedback', () => {
-    cy.server();
-    cy.route('GET', '/api/feedbacks*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('feedback');
-    cy.wait('@entitiesRequest');
-    cy.get(entityCreateButtonSelector).click({ force: true });
-    cy.getEntityCreateUpdateHeading('Feedback');
-
-    cy.get(`[data-cy="entityName"]`).select('THERAPEUTIC_REGIME');
-
-    cy.get(`[data-cy="entityId"]`).type('16394').should('have.value', '16394');
-
-    cy.get(`[data-cy="thumb"]`).should('not.be.checked');
-    cy.get(`[data-cy="thumb"]`).click().should('be.checked');
-
-    cy.get(`[data-cy="reason"]`).type('to SCSI Chief', { force: true }).invoke('val').should('match', new RegExp('to SCSI Chief'));
-
-    cy.get(`[data-cy="solved"]`).should('not.be.checked');
-    cy.get(`[data-cy="solved"]`).click().should('be.checked');
-
-    cy.get(`[data-cy="anonym"]`).should('not.be.checked');
-    cy.get(`[data-cy="anonym"]`).click().should('be.checked');
-    cy.get(entityCreateSaveButtonSelector).click({ force: true });
-    cy.scrollTo('top', { ensureScrollable: false });
-    cy.get(entityCreateSaveButtonSelector).should('not.exist');
-    cy.route('GET', '/api/feedbacks*').as('entitiesRequestAfterCreate');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('feedback');
-    cy.wait('@entitiesRequestAfterCreate');
-    cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount + 1);
-    cy.visit('/');
-  });
-
   it('should delete last instance of Feedback', () => {
     cy.server();
     cy.route('GET', '/api/feedbacks*').as('entitiesRequest');
