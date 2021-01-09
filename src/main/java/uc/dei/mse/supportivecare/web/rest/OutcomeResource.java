@@ -107,7 +107,10 @@ public class OutcomeResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
 
-        outcomeDTO.setDocuments(documentContentMapper.multiPartFilesToDocuments(files));
+        if (!files.isEmpty()) {
+            outcomeDTO.getDocuments().addAll(documentContentMapper.multiPartFilesToDocuments(files));
+        }
+
         OutcomeDTO result = outcomeService.save(outcomeDTO);
 
         return ResponseEntity

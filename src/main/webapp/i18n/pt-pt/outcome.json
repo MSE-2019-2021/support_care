@@ -21,12 +21,20 @@
       "name": "Nome",
       "generalInfo": "Informações gerais",
       "description": "Descrição",
+      "attachmentDetails": "Anexo",
       "attachment": "Anexo (carregamento de ficheiros)",
       "attachmentUpload": "Carregar ficheiro",
       "symptom": "Sintoma",
       "help": {
         "name": "Nome.",
-        "description": "Descrição."
+        "description": "Descrição.",
+        "attachment": "Clique no nome do ficheiro para iniciar o download."
+      },
+      "action": {
+        "delete": {
+          "title": "Deseja apagar este PROM?",
+          "body": "Ao confirmar esta ação, toda a informação relativa a este PROM será perdida."
+        }
       }
     }
   }

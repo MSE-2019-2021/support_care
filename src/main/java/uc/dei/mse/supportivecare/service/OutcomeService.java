@@ -1,6 +1,8 @@
 package uc.dei.mse.supportivecare.service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Outcome;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.OutcomeRepository;
+import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 import uc.dei.mse.supportivecare.service.mapper.OutcomeMapper;
 
@@ -24,13 +27,21 @@ public class OutcomeService {
 
     private final OutcomeRepository outcomeRepository;
 
-    private final OutcomeMapper outcomeMapper;
+    private final DocumentService documentService;
 
     private final FeedbackService feedbackService;
 
-    public OutcomeService(OutcomeRepository outcomeRepository, OutcomeMapper outcomeMapper, FeedbackService feedbackService) {
+    private final OutcomeMapper outcomeMapper;
+
+    public OutcomeService(
+        OutcomeRepository outcomeRepository,
+        OutcomeMapper outcomeMapper,
+        DocumentService documentService,
+        FeedbackService feedbackService
+    ) {
         this.outcomeRepository = outcomeRepository;
         this.outcomeMapper = outcomeMapper;
+        this.documentService = documentService;
         this.feedbackService = feedbackService;
     }
 
@@ -42,6 +53,22 @@ public class OutcomeService {
      */
     public OutcomeDTO save(OutcomeDTO outcomeDTO) {
         log.debug("Request to save Outcome : {}", outcomeDTO);
+        Set<DocumentDTO> completedDocumentsDTO = new HashSet<>();
+
+        outcomeDTO
+            .getDocuments()
+            .stream()
+            .forEach(
+                documentDTO -> {
+                    if (documentDTO.getId() != null) {
+                        completedDocumentsDTO.add(documentService.findOneWithContentById(documentDTO.getId()).orElseThrow());
+                    } else {
+                        completedDocumentsDTO.add(documentDTO);
+                    }
+                }
+            );
+
+        outcomeDTO.setDocuments(completedDocumentsDTO);
         Outcome outcome = outcomeMapper.toEntity(outcomeDTO);
         outcome = outcomeRepository.save(outcome);
         return outcomeMapper.toDto(outcome);

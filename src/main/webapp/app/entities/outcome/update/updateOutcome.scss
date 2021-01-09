@@ -31,3 +31,40 @@
 .updateButtons {
   margin-top: 20px;
 }
+
+.documentWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.documentWrapper p {
+  margin-top: 0;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+
+.documentWrapper button {
+  color: #5c88f6;
+  width: 50px;
+}
+
+.documentWrapper button:hover {
+  background-color: #e6e6e6;
+}
+
+.oldFilesWrapper {
+  display: flex;
+  min-width: 400px;
+  justify-content: space-between;
+}
+
+.newDocumentWrapper {
+  display: flex;
+  height: 50px;
+}
+
+.newFileSpan {
+  color: #5c88f6;
+}

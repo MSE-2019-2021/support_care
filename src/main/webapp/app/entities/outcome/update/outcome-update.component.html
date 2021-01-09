@@ -6,11 +6,6 @@
       <h5 class="list-text-color-bold mt-4 mb-4" customTranslate="supportivecareApp.outcome.generalInfo"></h5>
       <custom-alert-error></custom-alert-error>
 
-      <div class="form-group" [hidden]="editForm.get('id')?.value == null">
-        <label class="form-control-label" customTranslate="global.field.id" for="field_id">ID</label>
-        <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" readonly />
-      </div>
-
       <div class="form-group">
         <label class="form-control-label" customTranslate="supportivecareApp.outcome.name" for="field_name" [ngbTooltip]="'supportivecareApp.outcome.help.name' | translate">Name</label>
         <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
@@ -36,10 +31,22 @@
 
       <div class="form-group">
         <label customTranslate="supportivecareApp.outcome.attachment"></label>
+        <div class="documentWrapper" *ngFor="let document of getDocuments().value; let id = index" id="{{ 'document' + id }}">
+          <div class="oldFilesWrapper">
+            <p>
+              <em>{{ document.title }}</em>
+            </p>
+            <button class="btn" (click)="removeDocument(id)"><fa-icon icon="trash"></fa-icon></button>
+          </div>
+        </div>
+        <div class="newDocumentWrapper" *ngFor="let file of getFiles(); let id = index" id="{{ 'file' + id }}">
+          <span class="newFileSpan"><strong>New file:&nbsp;</strong></span>
+          <p>{{ file.name }}</p>
+        </div>
         <label class="btn fileButton" for="field_documents"
           ><fa-icon icon="file-upload" class="uploadIcon"></fa-icon> <span class="attachmentSpan" customTranslate="supportivecareApp.outcome.attachmentUpload"></span
         ></label>
-        <input class="hideInput" type="file" (change)="handleFileInput($event)" id="field_documents" multiple />
+        <input type="file" class="hideInput" (change)="handleFileInput($event)" id="field_documents" multiple files />
       </div>
     </div>
 

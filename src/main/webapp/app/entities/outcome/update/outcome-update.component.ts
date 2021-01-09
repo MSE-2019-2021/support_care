@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -14,13 +14,13 @@ import { OutcomeService } from '../service/outcome.service';
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
-  files: any;
+  files = {};
 
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
-    documents: [],
+    documents: new FormArray([]),
   });
 
   constructor(protected outcomeService: OutcomeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -35,6 +35,10 @@ export class OutcomeUpdateComponent implements OnInit {
     this.files = (<HTMLInputElement>event.target).files!;
   }
 
+  getFiles(): any {
+    return this.files;
+  }
+
   updateForm(outcome: IOutcome): void {
     this.editForm.patchValue({
       id: outcome.id,
@@ -42,6 +46,38 @@ export class OutcomeUpdateComponent implements OnInit {
       description: outcome.description,
       documents: outcome.documents,
     });
+    this.editForm.setControl('documents', this.fb.array(this.getDocuments().controls));
+    if (outcome.id) {
+      this.addDocument(outcome.documents, false);
+    }
+  }
+
+  getDocuments(): FormArray {
+    return this.editForm.controls.documents as FormArray;
+  }
+
+  removeDocument(id: number): void {
+    const currentOutcome = this.editForm.controls;
+    const currentDocuments = currentOutcome.documents as FormArray;
+    currentDocuments.removeAt(id);
+  }
+
+  addDocument(document: any = {}, newDocument: boolean = true): void {
+    const currentOutcome = this.editForm.controls;
+    const currentDocuments = currentOutcome.documents as FormArray;
+    if (!newDocument) {
+      document.forEach((obj: { id: null; title: ''; size: ''; mimeType: ''; content: '' }) => {
+        currentDocuments.push(
+          this.fb.group({
+            id: [obj.id],
+            title: [obj.title],
+            size: [obj.size],
+            mimeType: [obj.mimeType],
+            content: [obj.content],
+          })
+        );
+      });
+    }
   }
 
   previousState(): void {
@@ -52,9 +88,9 @@ export class OutcomeUpdateComponent implements OnInit {
     this.isSaving = true;
     const outcome = this.createFromForm();
     if (outcome.id !== undefined) {
-      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files));
+      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files as FileList));
     } else {
-      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
+      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files as FileList));
     }
   }
 

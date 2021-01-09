@@ -21,12 +21,20 @@
       "name": "Name",
       "generalInfo": "General Information",
       "description": "Description",
+      "attachmentDetails": "Attachment",
       "attachment": "Attachment (files upload)",
       "attachmentUpload": "Upload file",
       "symptom": "Symptom",
       "help": {
-        "name": "Nome.",
-        "description": "Descrição."
+        "name": "Name.",
+        "description": "Description.",
+        "attachment": "Click on file name to download."
+      },
+      "action": {
+        "delete": {
+          "title": "Do you wish to delete this PROM?",
+          "body": "Upon confirming this action, all information related to this PROM will be lost."
+        }
       }
     }
   }

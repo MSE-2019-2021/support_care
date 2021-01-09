@@ -89,6 +89,10 @@ Generic styles
   background-color: red;
 }
 
+.form-group {
+  margin-bottom: 30px;
+}
+
 .pad {
   padding: 10px;
 }
@@ -459,4 +463,8 @@ global styles
 
 .is-clickable {
   cursor: pointer;
+}
+
+.modal-content {
+  border-radius: 4px !important;
 }
