@@ -8,7 +8,7 @@
         "editLabel": "Editar regime terapêutico",
         "createOrEditLabel": "Criar ou editar regime terapêutico",
         "notFound": "Nenhum Regime Terapêutico encontrado",
-        "namePlaceholder": "Pesquise por um regimes terapêutico\n..."
+        "namePlaceholder": "Pesquise por um regime terapêutico..."
       },
       "created": "Um novo Regime Terapêutico foi criado com o identificador {{ param }}",
       "updated": "Regime Terapêutico com identificador {{ param }} foi actualizado",
