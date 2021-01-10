@@ -7,7 +7,9 @@
         "createLabel": "Create a new Therapeutic Regime",
         "editLabel": "Edit therapeutical regime",
         "createOrEditLabel": "Create or edit a Therapeutic Regime",
-        "notFound": "No Therapeutic Regimes found"
+        "notFound": "No Therapeutic Regimes found",
+        "namePlaceholder": "Search for a therapeutic regime..."
+
       },
       "created": "A new Therapeutic Regime is created with identifier {{ param }}",
       "updated": "A Therapeutic Regime is updated with identifier {{ param }}",

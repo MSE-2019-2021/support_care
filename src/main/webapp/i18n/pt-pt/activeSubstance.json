@@ -7,7 +7,8 @@
         "createLabel": "Criar substância ativa",
         "editLabel": "Editar substância ativa",
         "createOrEditLabel": "Criar ou editar substância ativa",
-        "notFound": "Nenhuma substância ativa encontrada"
+        "notFound": "Nenhuma substância ativa encontrada",
+        "namePlaceholder": "Pesquise por uma substância ativa..."
       },
       "created": "Uma nova substância ativa foi criada com o identificador {{ param }}",
       "updated": "Substância ativa com identificador {{ param }} foi actualizada",
