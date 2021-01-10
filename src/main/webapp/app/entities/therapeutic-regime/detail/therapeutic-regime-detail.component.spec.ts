@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 
 import { TherapeuticRegime } from '../therapeutic-regime.model';
-
 import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
@@ -11,8 +10,15 @@ import { FeedbackService } from 'app/entities/feedback/service/feedback.service'
 import { Feedback } from 'app/entities/feedback/feedback.model';
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MockNgbModalRef } from 'app/entities/outcome/detail/outcome-detail.component.spec';
 import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic-regime/delete/therapeutic-regime-delete-dialog.component';
+
+export class MockNgbModalRef {
+  componentInstance = {
+    prompt: undefined,
+    title: undefined,
+  };
+  result: Promise<any> = new Promise(resolve => resolve(true));
+}
 
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {

@@ -107,6 +107,8 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
       'entityName.equals': EntityFeedback.THERAPEUTIC_REGIME.valueOf(),
       'entityId.equals': this.therapeuticRegime?.id,
       'thumb.equals': false,
+      'reason.specified': true,
+      'solved.equals': false,
     };
   }
 
