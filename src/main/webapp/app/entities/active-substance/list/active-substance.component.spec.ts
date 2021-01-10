@@ -132,5 +132,26 @@ describe('Component Tests', () => {
       // THEN
       expect(result).toEqual(['name,asc', 'id']);
     });
+
+    it('Should search symptom', () => {
+      // WHEN
+      comp.searching();
+
+      // THEN
+      comp.reset();
+      expect(comp.page).toEqual(0);
+    });
+
+    it('Should filter query symptom by name', () => {
+      // WHEN
+      comp.searchName = 'name';
+      comp.getCriteria();
+
+      const result = comp.sort();
+
+      // THEN
+      expect(comp.searchName).toEqual('name');
+      expect(result).toEqual(['name,asc', 'id']);
+    });
   });
 });
