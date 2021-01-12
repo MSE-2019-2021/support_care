@@ -110,5 +110,20 @@
         <span>{{ thumb.countThumbDown }}</span>
       </button>
     </div>
+    <div class="mainWrapper entityInfoWrapper" *ngIf="feedbacks && feedbacks.length > 0">
+      <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <span *ngFor="let feedback of feedbacks; let last = last">
+          <div class="card" infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <div class="card-body">
+              <span *ngIf="feedback.anonym">Anonimo</span>
+              <span *ngIf="!feedback.anonym">{{ feedback.entityName }}</span>
+              <div class="card-footer border-0">
+                <button type="button" class="btn btn-primary float-right button-create"><fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="entity.action.edit">Edit</span></button>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
   </div>
 </div>
