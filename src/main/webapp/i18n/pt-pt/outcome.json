@@ -22,6 +22,7 @@
       "name": "Nome",
       "generalInfo": "Informações gerais",
       "description": "Descrição",
+      "link": "Anexo (Link)",
       "attachmentDetails": "Anexo",
       "attachment": "Anexo (carregamento de ficheiros)",
       "attachmentUpload": "Carregar ficheiro",
@@ -29,6 +30,7 @@
       "help": {
         "name": "Nome.",
         "description": "Descrição.",
+        "link": "Link.",
         "attachment": "Clique no nome do ficheiro para iniciar o download."
       },
       "action": {

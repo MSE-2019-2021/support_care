@@ -48,6 +48,16 @@
         ></label>
         <input type="file" class="hideInput" (change)="handleFileInput($event)" id="field_documents" multiple files />
       </div>
+
+      <div class="form-group">
+        <label class="form-control-label" customTranslate="supportivecareApp.outcome.link" for="field_link" [ngbTooltip]="'supportivecareApp.outcome.help.link' | translate"></label>
+        <input type="text" class="form-control" name="link" id="field_link" data-cy="link" formControlName="link" />
+        <div *ngIf="editForm.get('link')!.invalid && (editForm.get('link')!.dirty || editForm.get('link')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('link')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
+            This field cannot be longer than 1000 characters.
+          </small>
+        </div>
+      </div>
     </div>
 
     <div class="updateButtons">

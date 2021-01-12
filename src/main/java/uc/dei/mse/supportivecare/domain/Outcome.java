@@ -39,6 +39,13 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     @Column(name = "description", length = 1000)
     private String description;
 
+    /**
+     * Link.
+     */
+    @Size(max = 1000)
+    @Column(name = "link", length = 1000)
+    private String link;
+
     @OneToMany(mappedBy = "outcome", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "content", "outcome" }, allowSetters = true)
@@ -87,6 +94,19 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public Outcome link(String link) {
+        this.link = link;
+        return this;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Set<Document> getDocuments() {
@@ -177,6 +197,7 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", link='" + getLink() + "'" +
             "}";
     }
 }
