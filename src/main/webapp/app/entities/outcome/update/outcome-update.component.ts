@@ -20,6 +20,7 @@ export class OutcomeUpdateComponent implements OnInit {
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
     description: [null, [Validators.maxLength(1000)]],
+    link: [null, [Validators.maxLength(1000)]],
     documents: new FormArray([]),
   });
 
@@ -44,6 +45,7 @@ export class OutcomeUpdateComponent implements OnInit {
       id: outcome.id,
       name: outcome.name,
       description: outcome.description,
+      link: outcome.link,
       documents: outcome.documents,
     });
     this.editForm.setControl('documents', this.fb.array(this.getDocuments().controls));
@@ -105,6 +107,7 @@ export class OutcomeUpdateComponent implements OnInit {
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
       description: this.editForm.get(['description'])!.value,
+      link: this.editForm.get(['link'])!.value,
       documents: this.editForm.get(['documents'])!.value,
     };
   }

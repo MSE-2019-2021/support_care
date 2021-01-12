@@ -185,4 +185,9 @@ export class OutcomeDetailComponent implements OnInit {
       }
     );
   }
+  redirectToLink(link?: string): void {
+    if (link) {
+      window.open(link, '_blank');
+    }
+  }
 }

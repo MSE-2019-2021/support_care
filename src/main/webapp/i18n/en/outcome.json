@@ -22,6 +22,7 @@
       "name": "Name",
       "generalInfo": "General Information",
       "description": "Description",
+      "link": "Attachment (link)",
       "attachmentDetails": "Attachment",
       "attachment": "Attachment (files upload)",
       "attachmentUpload": "Upload file",
@@ -29,6 +30,7 @@
       "help": {
         "name": "Name.",
         "description": "Description.",
+        "link": "Link.",
         "attachment": "Click on file name to download."
       },
       "action": {

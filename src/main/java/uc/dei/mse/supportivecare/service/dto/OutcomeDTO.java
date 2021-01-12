@@ -31,6 +31,13 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
+    /**
+     * Link.
+     */
+    @Size(max = 1000)
+    @ApiModelProperty(value = "Link.")
+    private String link;
+
     private Set<DocumentDTO> documents = new HashSet<>();
 
     public Long getId() {
@@ -55,6 +62,14 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Set<DocumentDTO> getDocuments() {
@@ -93,6 +108,7 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
+            ", link='" + getLink() + "'" +
             ", documents=" + getDocuments() +
             "}";
     }

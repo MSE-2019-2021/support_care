@@ -159,6 +159,10 @@ entity Outcome {
 	* Descrição.
 	*/
 	description String maxlength(1000)
+	/**
+	* Link.
+	*/
+	link String maxlength(1000)
 }
 
 /**

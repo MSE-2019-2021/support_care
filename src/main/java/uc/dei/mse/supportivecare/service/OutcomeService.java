@@ -95,6 +95,10 @@ public class OutcomeService {
                         existingOutcome.setDescription(outcomeDTO.getDescription());
                     }
 
+                    if (outcomeDTO.getLink() != null) {
+                        existingOutcome.setLink(outcomeDTO.getLink());
+                    }
+
                     return existingOutcome;
                 }
             )
