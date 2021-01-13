@@ -13,6 +13,7 @@ import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model'
 import { DefineReasonDialogComponent } from 'app/entities/feedback/define-reason/define-reason-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 @Component({
   selector: 'custom-therapeutic-regime-detail',
@@ -26,6 +27,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
   itemsPerPage: number;
   links: { [key: string]: number };
   page: number;
+  dateFormat: string;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -40,6 +42,7 @@ export class TherapeuticRegimeDetailComponent implements OnInit {
     this.links = {
       last: 0,
     };
+    this.dateFormat = DATE_TIME_FORMAT;
   }
 
   ngOnInit(): void {

@@ -11,15 +11,16 @@
       "thumbs-up": {
         "title": "Esta informação foi-lhe útil?"
       },
-      "improvements-sugestion": {
-        "title": "Sugestão de melhorias"
+      "improvements-suggestion": {
+        "title": "Sugestões de melhorias"
       },
       "home": {
         "title": "Feedbacks",
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar novo(a) Feedback",
         "createOrEditLabel": "Criar ou editar Feedback",
-        "notFound": "Nenhum Feedbacks encontrado"
+        "notFound": "Nenhum Feedbacks encontrado",
+        "noneAvailable": "Não existem sugestões de melhoria"
       },
       "created": "Um novo Feedback foi criado com o identificador {{ param }}",
       "updated": "Feedback com identificador {{ param }} foi actualizado",
@@ -36,7 +37,10 @@
       "thumb": "Thumb",
       "reason": "Reason",
       "solved": "Solved",
-      "anonym": "Anonym",
+      "anonym": "Anónimo",
+      "actions": {
+        "markAsSolved": "Marcar como resolvido"
+      },
       "help": {
         "entityName": "Nome da entidade.",
         "entityId": "Id da entidade.",

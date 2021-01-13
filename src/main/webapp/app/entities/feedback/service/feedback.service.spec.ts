@@ -5,6 +5,8 @@ import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model'
 import { Feedback, IFeedback } from '../feedback.model';
 
 import { FeedbackService } from './feedback.service';
+import * as dayjs from 'dayjs';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 describe('Service Tests', () => {
   describe('Feedback Service', () => {
@@ -12,6 +14,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IFeedback;
     let expectedResult: IFeedback | IFeedback[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -20,13 +23,19 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(FeedbackService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
-      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, false, 'AAAAAAA', false, false);
+      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, false, 'AAAAAAA', false, false, 'BBBBBBB', currentDate);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
+        const returnedFromService = Object.assign(
+          {
+            createdDate: currentDate.format(DATE_TIME_FORMAT),
+          },
+          elemDefault
+        );
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -39,6 +48,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
@@ -62,6 +72,8 @@ describe('Service Tests', () => {
             reason: 'BBBBBB',
             solved: true,
             anonym: true,
+            createdDate: currentDate.format(DATE_TIME_FORMAT),
+            createdBy: 'AAAAAA',
           },
           elemDefault
         );
@@ -85,6 +97,7 @@ describe('Service Tests', () => {
             reason: 'BBBBBB',
             solved: true,
             anonym: true,
+            createdDate: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
