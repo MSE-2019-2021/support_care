@@ -65,6 +65,8 @@ export class SymptomDetailComponent implements OnInit {
   }
 
   protected loadFeedback(): void {
+    this.feedbacks = [];
+    this.page = 0;
     this.getThumbs();
     this.loadAll();
   }
