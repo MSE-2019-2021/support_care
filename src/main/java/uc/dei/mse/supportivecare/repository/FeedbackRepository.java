@@ -21,10 +21,10 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long>, JpaSp
 
     @Query(
         nativeQuery = true,
-        value = "SELECT up.countThumbUp as countThumbUp, down.countThumbDown as countThumbDown, user.thumb  as thumb FROM " +
+        value = "SELECT up.countThumbUp as countThumbUp, down.countThumbDown as countThumbDown, createdby.thumb as thumb FROM " +
         "(SELECT count(*) as countThumbUp FROM Feedback WHERE entity_name = :entityName AND entity_id = :entityId AND thumb = TRUE) up LEFT JOIN " +
-        "(SELECT count(*) as countThumbDown FROM Feedback WHERE entity_name = :entityName AND entity_id = :entityId AND thumb = FALSE) down LEFT JOIN " +
-        "(SELECT thumb FROM Feedback WHERE entity_name = :entityName AND entity_id = :entityId AND created_by = :createdBy) user"
+        "(SELECT count(*) as countThumbDown FROM Feedback WHERE entity_name = :entityName AND entity_id = :entityId AND thumb = FALSE) down ON TRUE LEFT JOIN " +
+        "(SELECT thumb FROM Feedback WHERE entity_name = :entityName AND entity_id = :entityId AND created_by = :createdBy) createdby ON TRUE"
     )
     Thumb countAllByEntityNameAndEntityIdAndCreatedBy(
         @Param("entityName") String entityName,
