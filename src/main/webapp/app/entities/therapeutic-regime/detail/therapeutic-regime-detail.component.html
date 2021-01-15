@@ -121,7 +121,7 @@
       <div *ngIf="feedbacks && feedbacks.length > 0">
         <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
           <span *ngFor="let feedback of feedbacks; let last = last">
-            <div class="card bg-white">
+            <div class="card shadow-none bg-white">
               <div class="card-header bg-white border-0 feedback-card-header-color">
                 <span *ngIf="feedback.anonym" customTranslate="supportivecareApp.feedback.anonym">Anonym</span>
                 <span *ngIf="!feedback.anonym">{{ feedback.createdBy }}</span>
