@@ -136,5 +136,37 @@
         <span>{{ thumb.countThumbDown }}</span>
       </button>
     </div>
+    <span class="h2-color list-text-color-bold h2" customTranslate="supportivecareApp.feedback.improvements-suggestion.title"> Improvements suggestions </span>
+    <span *ngIf="feedbacks?.length" class="title-color h2"> ({{ feedbacks?.length }})</span>
+    <div class="mainWrapper entityInfoWrapper">
+      <custom-alert-error></custom-alert-error>
+      <custom-alert></custom-alert>
+      <div class="alert alert-warning" id="no-result" *ngIf="feedbacks?.length === 0">
+        <span customTranslate="supportivecareApp.feedback.home.noneAvailable">There are no improvement suggestions</span>
+      </div>
+      <div *ngIf="feedbacks && feedbacks.length > 0">
+        <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+          <span *ngFor="let feedback of feedbacks; let last = last">
+            <div class="card bg-white">
+              <div class="card-header bg-white border-0 feedback-card-header-color">
+                <span *ngIf="feedback.anonym" customTranslate="supportivecareApp.feedback.anonym">Anonym</span>
+                <span *ngIf="!feedback.anonym">{{ feedback.createdBy }}</span>
+                <span class="float-right">{{ feedback.createdDate?.format(dateFormat) }}</span>
+              </div>
+              <div class="card-body bg-white">
+                <span>{{ feedback.reason }}</span>
+              </div>
+              <div *customHasAnyAuthority="'ROLE_USER'" class="card-footer bg-white border-0">
+                <button type="button" class="btn bg-transparent button-transparent float-left">
+                  <fa-icon class="list-text-color" icon="check-circle"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="supportivecareApp.feedback.actions.markAsSolved"
+                    >Mark as solved</span
+                  >
+                </button>
+              </div>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
