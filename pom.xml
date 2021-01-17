@@ -7,7 +7,7 @@
 
     <groupId>uc.dei.mse.supportivecare</groupId>
     <artifactId>supportivecare</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Supportivecare</name>
 
