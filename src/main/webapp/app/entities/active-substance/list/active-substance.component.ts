@@ -19,6 +19,8 @@ export class ActiveSubstanceComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   constructor(protected activeSubstanceService: ActiveSubstanceService, protected parseLinks: ParseLinks) {
     this.activeSubstances = [];
@@ -31,15 +33,28 @@ export class ActiveSubstanceComponent implements OnInit {
     this.ascending = true;
   }
 
+  getCriteria(): {} {
+    let criteria = {};
+
+    if (this.searchName) {
+      criteria = { 'name.contains': this.searchName };
+    }
+    return criteria;
+  }
+
   loadAll(): void {
     this.isLoading = true;
 
     this.activeSubstanceService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query( Object.assign(
+        {},
+        {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+        },
+        this.getCriteria()
+      ))
       .subscribe(
         (res: HttpResponse<IActiveSubstance[]>) => {
           this.isLoading = false;
@@ -85,5 +100,13 @@ export class ActiveSubstanceComponent implements OnInit {
         this.activeSubstances.push(data[i]);
       }
     }
+  }
+
+  searching(): any {
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.reset();
+    }, 200);
   }
 }

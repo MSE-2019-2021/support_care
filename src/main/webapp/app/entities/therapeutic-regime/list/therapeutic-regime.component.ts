@@ -19,6 +19,8 @@ export class TherapeuticRegimeComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   constructor(protected therapeuticRegimeService: TherapeuticRegimeService, protected parseLinks: ParseLinks) {
     this.therapeuticRegimes = [];
@@ -35,11 +37,15 @@ export class TherapeuticRegimeComponent implements OnInit {
     this.isLoading = true;
 
     this.therapeuticRegimeService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(Object.assign(
+        {},
+        {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+        },
+        this.getCriteria()
+      ))
       .subscribe(
         (res: HttpResponse<ITherapeuticRegime[]>) => {
           this.isLoading = false;
@@ -49,6 +55,15 @@ export class TherapeuticRegimeComponent implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+
+  getCriteria(): {} {
+    let criteria = {};
+
+    if (this.searchName) {
+      criteria = { 'name.contains': this.searchName };
+    }
+    return criteria;
   }
 
   reset(): void {
@@ -85,5 +100,13 @@ export class TherapeuticRegimeComponent implements OnInit {
         this.therapeuticRegimes.push(data[i]);
       }
     }
+  }
+
+  searching(): any {
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.reset();
+    }, 200);
   }
 }

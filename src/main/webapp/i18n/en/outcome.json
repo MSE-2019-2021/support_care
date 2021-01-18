@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create PROM",
         "editLabel": "Edit PROM",
-        "notFound": "No PROMs found"
+        "notFound": "No PROMs found",
+        "namePlaceholder": "Search for a PROM..."
       },
       "created": "PROM was successfully created",
       "updated": "PROM was successfully updated",

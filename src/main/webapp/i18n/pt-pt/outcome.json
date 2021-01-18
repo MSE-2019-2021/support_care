@@ -6,7 +6,8 @@
         "refreshListLabel": "Atualizar lista",
         "createLabel": "Criar PROM",
         "editLabel": "Editar PROM",
-        "notFound": "Nenhum PROM encontrado"
+        "notFound": "Nenhum PROM encontrado",
+        "namePlaceholder": "Pesquise por um PROM..."
       },
       "created": "PROM criado com sucesso",
       "updated": "PROM actualizado com sucesso",

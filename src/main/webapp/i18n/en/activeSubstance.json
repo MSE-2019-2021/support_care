@@ -6,7 +6,8 @@
         "refreshListLabel": "Refresh list",
         "createLabel": "Create active substance",
         "editLabel": "Edit active substance",
-        "notFound": "No Active Substances found"
+        "notFound": "No Active Substances found",
+        "namePlaceholder": "Search for a active substance..."
       },
       "created": "A new Active Substance is created with identifier {{ param }}",
       "updated": "A Active Substance is updated with identifier {{ param }}",

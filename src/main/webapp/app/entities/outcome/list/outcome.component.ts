@@ -20,6 +20,8 @@ export class OutcomeComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   constructor(protected outcomeService: OutcomeService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
     this.outcomes = [];
@@ -32,15 +34,28 @@ export class OutcomeComponent implements OnInit {
     this.ascending = true;
   }
 
+  getCriteria(): {} {
+    let criteria = {};
+
+    if (this.searchName) {
+      criteria = { 'name.contains': this.searchName };
+    }
+    return criteria;
+  }
+
   loadAll(): void {
     this.isLoading = true;
 
     this.outcomeService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(Object.assign(
+        {},
+        {
+          page: this.page,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+        },
+        this.getCriteria()
+      ))
       .subscribe(
         (res: HttpResponse<IOutcome[]>) => {
           this.isLoading = false;
@@ -86,5 +101,13 @@ export class OutcomeComponent implements OnInit {
         this.outcomes.push(data[i]);
       }
     }
+  }
+
+  searching(): any {
+    clearTimeout(this.timer);
+
+    this.timer = setTimeout(() => {
+      this.reset();
+    }, 200);
   }
 }

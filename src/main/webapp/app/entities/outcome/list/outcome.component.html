@@ -8,6 +8,18 @@
   </div>
   <custom-alert-error></custom-alert-error>
   <custom-alert></custom-alert>
+  <div class="input-group input-group-lg md-form form-sm form-1 pl-0" id="tableSearch">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-white" id="basic-text1"><fa-icon icon="search" slot="start" aria-hidden="true"></fa-icon></span>
+    </div>
+    <input
+      class="form-control form-control-borderless"
+      type="text"
+      [(ngModel)]="searchName"
+      (ngModelChange)="searching()"
+      placeholder="{{ 'supportivecareApp.outcome.home.namePlaceholder' | translate }}"
+    />
+  </div>
   <div class="alert alert-warning" id="no-result" *ngIf="outcomes?.length === 0">
     <span customTranslate="supportivecareApp.outcome.home.notFound">No outcomes found</span>
   </div>
