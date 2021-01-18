@@ -51,5 +51,17 @@
         <span>{{ thumb.countThumbDown }}</span>
       </button>
     </div>
+    <span class="h2-color list-text-color-bold h2" customTranslate="supportivecareApp.feedback.improvements-suggestion.title"> Improvements suggestions </span>
+    <span *ngIf="feedbacks?.length" class="title-color h2"> ({{ feedbacks?.length }})</span>
+    <div class="mainWrapper entityInfoWrapper">
+      <custom-feedback-entity-list-header [feedbacks]="feedbacks"></custom-feedback-entity-list-header>
+      <div *ngIf="feedbacks && feedbacks.length > 0">
+        <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+          <span *ngFor="let feedback of feedbacks; let last = last">
+            <custom-feedback-entity-list-card [feedback]="feedback"></custom-feedback-entity-list-card>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

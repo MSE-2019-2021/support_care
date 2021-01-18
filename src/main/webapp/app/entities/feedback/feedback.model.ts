@@ -1,4 +1,5 @@
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
+import * as dayjs from 'dayjs';
 
 export interface IFeedback {
   id?: number;
@@ -8,6 +9,8 @@ export interface IFeedback {
   reason?: string;
   solved?: boolean;
   anonym?: boolean;
+  createdBy?: string;
+  createdDate?: dayjs.Dayjs | null;
 }
 
 export class Feedback implements IFeedback {
@@ -18,7 +21,9 @@ export class Feedback implements IFeedback {
     public thumb?: boolean,
     public reason?: string,
     public solved?: boolean,
-    public anonym?: boolean
+    public anonym?: boolean,
+    public createdBy?: string,
+    public createdDate?: dayjs.Dayjs | null
   ) {
     this.thumb = this.thumb ?? false;
     this.solved = this.solved ?? false;
