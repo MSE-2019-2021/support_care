@@ -48,10 +48,10 @@
       </div>
       <ng-container *ngIf="activeSubstance.notices && activeSubstance.notices.length > 0">
         <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="{{ activeSubstance.notices[0].id }}">
-          <ngb-panel *ngFor="let notice of activeSubstance.notices" id="{{ notice.id }}">
+          <ngb-panel *ngFor="let notice of activeSubstance.notices; let i = index" id="{{ 'notice' + i }}">
             <ng-template ngbPanelHeader let-opened="opened">
-              <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('' + this.notice.id)">
-                <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle('' + this.notice.id)">{{ notice.description }}</button>
+              <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('notice' + i)">
+                <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle('notice' + i)">{{ notice.description }}</button>
                 <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"></fa-icon>
                 <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"></fa-icon>
               </div>

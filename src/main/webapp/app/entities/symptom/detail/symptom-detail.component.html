@@ -51,13 +51,13 @@
         </div>
       </div>
       <div class="sectionWrapper">
-        <span *ngFor="let toxicityRate of symptom.toxicityRates; let last = last">
+        <span *ngFor="let toxicityRate of symptom.toxicityRates; let last = last; let i = index">
           <ng-container *ngIf="toxicityRate.name && toxicityRate.name.length > 0">
-            <ngb-accordion [closeOthers]="true">
-              <ngb-panel>
+            <ngb-accordion #acc="ngbAccordion" [closeOthers]="true">
+              <ngb-panel id="{{ 'toxicityRate' + i }}">
                 <ng-template ngbPanelHeader let-opened="opened">
-                  <div class="d-flex align-items-center justify-content-between">
-                    <button ngbPanelToggle class="btn btn-link text-primary m-0">Intervenção Recomendada - {{ toxicityRate.name }}</button>
+                  <div class="d-flex align-items-center justify-content-between is-clickable" (click)="acc.toggle('toxicityRate' + i)">
+                    <button ngbPanelToggle class="btn btn-link text-primary m-0" (click)="acc.toggle('toxicityRate' + i)">Intervenção Recomendada - {{ toxicityRate.name }}</button>
                     <fa-icon *ngIf="opened" class="text-primary p-0" icon="angle-up"> </fa-icon>
                     <fa-icon *ngIf="!opened" class="text-primary p-0" icon="angle-down"> </fa-icon>
                   </div>
