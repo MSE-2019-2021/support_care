@@ -1,11 +1,11 @@
 <div class="entityWrapper">
   <div class="listHeaderWrapper">
-    <h2 class="text-primary font-weight-bold" customTranslate="user-info.title" *ngIf="account">User settings</h2>
+    <h2 class="list-text-color font-weight-bold" customTranslate="user-info.title" *ngIf="account">User settings</h2>
     <div class="d-flex justify-content-end">
-      <a class="btn btn-info mr-2" routerLink="/account/password" routerLinkActive="active" data-cy="passwordItem">
-        <fa-icon icon="lock"></fa-icon> <span customTranslate="user-info.password">Change Password</span>
+      <a class="btn button-transparent mr-2" routerLink="/account/password" routerLinkActive="active" data-cy="passwordItem">
+        <fa-icon class="list-text-color" icon="lock"></fa-icon> <span class="list-text-color" customTranslate="user-info.password">Change Password</span>
       </a>
-      <a class="btn btn-info" routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
+      <a class="btn btn-primary" routerLink="/account/settings" routerLinkActive="active" data-cy="settings">
         <fa-icon icon="pencil-alt"></fa-icon> <span customTranslate="user-info.profile">Edit profile</span>
       </a>
     </div>
