@@ -28,7 +28,8 @@
         "login": "Sign in",
         "leave": "Exit",
         "logout": "Do you wish to log out of WikiCare?",
-        "register": "Register"
+        "register": "Register",
+        "user-info": "Profile"
       },
       "admin": {
         "main": "Administration",
