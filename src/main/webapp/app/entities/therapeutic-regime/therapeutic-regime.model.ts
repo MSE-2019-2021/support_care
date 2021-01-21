@@ -1,6 +1,7 @@
 import { IActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 import { ITreatment } from 'app/entities/treatment/treatment.model';
 import { ISymptom } from 'app/entities/symptom/symptom.model';
+import * as dayjs from 'dayjs';
 
 export interface ITherapeuticRegime {
   id?: number;
@@ -15,6 +16,8 @@ export interface ITherapeuticRegime {
   activeSubstances?: IActiveSubstance[];
   treatment?: ITreatment;
   symptoms?: ISymptom[];
+  lastModifiedDate?: dayjs.Dayjs | null;
+  createdDate?: dayjs.Dayjs | null;
 }
 
 export class TherapeuticRegime implements ITherapeuticRegime {
@@ -30,6 +33,8 @@ export class TherapeuticRegime implements ITherapeuticRegime {
     public notice?: string,
     public activeSubstances?: IActiveSubstance[],
     public treatment?: ITreatment,
-    public symptoms?: ISymptom[]
+    public symptoms?: ISymptom[],
+    public lastModifiedDate?: dayjs.Dayjs | null,
+    public createdDate?: dayjs.Dayjs | null
   ) {}
 }

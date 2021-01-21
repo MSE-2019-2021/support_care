@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IOutcome } from '../outcome.model';
+import * as dayjs from 'dayjs';
+import { map } from 'rxjs/operators';
 
 type EntityResponseType = HttpResponse<IOutcome>;
 type EntityArrayResponseType = HttpResponse<IOutcome[]>;
@@ -30,7 +32,9 @@ export class OutcomeService {
       }
     }
 
-    return this.http.post<IOutcome>(this.resourceUrl, formData, { observe: 'response' });
+    return this.http
+      .post<IOutcome>(this.resourceUrl, formData, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   update(outcome: IOutcome, files?: FileList): Observable<EntityResponseType> {
@@ -48,19 +52,43 @@ export class OutcomeService {
       }
     }
 
-    return this.http.put<IOutcome>(this.resourceUrl, formData, { observe: 'response' });
+    return this.http
+      .put<IOutcome>(this.resourceUrl, formData, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IOutcome>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    return this.http
+      .get<IOutcome>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http.get<IOutcome[]>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http
+      .get<IOutcome[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+    if (res.body) {
+      res.body.forEach((outcome: IOutcome) => {
+        outcome.createdDate = outcome.createdDate ? dayjs(outcome.createdDate) : undefined;
+        outcome.lastModifiedDate = outcome.lastModifiedDate ? dayjs(outcome.lastModifiedDate) : undefined;
+      });
+    }
+    return res;
+  }
+
+  protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+    if (res.body) {
+      res.body.createdDate = res.body.createdDate ? dayjs(res.body.createdDate) : undefined;
+      res.body.lastModifiedDate = res.body.lastModifiedDate ? dayjs(res.body.lastModifiedDate) : undefined;
+    }
+    return res;
   }
 }

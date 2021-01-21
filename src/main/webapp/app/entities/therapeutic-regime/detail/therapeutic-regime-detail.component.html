@@ -18,6 +18,11 @@
     <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading">
       {{ therapeuticRegime.name }}<span *ngIf="therapeuticRegime.acronym" class="title-color"> ({{ therapeuticRegime.acronym }})</span>
     </h2>
+    <div>
+      <span customTranslate="entity.detail.lastUpdated"> </span>
+      <span *ngIf="therapeuticRegime.lastModifiedDate != null">{{ therapeuticRegime.lastModifiedDate?.format(dateFormat) }}</span>
+      <span *ngIf="therapeuticRegime.lastModifiedDate == null">{{ therapeuticRegime.createdDate?.format(dateFormat) }}</span>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>

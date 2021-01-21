@@ -10,7 +10,11 @@
       <fa-icon class="red-icon" icon="trash"></fa-icon>
     </button>
     <h2 class="h2-color" data-cy="outcomeDetailsHeading">{{ outcome.name }}</h2>
-
+    <div>
+      <span customTranslate="entity.detail.lastUpdated"> </span>
+      <span *ngIf="outcome.lastModifiedDate != null">{{ outcome.lastModifiedDate?.format(dateFormat) }}</span>
+      <span *ngIf="outcome.lastModifiedDate == null">{{ outcome.createdDate?.format(dateFormat) }}</span>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>

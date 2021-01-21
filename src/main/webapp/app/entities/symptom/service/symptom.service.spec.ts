@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ISymptom, Symptom } from '../symptom.model';
 
 import { SymptomService } from './symptom.service';
+import * as dayjs from 'dayjs';
 
 describe('Service Tests', () => {
   describe('Symptom Service', () => {
@@ -11,6 +12,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: ISymptom;
     let expectedResult: ISymptom | ISymptom[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,8 +21,9 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(SymptomService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
-      elemDefault = new Symptom(0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Symptom(0, 'AAAAAAA', 'AAAAAAA', [], [], [], currentDate, currentDate);
     });
 
     describe('Service methods', () => {
@@ -38,6 +41,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -57,6 +62,8 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             notice: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -76,6 +83,8 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             notice: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );

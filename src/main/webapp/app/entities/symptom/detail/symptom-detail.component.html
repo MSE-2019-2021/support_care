@@ -13,6 +13,11 @@
     <h2 class="h2-color" data-cy="symptomDetailsHeading">
       <span>{{ symptom.name }}</span>
     </h2>
+    <div>
+      <span customTranslate="entity.detail.lastUpdated"> </span>
+      <span *ngIf="symptom.lastModifiedDate != null">{{ symptom.lastModifiedDate?.format(dateFormat) }}</span>
+      <span *ngIf="symptom.lastModifiedDate == null">{{ symptom.createdDate?.format(dateFormat) }}</span>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>

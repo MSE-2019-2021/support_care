@@ -16,6 +16,11 @@
       <fa-icon class="red-icon" icon="trash"></fa-icon>
     </button>
     <h2 class="h2-color" data-cy="activeSubstanceDetailsHeading">{{ activeSubstance.name }}</h2>
+    <div>
+      <span customTranslate="entity.detail.lastUpdated"> </span>
+      <span *ngIf="activeSubstance.lastModifiedDate != null">{{ activeSubstance.lastModifiedDate?.format(dateFormat) }}</span>
+      <span *ngIf="activeSubstance.lastModifiedDate == null">{{ activeSubstance.createdDate?.format(dateFormat) }}</span>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>

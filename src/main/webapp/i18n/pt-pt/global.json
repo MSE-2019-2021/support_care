@@ -115,6 +115,7 @@
       "view": "Visualizar"
     },
     "detail": {
+      "lastUpdated": "Última Atualização: ",
       "field": "Campo",
       "value": "Valor"
     },

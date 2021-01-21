@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IActiveSubstance } from '../active-substance.model';
 import { ActiveSubstanceDeleteDialogComponent } from '../delete/active-substance-delete-dialog.component';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 @Component({
   selector: 'custom-active-substance-detail',
@@ -11,8 +12,11 @@ import { ActiveSubstanceDeleteDialogComponent } from '../delete/active-substance
 })
 export class ActiveSubstanceDetailComponent implements OnInit {
   activeSubstance: IActiveSubstance | null = null;
+  dateFormat: string;
 
-  constructor(protected activatedRoute: ActivatedRoute, protected modalService: NgbModal) {}
+  constructor(protected activatedRoute: ActivatedRoute, protected modalService: NgbModal) {
+    this.dateFormat = DATE_TIME_FORMAT;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ activeSubstance }) => {

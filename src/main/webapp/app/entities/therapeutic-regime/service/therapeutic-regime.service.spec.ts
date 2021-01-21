@@ -4,6 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { ITherapeuticRegime, TherapeuticRegime } from '../therapeutic-regime.model';
 
 import { TherapeuticRegimeService } from './therapeutic-regime.service';
+import * as dayjs from 'dayjs';
+import { Treatment } from 'app/entities/treatment/treatment.model';
 
 describe('Service Tests', () => {
   describe('TherapeuticRegime Service', () => {
@@ -11,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: ITherapeuticRegime;
     let expectedResult: ITherapeuticRegime | ITherapeuticRegime[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,8 +22,24 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(TherapeuticRegimeService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
-      elemDefault = new TherapeuticRegime(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new TherapeuticRegime(
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        [],
+        new Treatment(),
+        [],
+        currentDate,
+        currentDate
+      );
     });
 
     describe('Service methods', () => {
@@ -38,6 +57,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -63,6 +84,8 @@ describe('Service Tests', () => {
             indication: 'BBBBBB',
             criteria: 'BBBBBB',
             notice: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -88,6 +111,8 @@ describe('Service Tests', () => {
             indication: 'BBBBBB',
             criteria: 'BBBBBB',
             notice: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
