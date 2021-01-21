@@ -28,8 +28,8 @@
           [settings]="dropdownSettings"
         >
         </ng-multiselect-dropdown>
-        <div *ngIf="editForm.get('outcomes')!.invalid && (editForm.get('outcomes')!.dirty || editForm.get('outcomes')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('outcomes')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
+        <div *ngIf="editForm.get('therapeuticRegimes')!.invalid && (editForm.get('therapeuticRegimes')!.dirty || editForm.get('therapeuticRegimes')!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get('therapeuticRegimes')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
         </div>
       </div>
 

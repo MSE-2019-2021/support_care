@@ -133,7 +133,7 @@ export class SymptomUpdateComponent implements OnInit {
       options.forEach(value => {
         dropdownList.push({
           id: value.id!,
-          text: value.acronym!,
+          text: value.name!,
         });
       });
     }
