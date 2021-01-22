@@ -129,10 +129,10 @@ describe('Component Tests', () => {
         });
 
         it('Should return option if therapeutic regime is available', () => {
-          const option = new TherapeuticRegime(123, 'name', 'acronym');
+          const option = new TherapeuticRegime(123, 'name');
           const list = [option];
           const result = comp.getSelectedTherapeuticRegime(list);
-          expect(result).toEqual([{ id: 123, text: 'acronym' }]);
+          expect(result).toEqual([{ id: 123, text: 'name' }]);
         });
       });
     });
