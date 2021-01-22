@@ -11,7 +11,6 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IDocument;
     let expectedResult: IDocument | IDocument[] | boolean | null;
-    let expectDownload: Blob;
 
     beforeEach(() => {
       TestBed.configureTestingModule({

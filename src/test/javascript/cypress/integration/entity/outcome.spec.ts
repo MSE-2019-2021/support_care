@@ -31,7 +31,7 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Outcomes', () => {
+  it('should load Outcomes (MSEDO-177 - 4)', () => {
     cy.server();
     cy.route('GET', '/api/outcomes*').as('entitiesRequest');
     cy.visit('/');
@@ -46,7 +46,7 @@ describe('Outcome e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load details Outcome page', () => {
+  it('should load details Outcome page (MSEDO-179 - 3)', () => {
     cy.server();
     cy.route('GET', '/api/outcomes*').as('entitiesRequest');
     cy.visit('/');
@@ -110,7 +110,7 @@ describe('Outcome e2e test', () => {
   //   cy.visit('/');
   // });
 
-  // it('should delete last instance of Outcome', () => {
+  // it('should delete last instance of Outcome (MSEDO-181 - 1)', () => {
   //   cy.server();
   //   cy.route('GET', '/api/outcomes*').as('entitiesRequest');
   //   cy.route('DELETE', '/api/outcomes/*').as('deleteEntityRequest');

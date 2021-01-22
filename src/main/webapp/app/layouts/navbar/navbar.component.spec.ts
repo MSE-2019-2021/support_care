@@ -4,7 +4,7 @@ jest.mock('@ngx-translate/core');
 jest.mock('app/core/auth/account.service');
 jest.mock('app/login/login.service');
 
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
@@ -18,7 +18,6 @@ import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { LoginService } from 'app/login/login.service';
 
 import { NavbarComponent } from './navbar.component';
-import { NavbarLogoutDialogComponent } from './logout/navbar-logout-dialog.component';
 
 export class MockNgbModalRef {
   componentInstance = {
@@ -54,7 +53,7 @@ describe('Component Tests', () => {
       comp = fixture.componentInstance;
       mockAccountService = TestBed.inject(AccountService);
       profileService = TestBed.inject(ProfileService);
-      modalService = TestBed.inject(NgbModal);
+      // modalService = TestBed.inject(NgbModal);
       mockModalRef = new MockNgbModalRef();
     });
 

@@ -8,7 +8,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackService } from '../service/feedback.service';
 
 import { DefineReasonDialogComponent } from './define-reason-dialog.component';
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
 jest.mock('@ng-bootstrap/ng-bootstrap');
 

@@ -5,8 +5,6 @@ import {
   entityCreateButtonSelector,
   entityCreateSaveButtonSelector,
   entityEditButtonSelector,
-  entityDeleteButtonSelector,
-  entityConfirmDeleteButtonSelector,
 } from '../../support/entity';
 
 describe('TherapeuticRegime e2e test', () => {
@@ -31,7 +29,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load TherapeuticRegimes', () => {
+  it('should load TherapeuticRegimes (MSEDO-83 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
@@ -46,7 +44,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load details TherapeuticRegime page', () => {
+  it('should load details TherapeuticRegime page (MSEDO-82 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
@@ -72,7 +70,7 @@ describe('TherapeuticRegime e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load edit TherapeuticRegime page', () => {
+  it('should load edit TherapeuticRegime page (MSEDO-85 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
@@ -88,7 +86,7 @@ describe('TherapeuticRegime e2e test', () => {
   });
 
   /* this test is commented because it contains required relationships
-  it('should create an instance of TherapeuticRegime', () => {
+  it('should create an instance of TherapeuticRegime (MSEDO-84 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
@@ -137,7 +135,7 @@ describe('TherapeuticRegime e2e test', () => {
   */
 
   /* this test is commented because it contains required relationships
-  it('should delete last instance of TherapeuticRegime', () => {
+  it('should delete last instance of TherapeuticRegime (MSEDO-130 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.route('DELETE', '/api/therapeutic-regimes/*').as('deleteEntityRequest');
