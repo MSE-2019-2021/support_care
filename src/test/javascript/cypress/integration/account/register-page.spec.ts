@@ -24,7 +24,7 @@ describe('/account/register', () => {
     cy.route('POST', '/api/register').as('registerSave');
   });
 
-  it('should load the register page', () => {
+  it('should load the register page (MSEDO-173 - 1)', () => {
     cy.get(submitRegisterSelector).should('be.visible');
   });
 
@@ -59,7 +59,7 @@ describe('/account/register', () => {
     cy.get(secondPasswordRegisterSelector).clear();
   });
 
-  it('register a valid user', () => {
+  it('register a valid user (MSEDO-173 - 2)', () => {
     const randomEmail = 'Junius.Schinner@gmail.com';
     const randomUsername = 'Jaron73';
     cy.get(usernameRegisterSelector).type(randomUsername);

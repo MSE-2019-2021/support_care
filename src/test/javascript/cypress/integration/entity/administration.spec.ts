@@ -31,7 +31,7 @@ describe('Administration e2e test', () => {
     cy.visit('/');
   });
 
-  // it('should load Administrations', () => {
+  // it('should load Administrations (MSEDO-117 - 1)', () => {
   //   cy.server();
   //   cy.route('GET', '/api/administrations*').as('entitiesRequest');
   //   cy.visit('/');
@@ -46,7 +46,7 @@ describe('Administration e2e test', () => {
   //   cy.visit('/');
   // });
 
-  // it('should load details Administration page', () => {
+  // it('should load details Administration page (MSEDO-118 - 1)', () => {
   //   cy.server();
   //   cy.route('GET', '/api/administrations*').as('entitiesRequest');
   //   cy.visit('/');

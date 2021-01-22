@@ -44,9 +44,9 @@ describe('Component Tests', () => {
 
       fixture = TestBed.createComponent(TherapeuticRegimeUpdateComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(TherapeuticRegimeService);
-      modalService = TestBed.inject(NgbModal);
-      mockModalRef = new MockNgbModalRef();
+      // service = TestBed.inject(TherapeuticRegimeService);
+      // modalService = TestBed.inject(NgbModal);
+      // mockModalRef = new MockNgbModalRef();
     });
 
     /*

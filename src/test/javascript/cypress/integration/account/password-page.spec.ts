@@ -24,7 +24,7 @@ describe('/account/password', () => {
     cy.route('POST', '/api/account/change-password').as('passwordSave');
   });
 
-  it('requires current password', () => {
+  it('requires current password (MSEDO-174 -  3)', () => {
     cy.clickOnPasswordItem();
     cy.get(currentPasswordSelector).should('have.class', classInvalid).type('wrong-current-password').should('have.class', classValid);
     cy.get(currentPasswordSelector).clear();
@@ -53,7 +53,7 @@ describe('/account/password', () => {
     cy.get(confirmPasswordSelector).clear();
   });
 
-  it('should be able to update password', () => {
+  it('should be able to update password (MSEDO-174 -  5)', () => {
     cy.get(currentPasswordSelector).type('user');
     cy.get(newPasswordSelector).type('user');
     cy.get(confirmPasswordSelector).type('user');

@@ -29,7 +29,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Symptoms', () => {
+  it('should load Symptoms (MSEDO-29 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
@@ -44,7 +44,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load details Symptom page', () => {
+  it('should load details Symptom page (MSEDO-28 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
@@ -58,7 +58,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load create Symptom page', () => {
+  it('should load create Symptom page (MSEDO-25-1)', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
@@ -85,7 +85,7 @@ describe('Symptom e2e test', () => {
     cy.visit('/');
   });
   // revision needed
-  /*it('should create an instance of Symptom', () => {
+  /*it('should create an instance of Symptom (MSEDO-25-2)', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
@@ -119,7 +119,7 @@ describe('Symptom e2e test', () => {
   });*/
 
   /***
-  it('should delete last instance of Symptom', () => {
+  it('should delete last instance of Symptom (MSEDO-27-2)', () => {
     cy.server();
     cy.route('GET', '/api/symptoms*').as('entitiesRequest');
     cy.route('DELETE', '/api/symptoms/*').as('deleteEntityRequest');

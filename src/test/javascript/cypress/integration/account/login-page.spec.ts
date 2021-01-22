@@ -21,7 +21,7 @@ describe('login modal', () => {
     cy.route('POST', '/api/authenticate').as('authenticate');
   });
 
-  it('greets with signin', () => {
+  it('greets with signin (MSEDO-174 -  1)', () => {
     cy.get(titleLoginSelector).should('be.visible');
   });
 
@@ -52,7 +52,7 @@ describe('login modal', () => {
     cy.get(passwordLoginSelector).clear();
   });
 
-  it('go to login page when successfully logs in', () => {
+  it('go to login page when successfully logs in (MSEDO-174 -  2)', () => {
     cy.get(usernameLoginSelector).type('admin');
     cy.get(passwordLoginSelector).type('admin');
     cy.get(submitLoginSelector).click();

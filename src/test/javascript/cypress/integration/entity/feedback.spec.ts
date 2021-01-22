@@ -31,7 +31,7 @@ describe('Feedback e2e test', () => {
     cy.visit('/');
   });
 
-  it('should load Feedbacks', () => {
+  it('should load Feedbacks (MSEDO-185 - 1)', () => {
     cy.server();
     cy.route('GET', '/api/feedbacks*').as('entitiesRequest');
     cy.visit('/');
