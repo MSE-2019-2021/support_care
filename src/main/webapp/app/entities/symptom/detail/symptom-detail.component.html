@@ -9,14 +9,19 @@
     <button *customHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(symptom)" class="btn button-transparent float-right button-delete" data-cy="entityDeleteButton">
       <fa-icon class="red-icon" icon="trash"></fa-icon>
     </button>
-
-    <h2 class="h2-color" data-cy="symptomDetailsHeading">
-      <span>{{ symptom.name }}</span>
-    </h2>
-    <div>
-      <span customTranslate="entity.detail.lastUpdated"> </span>
-      <span *ngIf="symptom.lastModifiedDate != null">{{ symptom.lastModifiedDate?.format(dateFormat) }}</span>
-      <span *ngIf="symptom.lastModifiedDate == null">{{ symptom.createdDate?.format(dateFormat) }}</span>
+    <div class="entityLastUpdate">
+      <h2 class="h2-color" data-cy="symptomDetailsHeading">
+        <span>{{ symptom.name }}</span>
+      </h2>
+      <div>
+        <span customTranslate="entity.detail.lastUpdated"> </span>
+        <span *ngIf="symptom.lastModifiedDate != null"
+          ><em>{{ symptom.lastModifiedDate?.format(dateFormat) }}</em></span
+        >
+        <span *ngIf="symptom.lastModifiedDate == null"
+          ><em>{{ symptom.createdDate?.format(dateFormat) }}</em></span
+        >
+      </div>
     </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>

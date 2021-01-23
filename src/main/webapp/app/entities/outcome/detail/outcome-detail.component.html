@@ -14,10 +14,10 @@
       <div>
         <span customTranslate="entity.detail.lastUpdated"> </span>
         <span *ngIf="outcome.lastModifiedDate != null"
-          ><i>{{ outcome.lastModifiedDate?.format(dateFormat) }}</i></span
+          ><em>{{ outcome.lastModifiedDate?.format(dateFormat) }}</em></span
         >
         <span *ngIf="outcome.lastModifiedDate == null"
-          ><i>{{ outcome.createdDate?.format(dateFormat) }}</i></span
+          ><em>{{ outcome.createdDate?.format(dateFormat) }}</em></span
         >
       </div>
     </div>
