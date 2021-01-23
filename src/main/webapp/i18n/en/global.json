@@ -115,6 +115,7 @@
       "view": "View"
     },
     "detail": {
+      "lastUpdated": "Last Update: ",
       "field": "Field",
       "value": "Value"
     },

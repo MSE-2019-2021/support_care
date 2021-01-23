@@ -1,6 +1,7 @@
 import { INotice } from 'app/entities/notice/notice.model';
 import { IAdministration } from 'app/entities/administration/administration.model';
 import { ITherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-regime.model';
+import * as dayjs from 'dayjs';
 
 export interface IActiveSubstance {
   id?: number;
@@ -11,6 +12,8 @@ export interface IActiveSubstance {
   notices?: INotice[];
   administration?: IAdministration;
   therapeuticRegimes?: ITherapeuticRegime[];
+  lastModifiedDate?: dayjs.Dayjs | null;
+  createdDate?: dayjs.Dayjs | null;
 }
 
 export class ActiveSubstance implements IActiveSubstance {
@@ -22,6 +25,8 @@ export class ActiveSubstance implements IActiveSubstance {
     public description?: string,
     public notices?: INotice[],
     public administration?: IAdministration,
-    public therapeuticRegimes?: ITherapeuticRegime[]
+    public therapeuticRegimes?: ITherapeuticRegime[],
+    public lastModifiedDate?: dayjs.Dayjs | null,
+    public createdDate?: dayjs.Dayjs | null
   ) {}
 }

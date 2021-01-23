@@ -15,7 +15,18 @@
     <button *customHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(activeSubstance)" class="btn button-transparent float-right button-delete" data-cy="entityDeleteButton">
       <fa-icon class="red-icon" icon="trash"></fa-icon>
     </button>
-    <h2 class="h2-color" data-cy="activeSubstanceDetailsHeading">{{ activeSubstance.name }}</h2>
+    <div class="entityLastUpdate">
+      <h2 class="h2-color" data-cy="activeSubstanceDetailsHeading">{{ activeSubstance.name }}</h2>
+      <div>
+        <span customTranslate="entity.detail.lastUpdated"> </span>
+        <span *ngIf="activeSubstance.lastModifiedDate != null"
+          ><em>{{ activeSubstance.lastModifiedDate?.format(dateFormat) }}</em></span
+        >
+        <span *ngIf="activeSubstance.lastModifiedDate == null"
+          ><em>{{ activeSubstance.createdDate?.format(dateFormat) }}</em></span
+        >
+      </div>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>

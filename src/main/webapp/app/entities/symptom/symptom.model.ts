@@ -1,6 +1,7 @@
 import { IToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
 import { ITherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-regime.model';
 import { IOutcome } from 'app/entities/outcome/outcome.model';
+import * as dayjs from 'dayjs';
 
 export interface ISymptom {
   id?: number;
@@ -9,6 +10,8 @@ export interface ISymptom {
   toxicityRates?: IToxicityRate[];
   therapeuticRegimes?: ITherapeuticRegime[];
   outcomes?: IOutcome[];
+  lastModifiedDate?: dayjs.Dayjs | null;
+  createdDate?: dayjs.Dayjs | null;
 }
 
 export class Symptom implements ISymptom {
@@ -18,6 +21,8 @@ export class Symptom implements ISymptom {
     public notice?: string,
     public toxicityRates?: IToxicityRate[],
     public therapeuticRegimes?: ITherapeuticRegime[],
-    public outcomes?: IOutcome[]
+    public outcomes?: IOutcome[],
+    public lastModifiedDate?: dayjs.Dayjs | null,
+    public createdDate?: dayjs.Dayjs | null
   ) {}
 }

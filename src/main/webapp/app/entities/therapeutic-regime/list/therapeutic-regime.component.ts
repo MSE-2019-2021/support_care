@@ -37,15 +37,17 @@ export class TherapeuticRegimeComponent implements OnInit {
     this.isLoading = true;
 
     this.therapeuticRegimeService
-      .query(Object.assign(
-        {},
-        {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.sort(),
-        },
-        this.getCriteria()
-      ))
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
       .subscribe(
         (res: HttpResponse<ITherapeuticRegime[]>) => {
           this.isLoading = false;

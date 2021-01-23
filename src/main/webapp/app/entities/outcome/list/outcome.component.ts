@@ -47,15 +47,17 @@ export class OutcomeComponent implements OnInit {
     this.isLoading = true;
 
     this.outcomeService
-      .query(Object.assign(
-        {},
-        {
-          page: this.page,
-          size: this.itemsPerPage,
-          sort: this.sort(),
-        },
-        this.getCriteria()
-      ))
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
       .subscribe(
         (res: HttpResponse<IOutcome[]>) => {
           this.isLoading = false;

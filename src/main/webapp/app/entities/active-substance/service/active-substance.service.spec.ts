@@ -4,6 +4,8 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IActiveSubstance, ActiveSubstance } from '../active-substance.model';
 
 import { ActiveSubstanceService } from './active-substance.service';
+import * as dayjs from 'dayjs';
+import { Administration } from 'app/entities/administration/administration.model';
 
 describe('Service Tests', () => {
   describe('ActiveSubstance Service', () => {
@@ -11,6 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IActiveSubstance;
     let expectedResult: IActiveSubstance | IActiveSubstance[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,8 +22,20 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(ActiveSubstanceService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
-      elemDefault = new ActiveSubstance(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new ActiveSubstance(
+        0,
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        'AAAAAAA',
+        [],
+        new Administration(),
+        [],
+        currentDate,
+        currentDate
+      );
     });
 
     describe('Service methods', () => {
@@ -38,6 +53,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -59,6 +76,8 @@ describe('Service Tests', () => {
             dosage: 'BBBBBB',
             form: 'BBBBBB',
             description: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -80,6 +99,8 @@ describe('Service Tests', () => {
             dosage: 'BBBBBB',
             form: 'BBBBBB',
             description: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );

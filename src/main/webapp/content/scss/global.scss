@@ -472,3 +472,9 @@ global styles
 .feedback-card-header-color {
   color: #4c4c4c;
 }
+
+.entityLastUpdate {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

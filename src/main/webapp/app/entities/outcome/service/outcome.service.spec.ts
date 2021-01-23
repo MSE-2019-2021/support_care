@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IOutcome, Outcome } from '../outcome.model';
 
 import { OutcomeService } from './outcome.service';
+import * as dayjs from 'dayjs';
 
 interface MockFile {
   name: string;
@@ -36,6 +37,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IOutcome;
     let expectedResult: IOutcome | IOutcome[] | boolean | null;
+    let currentDate: dayjs.Dayjs;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -44,8 +46,9 @@ describe('Service Tests', () => {
       expectedResult = null;
       service = TestBed.inject(OutcomeService);
       httpMock = TestBed.inject(HttpTestingController);
+      currentDate = dayjs();
 
-      elemDefault = new Outcome(0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Outcome(0, 'AAAAAAA', 'AAAAAAA', 'DDDDDDD', [], currentDate, currentDate);
     });
 
     describe('Service methods', () => {
@@ -63,6 +66,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -82,6 +87,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -109,6 +116,8 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -130,6 +139,8 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );
@@ -157,6 +168,8 @@ describe('Service Tests', () => {
             id: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
+            createdDate: currentDate,
+            lastModifiedDate: currentDate,
           },
           elemDefault
         );

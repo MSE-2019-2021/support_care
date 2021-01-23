@@ -15,9 +15,21 @@
     <button *customHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(therapeuticRegime)" class="btn button-transparent float-right button-delete" data-cy="entityDeleteButton">
       <fa-icon class="red-icon" icon="trash"></fa-icon>
     </button>
-    <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading">
-      {{ therapeuticRegime.name }}<span *ngIf="therapeuticRegime.acronym" class="title-color"> ({{ therapeuticRegime.acronym }})</span>
-    </h2>
+
+    <div class="entityLastUpdate">
+      <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading">
+        {{ therapeuticRegime.name }}<span *ngIf="therapeuticRegime.acronym" class="title-color"> ({{ therapeuticRegime.acronym }})</span>
+      </h2>
+      <div>
+        <span customTranslate="entity.detail.lastUpdated"> </span>
+        <span *ngIf="therapeuticRegime.lastModifiedDate != null"
+          ><em>{{ therapeuticRegime.lastModifiedDate?.format(dateFormat) }}</em></span
+        >
+        <span *ngIf="therapeuticRegime.lastModifiedDate == null"
+          ><em>{{ therapeuticRegime.createdDate?.format(dateFormat) }}</em></span
+        >
+      </div>
+    </div>
     <div class="mainWrapper entityInfoWrapper">
       <custom-alert-error></custom-alert-error>
       <custom-alert></custom-alert>
