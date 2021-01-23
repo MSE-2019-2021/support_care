@@ -8,10 +8,17 @@ import { SymptomDeleteDialogComponent } from './delete/symptom-delete-dialog.com
 import { SymptomRoutingModule } from './route/symptom-routing.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { FeedbackEntityListModule } from 'app/entities/feedback/feedback-entity-list.module';
+import { SymptomCancelDialogComponent } from 'app/entities/symptom/cancel/symptom-cancel-dialog.component';
 
 @NgModule({
   imports: [SharedModule, SymptomRoutingModule, NgMultiSelectDropDownModule, FeedbackEntityListModule],
-  declarations: [SymptomComponent, SymptomDetailComponent, SymptomUpdateComponent, SymptomDeleteDialogComponent],
-  entryComponents: [SymptomDeleteDialogComponent],
+  declarations: [
+    SymptomComponent,
+    SymptomDetailComponent,
+    SymptomUpdateComponent,
+    SymptomDeleteDialogComponent,
+    SymptomCancelDialogComponent,
+  ],
+  entryComponents: [SymptomDeleteDialogComponent, SymptomCancelDialogComponent],
 })
 export class SymptomModule {}

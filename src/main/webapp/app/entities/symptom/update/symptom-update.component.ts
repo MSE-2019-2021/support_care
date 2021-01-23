@@ -3,7 +3,6 @@ import { HttpResponse } from '@angular/common/http';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-
 import { ISymptom, Symptom } from '../symptom.model';
 import { SymptomService } from '../service/symptom.service';
 import { ITherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-regime.model';
@@ -12,6 +11,8 @@ import { IOutcome } from 'app/entities/outcome/outcome.model';
 import { OutcomeService } from 'app/entities/outcome/service/outcome.service';
 import { IToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
 import { ToxicityRateService } from 'app/entities/toxicity-rate/service/toxicity-rate.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SymptomCancelDialogComponent } from 'app/entities/symptom/cancel/symptom-cancel-dialog.component';
 
 @Component({
   selector: 'custom-symptom-update',
@@ -40,6 +41,7 @@ export class SymptomUpdateComponent implements OnInit {
     protected outcomeService: OutcomeService,
     protected toxicityRateService: ToxicityRateService,
     protected activatedRoute: ActivatedRoute,
+    protected modalService: NgbModal,
     private fb: FormBuilder
   ) {}
 
@@ -203,5 +205,9 @@ export class SymptomUpdateComponent implements OnInit {
     const currentSymptom = this.editForm.controls;
     const currentToxicityRates = currentSymptom.toxicityRates as FormArray;
     currentToxicityRates.removeAt(i);
+  }
+
+  cancel(): void {
+    this.modalService.open(SymptomCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }

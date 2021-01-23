@@ -10,11 +10,15 @@
         "namePlaceholder": "Search for a symptom...",
         "editLabel": "Edit symptom"
       },
-      "created": "A new Symptom is created with identifier {{ param }}",
-      "updated": "A Symptom is updated with identifier {{ param }}",
-      "deleted": "A Symptom is deleted with identifier {{ param }}",
+      "created": "Symptom was successfully created",
+      "updated": "Symptom was successfully updated",
+      "deleted": "Symptom successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete Symptom {{ id }}?"
+        "question": "Are you sure you want to delete this symptom?"
+      },
+      "cancel": {
+        "title": "Do you want to leave this symptom edition?",
+        "question": "All information will be lost if you leave this page."
       },
       "detail": {
         "title": "Symptom"
@@ -28,7 +32,7 @@
       "toxicityRate": "Toxicity Rate",
       "help": {
         "name": "Nome.",
-        "notice": "Informação ao enfermeiro."
+        "notice": "Information to nurses"
       },
       "actions": {
         "addToxicityRate": "Add toxicity rate",
