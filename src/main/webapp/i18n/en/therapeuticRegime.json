@@ -17,8 +17,8 @@
         "question": "Are you sure you want to delete Therapeutic Regime {{ id }}?"
       },
       "cancel": {
-        "title": "Deseja sair da criação de um regime terapêutico?",
-        "question": "Ao sair irá perder toda a informação inserida na criação deste regime terapêutico."
+        "title": "Do you wish to leave the creation of a therapeutic regime?",
+        "question": "By leaving you will lose all the information inserted in this therapeutic regime."
       },
       "detail": {
         "title": "Available Therapeutic Regimes"
