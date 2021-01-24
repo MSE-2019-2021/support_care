@@ -1,6 +1,6 @@
 <div class="entityWrapper">
   <div *ngIf="therapeuticRegime">
-    <button type="submit" (click)="previousState()" class="btn button-transparent" data-cy="entityDetailsBackButton">
+    <button type="submit" [routerLink]="['/therapeutic-regime']" class="btn button-transparent" data-cy="entityDetailsBackButton">
       <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="entity.action.back">Back</span>
     </button>
     <button
