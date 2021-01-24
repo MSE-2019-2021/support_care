@@ -13,5 +13,6 @@ export class OutcomeCancelDialogComponent {
 
   confirmCancel(): void {
     this.activeModal.close('canceled');
+    window.history.back();
   }
 }

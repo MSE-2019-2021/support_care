@@ -136,12 +136,6 @@ export class OutcomeUpdateComponent implements OnInit {
   }
 
   cancel(): void {
-    const modalRef = this.modalService.open(OutcomeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-    // unsubscribe not needed because closed completes on modal close
-    modalRef.closed.subscribe(reason => {
-      if (reason === 'canceled') {
-        this.previousState();
-      }
-    });
+    this.modalService.open(OutcomeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
