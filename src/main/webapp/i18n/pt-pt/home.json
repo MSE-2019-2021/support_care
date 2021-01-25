@@ -1,12 +1,13 @@
 {
   "home": {
     "title": "Bem vindo/a ",
-    "title2": "{{username}}",
+    "title2": "{{username}}!",
     "navigate": "Navegar",
     "link": {
       "therapeutic-regime": "Regimes terapêuticos",
       "symptom": "Sintomas",
-      "outcome": "PROMs"
+      "outcome": "PROMs",
+      "active-substance": "Substâncias Ativas"
     }
   }
 }
