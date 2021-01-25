@@ -3,36 +3,27 @@
     <div class="col-12">
       <div class="entityWrapper home">
         <h8 class="text-primary font-weight-bold" customTranslate="home.title">Welcome</h8>
-        <h8 class="text-primary" id="home-logged-message" *ngIf="account" customTranslate="home.title2" [translateValues]="{ username: account.login }">
-          <span class="title-color"> {{ account.login }}!.</span></h8
-        >
+        <h8 class="text-primary" id="home-logged-message" *ngIf="account" customTranslate="home.title2" [translateValues]="{ username: account.login }"></h8>
       </div>
-      <p class="text-secondary p" customTranslate="home.navigate">Navigate</p>
-      <a class="box1" style="width: 290px; height: 230px" routerLink="/therapeutic-regime">
-        <div class="img">
+      <p class="text-secondary p" customTranslate="home.navigate"></p>
+      <div class="buttonWrapper">
+        <a class="homeButton" routerLink="/therapeutic-regime">
           <fa-icon class="icon" icon="pills"></fa-icon>
-        </div>
-        <div class="img">
-          <span customTranslate="home.link.therapeutic-regime" style="font-size: 0.83rem !important">Therapeutical Regime</span>
-        </div>
-      </a>
-      <a class="box1" style="width: 290px; height: 230px" routerLink="/symptom">
-        <div class="img">
+          <span customTranslate="home.link.therapeutic-regime"></span>
+        </a>
+        <a class="homeButton" routerLink="/symptom">
           <fa-icon class="icon" icon="head-side-cough"></fa-icon>
-        </div>
-        <div class="img">
-          <span customTranslate="home.link.symptom" style="font-size: 0.83rem !important">Symptom</span>
-        </div>
-      </a>
-      <a class="box1" style="width: 290px; height: 230px" routerLink="/outcome">
-        <div class="img">
+          <span customTranslate="home.link.symptom"></span>
+        </a>
+        <a class="homeButton" routerLink="/outcome">
           <fa-icon class="icon" icon="file-medical-alt"></fa-icon>
-        </div>
-
-        <div class="img" style="width: 290px; height: 230px">
-          <span customTranslate="home.link.outcome" style="font-size: 0.83rem !important">PROMs</span>
-        </div>
-      </a>
+          <span customTranslate="home.link.outcome"></span>
+        </a>
+        <a class="homeButton" routerLink="/active-substance">
+          <fa-icon class="icon" icon="file-medical-alt"></fa-icon>
+          <span customTranslate="home.link.active-substance"></span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
