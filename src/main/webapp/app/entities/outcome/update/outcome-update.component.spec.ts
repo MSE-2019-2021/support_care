@@ -12,12 +12,24 @@ import { Outcome } from '../outcome.model';
 import { Document } from 'app/entities/document/document.model';
 
 import { OutcomeUpdateComponent } from './outcome-update.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { OutcomeCancelDialogComponent } from 'app/entities/outcome/cancel/outcome-cancel-dialog.component';
+
+export class MockNgbModalRef {
+  componentInstance = {
+    prompt: undefined,
+    title: undefined,
+  };
+  result: Promise<any> = new Promise(resolve => resolve(true));
+}
 
 describe('Component Tests', () => {
   describe('Outcome Management Update Component', () => {
     let comp: OutcomeUpdateComponent;
     let fixture: ComponentFixture<OutcomeUpdateComponent>;
     let service: OutcomeService;
+    let modalService: NgbModal;
+    let mockModalRef: MockNgbModalRef;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,6 +43,8 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(OutcomeUpdateComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(OutcomeService);
+      modalService = TestBed.inject(NgbModal);
+      mockModalRef = new MockNgbModalRef();
     });
 
     describe('save', () => {
@@ -112,6 +126,23 @@ describe('Component Tests', () => {
       comp.files = files;
 
       expect(comp.getFiles()).toEqual({});
+    });
+
+    describe('cancel', () => {
+      it('should open modal when clicking on cancel button', fakeAsync(() => {
+        // GIVEN
+        spyOn(modalService, 'open').and.returnValue(mockModalRef);
+
+        // WHEN
+        comp.cancel();
+
+        // THEN
+        expect(modalService.open).toHaveBeenCalledWith(OutcomeCancelDialogComponent, {
+          centered: true,
+          size: 'lg',
+          backdrop: 'static',
+        });
+      }));
     });
   });
 });

@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 
 import { IOutcome, Outcome } from '../outcome.model';
 import { OutcomeService } from '../service/outcome.service';
+import { OutcomeCancelDialogComponent } from 'app/entities/outcome/cancel/outcome-cancel-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'custom-outcome-update',
@@ -24,7 +26,12 @@ export class OutcomeUpdateComponent implements OnInit {
     documents: new FormArray([]),
   });
 
-  constructor(protected outcomeService: OutcomeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected outcomeService: OutcomeService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ outcome }) => {
@@ -126,5 +133,9 @@ export class OutcomeUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  cancel(): void {
+    this.modalService.open(OutcomeCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
