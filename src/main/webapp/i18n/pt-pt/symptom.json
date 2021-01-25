@@ -10,11 +10,15 @@
         "namePlaceholder": "Pesquise por um sintoma...",
         "editLabel": "Editar sintoma"
       },
-      "created": "Um novo Symptom foi criado com o identificador {{ param }}",
-      "updated": "O sintoma com o identificador {{ param }} foi actualizado",
-      "deleted": "O sintoma com o identificador {{ param }} foi eliminado",
+      "created": "Sintoma foi criado com sucesso",
+      "updated": "Sintoma foi editado com sucesso",
+      "deleted": "Sintoma foi eliminado com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Symptom {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar o sintoma?"
+      },
+      "cancel": {
+        "title": "Deseja sair da edição deste sintoma?",
+        "question": "Ao sair irá perder toda a informação."
       },
       "detail": {
         "title": "Sintoma"
@@ -22,7 +26,7 @@
       "generalInfo": "Informações gerais",
       "id": "ID",
       "name": "Nome",
-      "notice": "Informação ao enfermeiro",
+      "notice": "Informações ao enfermeiro",
       "therapeuticRegime": "Regimes terapêuticos associados",
       "outcome": "Avaliação do sintoma",
       "toxicityRate": "Grau de manifestação do sintoma",

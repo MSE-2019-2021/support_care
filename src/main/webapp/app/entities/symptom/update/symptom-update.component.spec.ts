@@ -15,12 +15,24 @@ import { TherapeuticRegime } from 'app/entities/therapeutic-regime/therapeutic-r
 import { Outcome } from 'app/entities/outcome/outcome.model';
 
 import { SymptomUpdateComponent } from './symptom-update.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SymptomCancelDialogComponent } from 'app/entities/symptom/cancel/symptom-cancel-dialog.component';
+
+export class MockNgbModalRef {
+  componentInstance = {
+    prompt: undefined,
+    title: undefined,
+  };
+  result: Promise<any> = new Promise(resolve => resolve(true));
+}
 
 describe('Component Tests', () => {
   describe('Symptom Management Update Component', () => {
     let comp: SymptomUpdateComponent;
     let fixture: ComponentFixture<SymptomUpdateComponent>;
     let service: SymptomService;
+    let modalService: NgbModal;
+    let mockModalRef: MockNgbModalRef;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,6 +46,8 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(SymptomUpdateComponent);
       comp = fixture.componentInstance;
       service = TestBed.inject(SymptomService);
+      modalService = TestBed.inject(NgbModal);
+      mockModalRef = new MockNgbModalRef();
     });
 
     describe('save', () => {
@@ -135,6 +149,22 @@ describe('Component Tests', () => {
           expect(result).toEqual([{ id: 123, text: 'name' }]);
         });
       });
+    });
+    describe('cancel', () => {
+      it('should open modal when clicking on cancel button', fakeAsync(() => {
+        // GIVEN
+        spyOn(modalService, 'open').and.returnValue(mockModalRef);
+
+        // WHEN
+        comp.cancel();
+
+        // THEN
+        expect(modalService.open).toHaveBeenCalledWith(SymptomCancelDialogComponent, {
+          centered: true,
+          size: 'lg',
+          backdrop: 'static',
+        });
+      }));
     });
   });
 });

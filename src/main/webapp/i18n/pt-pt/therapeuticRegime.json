@@ -10,15 +10,15 @@
         "notFound": "Nenhum Regime Terapêutico encontrado",
         "namePlaceholder": "Pesquise por um regime terapêutico..."
       },
-      "created": "Um novo Regime Terapêutico foi criado com o identificador {{ param }}",
-      "updated": "Regime Terapêutico com identificador {{ param }} foi actualizado",
-      "deleted": "Regime Terapêutico com identificador {{ param }} foi eliminado",
+      "created": "Regime terapêutico criado com sucesso",
+      "updated": "Regime terapêutico PROM actualizado com sucesso",
+      "deleted": "Regime terapêutico eliminado com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Regime Terapêutico {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar este regime terapêutico?"
       },
       "cancel": {
-        "title": "Deseja sair da criação de um regime terapêutico?",
-        "question": "Ao sair irá perder toda a informação inserida na criação deste regime terapêutico."
+        "title": "Deseja sair da criação deste regime terapêutico?",
+        "question": "Ao sair irá perder toda a informação."
       },
       "detail": {
         "title": "Regime Terapêutico"
