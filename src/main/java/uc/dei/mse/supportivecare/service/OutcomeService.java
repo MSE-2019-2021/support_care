@@ -29,19 +29,23 @@ public class OutcomeService {
 
     private final DocumentService documentService;
 
-    private final FeedbackService feedbackService;
-
     private final OutcomeMapper outcomeMapper;
+
+    private final ThumbService thumbService;
+
+    private final FeedbackService feedbackService;
 
     public OutcomeService(
         OutcomeRepository outcomeRepository,
         OutcomeMapper outcomeMapper,
         DocumentService documentService,
+        ThumbService thumbService,
         FeedbackService feedbackService
     ) {
         this.outcomeRepository = outcomeRepository;
         this.outcomeMapper = outcomeMapper;
         this.documentService = documentService;
+        this.thumbService = thumbService;
         this.feedbackService = feedbackService;
     }
 
@@ -75,7 +79,7 @@ public class OutcomeService {
     }
 
     /**
-     * Partially udpates a outcome.
+     * Partially update a outcome.
      *
      * @param outcomeDTO the entity to update partially.
      * @return the persisted entity.
@@ -138,6 +142,7 @@ public class OutcomeService {
     public void delete(Long id) {
         log.debug("Request to delete Outcome : {}", id);
         outcomeRepository.deleteById(id);
-        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.OUTCOME, id);
+        thumbService.deleteByEntityTypeAndEntityId(EntityFeedback.OUTCOME, id);
+        feedbackService.deleteByEntityTypeAndEntityId(EntityFeedback.OUTCOME, id);
     }
 }

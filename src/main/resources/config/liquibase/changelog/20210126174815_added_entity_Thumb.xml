@@ -7,32 +7,23 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <!--
-        Added the entity Feedback.
+        Added the entity Thumb.
     -->
-    <changeSet id="20201220132745-seq-1" author="DanielFran">
-        <createSequence sequenceName="feedback_id_seq" cycle="false" startValue="1" incrementBy="1"/>
+    <changeSet id="20210126174815-seq-1" author="DanielFran">
+        <createSequence sequenceName="thumb_id_seq" cycle="false" startValue="1" incrementBy="1"/>
     </changeSet>
-    <changeSet id="20201220133645-1" author="DanielFran">
-        <createTable tableName="feedback" remarks="Feedback.">
-            <column name="id" type="bigint" defaultValueSequenceNext="feedback_id_seq">
+    <changeSet id="20210126174815-1" author="jhipster">
+        <createTable tableName="thumb" remarks="Thumb.">
+            <column name="id" type="bigint" defaultValueSequenceNext="thumb_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="entity_type" type="varchar(255)" remarks="Tipo da entidade.">
+                <constraints nullable="false" />
             </column>
             <column name="entity_id" type="bigint" remarks="Id da entidade.">
                 <constraints nullable="false" />
             </column>
-            <column name="entity_name" type="varchar(255)" remarks="Nome da entidade.">
-                <constraints nullable="false" />
-            </column>
             <column name="thumb" type="boolean" remarks="Polegar.">
-                <constraints nullable="false" />
-            </column>
-            <column name="reason" type="varchar(1000)" remarks="Razão.">
-                <constraints nullable="true" />
-            </column>
-            <column name="solved" type="boolean" remarks="Resolvido.">
-                <constraints nullable="false" />
-            </column>
-            <column name="anonym" type="boolean" remarks="Anónimo.">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -41,8 +32,8 @@
 
 
     <!-- Added the entity audit columns -->
-    <changeSet id="20201220133745-audit-1" author="jhipster-entity-audit">
-        <addColumn tableName="feedback">
+    <changeSet id="20210126174815-audit-1" author="jhipster-entity-audit">
+        <addColumn tableName="thumb">
             <column name="created_by" type="varchar(50)" defaultValue="system">
                 <constraints nullable="false"/>
             </column>
@@ -51,17 +42,6 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="20210125174815_update_fields" author="DanielFran">
-        <dropColumn tableName="feedback">
-            <column name="thumb"/>
-        </dropColumn>
-        <addColumn tableName="feedback">
-            <column afterColumn="id" name="entity_type" type="varchar(255)" remarks="Tipo da entidade.">
-                <constraints nullable="false" />
-            </column>
         </addColumn>
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -76,15 +56,12 @@
     -->
     <changeSet id="20210125174815-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/feedback.csv"
-                  separator=";"
-                  tableName="feedback">
+            file="config/liquibase/fake-data/thumb.csv"
+            separator=";"
+            tableName="thumb">
             <column name="entity_type" type="string"/>
             <column name="entity_id" type="numeric"/>
-            <column name="entity_name" type="string"/>
-            <column name="reason" type="string"/>
-            <column name="solved" type="boolean"/>
-            <column name="anonym" type="boolean"/>
+            <column name="thumb" type="boolean"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

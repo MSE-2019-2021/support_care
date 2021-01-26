@@ -2,7 +2,6 @@ package uc.dei.mse.supportivecare.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -17,7 +16,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.IntegrationTest;
-import uc.dei.mse.supportivecare.config.Constants;
 import uc.dei.mse.supportivecare.domain.Feedback;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
@@ -34,15 +32,15 @@ import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
 @WithMockUser
 class FeedbackResourceIT {
 
-    private static final EntityFeedback DEFAULT_ENTITY_NAME = EntityFeedback.ACTIVE_SUBSTANCE;
-    private static final EntityFeedback UPDATED_ENTITY_NAME = EntityFeedback.THERAPEUTIC_REGIME;
+    private static final EntityFeedback DEFAULT_ENTITY_TYPE = EntityFeedback.ACTIVE_SUBSTANCE;
+    private static final EntityFeedback UPDATED_ENTITY_TYPE = EntityFeedback.THERAPEUTIC_REGIME;
 
     private static final Long DEFAULT_ENTITY_ID = 1L;
     private static final Long UPDATED_ENTITY_ID = 2L;
     private static final Long SMALLER_ENTITY_ID = 1L - 1L;
 
-    private static final Boolean DEFAULT_THUMB = false;
-    private static final Boolean UPDATED_THUMB = true;
+    private static final String DEFAULT_ENTITY_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_ENTITY_NAME = "BBBBBBBBBB";
 
     private static final String DEFAULT_REASON = "AAAAAAAAAA";
     private static final String UPDATED_REASON = "BBBBBBBBBB";
@@ -78,9 +76,9 @@ class FeedbackResourceIT {
      */
     public static Feedback createEntity(EntityManager em) {
         Feedback feedback = new Feedback()
-            .entityName(DEFAULT_ENTITY_NAME)
+            .entityType(DEFAULT_ENTITY_TYPE)
             .entityId(DEFAULT_ENTITY_ID)
-            .thumb(DEFAULT_THUMB)
+            .entityName(DEFAULT_ENTITY_NAME)
             .reason(DEFAULT_REASON)
             .solved(DEFAULT_SOLVED)
             .anonym(DEFAULT_ANONYM);
@@ -95,9 +93,9 @@ class FeedbackResourceIT {
      */
     public static Feedback createUpdatedEntity(EntityManager em) {
         Feedback feedback = new Feedback()
-            .entityName(UPDATED_ENTITY_NAME)
+            .entityType(UPDATED_ENTITY_TYPE)
             .entityId(UPDATED_ENTITY_ID)
-            .thumb(UPDATED_THUMB)
+            .entityName(UPDATED_ENTITY_NAME)
             .reason(UPDATED_REASON)
             .solved(UPDATED_SOLVED)
             .anonym(UPDATED_ANONYM);
@@ -123,9 +121,9 @@ class FeedbackResourceIT {
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeCreate + 1);
         Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
+        assertThat(testFeedback.getEntityType()).isEqualTo(DEFAULT_ENTITY_TYPE);
         assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(DEFAULT_THUMB);
+        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
         assertThat(testFeedback.getReason()).isEqualTo(DEFAULT_REASON);
         assertThat(testFeedback.getSolved()).isEqualTo(DEFAULT_SOLVED);
         assertThat(testFeedback.getAnonym()).isEqualTo(DEFAULT_ANONYM);
@@ -152,10 +150,10 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
-    void checkEntityNameIsRequired() throws Exception {
+    void checkEntityTypeIsRequired() throws Exception {
         int databaseSizeBeforeTest = feedbackRepository.findAll().size();
         // set the field null
-        feedback.setEntityName(null);
+        feedback.setEntityType(null);
 
         // Create the Feedback, which fails.
         FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
@@ -234,9 +232,9 @@ class FeedbackResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(feedback.getId().intValue())))
-            .andExpect(jsonPath("$.[*].entityName").value(hasItem(DEFAULT_ENTITY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].entityType").value(hasItem(DEFAULT_ENTITY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].entityId").value(hasItem(DEFAULT_ENTITY_ID.intValue())))
-            .andExpect(jsonPath("$.[*].thumb").value(hasItem(DEFAULT_THUMB.booleanValue())))
+            .andExpect(jsonPath("$.[*].entityName").value(hasItem(DEFAULT_ENTITY_NAME)))
             .andExpect(jsonPath("$.[*].reason").value(hasItem(DEFAULT_REASON)))
             .andExpect(jsonPath("$.[*].solved").value(hasItem(DEFAULT_SOLVED.booleanValue())))
             .andExpect(jsonPath("$.[*].anonym").value(hasItem(DEFAULT_ANONYM.booleanValue())));
@@ -254,9 +252,9 @@ class FeedbackResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(feedback.getId().intValue()))
-            .andExpect(jsonPath("$.entityName").value(DEFAULT_ENTITY_NAME.toString()))
+            .andExpect(jsonPath("$.entityType").value(DEFAULT_ENTITY_TYPE.toString()))
             .andExpect(jsonPath("$.entityId").value(DEFAULT_ENTITY_ID.intValue()))
-            .andExpect(jsonPath("$.thumb").value(DEFAULT_THUMB.booleanValue()))
+            .andExpect(jsonPath("$.entityName").value(DEFAULT_ENTITY_NAME))
             .andExpect(jsonPath("$.reason").value(DEFAULT_REASON))
             .andExpect(jsonPath("$.solved").value(DEFAULT_SOLVED.booleanValue()))
             .andExpect(jsonPath("$.anonym").value(DEFAULT_ANONYM.booleanValue()));
@@ -282,54 +280,54 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
-    void getAllFeedbacksByEntityNameIsEqualToSomething() throws Exception {
+    void getAllFeedbacksByEntityTypeIsEqualToSomething() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where entityName equals to DEFAULT_ENTITY_NAME
-        defaultFeedbackShouldBeFound("entityName.equals=" + DEFAULT_ENTITY_NAME);
+        // Get all the feedbackList where entityType equals to DEFAULT_ENTITY_TYPE
+        defaultFeedbackShouldBeFound("entityType.equals=" + DEFAULT_ENTITY_TYPE);
 
-        // Get all the feedbackList where entityName equals to UPDATED_ENTITY_NAME
-        defaultFeedbackShouldNotBeFound("entityName.equals=" + UPDATED_ENTITY_NAME);
+        // Get all the feedbackList where entityType equals to UPDATED_ENTITY_TYPE
+        defaultFeedbackShouldNotBeFound("entityType.equals=" + UPDATED_ENTITY_TYPE);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByEntityNameIsNotEqualToSomething() throws Exception {
+    void getAllFeedbacksByEntityTypeIsNotEqualToSomething() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where entityName not equals to DEFAULT_ENTITY_NAME
-        defaultFeedbackShouldNotBeFound("entityName.notEquals=" + DEFAULT_ENTITY_NAME);
+        // Get all the feedbackList where entityType not equals to DEFAULT_ENTITY_TYPE
+        defaultFeedbackShouldNotBeFound("entityType.notEquals=" + DEFAULT_ENTITY_TYPE);
 
-        // Get all the feedbackList where entityName not equals to UPDATED_ENTITY_NAME
-        defaultFeedbackShouldBeFound("entityName.notEquals=" + UPDATED_ENTITY_NAME);
+        // Get all the feedbackList where entityType not equals to UPDATED_ENTITY_TYPE
+        defaultFeedbackShouldBeFound("entityType.notEquals=" + UPDATED_ENTITY_TYPE);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByEntityNameIsInShouldWork() throws Exception {
+    void getAllFeedbacksByEntityTypeIsInShouldWork() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where entityName in DEFAULT_ENTITY_NAME or UPDATED_ENTITY_NAME
-        defaultFeedbackShouldBeFound("entityName.in=" + DEFAULT_ENTITY_NAME + "," + UPDATED_ENTITY_NAME);
+        // Get all the feedbackList where entityType in DEFAULT_ENTITY_TYPE or UPDATED_ENTITY_TYPE
+        defaultFeedbackShouldBeFound("entityType.in=" + DEFAULT_ENTITY_TYPE + "," + UPDATED_ENTITY_TYPE);
 
-        // Get all the feedbackList where entityName equals to UPDATED_ENTITY_NAME
-        defaultFeedbackShouldNotBeFound("entityName.in=" + UPDATED_ENTITY_NAME);
+        // Get all the feedbackList where entityType equals to UPDATED_ENTITY_TYPE
+        defaultFeedbackShouldNotBeFound("entityType.in=" + UPDATED_ENTITY_TYPE);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByEntityNameIsNullOrNotNull() throws Exception {
+    void getAllFeedbacksByEntityTypeIsNullOrNotNull() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where entityName is not null
-        defaultFeedbackShouldBeFound("entityName.specified=true");
+        // Get all the feedbackList where entityType is not null
+        defaultFeedbackShouldBeFound("entityType.specified=true");
 
-        // Get all the feedbackList where entityName is null
-        defaultFeedbackShouldNotBeFound("entityName.specified=false");
+        // Get all the feedbackList where entityType is null
+        defaultFeedbackShouldNotBeFound("entityType.specified=false");
     }
 
     @Test
@@ -438,54 +436,80 @@ class FeedbackResourceIT {
 
     @Test
     @Transactional
-    void getAllFeedbacksByThumbIsEqualToSomething() throws Exception {
+    void getAllFeedbacksByEntityNameIsEqualToSomething() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where thumb equals to DEFAULT_THUMB
-        defaultFeedbackShouldBeFound("thumb.equals=" + DEFAULT_THUMB);
+        // Get all the feedbackList where entityName equals to DEFAULT_ENTITY_NAME
+        defaultFeedbackShouldBeFound("entityName.equals=" + DEFAULT_ENTITY_NAME);
 
-        // Get all the feedbackList where thumb equals to UPDATED_THUMB
-        defaultFeedbackShouldNotBeFound("thumb.equals=" + UPDATED_THUMB);
+        // Get all the feedbackList where entityName equals to UPDATED_ENTITY_NAME
+        defaultFeedbackShouldNotBeFound("entityName.equals=" + UPDATED_ENTITY_NAME);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByThumbIsNotEqualToSomething() throws Exception {
+    void getAllFeedbacksByEntityNameIsNotEqualToSomething() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where thumb not equals to DEFAULT_THUMB
-        defaultFeedbackShouldNotBeFound("thumb.notEquals=" + DEFAULT_THUMB);
+        // Get all the feedbackList where entityName not equals to DEFAULT_ENTITY_NAME
+        defaultFeedbackShouldNotBeFound("entityName.notEquals=" + DEFAULT_ENTITY_NAME);
 
-        // Get all the feedbackList where thumb not equals to UPDATED_THUMB
-        defaultFeedbackShouldBeFound("thumb.notEquals=" + UPDATED_THUMB);
+        // Get all the feedbackList where entityName not equals to UPDATED_ENTITY_NAME
+        defaultFeedbackShouldBeFound("entityName.notEquals=" + UPDATED_ENTITY_NAME);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByThumbIsInShouldWork() throws Exception {
+    void getAllFeedbacksByEntityNameIsInShouldWork() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where thumb in DEFAULT_THUMB or UPDATED_THUMB
-        defaultFeedbackShouldBeFound("thumb.in=" + DEFAULT_THUMB + "," + UPDATED_THUMB);
+        // Get all the feedbackList where entityName in DEFAULT_ENTITY_NAME or UPDATED_ENTITY_NAME
+        defaultFeedbackShouldBeFound("entityName.in=" + DEFAULT_ENTITY_NAME + "," + UPDATED_ENTITY_NAME);
 
-        // Get all the feedbackList where thumb equals to UPDATED_THUMB
-        defaultFeedbackShouldNotBeFound("thumb.in=" + UPDATED_THUMB);
+        // Get all the feedbackList where entityName equals to UPDATED_ENTITY_NAME
+        defaultFeedbackShouldNotBeFound("entityName.in=" + UPDATED_ENTITY_NAME);
     }
 
     @Test
     @Transactional
-    void getAllFeedbacksByThumbIsNullOrNotNull() throws Exception {
+    void getAllFeedbacksByEntityNameIsNullOrNotNull() throws Exception {
         // Initialize the database
         feedbackRepository.saveAndFlush(feedback);
 
-        // Get all the feedbackList where thumb is not null
-        defaultFeedbackShouldBeFound("thumb.specified=true");
+        // Get all the feedbackList where entityName is not null
+        defaultFeedbackShouldBeFound("entityName.specified=true");
 
-        // Get all the feedbackList where thumb is null
-        defaultFeedbackShouldNotBeFound("thumb.specified=false");
+        // Get all the feedbackList where entityName is null
+        defaultFeedbackShouldNotBeFound("entityName.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllFeedbacksByEntityNameContainsSomething() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        // Get all the feedbackList where entityName contains DEFAULT_ENTITY_NAME
+        defaultFeedbackShouldBeFound("entityName.contains=" + DEFAULT_ENTITY_NAME);
+
+        // Get all the feedbackList where entityName contains UPDATED_ENTITY_NAME
+        defaultFeedbackShouldNotBeFound("entityName.contains=" + UPDATED_ENTITY_NAME);
+    }
+
+    @Test
+    @Transactional
+    void getAllFeedbacksByEntityNameNotContainsSomething() throws Exception {
+        // Initialize the database
+        feedbackRepository.saveAndFlush(feedback);
+
+        // Get all the feedbackList where entityName does not contain DEFAULT_ENTITY_NAME
+        defaultFeedbackShouldNotBeFound("entityName.doesNotContain=" + DEFAULT_ENTITY_NAME);
+
+        // Get all the feedbackList where entityName does not contain UPDATED_ENTITY_NAME
+        defaultFeedbackShouldBeFound("entityName.doesNotContain=" + UPDATED_ENTITY_NAME);
     }
 
     @Test
@@ -679,9 +703,9 @@ class FeedbackResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(feedback.getId().intValue())))
-            .andExpect(jsonPath("$.[*].entityName").value(hasItem(DEFAULT_ENTITY_NAME.toString())))
+            .andExpect(jsonPath("$.[*].entityType").value(hasItem(DEFAULT_ENTITY_TYPE.toString())))
             .andExpect(jsonPath("$.[*].entityId").value(hasItem(DEFAULT_ENTITY_ID.intValue())))
-            .andExpect(jsonPath("$.[*].thumb").value(hasItem(DEFAULT_THUMB.booleanValue())))
+            .andExpect(jsonPath("$.[*].entityName").value(hasItem(DEFAULT_ENTITY_NAME)))
             .andExpect(jsonPath("$.[*].reason").value(hasItem(DEFAULT_REASON)))
             .andExpect(jsonPath("$.[*].solved").value(hasItem(DEFAULT_SOLVED.booleanValue())))
             .andExpect(jsonPath("$.[*].anonym").value(hasItem(DEFAULT_ANONYM.booleanValue())));
@@ -733,9 +757,9 @@ class FeedbackResourceIT {
         // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
         em.detach(updatedFeedback);
         updatedFeedback
-            .entityName(UPDATED_ENTITY_NAME)
+            .entityType(UPDATED_ENTITY_TYPE)
             .entityId(UPDATED_ENTITY_ID)
-            .thumb(UPDATED_THUMB)
+            .entityName(UPDATED_ENTITY_NAME)
             .reason(UPDATED_REASON)
             .solved(UPDATED_SOLVED)
             .anonym(UPDATED_ANONYM);
@@ -749,9 +773,9 @@ class FeedbackResourceIT {
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
         Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
+        assertThat(testFeedback.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testFeedback.getEntityId()).isEqualTo(UPDATED_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
+        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
         assertThat(testFeedback.getReason()).isEqualTo(UPDATED_REASON);
         assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
         assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
@@ -788,9 +812,9 @@ class FeedbackResourceIT {
         partialUpdatedFeedback.setId(feedback.getId());
 
         partialUpdatedFeedback
-            .entityName(UPDATED_ENTITY_NAME)
+            .entityType(UPDATED_ENTITY_TYPE)
             .entityId(UPDATED_ENTITY_ID)
-            .thumb(UPDATED_THUMB)
+            .entityName(UPDATED_ENTITY_NAME)
             .solved(UPDATED_SOLVED)
             .anonym(UPDATED_ANONYM);
 
@@ -806,9 +830,9 @@ class FeedbackResourceIT {
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
         Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
+        assertThat(testFeedback.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testFeedback.getEntityId()).isEqualTo(UPDATED_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
+        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
         assertThat(testFeedback.getReason()).isEqualTo(DEFAULT_REASON);
         assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
         assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
@@ -827,9 +851,9 @@ class FeedbackResourceIT {
         partialUpdatedFeedback.setId(feedback.getId());
 
         partialUpdatedFeedback
-            .entityName(UPDATED_ENTITY_NAME)
+            .entityType(UPDATED_ENTITY_TYPE)
             .entityId(UPDATED_ENTITY_ID)
-            .thumb(UPDATED_THUMB)
+            .entityName(UPDATED_ENTITY_NAME)
             .reason(UPDATED_REASON)
             .solved(UPDATED_SOLVED)
             .anonym(UPDATED_ANONYM);
@@ -846,9 +870,9 @@ class FeedbackResourceIT {
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
         Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
+        assertThat(testFeedback.getEntityType()).isEqualTo(UPDATED_ENTITY_TYPE);
         assertThat(testFeedback.getEntityId()).isEqualTo(UPDATED_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
+        assertThat(testFeedback.getEntityName()).isEqualTo(UPDATED_ENTITY_NAME);
         assertThat(testFeedback.getReason()).isEqualTo(UPDATED_REASON);
         assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
         assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
@@ -885,183 +909,5 @@ class FeedbackResourceIT {
         // Validate the database contains one less item
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    void manageFeedbackFromEntity_create() throws Exception {
-        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
-        // Create the Feedback
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isCreated());
-
-        // Validate the Feedback in the database
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate + 1);
-        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
-        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(DEFAULT_THUMB);
-        assertThat(testFeedback.getReason()).isEqualTo(DEFAULT_REASON);
-        assertThat(testFeedback.getSolved()).isEqualTo(DEFAULT_SOLVED);
-        assertThat(testFeedback.getAnonym()).isEqualTo(DEFAULT_ANONYM);
-    }
-
-    @Test
-    @Transactional
-    @WithMockUser(username = Constants.SYSTEM)
-    void manageFeedbackFromEntity_update() throws Exception {
-        // Initialize the database
-        feedbackRepository.saveAndFlush(feedback);
-
-        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
-
-        // Update the feedback
-        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
-        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
-        em.detach(updatedFeedback);
-        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM);
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
-
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isOk());
-
-        // Validate the Feedback in the database
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
-        Feedback testFeedback = feedbackList.get(feedbackList.size() - 1);
-        assertThat(testFeedback.getEntityName()).isEqualTo(DEFAULT_ENTITY_NAME);
-        assertThat(testFeedback.getEntityId()).isEqualTo(DEFAULT_ENTITY_ID);
-        assertThat(testFeedback.getThumb()).isEqualTo(UPDATED_THUMB);
-        assertThat(testFeedback.getReason()).isEqualTo(UPDATED_REASON);
-        assertThat(testFeedback.getSolved()).isEqualTo(UPDATED_SOLVED);
-        assertThat(testFeedback.getAnonym()).isEqualTo(UPDATED_ANONYM);
-    }
-
-    @Test
-    @Transactional
-    @WithMockUser(username = Constants.SYSTEM)
-    void manageFeedbackFromEntity_delete() throws Exception {
-        // Initialize the database
-        feedbackRepository.saveAndFlush(feedback);
-
-        int databaseSizeBeforeDelete = feedbackRepository.findAll().size();
-
-        // Update the feedback
-        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
-        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
-        em.detach(updatedFeedback);
-        updatedFeedback.thumb(null);
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
-
-        // Delete the feedback
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isNoContent());
-
-        // Validate the database contains one less item
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
-    }
-
-    @Test
-    @Transactional
-    void manageFeedbackFromEntity_wrongEntityName() throws Exception {
-        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
-        // Create the Feedback
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", "test", feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        // Validate the Feedback in the database
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    void manageFeedbackFromEntity_wrongEntityId() throws Exception {
-        int databaseSizeBeforeCreate = feedbackRepository.findAll().size();
-        // Create the Feedback
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(feedback);
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), 456)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        // Validate the Feedback in the database
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeCreate);
-    }
-
-    @Test
-    @Transactional
-    @WithMockUser(username = Constants.SYSTEM)
-    void manageFeedbackFromEntity_wrongUser() throws Exception {
-        // Initialize the database
-        feedbackRepository.saveAndFlush(feedback);
-
-        int databaseSizeBeforeUpdate = feedbackRepository.findAll().size();
-
-        // Update the feedback
-        Feedback updatedFeedback = feedbackRepository.findById(feedback.getId()).get();
-        // Disconnect from session so that the updates on updatedFeedback are not directly saved in db
-        em.detach(updatedFeedback);
-        updatedFeedback.thumb(UPDATED_THUMB).reason(UPDATED_REASON).solved(UPDATED_SOLVED).anonym(UPDATED_ANONYM).setCreatedBy("user");
-        FeedbackDTO feedbackDTO = feedbackMapper.toDto(updatedFeedback);
-
-        restFeedbackMockMvc
-            .perform(
-                post("/api/feedbacks/{entityName}/{entityId}", feedback.getEntityName().getValue(), feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(TestUtil.convertObjectToJsonBytes(feedbackDTO))
-            )
-            .andExpect(status().isBadRequest());
-
-        // Validate the Feedback in the database
-        List<Feedback> feedbackList = feedbackRepository.findAll();
-        assertThat(feedbackList).hasSize(databaseSizeBeforeUpdate);
-    }
-
-    @Test
-    @Transactional
-    @WithMockUser(username = Constants.SYSTEM)
-    void countFeedbacksFromEntity() throws Exception {
-        // Initialize the database
-        feedbackRepository.saveAndFlush(feedback);
-
-        restFeedbackMockMvc
-            .perform(
-                get("/api/feedbacks/{entityName}/{entityId}/count", feedback.getEntityName().getValue(), feedback.getEntityId())
-                    .contentType(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.countThumbUp", is(0)))
-            .andExpect(jsonPath("$.countThumbDown", is(1)))
-            .andExpect(jsonPath("$.thumb", is(DEFAULT_THUMB.booleanValue())));
     }
 }

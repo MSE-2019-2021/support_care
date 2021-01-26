@@ -111,15 +111,15 @@
 
     <div class="thumbsWrapper">
       <h5 class="list-text-color" customTranslate="supportivecareApp.feedback.thumbs-up.title">Usefull info?</h5>
-      <button class="btn" type="button" name="thumbUp" id="thumbUp" (click)="manageFeedback(true)" data-cy="entityFeedbackUpButton" [disabled]="isSaving">
-        <fa-icon *ngIf="thumb.thumb === true" icon="thumbs-up" style="color: #5c88f6" [spin]="isSaving"></fa-icon>
-        <fa-icon *ngIf="thumb.thumb !== true" icon="thumbs-up" [spin]="isSaving"></fa-icon>
-        <span>{{ thumb.countThumbUp }}</span>
+      <button class="btn" type="button" name="thumbUp" id="thumbUp" (click)="manageThumb(true)" data-cy="entityThumbUpButton" [disabled]="isSaving">
+        <fa-icon *ngIf="thumbCount.thumb === true" icon="thumbs-up" style="color: #5c88f6" [spin]="isSaving"></fa-icon>
+        <fa-icon *ngIf="thumbCount.thumb !== true" icon="thumbs-up" [spin]="isSaving"></fa-icon>
+        <span>{{ thumbCount.countThumbUp }}</span>
       </button>
-      <button class="btn" type="button" name="thumbDown" id="thumbDown" (click)="manageFeedback(false)" data-cy="entityFeedbackDownButton" [disabled]="isSaving">
-        <fa-icon *ngIf="thumb.thumb === false" icon="thumbs-down" style="color: #5c88f6" [spin]="isSaving"></fa-icon>
-        <fa-icon *ngIf="thumb.thumb !== false" icon="thumbs-down" [spin]="isSaving"></fa-icon>
-        <span>{{ thumb.countThumbDown }}</span>
+      <button class="btn" type="button" name="thumbDown" id="thumbDown" (click)="manageThumb(false)" data-cy="entityThumbDownButton" [disabled]="isSaving">
+        <fa-icon *ngIf="thumbCount.thumb === false" icon="thumbs-down" style="color: #5c88f6" [spin]="isSaving"></fa-icon>
+        <fa-icon *ngIf="thumbCount.thumb !== false" icon="thumbs-down" [spin]="isSaving"></fa-icon>
+        <span>{{ thumbCount.countThumbDown }}</span>
       </button>
     </div>
     <span class="h2-color list-text-color-bold h2" customTranslate="supportivecareApp.feedback.improvements-suggestion.title"> Improvements suggestions </span>
