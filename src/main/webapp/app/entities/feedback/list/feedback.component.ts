@@ -9,6 +9,7 @@ import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { FeedbackService } from '../service/feedback.service';
 import { FeedbackDeleteDialogComponent } from '../delete/feedback-delete-dialog.component';
 import { ParseLinks } from 'app/core/util/parse-links.service';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 @Component({
   selector: 'custom-feedback',
@@ -22,6 +23,7 @@ export class FeedbackComponent implements OnInit {
   page: number;
   predicate: string;
   ascending: boolean;
+  dateFormat: string;
 
   constructor(protected feedbackService: FeedbackService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
     this.feedbacks = [];
@@ -32,17 +34,24 @@ export class FeedbackComponent implements OnInit {
     };
     this.predicate = 'id';
     this.ascending = true;
+    this.dateFormat = DATE_TIME_FORMAT;
   }
 
   loadAll(): void {
     this.isLoading = true;
 
     this.feedbackService
-      .query({
-        page: this.page,
-        size: this.itemsPerPage,
-        sort: this.sort(),
-      })
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
       .subscribe(
         (res: HttpResponse<IFeedback[]>) => {
           this.isLoading = false;
@@ -73,6 +82,10 @@ export class FeedbackComponent implements OnInit {
     return item.id!;
   }
 
+  deleteAllResolved(): void {
+    const result = null;
+  }
+
   delete(feedback: IFeedback): void {
     const modalRef = this.modalService.open(FeedbackDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.feedback = feedback;
@@ -92,6 +105,12 @@ export class FeedbackComponent implements OnInit {
     return result;
   }
 
+  protected getCriteria(): {} {
+    return {
+      'reason.specified': true,
+    };
+  }
+
   protected paginateFeedbacks(data: IFeedback[] | null, headers: HttpHeaders): void {
     this.links = this.parseLinks.parse(headers.get('link') ?? '');
     if (data) {
@@ -99,9 +118,5 @@ export class FeedbackComponent implements OnInit {
         this.feedbacks.push(data[i]);
       }
     }
-  }
-
-  getEntityFeedbackKey(data: EntityFeedback): string {
-    return Object.keys(EntityFeedback)[Object.values(EntityFeedback).indexOf(data)];
   }
 }

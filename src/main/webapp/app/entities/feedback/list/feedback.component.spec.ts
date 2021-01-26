@@ -133,13 +133,5 @@ describe('Component Tests', () => {
       // THEN
       expect(result).toEqual(['name,asc', 'id']);
     });
-
-    it('should return Entity Feedback value', () => {
-      // WHEN
-      const result = comp.getEntityFeedbackKey(EntityFeedback.THERAPEUTIC_REGIME);
-
-      // THEN
-      expect(result).toEqual('THERAPEUTIC_REGIME');
-    });
   });
 });
