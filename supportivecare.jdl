@@ -220,13 +220,13 @@ enum EntityFeedback {
 }
 
 /**
-* Feedback.
+* Thumb.
 */
-entity Feedback {
+entity Thumb {
 	/**
-	* Nome da entidade.
+	* Tipo da entidade.
 	*/
-	entityName EntityFeedback required,
+	entityType EntityFeedback required,
 	/**
 	* Id da entidade.
 	*/
@@ -234,7 +234,25 @@ entity Feedback {
 	/**
 	* Polegar.
 	*/
-	thumb Boolean required,
+	thumbCount Boolean required
+}
+
+/**
+* Feedback.
+*/
+entity Feedback {
+	/**
+	* Tipo da entidade.
+	*/
+	entityType EntityFeedback required,
+	/**
+	* Id da entidade.
+	*/
+	entityId Long required,
+	/**
+	* Nome da entidade.
+	*/
+	entityName String  maxlength(255),
 	/**
 	* Razão.
 	*/

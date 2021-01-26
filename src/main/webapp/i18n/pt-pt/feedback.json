@@ -28,23 +28,27 @@
       "delete": {
         "question": "Tem a certeza que pretende eliminar o(a) Feedback {{ id }}?"
       },
+      "action": {
+        "deleteAllResolved": "Apagar todos os feedbacks resolvidos"
+      },
       "detail": {
         "title": "Feedback"
       },
       "id": "ID",
-      "entityName": "Entity Name",
+      "entityType": "Entity Type",
       "entityId": "Entity Id",
-      "thumb": "Thumb",
+      "entityName": "Entity Name",
       "reason": "Reason",
       "solved": "Solved",
       "anonym": "Anónimo",
+      "by": "Por",
       "actions": {
         "markAsSolved": "Marcar como resolvido"
       },
       "help": {
-        "entityName": "Nome da entidade.",
+        "entityType": "Tipo da entidade.",
         "entityId": "Id da entidade.",
-        "thumb": "Polegar.",
+        "entityName": "Nome da entidade.",
         "reason": "Razão.",
         "solved": "Resolvido.",
         "anonym": "Anónimo."
