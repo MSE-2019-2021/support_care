@@ -4,33 +4,30 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Objects;
-import uc.dei.mse.supportivecare.domain.Thumb;
+import javax.validation.constraints.*;
+import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 
 /**
- * A DTO for the Thumb count.
+ * A DTO for the {@link uc.dei.mse.supportivecare.domain.Thumb} entity.
  */
 @ApiModel(description = "Thumb.")
-public class ThumbDTO implements Serializable, Thumb {
+public class ThumbDTO extends AbstractAuditingDTO implements Serializable {
 
-    public ThumbDTO() {}
-
-    public ThumbDTO(Long countThumbUp, Long countThumbDown, Boolean thumb) {
-        this.countThumbUp = countThumbUp;
-        this.countThumbDown = countThumbDown;
-        this.thumb = thumb;
-    }
+    private Long id;
 
     /**
-     * Soma polegar up.
+     * Tipo da entidade.
      */
-    @ApiModelProperty(value = "Soma polegar up.", required = true)
-    private Long countThumbUp;
+    @NotNull
+    @ApiModelProperty(value = "Tipo da entidade.", required = true)
+    private EntityFeedback entityType;
 
     /**
-     * Soma polegar down.
+     * Id da entidade.
      */
-    @ApiModelProperty(value = "Soma polegar down.", required = true)
-    private Long countThumbDown;
+    @NotNull
+    @ApiModelProperty(value = "Id da entidade.", required = true)
+    private Long entityId;
 
     /**
      * Polegar.
@@ -38,25 +35,30 @@ public class ThumbDTO implements Serializable, Thumb {
     @ApiModelProperty(value = "Polegar.", required = true)
     private Boolean thumb;
 
-    @Override
-    public Long getCountThumbUp() {
-        return countThumbUp;
+    public Long getId() {
+        return id;
     }
 
-    public void setCountThumbUp(Long countThumbUp) {
-        this.countThumbUp = countThumbUp;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    @Override
-    public Long getCountThumbDown() {
-        return countThumbDown;
+    public EntityFeedback getEntityType() {
+        return entityType;
     }
 
-    public void setCountThumbDown(Long countThumbDown) {
-        this.countThumbDown = countThumbDown;
+    public void setEntityType(EntityFeedback entityType) {
+        this.entityType = entityType;
     }
 
-    @Override
+    public Long getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(Long entityId) {
+        this.entityId = entityId;
+    }
+
     public Boolean getThumb() {
         return thumb;
     }
@@ -67,23 +69,33 @@ public class ThumbDTO implements Serializable, Thumb {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ThumbDTO)) {
+            return false;
+        }
+
         ThumbDTO thumbDTO = (ThumbDTO) o;
-        return (
-            countThumbUp.equals(thumbDTO.countThumbUp) &&
-            countThumbDown.equals(thumbDTO.countThumbDown) &&
-            Objects.equals(thumb, thumbDTO.thumb)
-        );
+        if (this.id == null) {
+            return false;
+        }
+        return Objects.equals(this.id, thumbDTO.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(countThumbUp, countThumbDown, thumb);
+        return Objects.hash(this.id);
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
-        return "ThumbDTO{" + "countThumbUp=" + countThumbUp + ", countThumbDown=" + countThumbDown + ", thumb=" + thumb + '}';
+        return "ThumbDTO{" +
+            "id=" + getId() +
+            ", entityType='" + getEntityType() + "'" +
+            ", entityId=" + getEntityId() +
+            ", thumb='" + getThumb() + "'" +
+            "}";
     }
 }

@@ -23,11 +23,11 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
     private Long id;
 
     /**
-     * Nome da entidade.
+     * Tipo da entidade.
      */
     @NotNull
-    @Column(name = "entity_name", nullable = false)
-    private EntityFeedback entityName;
+    @Column(name = "entity_type", nullable = false)
+    private EntityFeedback entityType;
 
     /**
      * Id da entidade.
@@ -37,11 +37,11 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
     private Long entityId;
 
     /**
-     * Polegar.
+     * Nome da entidade.
      */
-    @NotNull
-    @Column(name = "thumb", nullable = false)
-    private Boolean thumb;
+    @Size(max = 255)
+    @Column(name = "entity_name", length = 255)
+    private String entityName;
 
     /**
      * Razão.
@@ -78,17 +78,17 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
-    public EntityFeedback getEntityName() {
-        return this.entityName;
+    public EntityFeedback getEntityType() {
+        return this.entityType;
     }
 
-    public Feedback entityName(EntityFeedback entityName) {
-        this.entityName = entityName;
+    public Feedback entityType(EntityFeedback entityType) {
+        this.entityType = entityType;
         return this;
     }
 
-    public void setEntityName(EntityFeedback entityName) {
-        this.entityName = entityName;
+    public void setEntityType(EntityFeedback entityType) {
+        this.entityType = entityType;
     }
 
     public Long getEntityId() {
@@ -104,17 +104,17 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
         this.entityId = entityId;
     }
 
-    public Boolean getThumb() {
-        return this.thumb;
+    public String getEntityName() {
+        return this.entityName;
     }
 
-    public Feedback thumb(Boolean thumb) {
-        this.thumb = thumb;
+    public Feedback entityName(String entityName) {
+        this.entityName = entityName;
         return this;
     }
 
-    public void setThumb(Boolean thumb) {
-        this.thumb = thumb;
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
     public String getReason() {
@@ -180,9 +180,9 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "Feedback{" +
             "id=" + getId() +
-            ", entityName='" + getEntityName() + "'" +
+            ", entityType='" + getEntityType() + "'" +
             ", entityId=" + getEntityId() +
-            ", thumb='" + getThumb() + "'" +
+            ", entityName='" + getEntityName() + "'" +
             ", reason='" + getReason() + "'" +
             ", solved='" + getSolved() + "'" +
             ", anonym='" + getAnonym() + "'" +

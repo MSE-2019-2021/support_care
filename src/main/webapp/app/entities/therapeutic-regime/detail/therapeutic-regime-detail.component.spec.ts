@@ -6,11 +6,13 @@ import { TherapeuticRegime } from '../therapeutic-regime.model';
 import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic-regime/delete/therapeutic-regime-delete-dialog.component';
+import { ThumbService } from 'app/entities/thumb/service/thumb.service';
+import { Thumb } from 'app/entities/thumb/thumb.model';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 import { Feedback } from 'app/entities/feedback/feedback.model';
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic-regime/delete/therapeutic-regime-delete-dialog.component';
 
 export class MockNgbModalRef {
   componentInstance = {
@@ -24,9 +26,10 @@ describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {
     let comp: TherapeuticRegimeDetailComponent;
     let fixture: ComponentFixture<TherapeuticRegimeDetailComponent>;
-    let service: FeedbackService;
     let modalService: NgbModal;
     let mockModalRef: MockNgbModalRef;
+    let thumbService: ThumbService;
+    let feedbackService: FeedbackService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -43,9 +46,10 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeDetailComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(FeedbackService);
       modalService = TestBed.inject(NgbModal);
       mockModalRef = new MockNgbModalRef();
+      thumbService = TestBed.inject(ThumbService);
+      feedbackService = TestBed.inject(FeedbackService);
     });
 
     describe('OnInit', () => {
@@ -86,11 +90,11 @@ describe('Component Tests', () => {
       }));
     });
 
-    describe('load feedbacks', () => {
+    describe('load Thumbs and feedbacks', () => {
       it('should load a page', () => {
         // GIVEN
         const headers = new HttpHeaders().append('link', 'link;link');
-        spyOn(service, 'query').and.returnValue(
+        spyOn(feedbackService, 'query').and.returnValue(
           of(
             new HttpResponse({
               body: [new Feedback(123)],
@@ -103,7 +107,7 @@ describe('Component Tests', () => {
         comp.loadPage(1);
 
         // THEN
-        expect(service.query).toHaveBeenCalled();
+        expect(feedbackService.query).toHaveBeenCalled();
         expect(comp.feedbacks[0]).toEqual(jasmine.objectContaining({ id: 123 }));
       });
 
@@ -116,18 +120,18 @@ describe('Component Tests', () => {
       });
     });
 
-    describe('manage feedback', () => {
+    describe('manage thumbs', () => {
       it('should save thumb up', () => {
         // GIVEN
-        const feedback = new Feedback();
-        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.OUTCOME;
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
 
         // WHEN
-        comp.manageFeedback(true);
+        comp.manageThumb(true);
 
         // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
       });
     });
   });

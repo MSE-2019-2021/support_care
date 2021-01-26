@@ -3,10 +3,10 @@ import * as dayjs from 'dayjs';
 
 export interface IFeedback {
   id?: number;
-  entityName?: EntityFeedback;
+  entityType?: EntityFeedback;
   entityId?: number;
-  thumb?: boolean;
-  reason?: string;
+  entityName?: string | null;
+  reason?: string | null;
   solved?: boolean;
   anonym?: boolean;
   createdBy?: string;
@@ -16,16 +16,15 @@ export interface IFeedback {
 export class Feedback implements IFeedback {
   constructor(
     public id?: number,
-    public entityName?: EntityFeedback,
+    public entityType?: EntityFeedback,
     public entityId?: number,
-    public thumb?: boolean,
-    public reason?: string,
+    public entityName?: string | null,
+    public reason?: string | null,
     public solved?: boolean,
     public anonym?: boolean,
     public createdBy?: string,
     public createdDate?: dayjs.Dayjs | null
   ) {
-    this.thumb = this.thumb ?? false;
     this.solved = this.solved ?? false;
     this.anonym = this.anonym ?? false;
   }

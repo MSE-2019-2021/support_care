@@ -67,6 +67,7 @@ public class CacheConfiguration {
             createCache(cm, uc.dei.mse.supportivecare.domain.Symptom.class.getName() + ".toxicityRates");
             createCache(cm, uc.dei.mse.supportivecare.domain.Symptom.class.getName() + ".therapeuticRegimes");
             createCache(cm, uc.dei.mse.supportivecare.domain.Symptom.class.getName() + ".outcomes");
+            createCache(cm, uc.dei.mse.supportivecare.domain.Thumb.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.Feedback.class.getName());
             createCache(cm, uc.dei.mse.supportivecare.domain.EntityAuditEvent.class.getName());
             // jhipster-needle-caffeine-add-entry

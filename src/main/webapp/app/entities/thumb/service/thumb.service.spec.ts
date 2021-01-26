@@ -2,40 +2,32 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
-import { IFeedback, Feedback } from '../feedback.model';
+import { IThumb, Thumb } from '../thumb.model';
 
-import { FeedbackService } from './feedback.service';
-import * as dayjs from 'dayjs';
-import { DATE_TIME_FORMAT } from 'app/config/input.constants';
+import { ThumbService } from './thumb.service';
+import { Feedback } from 'app/entities/feedback/feedback.model';
 
 describe('Service Tests', () => {
-  describe('Feedback Service', () => {
-    let service: FeedbackService;
+  describe('Thumb Service', () => {
+    let service: ThumbService;
     let httpMock: HttpTestingController;
-    let elemDefault: IFeedback;
-    let expectedResult: IFeedback | IFeedback[] | boolean | null;
-    let currentDate: dayjs.Dayjs;
+    let elemDefault: IThumb;
+    let expectedResult: IThumb | IThumb[] | boolean | null;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule],
       });
       expectedResult = null;
-      service = TestBed.inject(FeedbackService);
+      service = TestBed.inject(ThumbService);
       httpMock = TestBed.inject(HttpTestingController);
-      currentDate = dayjs();
 
-      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, 'AAAAAAA', 'AAAAAAA', false, false, 'BBBBBBB', currentDate);
+      elemDefault = new Thumb(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, false);
     });
 
     describe('Service methods', () => {
       it('should find an element', () => {
-        const returnedFromService = Object.assign(
-          {
-            createdDate: currentDate.format(DATE_TIME_FORMAT),
-          },
-          elemDefault
-        );
+        const returnedFromService = Object.assign({}, elemDefault);
 
         service.find(123).subscribe(resp => (expectedResult = resp.body));
 
@@ -44,36 +36,30 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject(elemDefault);
       });
 
-      it('should create a Feedback', () => {
+      it('should create a Thumb', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            createdDate: currentDate.format(DATE_TIME_FORMAT),
           },
           elemDefault
         );
 
         const expected = Object.assign({}, returnedFromService);
 
-        service.create(new Feedback()).subscribe(resp => (expectedResult = resp.body));
+        service.create(new Thumb()).subscribe(resp => (expectedResult = resp.body));
 
         const req = httpMock.expectOne({ method: 'POST' });
         req.flush(returnedFromService);
         expect(expectedResult).toMatchObject(expected);
       });
 
-      it('should update a Feedback', () => {
+      it('should update a Thumb', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
             entityType: 'BBBBBB',
             entityId: 1,
-            entityName: 'BBBBBB',
-            reason: 'BBBBBB',
-            solved: true,
-            anonym: true,
-            createdDate: currentDate.format(DATE_TIME_FORMAT),
-            createdBy: 'AAAAAA',
+            thumb: true,
           },
           elemDefault
         );
@@ -87,17 +73,13 @@ describe('Service Tests', () => {
         expect(expectedResult).toMatchObject(expected);
       });
 
-      it('should return a list of Feedback', () => {
+      it('should return a list of Thumb', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
             entityType: 'BBBBBB',
             entityId: 1,
-            entityName: 'BBBBBB',
-            reason: 'BBBBBB',
-            solved: true,
-            anonym: true,
-            createdDate: currentDate.format(DATE_TIME_FORMAT),
+            thumb: true,
           },
           elemDefault
         );
@@ -112,12 +94,41 @@ describe('Service Tests', () => {
         expect(expectedResult).toContainEqual(expected);
       });
 
-      it('should delete a Feedback', () => {
+      it('should delete a Thumb', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
         req.flush({ status: 200 });
         expect(expectedResult);
+      });
+
+      it('should update an entity Thumb', () => {
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.THERAPEUTIC_REGIME;
+        thumb.entityId = 123;
+
+        service.manageThumbFromEntity(thumb).subscribe(resp => (expectedResult = resp.ok));
+        const req = httpMock.expectOne({ method: 'POST' });
+        req.flush({ status: 200 });
+        expect(expectedResult);
+      });
+
+      it('should count thumbs for an entity Thumb', () => {
+        const returnedFromService = Object.assign(
+          {
+            countThumbUp: 1,
+            countThumbDown: 0,
+            thumb: true,
+          },
+          elemDefault
+        );
+
+        const expected = Object.assign({}, returnedFromService);
+
+        service.countThumbsFromEntity(EntityFeedback.THERAPEUTIC_REGIME, 123).subscribe(resp => (expectedResult = resp.body));
+        const req = httpMock.expectOne({ method: 'GET' });
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject(expected);
       });
     });
 

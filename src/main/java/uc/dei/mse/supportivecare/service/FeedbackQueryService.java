@@ -86,14 +86,14 @@ public class FeedbackQueryService extends QueryService<Feedback> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Feedback_.id));
             }
-            if (criteria.getEntityName() != null) {
-                specification = specification.and(buildSpecification(criteria.getEntityName(), Feedback_.entityName));
+            if (criteria.getEntityType() != null) {
+                specification = specification.and(buildSpecification(criteria.getEntityType(), Feedback_.entityType));
             }
             if (criteria.getEntityId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getEntityId(), Feedback_.entityId));
             }
-            if (criteria.getThumb() != null) {
-                specification = specification.and(buildSpecification(criteria.getThumb(), Feedback_.thumb));
+            if (criteria.getEntityName() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getEntityName(), Feedback_.entityName));
             }
             if (criteria.getReason() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getReason(), Feedback_.reason));

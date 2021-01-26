@@ -25,7 +25,6 @@ import tech.jhipster.web.util.ResponseUtil;
 import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
-import uc.dei.mse.supportivecare.service.dto.DocumentDTO;
 import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;

@@ -6,6 +6,8 @@ import { of } from 'rxjs';
 import { Symptom } from '../symptom.model';
 import { SymptomDetailComponent } from './symptom-detail.component';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ThumbService } from 'app/entities/thumb/service/thumb.service';
+import { Thumb } from 'app/entities/thumb/thumb.model';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 import { Feedback } from 'app/entities/feedback/feedback.model';
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
@@ -14,7 +16,8 @@ describe('Component Tests', () => {
   describe('Symptom Management Detail Component', () => {
     let comp: SymptomDetailComponent;
     let fixture: ComponentFixture<SymptomDetailComponent>;
-    let service: FeedbackService;
+    let thumbService: ThumbService;
+    let feedbackService: FeedbackService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,7 +34,8 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(SymptomDetailComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(FeedbackService);
+      thumbService = TestBed.inject(ThumbService);
+      feedbackService = TestBed.inject(FeedbackService);
     });
 
     describe('OnInit', () => {
@@ -54,11 +58,11 @@ describe('Component Tests', () => {
       });
     });
 
-    describe('load feedbacks', () => {
+    describe('load Thumbs and feedbacks', () => {
       it('should load a page', () => {
         // GIVEN
         const headers = new HttpHeaders().append('link', 'link;link');
-        spyOn(service, 'query').and.returnValue(
+        spyOn(feedbackService, 'query').and.returnValue(
           of(
             new HttpResponse({
               body: [new Feedback(123)],
@@ -71,7 +75,7 @@ describe('Component Tests', () => {
         comp.loadPage(1);
 
         // THEN
-        expect(service.query).toHaveBeenCalled();
+        expect(feedbackService.query).toHaveBeenCalled();
         expect(comp.feedbacks[0]).toEqual(jasmine.objectContaining({ id: 123 }));
       });
 
@@ -84,18 +88,18 @@ describe('Component Tests', () => {
       });
     });
 
-    describe('manage feedback', () => {
+    describe('manage thumbs', () => {
       it('should save thumb up', () => {
         // GIVEN
-        const feedback = new Feedback();
-        feedback.entityName = EntityFeedback.SYMPTOM;
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.OUTCOME;
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
 
         // WHEN
-        comp.manageFeedback(true);
+        comp.manageThumb(true);
 
         // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
       });
     });
   });
