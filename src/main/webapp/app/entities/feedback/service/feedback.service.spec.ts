@@ -116,7 +116,15 @@ describe('Service Tests', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
-        req.flush({ status: 200 });
+        req.flush({ status: 20 });
+        expect(expectedResult);
+      });
+
+      it('should delete all Feedback solved', () => {
+        service.deleteSolved().subscribe(resp => (expectedResult = resp.ok));
+
+        const req = httpMock.expectOne({ method: 'DELETE' });
+        req.flush({ status: 204 });
         expect(expectedResult);
       });
     });

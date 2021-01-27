@@ -169,4 +169,19 @@ public class FeedbackResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    /**
+     * {@code DELETE  /feedbacks/solved} : delete the feedbacks solved.
+     *
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @DeleteMapping("/feedbacks/solved")
+    public ResponseEntity<Void> deleteFeedbackSolved() {
+        log.debug("REST request to delete Feedbacks that are solved");
+        feedbackService.deleteFeedbackSolved();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, "solved"))
+            .build();
+    }
 }
