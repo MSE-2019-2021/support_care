@@ -28,6 +28,15 @@
       "delete": {
         "question": "Tem a certeza que pretende eliminar o(a) Feedback {{ id }}?"
       },
+      "sort": {
+        "sortBy": "Ordenar por",
+        "status": "Estado",
+        "solved": "Resolvidos primeiro",
+        "unsolved": "Por resolver primeiro",
+        "creationDate": "Data de criação",
+        "newer": "Mais recentes primeiro",
+        "older": "Mais antigos primeiro"
+      },
       "action": {
         "deleteAllResolved": "Apagar todos os feedbacks resolvidos"
       },

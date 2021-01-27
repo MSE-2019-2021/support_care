@@ -5,6 +5,39 @@
       <fa-icon class="red-icon" icon="trash"> </fa-icon>
       <span customTranslate="supportivecareApp.feedback.action.deleteAllResolved">Delete all feedbacks resolved</span>
     </button>
+    <div ngbDropdown #dropdownSort="ngbDropdown">
+      <button class="btn button-transparent float-right button-sort" id="dropdownSort" ngbDropdownToggle>
+        <fa-icon class="blue-icon" icon="sort"> </fa-icon>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownSort" aria-expanded="false">
+        <form name="sortForm" role="form" novalidate (ngSubmit)="reset()" [formGroup]="sortForm">
+          <div class="form-group"><span customTranslate="supportivecareApp.feedback.sort.sortBy">Sort by</span>:</div>
+          <div class="form-group">
+            <span customTranslate="supportivecareApp.feedback.sort.status">Status</span>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" name="status" id="field_solved" value="solved" data-cy="solved" formControlName="status" />
+              <label class="form-check-label" customTranslate="supportivecareApp.feedback.sort.solved" for="field_solved">Solved</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" name="status" id="field_unsolved" value="unsolved" data-cy="unsolved" formControlName="status" />
+              <label class="form-check-label" customTranslate="supportivecareApp.feedback.sort.unsolved" for="field_unsolved">Unsolved</label>
+            </div>
+            <span customTranslate="supportivecareApp.feedback.sort.creationDate">Creation date</span>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" name="creationDate" id="field_newer" value="newer" data-cy="newer" formControlName="creationDate" />
+              <label class="form-check-label" customTranslate="supportivecareApp.feedback.sort.newer" for="field_newer">Newer</label>
+            </div>
+            <div class="form-check">
+              <input type="radio" class="form-check-input" name="creationDate" id="field_older" value="older" data-cy="older" formControlName="creationDate" />
+              <label class="form-check-label" customTranslate="supportivecareApp.feedback.sort.older" for="field_older">Older</label>
+            </div>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary" customTranslate="entity.action.sort" (click)="dropdownSort.close()">Sort</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   <div class="mainWrapper entityInfoWrapper">
     <custom-alert-error></custom-alert-error>
