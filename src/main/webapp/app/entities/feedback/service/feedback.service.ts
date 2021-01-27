@@ -46,6 +46,10 @@ export class FeedbackService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  deleteSolved(): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceUrl}/solved`, { observe: 'response' });
+  }
+
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((feedback: IFeedback) => {

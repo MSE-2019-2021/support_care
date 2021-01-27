@@ -132,4 +132,12 @@ public class FeedbackService {
         log.debug("Request to delete Feedback by Entity Id: {} {}", entityFeedback, entityId);
         feedbackRepository.deleteByEntityTypeAndEntityId(entityFeedback, entityId);
     }
+
+    /**
+     * Delete the feedback that are solved.
+     */
+    public void deleteFeedbackSolved() {
+        log.debug("Request to delete Feedback that are solved");
+        feedbackRepository.deleteAllBySolvedIsTrue();
+    }
 }

@@ -910,4 +910,21 @@ class FeedbackResourceIT {
         List<Feedback> feedbackList = feedbackRepository.findAll();
         assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    @Test
+    @Transactional
+    void deleteFeedbackSolved() throws Exception {
+        // Initialize the database
+        feedback.setSolved(UPDATED_SOLVED);
+        feedbackRepository.saveAndFlush(feedback);
+
+        int databaseSizeBeforeDelete = feedbackRepository.findAll().size();
+
+        // Delete the feedback
+        restFeedbackMockMvc.perform(delete("/api/feedbacks/solved").accept(MediaType.APPLICATION_JSON)).andExpect(status().isNoContent());
+
+        // Validate the database contains one less item
+        List<Feedback> feedbackList = feedbackRepository.findAll();
+        assertThat(feedbackList).hasSize(databaseSizeBeforeDelete - 1);
+    }
 }
