@@ -132,6 +132,47 @@ describe('Component Tests', () => {
         // THEN
         expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
       });
+
+      it('should delete thumb up', () => {
+        // GIVEN
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.OUTCOME;
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
+        comp.thumbCount.thumb = true;
+
+        // WHEN
+        comp.manageThumb(true);
+
+        // THEN
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
+      });
+
+      it('should save thumb down', () => {
+        // GIVEN
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.OUTCOME;
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
+
+        // WHEN
+        comp.manageThumb(false);
+
+        // THEN
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
+      });
+
+      it('should delete thumb down', () => {
+        // GIVEN
+        const thumb = new Thumb();
+        thumb.entityType = EntityFeedback.OUTCOME;
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
+        comp.thumbCount.thumb = false;
+
+        // WHEN
+        comp.manageThumb(false);
+
+        // THEN
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalled();
+      });
     });
   });
 });

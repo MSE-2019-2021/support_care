@@ -12,14 +12,6 @@ import uc.dei.mse.supportivecare.domain.projection.ThumbCount;
 @ApiModel(description = "Thumb count.")
 public class ThumbCountDTO implements Serializable, ThumbCount {
 
-    public ThumbCountDTO() {}
-
-    public ThumbCountDTO(Long countThumbUp, Long countThumbDown, Boolean thumb) {
-        this.countThumbUp = countThumbUp;
-        this.countThumbDown = countThumbDown;
-        this.thumb = thumb;
-    }
-
     /**
      * Soma polegar up.
      */
@@ -71,8 +63,8 @@ public class ThumbCountDTO implements Serializable, ThumbCount {
         if (o == null || getClass() != o.getClass()) return false;
         ThumbCountDTO thumbCountDTO = (ThumbCountDTO) o;
         return (
-            countThumbUp.equals(thumbCountDTO.countThumbUp) &&
-            countThumbDown.equals(thumbCountDTO.countThumbDown) &&
+            Objects.equals(countThumbUp, thumbCountDTO.countThumbUp) &&
+            Objects.equals(countThumbDown, thumbCountDTO.countThumbDown) &&
             Objects.equals(thumb, thumbCountDTO.thumb)
         );
     }
