@@ -15,18 +15,30 @@
         "title": "Sugestões de melhorias"
       },
       "home": {
-        "title": "Feedbacks",
+        "title": "Sugestões de melhoria",
         "refreshListLabel": "Atualizar lista",
-        "createLabel": "Criar novo(a) Feedback",
-        "createOrEditLabel": "Criar ou editar Feedback",
-        "notFound": "Nenhum Feedbacks encontrado",
+        "createLabel": "Criar nova sugestão de melhoria",
+        "createOrEditLabel": "Criar ou editar sugestão de melhoria",
+        "notFound": "Nenhuma sugestão de melhoria encontrada",
         "noneAvailable": "Não existem sugestões de melhoria"
       },
-      "created": "Um novo Feedback foi criado com o identificador {{ param }}",
-      "updated": "Feedback com identificador {{ param }} foi actualizado",
-      "deleted": "Feedback com identificador {{ param }} foi eliminado",
+      "created": "Sugestão de melhoria criada com sucesso",
+      "updated": "Sugestão de melhoria atualizada com sucesso",
+      "deleted": "Sugestão de melhoria eliminada com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar o(a) Feedback {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar esta sugestão de melhoria?"
+      },
+      "sort": {
+        "sortBy": "Ordenar por",
+        "status": "Estado",
+        "solved": "Resolvidos primeiro",
+        "unsolved": "Por resolver primeiro",
+        "creationDate": "Data de criação",
+        "newer": "Mais recentes primeiro",
+        "older": "Mais antigos primeiro"
+      },
+      "action": {
+        "deleteAllResolved": "Apagar todas as sugestões de melhoria resolvidas"
       },
       "sort": {
         "sortBy": "Ordenar por",
@@ -41,7 +53,7 @@
         "deleteAllResolved": "Apagar todos os feedbacks resolvidos"
       },
       "detail": {
-        "title": "Feedback"
+        "title": "Sugestão de melhoria"
       },
       "id": "ID",
       "entityType": "Entity Type",

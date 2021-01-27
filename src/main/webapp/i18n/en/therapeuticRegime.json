@@ -10,14 +10,14 @@
         "notFound": "No Therapeutic Regimes found",
         "namePlaceholder": "Search for a therapeutic regime..."
       },
-      "created": "A new Therapeutic Regime is created with identifier {{ param }}",
-      "updated": "A Therapeutic Regime is updated with identifier {{ param }}",
-      "deleted": "A Therapeutic Regime is deleted with identifier {{ param }}",
+      "created": "Therapeutic regime was successfully created",
+      "updated": "Therapeutic regime was successfully updated",
+      "deleted": "Therapeutic regime successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete Therapeutic Regime {{ id }}?"
+        "question": "Are you sure you want to delete this therapeutic regime?"
       },
       "cancel": {
-        "title": "Do you wish to leave the creation of a therapeutic regime?",
+        "title": "Do you wish to leave this therapeutical regime edition?",
         "question": "By leaving you will lose all the information inserted in this therapeutic regime."
       },
       "detail": {
