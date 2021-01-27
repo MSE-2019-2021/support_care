@@ -67,11 +67,10 @@ describe('Component Tests', () => {
 
         // WHEN
         comp.cancel();
-        tick();
 
         // THEN
-        expect(service.create).toHaveBeenCalledWith(comp.feedback);
-        expect(mockActiveModal.close).toHaveBeenCalledWith('saved');
+        expect(service.create).not.toHaveBeenCalled();
+        expect(mockActiveModal.close).toHaveBeenCalledWith();
       }));
     });
   });

@@ -31,7 +31,7 @@ export class DefineReasonDialogComponent implements OnInit {
   }
 
   cancel(): void {
-    this.saveFeedback(this.feedback!);
+    this.activeModal.close();
   }
 
   confirm(): void {
@@ -42,13 +42,8 @@ export class DefineReasonDialogComponent implements OnInit {
 
   protected saveFeedback(feedback: IFeedback): void {
     // Create user Feedback
-    this.feedbackService.create(feedback).subscribe(
-      () => {
-        this.activeModal.close('saved');
-      },
-      () => {
-        this.activeModal.dismiss();
-      }
-    );
+    this.feedbackService.create(feedback).subscribe(() => {
+      this.activeModal.close('saved');
+    });
   }
 }
