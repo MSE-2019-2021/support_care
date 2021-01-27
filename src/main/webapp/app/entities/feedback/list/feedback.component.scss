@@ -4,3 +4,31 @@
 .dropdown-toggle::after {
   display: none;
 }
+
+.headerButtonWrapper {
+  display: flex;
+}
+
+.headerButtonWrapper button:hover,
+.markSolvedButton:hover {
+  background-color: #eaf0ff;
+}
+
+.sort {
+  width: 50px;
+}
+
+.feedbackCard {
+  margin: 15px;
+  padding: 15px;
+}
+
+.cardHeader {
+  margin-bottom: 10px;
+}
+
+.cardAuthor {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #4c4c4c;
+}
