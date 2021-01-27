@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IFeedback } from '../feedback.model';
-import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
-
 import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
 import { FeedbackService } from '../service/feedback.service';
 import { FeedbackDeleteDialogComponent } from '../delete/feedback-delete-dialog.component';
@@ -14,6 +13,7 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 @Component({
   selector: 'custom-feedback',
   templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.scss'],
 })
 export class FeedbackComponent implements OnInit {
   feedbacks: IFeedback[];
@@ -25,7 +25,17 @@ export class FeedbackComponent implements OnInit {
   ascending: boolean;
   dateFormat: string;
 
-  constructor(protected feedbackService: FeedbackService, protected modalService: NgbModal, protected parseLinks: ParseLinks) {
+  sortForm = this.fb.group({
+    status: ['unsolved'],
+    creationDate: ['older'],
+  });
+
+  constructor(
+    protected feedbackService: FeedbackService,
+    protected modalService: NgbModal,
+    protected parseLinks: ParseLinks,
+    private fb: FormBuilder
+  ) {
     this.feedbacks = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
@@ -83,12 +93,7 @@ export class FeedbackComponent implements OnInit {
   }
 
   deleteAllResolved(): void {
-    const result = null;
-  }
-
-  delete(feedback: IFeedback): void {
     const modalRef = this.modalService.open(FeedbackDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.feedback = feedback;
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
@@ -98,10 +103,18 @@ export class FeedbackComponent implements OnInit {
   }
 
   sort(): string[] {
-    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
-    if (this.predicate !== 'id') {
-      result.push('id');
+    const result = [];
+    if (this.sortForm.get('status')!.value === 'solved') {
+      result.push('solved,desc');
+    } else {
+      result.push('solved,asc');
     }
+    if (this.sortForm.get('creationDate')!.value === 'newer') {
+      result.push('createdDate,asc');
+    } else {
+      result.push('createdDate,desc');
+    }
+    result.push('id');
     return result;
   }
 
