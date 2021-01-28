@@ -29,13 +29,13 @@ describe('Component Tests', () => {
             provide: ActivatedRoute,
             useValue: {
               data: of({
-                defaultSort: ['solved,asc', 'createdDate,desc', 'id'],
+                defaultSort: ['solved,asc', 'createdDate,asc', 'id'],
               }),
               queryParamMap: of(
                 jest.requireActual('@angular/router').convertToParamMap({
                   page: '1',
                   size: '1',
-                  sort: ['solved,desc', 'createdDate,asc', 'id'],
+                  sort: ['solved,desc', 'createdDate,desc', 'id'],
                 })
               ),
             },
@@ -118,7 +118,7 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['solved,asc', 'createdDate,desc', 'id']);
+      expect(result).toEqual(['solved,asc', 'createdDate,asc', 'id']);
     });
 
     it('should calculate the sort attribute for a non-id attribute', () => {
@@ -128,14 +128,14 @@ describe('Component Tests', () => {
       // GIVEN
       comp.sortForm.patchValue({
         status: 'solved',
-        creationDate: 'newer',
+        creationDate: 'older',
       });
 
       // WHEN
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['solved,desc', 'createdDate,asc', 'id']);
+      expect(result).toEqual(['solved,desc', 'createdDate,desc', 'id']);
     });
   });
 });

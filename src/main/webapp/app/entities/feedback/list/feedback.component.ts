@@ -27,7 +27,7 @@ export class FeedbackComponent implements OnInit {
 
   sortForm = this.fb.group({
     status: ['unsolved'],
-    creationDate: ['older'],
+    creationDate: ['newer'],
   });
 
   constructor(
@@ -109,10 +109,10 @@ export class FeedbackComponent implements OnInit {
     } else {
       result.push('solved,asc');
     }
-    if (this.sortForm.get('creationDate')!.value === 'newer') {
-      result.push('createdDate,asc');
-    } else {
+    if (this.sortForm.get('creationDate')!.value === 'older') {
       result.push('createdDate,desc');
+    } else {
+      result.push('createdDate,asc');
     }
     result.push('id');
     return result;
