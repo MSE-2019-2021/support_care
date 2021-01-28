@@ -8,7 +8,5 @@ export interface IThumb {
 }
 
 export class Thumb implements IThumb {
-  constructor(public id?: number, public entityType?: EntityFeedback, public entityId?: number, public thumb?: boolean) {
-    this.thumb = this.thumb ?? false;
-  }
+  constructor(public id?: number, public entityType?: EntityFeedback, public entityId?: number, public thumb?: boolean) {}
 }
