@@ -5,7 +5,6 @@ import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model'
 import { IThumb, Thumb } from '../thumb.model';
 
 import { ThumbService } from './thumb.service';
-import { Feedback } from 'app/entities/feedback/feedback.model';
 
 describe('Service Tests', () => {
   describe('Thumb Service', () => {
