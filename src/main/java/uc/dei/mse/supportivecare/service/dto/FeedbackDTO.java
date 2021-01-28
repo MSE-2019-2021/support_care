@@ -19,8 +19,8 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
      * Nome da entidade.
      */
     @NotNull
-    @ApiModelProperty(value = "Nome da entidade.", required = true)
-    private EntityFeedback entityName;
+    @ApiModelProperty(value = "Tipo da entidade.", required = true)
+    private EntityFeedback entityType;
 
     /**
      * Id da entidade.
@@ -30,10 +30,11 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
     private Long entityId;
 
     /**
-     * Polegar.
+     * Nome da entidade.
      */
-    @ApiModelProperty(value = "Polegar.", required = true)
-    private Boolean thumb;
+    @Size(max = 255)
+    @ApiModelProperty(value = "Nome da entidade.")
+    private String entityName;
 
     /**
      * Razão.
@@ -64,12 +65,12 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
         this.id = id;
     }
 
-    public EntityFeedback getEntityName() {
-        return entityName;
+    public EntityFeedback getEntityType() {
+        return entityType;
     }
 
-    public void setEntityName(EntityFeedback entityName) {
-        this.entityName = entityName;
+    public void setEntityType(EntityFeedback entityType) {
+        this.entityType = entityType;
     }
 
     public Long getEntityId() {
@@ -80,12 +81,12 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
         this.entityId = entityId;
     }
 
-    public Boolean getThumb() {
-        return thumb;
+    public String getEntityName() {
+        return entityName;
     }
 
-    public void setThumb(Boolean thumb) {
-        this.thumb = thumb;
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
     }
 
     public String getReason() {
@@ -138,9 +139,9 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
     public String toString() {
         return "FeedbackDTO{" +
             "id=" + getId() +
-            ", entityName='" + getEntityName() + "'" +
+            ", entityType='" + getEntityType() + "'" +
             ", entityId=" + getEntityId() +
-            ", thumb='" + getThumb() + "'" +
+            ", entityName='" + getEntityName() + "'" +
             ", reason='" + getReason() + "'" +
             ", solved='" + getSolved() + "'" +
             ", anonym='" + getAnonym() + "'" +

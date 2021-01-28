@@ -44,11 +44,11 @@ public class FeedbackCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private EntityFeedbackFilter entityName;
+    private EntityFeedbackFilter entityType;
 
     private LongFilter entityId;
 
-    private BooleanFilter thumb;
+    private StringFilter entityName;
 
     private StringFilter reason;
 
@@ -60,9 +60,9 @@ public class FeedbackCriteria implements Serializable, Criteria {
 
     public FeedbackCriteria(FeedbackCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
-        this.entityName = other.entityName == null ? null : other.entityName.copy();
+        this.entityType = other.entityType == null ? null : other.entityType.copy();
         this.entityId = other.entityId == null ? null : other.entityId.copy();
-        this.thumb = other.thumb == null ? null : other.thumb.copy();
+        this.entityName = other.entityName == null ? null : other.entityName.copy();
         this.reason = other.reason == null ? null : other.reason.copy();
         this.solved = other.solved == null ? null : other.solved.copy();
         this.anonym = other.anonym == null ? null : other.anonym.copy();
@@ -81,12 +81,12 @@ public class FeedbackCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public EntityFeedbackFilter getEntityName() {
-        return entityName;
+    public EntityFeedbackFilter getEntityType() {
+        return entityType;
     }
 
-    public void setEntityName(EntityFeedbackFilter entityName) {
-        this.entityName = entityName;
+    public void setEntityType(EntityFeedbackFilter entityType) {
+        this.entityType = entityType;
     }
 
     public LongFilter getEntityId() {
@@ -97,12 +97,12 @@ public class FeedbackCriteria implements Serializable, Criteria {
         this.entityId = entityId;
     }
 
-    public BooleanFilter getThumb() {
-        return thumb;
+    public StringFilter getEntityName() {
+        return entityName;
     }
 
-    public void setThumb(BooleanFilter thumb) {
-        this.thumb = thumb;
+    public void setEntityName(StringFilter entityName) {
+        this.entityName = entityName;
     }
 
     public StringFilter getReason() {
@@ -140,9 +140,9 @@ public class FeedbackCriteria implements Serializable, Criteria {
         final FeedbackCriteria that = (FeedbackCriteria) o;
         return (
             Objects.equals(id, that.id) &&
-            Objects.equals(entityName, that.entityName) &&
+            Objects.equals(entityType, that.entityType) &&
             Objects.equals(entityId, that.entityId) &&
-            Objects.equals(thumb, that.thumb) &&
+            Objects.equals(entityName, that.entityName) &&
             Objects.equals(reason, that.reason) &&
             Objects.equals(solved, that.solved) &&
             Objects.equals(anonym, that.anonym)
@@ -151,7 +151,7 @@ public class FeedbackCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, entityName, entityId, thumb, reason, solved, anonym);
+        return Objects.hash(id, entityType, entityId, entityName, reason, solved, anonym);
     }
 
     // prettier-ignore
@@ -159,9 +159,9 @@ public class FeedbackCriteria implements Serializable, Criteria {
     public String toString() {
         return "FeedbackCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
-                (entityName != null ? "entityName=" + entityName + ", " : "") +
+                (entityType != null ? "entityType=" + entityType + ", " : "") +
                 (entityId != null ? "entityId=" + entityId + ", " : "") +
-                (thumb != null ? "thumb=" + thumb + ", " : "") +
+                (entityName != null ? "entityName=" + entityName + ", " : "") +
                 (reason != null ? "reason=" + reason + ", " : "") +
                 (solved != null ? "solved=" + solved + ", " : "") +
                 (anonym != null ? "anonym=" + anonym + ", " : "") +

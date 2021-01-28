@@ -5,16 +5,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uc.dei.mse.supportivecare.domain.Feedback;
 import uc.dei.mse.supportivecare.domain.enumeration.EntityFeedback;
 import uc.dei.mse.supportivecare.repository.FeedbackRepository;
 import uc.dei.mse.supportivecare.service.dto.FeedbackDTO;
-import uc.dei.mse.supportivecare.service.dto.ThumbDTO;
 import uc.dei.mse.supportivecare.service.mapper.FeedbackMapper;
-import uc.dei.mse.supportivecare.service.mapper.ThumbMapper;
 
 /**
  * Service Implementation for managing {@link Feedback}.
@@ -29,12 +26,9 @@ public class FeedbackService {
 
     private final FeedbackMapper feedbackMapper;
 
-    private final ThumbMapper thumbMapper;
-
-    public FeedbackService(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper, ThumbMapper thumbMapper) {
+    public FeedbackService(FeedbackRepository feedbackRepository, FeedbackMapper feedbackMapper) {
         this.feedbackRepository = feedbackRepository;
         this.feedbackMapper = feedbackMapper;
-        this.thumbMapper = thumbMapper;
     }
 
     /**
@@ -51,7 +45,7 @@ public class FeedbackService {
     }
 
     /**
-     * Partially udpates a feedback.
+     * Partially update a feedback.
      *
      * @param feedbackDTO the entity to update partially.
      * @return the persisted entity.
@@ -63,16 +57,16 @@ public class FeedbackService {
             .findById(feedbackDTO.getId())
             .map(
                 existingFeedback -> {
-                    if (feedbackDTO.getEntityName() != null) {
-                        existingFeedback.setEntityName(feedbackDTO.getEntityName());
+                    if (feedbackDTO.getEntityType() != null) {
+                        existingFeedback.setEntityType(feedbackDTO.getEntityType());
                     }
 
                     if (feedbackDTO.getEntityId() != null) {
                         existingFeedback.setEntityId(feedbackDTO.getEntityId());
                     }
 
-                    if (feedbackDTO.getThumb() != null) {
-                        existingFeedback.setThumb(feedbackDTO.getThumb());
+                    if (feedbackDTO.getEntityName() != null) {
+                        existingFeedback.setEntityName(feedbackDTO.getEntityName());
                     }
 
                     if (feedbackDTO.getReason() != null) {
@@ -134,65 +128,16 @@ public class FeedbackService {
      * @param entityFeedback the entity feedback.
      * @param entityId the entity id.
      */
-    public void deleteByEntityNameAndEntityId(EntityFeedback entityFeedback, Long entityId) {
+    public void deleteByEntityTypeAndEntityId(EntityFeedback entityFeedback, Long entityId) {
         log.debug("Request to delete Feedback by Entity Id: {} {}", entityFeedback, entityId);
-        feedbackRepository.deleteByEntityNameAndEntityId(entityFeedback, entityId);
+        feedbackRepository.deleteByEntityTypeAndEntityId(entityFeedback, entityId);
     }
 
     /**
-     * Manage a feedback by the entity name, entity id and user.
-     *
-     * @param feedbackDTO the entity to manage.
-     * @return the HttpStatus:
-     *      - {@code 201 (Created)} and with body the new feedbackDTO or,
-     *      - {@code 200 (Updated)} and with body the new feedbackDTO or,
-     *      - {@code 204 (NO_CONTENT)}
+     * Delete the feedback that are solved.
      */
-    public HttpStatus manageFeedbackFromEntity(FeedbackDTO feedbackDTO) {
-        HttpStatus status;
-        if (feedbackDTO.getThumb() == null) {
-            log.debug("Request to delete Feedback : {}", feedbackDTO);
-            feedbackRepository.deleteByEntityNameAndEntityIdAndCreatedBy(
-                feedbackDTO.getEntityName(),
-                feedbackDTO.getEntityId(),
-                feedbackDTO.getCreatedBy()
-            );
-            status = HttpStatus.NO_CONTENT;
-        } else {
-            if (
-                feedbackRepository.existsByEntityNameAndEntityIdAndCreatedBy(
-                    feedbackDTO.getEntityName(),
-                    feedbackDTO.getEntityId(),
-                    feedbackDTO.getCreatedBy()
-                )
-            ) {
-                feedbackRepository.deleteByEntityNameAndEntityIdAndCreatedBy(
-                    feedbackDTO.getEntityName(),
-                    feedbackDTO.getEntityId(),
-                    feedbackDTO.getCreatedBy()
-                );
-                status = HttpStatus.OK;
-            } else {
-                status = HttpStatus.CREATED;
-            }
-            this.save(feedbackDTO);
-        }
-        return status;
-    }
-
-    /**
-     * Count likes/dislikes feedback by the entity name, entity id and user.
-     *
-     * @param entityFeedback the entity feedback.
-     * @param entityId the entity id.
-     * @param currentUser the current user.
-     * @return the thumb detail.
-     */
-    @Transactional(readOnly = true)
-    public ThumbDTO countFeedbacksFromEntity(EntityFeedback entityFeedback, Long entityId, String currentUser) {
-        log.debug("Request to count Feedbacks for entity name and Id, and User: {} {} {}", entityFeedback, entityId, currentUser);
-        return thumbMapper.toDTO(
-            feedbackRepository.countAllByEntityNameAndEntityIdAndCreatedBy(entityFeedback.getValue(), entityId, currentUser)
-        );
+    public void deleteFeedbackSolved() {
+        log.debug("Request to delete Feedback that are solved");
+        feedbackRepository.deleteAllBySolvedIsTrue();
     }
 }

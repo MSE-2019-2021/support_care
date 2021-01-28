@@ -46,32 +46,31 @@ describe('Component Tests', () => {
     });
 
     describe('confirmSave', () => {
-      it('Should call manage service on confirmSave', fakeAsync(() => {
+      it('Should call create service on confirmSave', fakeAsync(() => {
         // GIVEN
         comp.feedback = new Feedback(123);
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of({}));
+        spyOn(service, 'create').and.returnValue(of({}));
 
         // WHEN
         comp.confirm();
         tick();
 
         // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalledWith(comp.feedback);
+        expect(service.create).toHaveBeenCalledWith(comp.feedback);
         expect(mockActiveModal.close).toHaveBeenCalledWith('saved');
       }));
 
       it('Should call manage service on clear', fakeAsync(() => {
         // GIVEN
         comp.feedback = new Feedback(123);
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of({}));
+        spyOn(service, 'create').and.returnValue(of({}));
 
         // WHEN
         comp.cancel();
-        tick();
 
         // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalledWith(comp.feedback);
-        expect(mockActiveModal.close).toHaveBeenCalledWith('saved');
+        expect(service.create).not.toHaveBeenCalled();
+        expect(mockActiveModal.close).toHaveBeenCalledWith();
       }));
     });
   });

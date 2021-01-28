@@ -2,9 +2,9 @@
   "name": "Feedback",
   "fields": [
     {
-      "fieldName": "entityName",
+      "fieldName": "entityType",
       "fieldType": "EntityFeedback",
-      "javadoc": "Nome da entidade.",
+      "javadoc": "Tipo da entidade.",
       "fieldValues": "ACTIVE_SUBSTANCE (active-substance),THERAPEUTIC_REGIME (therapeutic-regime),OUTCOME (outcome),SYMPTOM (symptom)",
       "fieldValidateRules": ["required"]
     },
@@ -15,10 +15,11 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "thumb",
-      "fieldType": "Boolean",
-      "javadoc": "Polegar.",
-      "fieldValidateRules": ["required"]
+      "fieldName": "entityName",
+      "fieldType": "String",
+      "javadoc": "Nome da entidade.",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "255"
     },
     {
       "fieldName": "reason",
@@ -51,6 +52,6 @@
   "readOnly": false,
   "embedded": false,
   "applications": ["supportivecare"],
-  "changelogDate": "20201220133645",
+  "changelogDate": "20210125174915",
   "enableEntityAudit": true
 }

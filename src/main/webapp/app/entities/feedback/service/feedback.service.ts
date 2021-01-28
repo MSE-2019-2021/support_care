@@ -5,13 +5,11 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IFeedback } from '../feedback.model';
-import { IThumb } from '../thumb.model';
-import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { map } from 'rxjs/operators';
 import * as dayjs from 'dayjs';
 
-type EntityResponseType = HttpResponse<IFeedback>;
-type EntityArrayResponseType = HttpResponse<IFeedback[]>;
+export type EntityResponseType = HttpResponse<IFeedback>;
+export type EntityArrayResponseType = HttpResponse<IFeedback[]>;
 
 @Injectable({ providedIn: 'root' })
 export class FeedbackService {
@@ -48,12 +46,8 @@ export class FeedbackService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  manageFeedbackFromEntity(feedback: IFeedback): Observable<HttpResponse<{}>> {
-    return this.http.post(`${this.resourceUrl}/${feedback.entityName!.valueOf()}/${feedback.entityId!}`, feedback, { observe: 'response' });
-  }
-
-  countFeedbacksFromEntity(entityName: EntityFeedback, entityId: number): Observable<EntityResponseType> {
-    return this.http.get<IThumb>(`${this.resourceUrl}/${entityName.valueOf()}/${entityId}/count`, { observe: 'response' });
+  deleteSolved(): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceUrl}/solved`, { observe: 'response' });
   }
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {

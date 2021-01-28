@@ -26,15 +26,19 @@ public class ActiveSubstanceService {
 
     private final ActiveSubstanceMapper activeSubstanceMapper;
 
+    private final ThumbService thumbService;
+
     private final FeedbackService feedbackService;
 
     public ActiveSubstanceService(
         ActiveSubstanceRepository activeSubstanceRepository,
         ActiveSubstanceMapper activeSubstanceMapper,
+        ThumbService thumbService,
         FeedbackService feedbackService
     ) {
         this.activeSubstanceRepository = activeSubstanceRepository;
         this.activeSubstanceMapper = activeSubstanceMapper;
+        this.thumbService = thumbService;
         this.feedbackService = feedbackService;
     }
 
@@ -52,7 +56,7 @@ public class ActiveSubstanceService {
     }
 
     /**
-     * Partially udpates a activeSubstance.
+     * Partially update a activeSubstance.
      *
      * @param activeSubstanceDTO the entity to update partially.
      * @return the persisted entity.
@@ -119,6 +123,7 @@ public class ActiveSubstanceService {
     public void delete(Long id) {
         log.debug("Request to delete ActiveSubstance : {}", id);
         activeSubstanceRepository.deleteById(id);
-        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.ACTIVE_SUBSTANCE, id);
+        thumbService.deleteByEntityTypeAndEntityId(EntityFeedback.ACTIVE_SUBSTANCE, id);
+        feedbackService.deleteByEntityTypeAndEntityId(EntityFeedback.ACTIVE_SUBSTANCE, id);
     }
 }

@@ -1,16 +1,18 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-
-import { TherapeuticRegime } from '../therapeutic-regime.model';
-import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
-import { Feedback } from 'app/entities/feedback/feedback.model';
-import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TherapeuticRegime } from '../therapeutic-regime.model';
+import { TherapeuticRegimeDetailComponent } from './therapeutic-regime-detail.component';
 import { TherapeuticRegimeDeleteDialogComponent } from 'app/entities/therapeutic-regime/delete/therapeutic-regime-delete-dialog.component';
+import { Thumb } from 'app/entities/thumb/thumb.model';
+import { ThumbCount } from 'app/entities/thumb/thumb-count.model';
+import { ThumbService } from 'app/entities/thumb/service/thumb.service';
+import { Feedback } from 'app/entities/feedback/feedback.model';
+import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
+import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 
 export class MockNgbModalRef {
   componentInstance = {
@@ -24,9 +26,10 @@ describe('Component Tests', () => {
   describe('TherapeuticRegime Management Detail Component', () => {
     let comp: TherapeuticRegimeDetailComponent;
     let fixture: ComponentFixture<TherapeuticRegimeDetailComponent>;
-    let service: FeedbackService;
     let modalService: NgbModal;
     let mockModalRef: MockNgbModalRef;
+    let thumbService: ThumbService;
+    let feedbackService: FeedbackService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -43,18 +46,41 @@ describe('Component Tests', () => {
         .compileComponents();
       fixture = TestBed.createComponent(TherapeuticRegimeDetailComponent);
       comp = fixture.componentInstance;
-      service = TestBed.inject(FeedbackService);
       modalService = TestBed.inject(NgbModal);
       mockModalRef = new MockNgbModalRef();
+      thumbService = TestBed.inject(ThumbService);
+      feedbackService = TestBed.inject(FeedbackService);
     });
 
     describe('OnInit', () => {
       it('Should load therapeuticRegime on init', () => {
+        // GIVEN
+        spyOn(thumbService, 'countThumbsFromEntity').and.returnValue(
+          of(
+            new HttpResponse({
+              body: new ThumbCount(1, 2, false),
+            })
+          )
+        );
+        const headers = new HttpHeaders().append('link', 'link;link');
+        spyOn(feedbackService, 'query').and.returnValue(
+          of(
+            new HttpResponse({
+              body: [new Feedback(123)],
+              headers,
+            })
+          )
+        );
+
         // WHEN
         comp.ngOnInit();
 
         // THEN
         expect(comp.therapeuticRegime).toEqual(jasmine.objectContaining({ id: 123 }));
+        expect(thumbService.countThumbsFromEntity).toHaveBeenCalled();
+        expect(comp.thumbCount).toEqual(jasmine.objectContaining({ countThumbUp: 1, countThumbDown: 2, thumb: false }));
+        expect(feedbackService.query).toHaveBeenCalled();
+        expect(comp.feedbacks[0]).toEqual(jasmine.objectContaining({ id: 123 }));
       });
     });
 
@@ -86,11 +112,11 @@ describe('Component Tests', () => {
       }));
     });
 
-    describe('load feedbacks', () => {
+    describe('load Feedbacks', () => {
       it('should load a page', () => {
         // GIVEN
         const headers = new HttpHeaders().append('link', 'link;link');
-        spyOn(service, 'query').and.returnValue(
+        spyOn(feedbackService, 'query').and.returnValue(
           of(
             new HttpResponse({
               body: [new Feedback(123)],
@@ -103,7 +129,7 @@ describe('Component Tests', () => {
         comp.loadPage(1);
 
         // THEN
-        expect(service.query).toHaveBeenCalled();
+        expect(feedbackService.query).toHaveBeenCalled();
         expect(comp.feedbacks[0]).toEqual(jasmine.objectContaining({ id: 123 }));
       });
 
@@ -116,18 +142,55 @@ describe('Component Tests', () => {
       });
     });
 
-    describe('manage feedback', () => {
+    describe('manage thumbs', () => {
       it('should save thumb up', () => {
         // GIVEN
-        const feedback = new Feedback();
-        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
-        spyOn(service, 'manageFeedbackFromEntity').and.returnValue(of());
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
 
         // WHEN
-        comp.manageFeedback(true);
+        comp.manageThumb(true);
 
         // THEN
-        expect(service.manageFeedbackFromEntity).toHaveBeenCalled();
+        const thumb = new Thumb(undefined, EntityFeedback.THERAPEUTIC_REGIME, undefined, true);
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalledWith(thumb);
+      });
+
+      it('should delete thumb up', () => {
+        // GIVEN
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of());
+        comp.thumbCount.thumb = true;
+
+        // WHEN
+        comp.manageThumb(true);
+
+        // THEN
+        const thumb = new Thumb(undefined, EntityFeedback.THERAPEUTIC_REGIME, undefined, undefined);
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalledWith(thumb);
+      });
+
+      it('should save thumb down', () => {
+        // GIVEN
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of({}));
+
+        // WHEN
+        comp.manageThumb(false);
+
+        // THEN
+        const thumb = new Thumb(undefined, EntityFeedback.THERAPEUTIC_REGIME, undefined, false);
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalledWith(thumb);
+      });
+
+      it('should delete thumb down', () => {
+        // GIVEN
+        spyOn(thumbService, 'manageThumbFromEntity').and.returnValue(of({}));
+        comp.thumbCount.thumb = false;
+
+        // WHEN
+        comp.manageThumb(false);
+
+        // THEN
+        const thumb = new Thumb(undefined, EntityFeedback.THERAPEUTIC_REGIME, undefined, undefined);
+        expect(thumbService.manageThumbFromEntity).toHaveBeenCalledWith(thumb);
       });
     });
   });

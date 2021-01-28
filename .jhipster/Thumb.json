@@ -1,0 +1,37 @@
+{
+  "name": "Thumb",
+  "fields": [
+    {
+      "fieldName": "entityType",
+      "fieldType": "EntityFeedback",
+      "javadoc": "Tipo da entidade.",
+      "fieldValues": "ACTIVE_SUBSTANCE (active_substance),THERAPEUTIC_REGIME (therapeutic_regime),OUTCOME (outcome),SYMPTOM (symptom)",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "entityId",
+      "fieldType": "Long",
+      "javadoc": "Id da entidade.",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "thumb",
+      "fieldType": "Boolean",
+      "javadoc": "Polegar.",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [],
+  "javadoc": "Thumb.",
+  "entityTableName": "thumb",
+  "dto": "mapstruct",
+  "pagination": "infinite-scroll",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": true,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": ["supportivecare"],
+  "changelogDate": "20210125174815",
+  "enableEntityAudit": true
+}

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
-import { Feedback, IFeedback } from '../feedback.model';
+import { IFeedback, Feedback } from '../feedback.model';
 
 import { FeedbackService } from './feedback.service';
 import * as dayjs from 'dayjs';
@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = TestBed.inject(HttpTestingController);
       currentDate = dayjs();
 
-      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, false, 'AAAAAAA', false, false, 'BBBBBBB', currentDate);
+      elemDefault = new Feedback(0, EntityFeedback.ACTIVE_SUBSTANCE, 0, 'AAAAAAA', 'AAAAAAA', false, false, 'BBBBBBB', currentDate);
     });
 
     describe('Service methods', () => {
@@ -66,9 +66,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            entityName: 'BBBBBB',
+            entityType: 'BBBBBB',
             entityId: 1,
-            thumb: true,
+            entityName: 'BBBBBB',
             reason: 'BBBBBB',
             solved: true,
             anonym: true,
@@ -91,9 +91,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            entityName: 'BBBBBB',
+            entityType: 'BBBBBB',
             entityId: 1,
-            thumb: true,
+            entityName: 'BBBBBB',
             reason: 'BBBBBB',
             solved: true,
             anonym: true,
@@ -116,37 +116,16 @@ describe('Service Tests', () => {
         service.delete(123).subscribe(resp => (expectedResult = resp.ok));
 
         const req = httpMock.expectOne({ method: 'DELETE' });
-        req.flush({ status: 200 });
+        req.flush({ status: 20 });
         expect(expectedResult);
       });
 
-      it('should update an entity Feedback', () => {
-        const feedback = new Feedback();
-        feedback.entityName = EntityFeedback.THERAPEUTIC_REGIME;
-        feedback.entityId = 123;
+      it('should delete all Feedback solved', () => {
+        service.deleteSolved().subscribe(resp => (expectedResult = resp.ok));
 
-        service.manageFeedbackFromEntity(feedback).subscribe(resp => (expectedResult = resp.ok));
-        const req = httpMock.expectOne({ method: 'POST' });
-        req.flush({ status: 200 });
+        const req = httpMock.expectOne({ method: 'DELETE' });
+        req.flush({ status: 204 });
         expect(expectedResult);
-      });
-
-      it('should count thumbs for an entity Feedback', () => {
-        const returnedFromService = Object.assign(
-          {
-            countThumbUp: 1,
-            countThumbDown: 0,
-            thumb: true,
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.countFeedbacksFromEntity(EntityFeedback.THERAPEUTIC_REGIME, 123).subscribe(resp => (expectedResult = resp.body));
-        const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toMatchObject(expected);
       });
     });
 

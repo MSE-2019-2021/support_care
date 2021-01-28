@@ -26,11 +26,19 @@ public class SymptomService {
 
     private final SymptomMapper symptomMapper;
 
+    private final ThumbService thumbService;
+
     private final FeedbackService feedbackService;
 
-    public SymptomService(SymptomRepository symptomRepository, SymptomMapper symptomMapper, FeedbackService feedbackService) {
+    public SymptomService(
+        SymptomRepository symptomRepository,
+        SymptomMapper symptomMapper,
+        ThumbService thumbService,
+        FeedbackService feedbackService
+    ) {
         this.symptomRepository = symptomRepository;
         this.symptomMapper = symptomMapper;
+        this.thumbService = thumbService;
         this.feedbackService = feedbackService;
     }
 
@@ -48,7 +56,7 @@ public class SymptomService {
     }
 
     /**
-     * Partially udpates a symptom.
+     * Partially update a symptom.
      *
      * @param symptomDTO the entity to update partially.
      * @return the persisted entity.
@@ -117,6 +125,7 @@ public class SymptomService {
     public void delete(Long id) {
         log.debug("Request to delete Symptom : {}", id);
         symptomRepository.deleteById(id);
-        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.SYMPTOM, id);
+        thumbService.deleteByEntityTypeAndEntityId(EntityFeedback.SYMPTOM, id);
+        feedbackService.deleteByEntityTypeAndEntityId(EntityFeedback.SYMPTOM, id);
     }
 }

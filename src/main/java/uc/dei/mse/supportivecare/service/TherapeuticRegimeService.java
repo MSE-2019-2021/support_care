@@ -26,15 +26,19 @@ public class TherapeuticRegimeService {
 
     private final TherapeuticRegimeMapper therapeuticRegimeMapper;
 
+    private final ThumbService thumbService;
+
     private final FeedbackService feedbackService;
 
     public TherapeuticRegimeService(
         TherapeuticRegimeRepository therapeuticRegimeRepository,
         TherapeuticRegimeMapper therapeuticRegimeMapper,
+        ThumbService thumbService,
         FeedbackService feedbackService
     ) {
         this.therapeuticRegimeRepository = therapeuticRegimeRepository;
         this.therapeuticRegimeMapper = therapeuticRegimeMapper;
+        this.thumbService = thumbService;
         this.feedbackService = feedbackService;
     }
 
@@ -52,7 +56,7 @@ public class TherapeuticRegimeService {
     }
 
     /**
-     * Partially udpates a therapeuticRegime.
+     * Partially update a therapeuticRegime.
      *
      * @param therapeuticRegimeDTO the entity to update partially.
      * @return the persisted entity.
@@ -145,6 +149,7 @@ public class TherapeuticRegimeService {
     public void delete(Long id) {
         log.debug("Request to delete TherapeuticRegime : {}", id);
         therapeuticRegimeRepository.deleteById(id);
-        feedbackService.deleteByEntityNameAndEntityId(EntityFeedback.THERAPEUTIC_REGIME, id);
+        thumbService.deleteByEntityTypeAndEntityId(EntityFeedback.THERAPEUTIC_REGIME, id);
+        feedbackService.deleteByEntityTypeAndEntityId(EntityFeedback.THERAPEUTIC_REGIME, id);
     }
 }

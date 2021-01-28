@@ -17,10 +17,10 @@
             <column name="id" type="bigint" defaultValueSequenceNext="feedback_id_seq">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="entity_name" type="varchar(255)" remarks="Nome da entidade.">
+            <column name="entity_id" type="bigint" remarks="Id da entidade.">
                 <constraints nullable="false" />
             </column>
-            <column name="entity_id" type="bigint" remarks="Id da entidade.">
+            <column name="entity_name" type="varchar(255)" remarks="Nome da entidade.">
                 <constraints nullable="false" />
             </column>
             <column name="thumb" type="boolean" remarks="Polegar.">
@@ -53,6 +53,17 @@
             <column name="last_modified_date" type="timestamp"/>
         </addColumn>
     </changeSet>
+
+    <changeSet id="20210125174815_update_fields" author="DanielFran">
+        <dropColumn tableName="feedback">
+            <column name="thumb"/>
+        </dropColumn>
+        <addColumn tableName="feedback">
+            <column afterColumn="id" name="entity_type" type="varchar(255)" remarks="Tipo da entidade.">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--
@@ -63,14 +74,14 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20201220133645-1-data" author="jhipster" context="faker">
+    <changeSet id="20210125174815-1-data" author="jhipster" context="faker">
         <loadData
                   file="config/liquibase/fake-data/feedback.csv"
                   separator=";"
                   tableName="feedback">
-            <column name="entity_name" type="string"/>
+            <column name="entity_type" type="string"/>
             <column name="entity_id" type="numeric"/>
-            <column name="thumb" type="boolean"/>
+            <column name="entity_name" type="string"/>
             <column name="reason" type="string"/>
             <column name="solved" type="boolean"/>
             <column name="anonym" type="boolean"/>

@@ -1,7 +1,7 @@
-import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 
@@ -23,18 +23,19 @@ describe('Component Tests', () => {
         imports: [HttpClientTestingModule],
         declarations: [FeedbackComponent],
         providers: [
+          FormBuilder,
           Router,
           {
             provide: ActivatedRoute,
             useValue: {
               data: of({
-                defaultSort: 'id,asc',
+                defaultSort: ['solved,asc', 'createdDate,asc', 'id'],
               }),
               queryParamMap: of(
                 jest.requireActual('@angular/router').convertToParamMap({
                   page: '1',
                   size: '1',
-                  sort: 'id,desc',
+                  sort: ['solved,desc', 'createdDate,desc', 'id'],
                 })
               ),
             },
@@ -117,7 +118,7 @@ describe('Component Tests', () => {
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['id,asc']);
+      expect(result).toEqual(['solved,asc', 'createdDate,asc', 'id']);
     });
 
     it('should calculate the sort attribute for a non-id attribute', () => {
@@ -125,21 +126,16 @@ describe('Component Tests', () => {
       comp.ngOnInit();
 
       // GIVEN
-      comp.predicate = 'name';
+      comp.sortForm.patchValue({
+        status: 'solved',
+        creationDate: 'older',
+      });
 
       // WHEN
       const result = comp.sort();
 
       // THEN
-      expect(result).toEqual(['name,asc', 'id']);
-    });
-
-    it('should return Entity Feedback value', () => {
-      // WHEN
-      const result = comp.getEntityFeedbackKey(EntityFeedback.THERAPEUTIC_REGIME);
-
-      // THEN
-      expect(result).toEqual('THERAPEUTIC_REGIME');
+      expect(result).toEqual(['solved,desc', 'createdDate,desc', 'id']);
     });
   });
 });

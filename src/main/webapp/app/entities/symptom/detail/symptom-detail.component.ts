@@ -6,8 +6,10 @@ import { ISymptom } from '../symptom.model';
 import { SymptomDeleteDialogComponent } from '../delete/symptom-delete-dialog.component';
 
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { IThumb, Thumb } from 'app/entities/feedback/thumb.model';
-import { Feedback, IFeedback } from 'app/entities/feedback/feedback.model';
+import { IThumb, Thumb } from 'app/entities/thumb/thumb.model';
+import { IThumbCount, ThumbCount } from 'app/entities/thumb/thumb-count.model';
+import { ThumbService } from 'app/entities/thumb/service/thumb.service';
+import { IFeedback, Feedback } from 'app/entities/feedback/feedback.model';
 import { FeedbackService } from 'app/entities/feedback/service/feedback.service';
 import { EntityFeedback } from 'app/entities/enumerations/entity-feedback.model';
 import { DefineReasonDialogComponent } from 'app/entities/feedback/define-reason/define-reason-dialog.component';
@@ -21,7 +23,7 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 })
 export class SymptomDetailComponent implements OnInit {
   symptom: ISymptom | null = null;
-  thumb: IThumb;
+  thumbCount: IThumbCount;
   feedbacks: IFeedback[];
   isSaving = false;
   itemsPerPage: number;
@@ -32,24 +34,25 @@ export class SymptomDetailComponent implements OnInit {
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
+    protected thumbService: ThumbService,
     protected feedbackService: FeedbackService,
     protected parseLinks: ParseLinks
   ) {
-    this.thumb = new Thumb();
+    this.thumbCount = new ThumbCount();
     this.feedbacks = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
-    this.dateFormat = DATE_TIME_FORMAT;
     this.page = 0;
     this.links = {
       last: 0,
     };
+    this.dateFormat = DATE_TIME_FORMAT;
   }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ symptom }) => {
       this.symptom = symptom;
     });
-    this.loadFeedback();
+    this.loadThumbsAndFeedback();
   }
 
   previousState(): void {
@@ -67,20 +70,20 @@ export class SymptomDetailComponent implements OnInit {
     });
   }
 
-  protected loadFeedback(): void {
+  protected loadThumbsAndFeedback(): void {
     this.feedbacks = [];
     this.page = 0;
     this.getThumbs();
-    this.loadAll();
+    this.loadAllFeedbacks();
   }
 
   protected getThumbs(): void {
-    this.feedbackService.countFeedbacksFromEntity(EntityFeedback.SYMPTOM, this.symptom?.id ?? 0).subscribe((res: HttpResponse<IThumb>) => {
-      this.thumb = res.body ?? new Thumb();
+    this.thumbService.countThumbsFromEntity(EntityFeedback.SYMPTOM, this.symptom?.id ?? 0).subscribe((res: HttpResponse<IThumbCount>) => {
+      this.thumbCount = res.body ?? new ThumbCount();
     });
   }
 
-  protected loadAll(): void {
+  protected loadAllFeedbacks(): void {
     this.feedbackService
       .query(
         Object.assign(
@@ -100,7 +103,7 @@ export class SymptomDetailComponent implements OnInit {
 
   loadPage(page: number): void {
     this.page = page;
-    this.loadAll();
+    this.loadAllFeedbacks();
   }
 
   trackId(index: number, item: IFeedback): number {
@@ -113,7 +116,7 @@ export class SymptomDetailComponent implements OnInit {
 
   protected getCriteria(): {} {
     return {
-      'entityName.equals': EntityFeedback.SYMPTOM.valueOf(),
+      'entityType.equals': EntityFeedback.SYMPTOM.valueOf(),
       'entityId.equals': this.symptom?.id,
       'thumb.equals': false,
       'reason.specified': true,
@@ -130,51 +133,58 @@ export class SymptomDetailComponent implements OnInit {
     }
   }
 
-  manageFeedback(thumbUp: boolean): void {
+  manageThumb(thumbUp: boolean): void {
     this.isSaving = true;
-    const feedback = new Feedback();
-    feedback.entityName = EntityFeedback.SYMPTOM;
-    feedback.entityId = this.symptom?.id;
+    const thumb = new Thumb();
+    thumb.entityType = EntityFeedback.SYMPTOM;
+    thumb.entityId = this.symptom?.id;
 
     // When click on Thumb Up
     if (thumbUp) {
-      // If it was already UP, deactivate it (it will delete the feedback in database)
-      if (this.thumb.thumb === true) {
-        feedback.thumb = undefined;
+      // If it was already UP, deactivate it (it will delete the thumb in database)
+      if (this.thumbCount.thumb === true) {
+        thumb.thumb = undefined;
 
         // Otherwise activate it
       } else {
-        feedback.thumb = true;
+        thumb.thumb = true;
       }
-      this.saveFeedback(feedback);
 
       // When click on Thumb Down
     } else {
-      // If it was already DOWN, deactivate it (it will delete the feedback in database)
-      if (this.thumb.thumb === false) {
-        feedback.thumb = undefined;
-        this.saveFeedback(feedback);
+      // If it was already DOWN, deactivate it (it will delete the thumb in database)
+      if (this.thumbCount.thumb === false) {
+        thumb.thumb = undefined;
 
         // Otherwise activate it
       } else {
-        feedback.thumb = false;
-        const modalRef = this.modalService.open(DefineReasonDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
-        modalRef.componentInstance.feedback = feedback;
-        // unsubscribe not needed because closed completes on modal close
-        modalRef.closed.subscribe(() => {
-          this.isSaving = false;
-          this.loadFeedback();
-        });
+        thumb.thumb = false;
       }
     }
+    this.saveThumb(thumb);
   }
 
-  protected saveFeedback(feedback: IFeedback): void {
-    // Update/Delete user Feedback
-    this.feedbackService.manageFeedbackFromEntity(feedback).subscribe(
+  protected saveThumb(thumb: IThumb): void {
+    // Update/Delete user Thumb
+    this.thumbService.manageThumbFromEntity(thumb).subscribe(
       () => {
-        this.isSaving = false;
-        this.loadFeedback();
+        // Give a feedback
+        if (thumb.thumb === false) {
+          const feedback = new Feedback();
+          feedback.entityType = EntityFeedback.SYMPTOM;
+          feedback.entityId = this.symptom?.id;
+          feedback.entityName = this.symptom?.name;
+          const modalRef = this.modalService.open(DefineReasonDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+          modalRef.componentInstance.feedback = feedback;
+          // unsubscribe not needed because closed completes on modal close
+          modalRef.closed.subscribe(() => {
+            this.isSaving = false;
+            this.loadThumbsAndFeedback();
+          });
+        } else {
+          this.isSaving = false;
+          this.loadThumbsAndFeedback();
+        }
       },
       () => {
         this.isSaving = false;

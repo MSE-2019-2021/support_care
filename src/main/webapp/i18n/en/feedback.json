@@ -15,39 +15,52 @@
         "title": "Improvements suggestions"
       },
       "home": {
-        "title": "Feedbacks",
+        "title": "Feedback",
         "refreshListLabel": "Refresh list",
         "createLabel": "Create a new Feedback",
         "createOrEditLabel": "Create or edit a Feedback",
-        "notFound": "No Feedbacks found",
+        "notFound": "No feedback found",
         "noneAvailable": "There are no improvements suggestions"
       },
-      "created": "A new Feedback is created with identifier {{ param }}",
-      "updated": "A Feedback is updated with identifier {{ param }}",
-      "deleted": "A Feedback is deleted with identifier {{ param }}",
+      "created": "Feedback was successfully created",
+      "updated": "Feedback was successfully updated",
+      "deleted": "Feedback was successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete Feedback {{ id }}?"
+        "question": "Are you sure you want to delete this feedback?"
+      },
+      "sort": {
+        "sortBy": "Sort by",
+        "status": "Status",
+        "solved": "Solved first",
+        "creationDate": "Creation date",
+        "unsolved": "Unsolved first",
+        "newer": "Newer first",
+        "older": "Older first"
+      },
+      "action": {
+        "deleteAllResolved": "Delete all feedbacks resolved"
       },
       "detail": {
         "title": "Feedback"
       },
       "id": "ID",
-      "entityName": "Entity Name",
+      "entityType": "Entity Type",
       "entityId": "Entity Id",
-      "thumb": "Thumb",
+      "entityName": "Entity Name",
       "reason": "Reason",
       "solved": "Solved",
       "anonym": "Anonym",
+      "by": "By",
       "actions": {
         "markAsSolved": "Mark as solved"
       },
       "help": {
-        "entityName": "Nome da entidade.",
-        "entityId": "Id da entidade.",
-        "thumb": "Polegar.",
-        "reason": "Razão.",
-        "solved": "Resolvido.",
-        "anonym": "Anónimo."
+        "entityType": "Entity type",
+        "entityId": "Entity ID",
+        "entityName": "Entity name",
+        "reason": "Reason",
+        "solved": "Solved",
+        "anonym": "Anonymous"
       }
     }
   }
