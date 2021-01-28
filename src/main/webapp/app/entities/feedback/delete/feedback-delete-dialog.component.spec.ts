@@ -31,31 +31,31 @@ describe('Component Tests', () => {
     });
 
     describe('confirmDelete', () => {
-      it('Should call delete service on confirmDelete', inject(
+      it('Should call deleteSolved service on confirmDelete', inject(
         [],
         fakeAsync(() => {
           // GIVEN
-          spyOn(service, 'delete').and.returnValue(of({}));
+          spyOn(service, 'deleteSolved').and.returnValue(of({}));
 
           // WHEN
-          comp.confirmDelete(123);
+          comp.confirmDelete();
           tick();
 
           // THEN
-          expect(service.delete).toHaveBeenCalledWith(123);
+          expect(service.deleteSolved).toHaveBeenCalled();
           expect(mockActiveModal.close).toHaveBeenCalledWith('deleted');
         })
       ));
 
-      it('Should not call delete service on clear', () => {
+      it('Should not call deleteSolved service on clear', () => {
         // GIVEN
-        spyOn(service, 'delete');
+        spyOn(service, 'deleteSolved');
 
         // WHEN
         comp.cancel();
 
         // THEN
-        expect(service.delete).not.toHaveBeenCalled();
+        expect(service.deleteSolved).not.toHaveBeenCalled();
         expect(mockActiveModal.close).not.toHaveBeenCalled();
         expect(mockActiveModal.dismiss).toHaveBeenCalled();
       });
