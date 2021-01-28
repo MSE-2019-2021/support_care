@@ -90,6 +90,14 @@ describe('Component Tests', () => {
       expect(comp.feedbacks[0]).toEqual(jasmine.objectContaining({ id: 123 }));
     });
 
+    it('should return id', () => {
+      // WHEN
+      const result = comp.trackId(1, new Feedback(123));
+
+      // THEN
+      expect(result).toEqual(123);
+    });
+
     it('should re-initialize the page', () => {
       // GIVEN
       const headers = new HttpHeaders().append('link', 'link;link');

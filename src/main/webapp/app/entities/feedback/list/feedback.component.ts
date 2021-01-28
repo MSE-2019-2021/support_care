@@ -93,7 +93,7 @@ export class FeedbackComponent implements OnInit {
   }
 
   deleteAllResolved(): void {
-    const modalRef = this.modalService.open(FeedbackDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    const modalRef = this.modalService.open(FeedbackDeleteDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
