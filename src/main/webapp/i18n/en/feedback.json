@@ -26,8 +26,8 @@
       "updated": "Feedback was successfully updated",
       "deleted": "Feedback was successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete this feedback?",
-        "body": "Upon confirming this action, all information related to this feedback will be lost."
+        "question": "Are you sure you want to delete those feedbacks?",
+        "body": "Upon confirming this action, all information related to those feedbacks will be lost."
       },
       "sort": {
         "sortBy": "Sort by",

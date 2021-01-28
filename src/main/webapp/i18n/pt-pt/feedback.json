@@ -26,8 +26,8 @@
       "updated": "Sugestão de melhoria atualizada com sucesso",
       "deleted": "Sugestão de melhoria eliminada com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar esta sugestão de melhoria?",
-        "body": "Ao confirmar esta ação, toda a informação relativa a este sugestão de melhoria será perdida."
+        "question": "Tem a certeza que pretende eliminar estas sugestões de melhoria?",
+        "body": "Ao confirmar esta ação, toda a informação relativa a estes sugestões de melhoria será perdida."
       },
       "sort": {
         "sortBy": "Ordenar por",
