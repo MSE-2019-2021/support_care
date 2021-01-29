@@ -30,6 +30,8 @@ public class OutcomeCriteria implements Serializable, Criteria {
 
     private StringFilter description;
 
+    private StringFilter link;
+
     private LongFilter documentId;
 
     private LongFilter symptomId;
@@ -40,6 +42,7 @@ public class OutcomeCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
+        this.link = other.link == null ? null : other.link.copy();
         this.documentId = other.documentId == null ? null : other.documentId.copy();
         this.symptomId = other.symptomId == null ? null : other.symptomId.copy();
     }
@@ -73,6 +76,14 @@ public class OutcomeCriteria implements Serializable, Criteria {
         this.description = description;
     }
 
+    public StringFilter getLink() {
+        return link;
+    }
+
+    public void setLink(StringFilter link) {
+        this.link = link;
+    }
+
     public LongFilter getDocumentId() {
         return documentId;
     }
@@ -102,6 +113,7 @@ public class OutcomeCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
+            Objects.equals(link, that.link) &&
             Objects.equals(documentId, that.documentId) &&
             Objects.equals(symptomId, that.symptomId)
         );
@@ -109,7 +121,7 @@ public class OutcomeCriteria implements Serializable, Criteria {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, documentId, symptomId);
+        return Objects.hash(id, name, description, link, documentId, symptomId);
     }
 
     // prettier-ignore
@@ -119,6 +131,7 @@ public class OutcomeCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
+                (link != null ? "link=" + link + ", " : "") +
                 (documentId != null ? "documentId=" + documentId + ", " : "") +
                 (symptomId != null ? "symptomId=" + symptomId + ", " : "") +
             "}";

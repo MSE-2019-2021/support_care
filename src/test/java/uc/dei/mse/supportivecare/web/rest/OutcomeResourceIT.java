@@ -51,6 +51,9 @@ class OutcomeResourceIT {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
+    private static final String DEFAULT_LINK = "AAAAAAAAAA";
+    private static final String UPDATED_LINK = "BBBBBBBBBB";
+
     @Autowired
     private OutcomeRepository outcomeRepository;
 
@@ -84,7 +87,7 @@ class OutcomeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Outcome createEntity(EntityManager em) {
-        Outcome outcome = new Outcome().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION);
+        Outcome outcome = new Outcome().name(DEFAULT_NAME).description(DEFAULT_DESCRIPTION).link(DEFAULT_LINK);
         return outcome;
     }
 
@@ -95,7 +98,7 @@ class OutcomeResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Outcome createUpdatedEntity(EntityManager em) {
-        Outcome outcome = new Outcome().name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        Outcome outcome = new Outcome().name(UPDATED_NAME).description(UPDATED_DESCRIPTION).link(UPDATED_LINK);
         return outcome;
     }
 
@@ -138,6 +141,7 @@ class OutcomeResourceIT {
         Outcome testOutcome = outcomeList.get(outcomeList.size() - 1);
         assertThat(testOutcome.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testOutcome.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testOutcome.getLink()).isEqualTo(DEFAULT_LINK);
     }
 
     @Test
@@ -202,7 +206,8 @@ class OutcomeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(outcome.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK)));
     }
 
     @Test
@@ -218,7 +223,8 @@ class OutcomeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(outcome.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.link").value(DEFAULT_LINK));
     }
 
     @Test
@@ -397,6 +403,84 @@ class OutcomeResourceIT {
 
     @Test
     @Transactional
+    void getAllOutcomesByLinkIsEqualToSomething() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link equals to DEFAULT_LINK
+        defaultOutcomeShouldBeFound("link.equals=" + DEFAULT_LINK);
+
+        // Get all the outcomeList where link equals to UPDATED_LINK
+        defaultOutcomeShouldNotBeFound("link.equals=" + UPDATED_LINK);
+    }
+
+    @Test
+    @Transactional
+    void getAllOutcomesByLinkIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link not equals to DEFAULT_LINK
+        defaultOutcomeShouldNotBeFound("link.notEquals=" + DEFAULT_LINK);
+
+        // Get all the outcomeList where link not equals to UPDATED_LINK
+        defaultOutcomeShouldBeFound("link.notEquals=" + UPDATED_LINK);
+    }
+
+    @Test
+    @Transactional
+    void getAllOutcomesByLinkIsInShouldWork() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link in DEFAULT_LINK or UPDATED_LINK
+        defaultOutcomeShouldBeFound("link.in=" + DEFAULT_LINK + "," + UPDATED_LINK);
+
+        // Get all the outcomeList where link equals to UPDATED_LINK
+        defaultOutcomeShouldNotBeFound("link.in=" + UPDATED_LINK);
+    }
+
+    @Test
+    @Transactional
+    void getAllOutcomesByLinkIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link is not null
+        defaultOutcomeShouldBeFound("link.specified=true");
+
+        // Get all the outcomeList where link is null
+        defaultOutcomeShouldNotBeFound("link.specified=false");
+    }
+
+    @Test
+    @Transactional
+    void getAllOutcomesByLinkContainsSomething() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link contains DEFAULT_LINK
+        defaultOutcomeShouldBeFound("link.contains=" + DEFAULT_LINK);
+
+        // Get all the outcomeList where link contains UPDATED_LINK
+        defaultOutcomeShouldNotBeFound("link.contains=" + UPDATED_LINK);
+    }
+
+    @Test
+    @Transactional
+    void getAllOutcomesByLinkNotContainsSomething() throws Exception {
+        // Initialize the database
+        outcomeRepository.saveAndFlush(outcome);
+
+        // Get all the outcomeList where link does not contain DEFAULT_LINK
+        defaultOutcomeShouldNotBeFound("link.doesNotContain=" + DEFAULT_LINK);
+
+        // Get all the outcomeList where link does not contain UPDATED_LINK
+        defaultOutcomeShouldBeFound("link.doesNotContain=" + UPDATED_LINK);
+    }
+
+    @Test
+    @Transactional
     void getAllOutcomesByDocumentIsEqualToSomething() throws Exception {
         // Initialize the database
         outcomeRepository.saveAndFlush(outcome);
@@ -443,7 +527,8 @@ class OutcomeResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(outcome.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].link").value(hasItem(DEFAULT_LINK)));
 
         // Check, that the count call also returns 1
         restOutcomeMockMvc
@@ -491,7 +576,7 @@ class OutcomeResourceIT {
         Outcome updatedOutcome = outcomeRepository.findById(outcome.getId()).get();
         // Disconnect from session so that the updates on updatedOutcome are not directly saved in db
         em.detach(updatedOutcome);
-        updatedOutcome.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        updatedOutcome.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).link(UPDATED_LINK);
         OutcomeDTO outcomeDTO = outcomeMapper.toDto(updatedOutcome);
         MockMultipartFile file = new MockMultipartFile("files", "hello.txt", MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
 
@@ -522,6 +607,7 @@ class OutcomeResourceIT {
         Outcome testOutcome = outcomeList.get(outcomeList.size() - 1);
         assertThat(testOutcome.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testOutcome.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testOutcome.getLink()).isEqualTo(UPDATED_LINK);
     }
 
     @Test
@@ -572,6 +658,8 @@ class OutcomeResourceIT {
         Outcome partialUpdatedOutcome = new Outcome();
         partialUpdatedOutcome.setId(outcome.getId());
 
+        partialUpdatedOutcome.link(UPDATED_LINK);
+
         restOutcomeMockMvc
             .perform(
                 patch("/api/outcomes")
@@ -586,6 +674,7 @@ class OutcomeResourceIT {
         Outcome testOutcome = outcomeList.get(outcomeList.size() - 1);
         assertThat(testOutcome.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testOutcome.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testOutcome.getLink()).isEqualTo(UPDATED_LINK);
     }
 
     @Test
@@ -600,7 +689,7 @@ class OutcomeResourceIT {
         Outcome partialUpdatedOutcome = new Outcome();
         partialUpdatedOutcome.setId(outcome.getId());
 
-        partialUpdatedOutcome.name(UPDATED_NAME).description(UPDATED_DESCRIPTION);
+        partialUpdatedOutcome.name(UPDATED_NAME).description(UPDATED_DESCRIPTION).link(UPDATED_LINK);
 
         restOutcomeMockMvc
             .perform(
@@ -616,6 +705,7 @@ class OutcomeResourceIT {
         Outcome testOutcome = outcomeList.get(outcomeList.size() - 1);
         assertThat(testOutcome.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testOutcome.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testOutcome.getLink()).isEqualTo(UPDATED_LINK);
     }
 
     @Test
