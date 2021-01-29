@@ -4,7 +4,7 @@ services:
   supportivecare-postgresql:
     image: postgres:13.1
     # volumes:
-    #     - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=supportivecare
       - POSTGRES_PASSWORD=

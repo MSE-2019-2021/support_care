@@ -8,6 +8,7 @@ services:
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - SPRING_DATASOURCE_URL=jdbc:postgresql://supportivecare-postgresql:5432/supportivecare
+      - SPRING_LIQUIBASE_URL=jdbc:postgresql://supportivecare-postgresql:5432/supportivecare
       - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
     # If you want to expose these ports outside your dev PC,
     # remove the "127.0.0.1:" prefix
@@ -16,7 +17,7 @@ services:
   supportivecare-postgresql:
     image: postgres:13.1
     # volumes:
-    #     - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
+    #   - ~/volumes/jhipster/supportivecare/postgresql/:/var/lib/postgresql/data/
     environment:
       - POSTGRES_USER=supportivecare
       - POSTGRES_PASSWORD=
