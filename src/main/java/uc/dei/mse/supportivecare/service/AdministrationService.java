@@ -44,7 +44,7 @@ public class AdministrationService {
     }
 
     /**
-     * Partially udpates a administration.
+     * Partially update a administration.
      *
      * @param administrationDTO the entity to update partially.
      * @return the persisted entity.

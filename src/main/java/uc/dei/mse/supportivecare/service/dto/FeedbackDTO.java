@@ -16,7 +16,7 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
     private Long id;
 
     /**
-     * Nome da entidade.
+     * Tipo da entidade.
      */
     @NotNull
     @ApiModelProperty(value = "Tipo da entidade.", required = true)

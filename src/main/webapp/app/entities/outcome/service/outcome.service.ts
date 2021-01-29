@@ -8,8 +8,8 @@ import { IOutcome } from '../outcome.model';
 import * as dayjs from 'dayjs';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<IOutcome>;
-type EntityArrayResponseType = HttpResponse<IOutcome[]>;
+export type EntityResponseType = HttpResponse<IOutcome>;
+export type EntityArrayResponseType = HttpResponse<IOutcome[]>;
 
 @Injectable({ providedIn: 'root' })
 export class OutcomeService {

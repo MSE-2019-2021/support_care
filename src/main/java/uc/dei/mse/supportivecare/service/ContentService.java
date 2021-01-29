@@ -48,7 +48,7 @@ public class ContentService {
     }
 
     /**
-     * Partially udpates a content.
+     * Partially update a content.
      *
      * @param contentDTO the entity to update partially.
      * @return the persisted entity.

@@ -8,8 +8,8 @@ import { ITherapeuticRegime } from '../therapeutic-regime.model';
 import * as dayjs from 'dayjs';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<ITherapeuticRegime>;
-type EntityArrayResponseType = HttpResponse<ITherapeuticRegime[]>;
+export type EntityResponseType = HttpResponse<ITherapeuticRegime>;
+export type EntityArrayResponseType = HttpResponse<ITherapeuticRegime[]>;
 
 @Injectable({ providedIn: 'root' })
 export class TherapeuticRegimeService {

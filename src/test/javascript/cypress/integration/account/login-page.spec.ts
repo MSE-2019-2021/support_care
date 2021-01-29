@@ -17,8 +17,7 @@ describe('login modal', () => {
   });
 
   beforeEach(() => {
-    cy.server();
-    cy.route('POST', '/api/authenticate').as('authenticate');
+    cy.intercept('POST', '/api/authenticate').as('authenticate');
   });
 
   it('greets with signin (MSEDO-174 -  1)', () => {
@@ -28,7 +27,7 @@ describe('login modal', () => {
   it('requires username', () => {
     cy.get(passwordLoginSelector).type('a-password');
     cy.get(submitLoginSelector).click();
-    cy.wait('@authenticate').its('status').should('equal', 400);
+    cy.wait('@authenticate').then(({ request, response }) => expect(response.statusCode).to.equal(400));
     // login page should stay open when login fails
     cy.get(titleLoginSelector).should('be.visible');
     cy.get(passwordLoginSelector).clear();
@@ -37,7 +36,7 @@ describe('login modal', () => {
   it('requires password', () => {
     cy.get(usernameLoginSelector).type('a-login');
     cy.get(submitLoginSelector).click();
-    cy.wait('@authenticate').its('status').should('equal', 400);
+    cy.wait('@authenticate').then(({ request, response }) => expect(response.statusCode).to.equal(400));
     cy.get(errorLoginSelector).should('be.visible');
     cy.get(usernameLoginSelector).clear();
   });
@@ -46,17 +45,17 @@ describe('login modal', () => {
     cy.get(usernameLoginSelector).type('admin');
     cy.get(passwordLoginSelector).type('bad-password');
     cy.get(submitLoginSelector).click();
-    cy.wait('@authenticate').its('status').should('equal', 401);
+    cy.wait('@authenticate').then(({ request, response }) => expect(response.statusCode).to.equal(401));
     cy.get(errorLoginSelector).should('be.visible');
     cy.get(usernameLoginSelector).clear();
     cy.get(passwordLoginSelector).clear();
   });
 
-  it('go to login page when successfully logs in (MSEDO-174 -  2)', () => {
+  it('go to login page when successfully logs in', () => {
     cy.get(usernameLoginSelector).type('admin');
     cy.get(passwordLoginSelector).type('admin');
     cy.get(submitLoginSelector).click();
-    cy.wait('@authenticate').its('status').should('equal', 200);
+    cy.wait('@authenticate').then(({ request, response }) => expect(response.statusCode).to.equal(200));
     cy.hash().should('eq', '');
   });
 });

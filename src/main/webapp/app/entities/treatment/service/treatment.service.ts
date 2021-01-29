@@ -6,8 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ITreatment } from '../treatment.model';
 
-type EntityResponseType = HttpResponse<ITreatment>;
-type EntityArrayResponseType = HttpResponse<ITreatment[]>;
+export type EntityResponseType = HttpResponse<ITreatment>;
+export type EntityArrayResponseType = HttpResponse<ITreatment[]>;
 
 @Injectable({ providedIn: 'root' })
 export class TreatmentService {

@@ -44,7 +44,7 @@ public class ToxicityRateService {
     }
 
     /**
-     * Partially udpates a toxicityRate.
+     * Partially update a toxicityRate.
      *
      * @param toxicityRateDTO the entity to update partially.
      * @return the persisted entity.

@@ -8,8 +8,8 @@ import { ISymptom } from '../symptom.model';
 import * as dayjs from 'dayjs';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<ISymptom>;
-type EntityArrayResponseType = HttpResponse<ISymptom[]>;
+export type EntityResponseType = HttpResponse<ISymptom>;
+export type EntityArrayResponseType = HttpResponse<ISymptom[]>;
 
 @Injectable({ providedIn: 'root' })
 export class SymptomService {

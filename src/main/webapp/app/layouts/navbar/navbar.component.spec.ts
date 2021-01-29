@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { SessionStorageService } from 'ngx-webstorage';
 import { TranslateService } from '@ngx-translate/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProfileInfo } from 'app/layouts/profiles/profile-info.model';
 import { AccountService } from 'app/core/auth/account.service';
@@ -19,22 +18,12 @@ import { LoginService } from 'app/login/login.service';
 
 import { NavbarComponent } from './navbar.component';
 
-export class MockNgbModalRef {
-  componentInstance = {
-    prompt: undefined,
-    title: undefined,
-  };
-  result: Promise<any> = new Promise(resolve => resolve(true));
-}
-
 describe('Component Tests', () => {
   describe('Navbar Component', () => {
     let comp: NavbarComponent;
     let fixture: ComponentFixture<NavbarComponent>;
     let mockAccountService: AccountService;
     let profileService: ProfileService;
-    let modalService: NgbModal;
-    let mockModalRef: MockNgbModalRef;
 
     beforeEach(
       waitForAsync(() => {
@@ -53,8 +42,6 @@ describe('Component Tests', () => {
       comp = fixture.componentInstance;
       mockAccountService = TestBed.inject(AccountService);
       profileService = TestBed.inject(ProfileService);
-      // modalService = TestBed.inject(NgbModal);
-      mockModalRef = new MockNgbModalRef();
     });
 
     it('Should call profileService.getProfileInfo on init', () => {

@@ -16,22 +16,16 @@ describe('Symptom e2e test', () => {
     });
 
     cy.clearCookies();
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
+    cy.intercept('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
     cy.clickOnEntityMenuItem('symptom');
-    cy.wait('@entitiesRequest')
-      .its('responseBody')
-      .then(array => {
-        startingEntitiesCount = array.length;
-      });
+    cy.wait('@entitiesRequest').then(({ request, response }) => (startingEntitiesCount = response.body.length));
     cy.visit('/');
   });
 
   it('should load Symptoms (MSEDO-29 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
+    cy.intercept('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
@@ -45,8 +39,7 @@ describe('Symptom e2e test', () => {
   });
 
   it('should load details Symptom page (MSEDO-28 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
+    cy.intercept('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
@@ -59,8 +52,7 @@ describe('Symptom e2e test', () => {
   });
 
   it('should load create Symptom page (MSEDO-25-1)', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
+    cy.intercept('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
@@ -71,8 +63,7 @@ describe('Symptom e2e test', () => {
   });
 
   it('should load edit Symptom page', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
+    cy.intercept('GET', '/api/symptoms*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('symptom');
     cy.wait('@entitiesRequest');
@@ -84,64 +75,4 @@ describe('Symptom e2e test', () => {
     }
     cy.visit('/');
   });
-  // revision needed
-  /*it('should create an instance of Symptom (MSEDO-25-2)', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('symptom');
-    cy.wait('@entitiesRequest');
-    cy.get(entityCreateButtonSelector).first().click({ force: true });
-    cy.getEntityCreateHeading('Symptom');
-
-    cy.get(`[data-cy="name"]`)
-      .type('Research visionary Desporto', { force: true })
-      .invoke('val')
-      .should('match', new RegExp('Research visionary Desporto'));
-
-    cy.get(`[data-cy="notice"]`).type('Aço', { force: true }).invoke('val').should('match', new RegExp('Aço'));
-
-    cy.setFieldSelectToLastOfEntity('therapeuticRegime');
-
-    cy.setFieldSelectToLastOfEntity('outcome');
-
-    cy.setFieldSelectToLastOfEntity('toxicityRate');
-
-    cy.get(entityCreateSaveButtonSelector).click({ force: true });
-    cy.scrollTo('top', { ensureScrollable: false });
-    cy.get(entityCreateSaveButtonSelector).should('not.exist');
-    cy.route('GET', '/api/symptoms*').as('entitiesRequestAfterCreate');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('symptom');
-    cy.wait('@entitiesRequestAfterCreate');
-    cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount + 1);
-    cy.visit('/');
-  });*/
-
-  /***
-  it('should delete last instance of Symptom (MSEDO-27-2)', () => {
-    cy.server();
-    cy.route('GET', '/api/symptoms*').as('entitiesRequest');
-    cy.route('DELETE', '/api/symptoms/*').as('deleteEntityRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('symptom');
-    cy.wait('@entitiesRequest')
-      .its('responseBody')
-      .then(array => {
-        startingEntitiesCount = array.length;
-        if (startingEntitiesCount > 0) {
-          cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-          cy.get(entityDeleteButtonSelector).last().click({ force: true });
-          cy.getEntityDeleteDialogHeading('symptom').should('exist');
-          cy.get(entityConfirmDeleteButtonSelector).click({ force: true });
-          cy.wait('@deleteEntityRequest');
-          cy.route('GET', '/api/symptoms*').as('entitiesRequestAfterDelete');
-          cy.visit('/');
-          cy.clickOnEntityMenuItem('symptom');
-          cy.wait('@entitiesRequestAfterDelete');
-          cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount - 1);
-        }
-        cy.visit('/');
-      });
-  });*/
 });

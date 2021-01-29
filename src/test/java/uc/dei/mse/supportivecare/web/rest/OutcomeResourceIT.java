@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.junit.Before;
@@ -23,7 +22,6 @@ import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequ
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import uc.dei.mse.supportivecare.IntegrationTest;
 import uc.dei.mse.supportivecare.domain.Document;
 import uc.dei.mse.supportivecare.domain.Outcome;
@@ -32,7 +30,6 @@ import uc.dei.mse.supportivecare.repository.OutcomeRepository;
 import uc.dei.mse.supportivecare.service.DocumentService;
 import uc.dei.mse.supportivecare.service.OutcomeQueryService;
 import uc.dei.mse.supportivecare.service.OutcomeService;
-import uc.dei.mse.supportivecare.service.dto.OutcomeCriteria;
 import uc.dei.mse.supportivecare.service.dto.OutcomeDTO;
 import uc.dei.mse.supportivecare.service.mapper.DocumentContentMapper;
 import uc.dei.mse.supportivecare.service.mapper.OutcomeMapper;

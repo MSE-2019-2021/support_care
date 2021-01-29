@@ -76,7 +76,7 @@ export class AccountService {
   }
 
   getImageUrl(): string {
-    return this.userIdentity ? this.userIdentity.imageUrl : '';
+    return this.userIdentity?.imageUrl ?? '';
   }
 
   private fetch(): Observable<Account> {

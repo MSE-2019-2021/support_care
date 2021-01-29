@@ -4,30 +4,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { TherapeuticRegimeService } from '../service/therapeutic-regime.service';
 import { ActiveSubstance } from 'app/entities/active-substance/active-substance.model';
 import { Treatment } from 'app/entities/treatment/treatment.model';
 
 import { TherapeuticRegimeUpdateComponent } from './therapeutic-regime-update.component';
 import { TherapeuticRegimeCancelDialogComponent } from '../cancel/therapeutic-regime-cancel-dialog.component';
 
-export class MockNgbModalRef {
-  componentInstance = {
-    prompt: undefined,
-    title: undefined,
-  };
-  result: Promise<any> = new Promise(resolve => resolve(true));
-}
-
 describe('Component Tests', () => {
   describe('TherapeuticRegime Management Update Component', () => {
     let comp: TherapeuticRegimeUpdateComponent;
     let fixture: ComponentFixture<TherapeuticRegimeUpdateComponent>;
-    let service: TherapeuticRegimeService;
-    let modalService: NgbModal;
-    let mockModalRef: MockNgbModalRef;
 
     const mockRouter = {
       navigate: jasmine.createSpy('navigate'),
@@ -44,51 +31,7 @@ describe('Component Tests', () => {
 
       fixture = TestBed.createComponent(TherapeuticRegimeUpdateComponent);
       comp = fixture.componentInstance;
-      // service = TestBed.inject(TherapeuticRegimeService);
-      // modalService = TestBed.inject(NgbModal);
-      // mockModalRef = new MockNgbModalRef();
     });
-
-    /*
-    describe('save', () => {
-      it('Should call update service on save for existing entity', fakeAsync(() => {
-        // GIVEN
-        const entity = new TherapeuticRegime(123);
-        const activeSubstance = new ActiveSubstance(12, 'name', 'dosage', 'form');
-        entity.activeSubstances = [activeSubstance];
-        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
-        comp.updateForm(entity);
-        const translateResult = comp.getSelectedActiveSubstance(entity.activeSubstances);
-        // WHEN
-        comp.save();
-        tick(); // simulate async
-
-        // THEN
-        expect(service.update).toHaveBeenCalledWith(entity);
-        expect(mockRouter.navigate).toBeCalledWith(['/therapeutic-regime', 123, 'view']);
-        expect(comp.isSaving).toEqual(false);
-        expect(entity).toEqual(jasmine.objectContaining({ id: 123 }));
-      }));
-
-      it('Should call create service on save for new entity', fakeAsync(() => {
-        // GIVEN
-        const entity = new TherapeuticRegime(123);
-        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
-        entity.activeSubstances = [];
-        comp.updateForm(entity);
-        comp.getSelectedActiveSubstance([]);
-        // WHEN
-        comp.save();
-        tick(); // simulate async
-
-        // THEN
-        expect(comp.activeSubstances).toEqual([]);
-        expect(service.create).toHaveBeenCalledWith(entity);
-        expect(mockRouter.navigate).toBeCalledWith(['/therapeutic-regime', 123, 'view']);
-        expect(comp.isSaving).toEqual(false);
-      }));
-    });
-    */
 
     describe('Tracking relationships identifiers', () => {
       describe('trackTreatmentById', () => {

@@ -8,8 +8,8 @@ import { IActiveSubstance } from '../active-substance.model';
 import * as dayjs from 'dayjs';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<IActiveSubstance>;
-type EntityArrayResponseType = HttpResponse<IActiveSubstance[]>;
+export type EntityResponseType = HttpResponse<IActiveSubstance>;
+export type EntityArrayResponseType = HttpResponse<IActiveSubstance[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ActiveSubstanceService {
