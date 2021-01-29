@@ -53,7 +53,7 @@
     </div>
     <div class="sectionWrapper" *ngIf="feedbacks && feedbacks.length > 0">
       <div infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-        <span *ngFor="let feedback of feedbacks; let last = last">
+        <span *ngFor="let feedback of feedbacks; let last = last" data-cy="entityTable">
           <div class="card feedbackCard" [ngClass]="feedback.solved ? 'bg-gray' : 'bg-white'">
             <div class="cardHeader">
               <a [routerLink]="['/' + feedback.entityType, feedback.entityId, 'view']">
