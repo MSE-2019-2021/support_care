@@ -44,7 +44,7 @@ public class ThumbCriteria implements Serializable, Criteria {
 
     private LongFilter entityId;
 
-    private BooleanFilter thumbCount;
+    private BooleanFilter thumb;
 
     public ThumbCriteria() {}
 
@@ -52,7 +52,7 @@ public class ThumbCriteria implements Serializable, Criteria {
         this.id = other.id == null ? null : other.id.copy();
         this.entityType = other.entityType == null ? null : other.entityType.copy();
         this.entityId = other.entityId == null ? null : other.entityId.copy();
-        this.thumbCount = other.thumbCount == null ? null : other.thumbCount.copy();
+        this.thumb = other.thumb == null ? null : other.thumb.copy();
     }
 
     @Override
@@ -85,11 +85,11 @@ public class ThumbCriteria implements Serializable, Criteria {
     }
 
     public BooleanFilter getThumb() {
-        return thumbCount;
+        return thumb;
     }
 
-    public void setThumb(BooleanFilter thumbCount) {
-        this.thumbCount = thumbCount;
+    public void setThumb(BooleanFilter thumb) {
+        this.thumb = thumb;
     }
 
     @Override
@@ -105,13 +105,13 @@ public class ThumbCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(entityType, that.entityType) &&
             Objects.equals(entityId, that.entityId) &&
-            Objects.equals(thumbCount, that.thumbCount)
+            Objects.equals(thumb, that.thumb)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, entityType, entityId, thumbCount);
+        return Objects.hash(id, entityType, entityId, thumb);
     }
 
     // prettier-ignore
@@ -121,7 +121,7 @@ public class ThumbCriteria implements Serializable, Criteria {
                 (id != null ? "id=" + id + ", " : "") +
                 (entityType != null ? "entityType=" + entityType + ", " : "") +
                 (entityId != null ? "entityId=" + entityId + ", " : "") +
-                (thumbCount != null ? "thumbCount=" + thumbCount + ", " : "") +
+                (thumb != null ? "thumb=" + thumb + ", " : "") +
             "}";
     }
 }
