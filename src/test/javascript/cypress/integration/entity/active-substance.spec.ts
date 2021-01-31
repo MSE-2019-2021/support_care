@@ -9,22 +9,16 @@ describe.only('ActiveSubstance e2e test', () => {
     });
 
     cy.clearCookies();
-    cy.server();
-    cy.route('GET', '/api/active-substances*').as('entitiesRequest');
+    cy.intercept('GET', '/api/active-substances*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
     cy.clickOnEntityMenuItem('active-substance');
-    cy.wait('@entitiesRequest')
-      .its('responseBody')
-      .then(array => {
-        startingEntitiesCount = array.length;
-      });
+    cy.wait('@entitiesRequest').then(({ request, response }) => (startingEntitiesCount = response.body.length));
     cy.visit('/');
   });
 
   it('should load ActiveSubstances', () => {
-    cy.server();
-    cy.route('GET', '/api/active-substances*').as('entitiesRequest');
+    cy.intercept('GET', '/api/active-substances*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('active-substance');
     cy.wait('@entitiesRequest');

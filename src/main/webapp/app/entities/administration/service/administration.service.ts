@@ -6,8 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IAdministration } from '../administration.model';
 
-type EntityResponseType = HttpResponse<IAdministration>;
-type EntityArrayResponseType = HttpResponse<IAdministration[]>;
+export type EntityResponseType = HttpResponse<IAdministration>;
+export type EntityArrayResponseType = HttpResponse<IAdministration[]>;
 
 @Injectable({ providedIn: 'root' })
 export class AdministrationService {

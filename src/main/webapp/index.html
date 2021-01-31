@@ -8,9 +8,10 @@
     <meta name="google" content="notranslate" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="stylesheet" href="content/css/loading.css" />
     <base href="/" />
+    <link rel="icon" href="favicon.ico" />
+    <link rel="manifest" href="manifest.webapp" />
+    <link rel="stylesheet" href="content/css/loading.css" />
     <!-- jhipster-needle-add-resources-to-root - JHipster will add new resources here -->
   </head>
   <body style="height: 100%">
@@ -90,7 +91,7 @@
     <noscript>
       <h1>You must enable javascript to view this page.</h1>
     </noscript>
-    <script type="text/javascript" language="javascript">
+    <script type="text/javascript">
       // show an error message if the app loading takes more than 5 sec
       window.onload = function () {
         setTimeout(showError, 4000);
@@ -104,12 +105,12 @@
     </script>
     <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
     <script>
-        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-XXXXX-X');ga('send','pageview');
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-XXXXX-X');ga('send','pageview');
     </script>-->
   </body>
 </html>

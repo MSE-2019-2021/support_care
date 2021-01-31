@@ -6,8 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IToxicityRate } from '../toxicity-rate.model';
 
-type EntityResponseType = HttpResponse<IToxicityRate>;
-type EntityArrayResponseType = HttpResponse<IToxicityRate[]>;
+export type EntityResponseType = HttpResponse<IToxicityRate>;
+export type EntityArrayResponseType = HttpResponse<IToxicityRate[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ToxicityRateService {

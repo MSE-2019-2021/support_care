@@ -6,8 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IDocument } from '../document.model';
 
-type EntityResponseType = HttpResponse<IDocument>;
-type EntityArrayResponseType = HttpResponse<IDocument[]>;
+export type EntityResponseType = HttpResponse<IDocument>;
+export type EntityArrayResponseType = HttpResponse<IDocument[]>;
 
 @Injectable({ providedIn: 'root' })
 export class DocumentService {

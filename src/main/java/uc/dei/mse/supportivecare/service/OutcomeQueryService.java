@@ -92,6 +92,9 @@ public class OutcomeQueryService extends QueryService<Outcome> {
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Outcome_.description));
             }
+            if (criteria.getLink() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getLink(), Outcome_.link));
+            }
             if (criteria.getDocumentId() != null) {
                 specification =
                     specification.and(

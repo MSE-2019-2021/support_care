@@ -8,6 +8,7 @@ import uc.dei.mse.supportivecare.domain.User;
 public class UserDTO {
 
     private Long id;
+
     private String login;
 
     public UserDTO() {

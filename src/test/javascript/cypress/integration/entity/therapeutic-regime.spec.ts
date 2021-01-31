@@ -16,22 +16,16 @@ describe('TherapeuticRegime e2e test', () => {
     });
 
     cy.clearCookies();
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
+    cy.intercept('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('');
     cy.login('admin', 'admin');
     cy.clickOnEntityMenuItem('therapeutic-regime');
-    cy.wait('@entitiesRequest')
-      .its('responseBody')
-      .then(array => {
-        startingEntitiesCount = array.length;
-      });
+    cy.wait('@entitiesRequest').then(({ request, response }) => (startingEntitiesCount = response.body.length));
     cy.visit('/');
   });
 
   it('should load TherapeuticRegimes (MSEDO-83 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
+    cy.intercept('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
@@ -45,8 +39,7 @@ describe('TherapeuticRegime e2e test', () => {
   });
 
   it('should load details TherapeuticRegime page (MSEDO-82 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
+    cy.intercept('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
@@ -59,8 +52,7 @@ describe('TherapeuticRegime e2e test', () => {
   });
 
   it('should load create TherapeuticRegime page', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
+    cy.intercept('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
@@ -71,8 +63,7 @@ describe('TherapeuticRegime e2e test', () => {
   });
 
   it('should load edit TherapeuticRegime page (MSEDO-85 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
+    cy.intercept('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
     cy.visit('/');
     cy.clickOnEntityMenuItem('therapeutic-regime');
     cy.wait('@entitiesRequest');
@@ -84,79 +75,4 @@ describe('TherapeuticRegime e2e test', () => {
     }
     cy.visit('/');
   });
-
-  /* this test is commented because it contains required relationships
-  it('should create an instance of TherapeuticRegime (MSEDO-84 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('therapeutic-regime');
-    cy.wait('@entitiesRequest');
-    cy.get(entityCreateButtonSelector).click({force: true});
-    cy.getEntityCreateUpdateHeading('TherapeuticRegime');
-
-    cy.get(`[data-cy="name"]`).type('Aço', { force: true }).invoke('val').should('match', new RegExp('Aço'));
-
-
-    cy.get(`[data-cy="acronym"]`).type('AI Atum Chapéu', { force: true }).invoke('val').should('match', new RegExp('AI Atum Chapéu'));
-
-
-    cy.get(`[data-cy="purpose"]`).type('synergize calculating', { force: true }).invoke('val').should('match', new RegExp('synergize calculating'));
-
-
-    cy.get(`[data-cy="condition"]`).type('Business-focused Madeira HTTP', { force: true }).invoke('val').should('match', new RegExp('Business-focused Madeira HTTP'));
-
-
-    cy.get(`[data-cy="timing"]`).type('Enterprise-wide TCP', { force: true }).invoke('val').should('match', new RegExp('Enterprise-wide TCP'));
-
-
-    cy.get(`[data-cy="indication"]`).type('generating Peru system', { force: true }).invoke('val').should('match', new RegExp('generating Peru system'));
-
-
-    cy.get(`[data-cy="criteria"]`).type('AI e-commerce visionary', { force: true }).invoke('val').should('match', new RegExp('AI e-commerce visionary'));
-
-
-    cy.get(`[data-cy="notice"]`).type('reintermediate deliverables', { force: true }).invoke('val').should('match', new RegExp('reintermediate deliverables'));
-
-    cy.setFieldSelectToLastOfEntity('activeSubstance');
-
-    cy.setFieldSelectToLastOfEntity('treatment');
-
-    cy.get(entityCreateSaveButtonSelector).click({force: true});
-    cy.scrollTo('top', {ensureScrollable: false});
-    cy.get(entityCreateSaveButtonSelector).should('not.exist');
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequestAfterCreate');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('therapeutic-regime');
-    cy.wait('@entitiesRequestAfterCreate');
-    cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount + 1);
-    cy.visit('/');
-  });
-  */
-
-  /* this test is commented because it contains required relationships
-  it('should delete last instance of TherapeuticRegime (MSEDO-130 - 1)', () => {
-    cy.server();
-    cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequest');
-    cy.route('DELETE', '/api/therapeutic-regimes/*').as('deleteEntityRequest');
-    cy.visit('/');
-    cy.clickOnEntityMenuItem('therapeutic-regime');
-    cy.wait('@entitiesRequest').its('responseBody').then(array => {
-      startingEntitiesCount = array.length;
-      if (startingEntitiesCount > 0) {
-        cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount);
-        cy.get(entityDeleteButtonSelector).last().click({force: true});
-        cy.getEntityDeleteDialogHeading('therapeuticRegime').should('exist');
-        cy.get(entityConfirmDeleteButtonSelector).click({force: true});
-        cy.wait('@deleteEntityRequest');
-        cy.route('GET', '/api/therapeutic-regimes*').as('entitiesRequestAfterDelete');
-        cy.visit('/');
-        cy.clickOnEntityMenuItem('therapeutic-regime');
-        cy.wait('@entitiesRequestAfterDelete');
-        cy.get(entityTableSelector).should('have.lengthOf', startingEntitiesCount - 1);
-      }
-      cy.visit('/');
-    });
-  });
-  */
 });

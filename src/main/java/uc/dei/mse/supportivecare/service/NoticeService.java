@@ -44,7 +44,7 @@ public class NoticeService {
     }
 
     /**
-     * Partially udpates a notice.
+     * Partially update a notice.
      *
      * @param noticeDTO the entity to update partially.
      * @return the persisted entity.

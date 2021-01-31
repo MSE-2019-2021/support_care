@@ -44,7 +44,7 @@ public class TreatmentService {
     }
 
     /**
-     * Partially udpates a treatment.
+     * Partially update a treatment.
      *
      * @param treatmentDTO the entity to update partially.
      * @return the persisted entity.

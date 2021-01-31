@@ -20,8 +20,7 @@ describe('forgot your password', () => {
   });
 
   beforeEach(() => {
-    cy.server();
-    cy.route('POST', '/api/account/reset-password/init').as('initResetPassword');
+    cy.intercept('POST', '/api/account/reset-password/init').as('initResetPassword');
   });
 
   it('requires email', () => {
@@ -32,6 +31,6 @@ describe('forgot your password', () => {
   it('should be able to init reset password', () => {
     cy.get(emailResetPasswordSelector).type('user@gmail.com');
     cy.get(submitInitResetPasswordSelector).click({ force: true });
-    cy.wait('@initResetPassword').its('status').should('equal', 200);
+    cy.wait('@initResetPassword').then(({ request, response }) => expect(response.statusCode).to.equal(200));
   });
 });

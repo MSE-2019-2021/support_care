@@ -44,7 +44,7 @@ public class DocumentService {
     }
 
     /**
-     * Partially udpates a document.
+     * Partially update a document.
      *
      * @param documentDTO the entity to update partially.
      * @return the persisted entity.

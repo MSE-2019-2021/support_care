@@ -25,7 +25,6 @@ module.exports = (config, options) => {
       }),
       new BrowserSyncPlugin(
         {
-          https: false,
           host: 'localhost',
           port: 9000,
           https: tls,

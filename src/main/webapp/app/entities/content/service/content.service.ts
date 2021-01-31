@@ -6,8 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IContent } from '../content.model';
 
-type EntityResponseType = HttpResponse<IContent>;
-type EntityArrayResponseType = HttpResponse<IContent[]>;
+export type EntityResponseType = HttpResponse<IContent>;
+export type EntityArrayResponseType = HttpResponse<IContent[]>;
 
 @Injectable({ providedIn: 'root' })
 export class ContentService {

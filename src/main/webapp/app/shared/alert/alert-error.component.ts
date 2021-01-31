@@ -56,7 +56,11 @@ export class AlertErrorComponent implements OnDestroy {
               this.addErrorAlert(`Error on field "${fieldName}"`, `error.${fieldError.message as string}`, { fieldName });
             }
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
-            this.addErrorAlert(httpErrorResponse.error.message, httpErrorResponse.error.message, httpErrorResponse.error.params);
+            this.addErrorAlert(
+              httpErrorResponse.error.detail ?? httpErrorResponse.error.message,
+              httpErrorResponse.error.message,
+              httpErrorResponse.error.params
+            );
           } else {
             this.addErrorAlert(httpErrorResponse.error, httpErrorResponse.error);
           }
@@ -69,7 +73,11 @@ export class AlertErrorComponent implements OnDestroy {
 
         default:
           if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
-            this.addErrorAlert(httpErrorResponse.error.message, httpErrorResponse.error.message);
+            this.addErrorAlert(
+              httpErrorResponse.error.detail ?? httpErrorResponse.error.message,
+              httpErrorResponse.error.message,
+              httpErrorResponse.error.params
+            );
           } else {
             this.addErrorAlert(httpErrorResponse.error, httpErrorResponse.error);
           }
