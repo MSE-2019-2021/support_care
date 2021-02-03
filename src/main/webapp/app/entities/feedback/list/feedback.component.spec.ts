@@ -145,5 +145,15 @@ describe('Component Tests', () => {
       // THEN
       expect(result).toEqual(['solved,desc', 'createdDate,desc', 'id']);
     });
+
+    it('should update feedback', () => {
+      comp.ngOnInit();
+
+      const feedbackTest = new Feedback(12);
+
+      comp.markFeedbackAsSolved(feedbackTest);
+
+      expect(feedbackTest.solved).toBeTruthy();
+    });
   });
 });
