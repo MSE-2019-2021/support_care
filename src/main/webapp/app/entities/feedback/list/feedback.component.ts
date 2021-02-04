@@ -132,4 +132,11 @@ export class FeedbackComponent implements OnInit {
       }
     }
   }
+
+  markFeedbackAsSolved(feedback: IFeedback): void {
+    feedback.solved = true;
+    this.feedbackService.update(feedback).subscribe(() => {
+      this.reset();
+    });
+  }
 }

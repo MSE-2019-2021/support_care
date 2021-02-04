@@ -68,7 +68,7 @@
               <span class="font-italic" *ngIf="!feedback.anonym">{{ feedback.createdBy }}</span>
             </div>
             <div *ngIf="!feedback.solved">
-              <button type="button" class="btn button-transparent markSolvedButton">
+              <button type="button" class="btn button-transparent markSolvedButton" (click)="markFeedbackAsSolved(feedback)">
                 <fa-icon class="list-text-color" icon="check-circle"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="supportivecareApp.feedback.actions.markAsSolved"
                   >Mark as solved</span
                 >

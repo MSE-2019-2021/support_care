@@ -8,7 +8,7 @@
     <span>{{ feedback.reason }}</span>
   </div>
   <div *customHasAnyAuthority="'ROLE_USER'" class="card-footer bg-white border-0">
-    <button type="button" class="btn bg-transparent button-transparent float-left">
+    <button type="button" class="btn bg-transparent button-transparent float-left" (click)="markFeedbackAsSolved(feedback, feedbacks, i)">
       <fa-icon class="list-text-color" icon="check-circle"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="supportivecareApp.feedback.actions.markAsSolved">Mark as solved</span>
     </button>
   </div>
