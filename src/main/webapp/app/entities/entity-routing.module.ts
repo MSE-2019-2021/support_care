@@ -25,11 +25,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
       },
       {
-        path: 'content',
-        data: { pageTitle: 'supportivecareApp.content.home.title' },
-        loadChildren: () => import('./content/content.module').then(m => m.ContentModule),
-      },
-      {
         path: 'outcome',
         data: { pageTitle: 'supportivecareApp.outcome.home.title' },
         loadChildren: () => import('./outcome/outcome.module').then(m => m.OutcomeModule),
