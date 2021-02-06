@@ -5,11 +5,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
-        path: 'notice',
-        data: { pageTitle: 'supportivecareApp.notice.home.title' },
-        loadChildren: () => import('./notice/notice.module').then(m => m.NoticeModule),
-      },
-      {
         path: 'active-substance',
         data: { pageTitle: 'supportivecareApp.activeSubstance.home.title' },
         loadChildren: () => import('./active-substance/active-substance.module').then(m => m.ActiveSubstanceModule),
