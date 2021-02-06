@@ -20,11 +20,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.TherapeuticRegimeModule),
       },
       {
-        path: 'document',
-        data: { pageTitle: 'supportivecareApp.document.home.title' },
-        loadChildren: () => import('./document/document.module').then(m => m.DocumentModule),
-      },
-      {
         path: 'outcome',
         data: { pageTitle: 'supportivecareApp.outcome.home.title' },
         loadChildren: () => import('./outcome/outcome.module').then(m => m.OutcomeModule),
