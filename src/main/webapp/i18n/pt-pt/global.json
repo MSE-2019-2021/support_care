@@ -10,7 +10,6 @@
         "activeSubstance": "Substâncias Activas",
         "therapeuticRegime": "Regimes Terapêuticos",
         "outcome": "PROMs",
-        "toxicityRate": "Grau de Toxicidade",
         "symptom": "Sintomas",
         "feedback": "Feedbacks",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
