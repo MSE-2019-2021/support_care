@@ -15,11 +15,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: () => import('./active-substance/active-substance.module').then(m => m.ActiveSubstanceModule),
       },
       {
-        path: 'treatment',
-        data: { pageTitle: 'supportivecareApp.treatment.home.title' },
-        loadChildren: () => import('./treatment/treatment.module').then(m => m.TreatmentModule),
-      },
-      {
         path: 'therapeutic-regime',
         data: { pageTitle: 'supportivecareApp.therapeuticRegime.home.title' },
         loadChildren: () => import('./therapeutic-regime/therapeutic-regime.module').then(m => m.TherapeuticRegimeModule),
