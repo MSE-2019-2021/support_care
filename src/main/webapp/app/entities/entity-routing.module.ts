@@ -5,11 +5,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
-        path: 'administration',
-        data: { pageTitle: 'supportivecareApp.administration.home.title' },
-        loadChildren: () => import('./administration/administration.module').then(m => m.AdministrationModule),
-      },
-      {
         path: 'notice',
         data: { pageTitle: 'supportivecareApp.notice.home.title' },
         loadChildren: () => import('./notice/notice.module').then(m => m.NoticeModule),
