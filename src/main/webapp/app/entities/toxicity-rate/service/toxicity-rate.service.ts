@@ -6,7 +6,6 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/core/request/request-util';
 import { IToxicityRate } from '../toxicity-rate.model';
 
-export type EntityResponseType = HttpResponse<IToxicityRate>;
 export type EntityArrayResponseType = HttpResponse<IToxicityRate[]>;
 
 @Injectable({ providedIn: 'root' })
@@ -15,24 +14,8 @@ export class ToxicityRateService {
 
   constructor(protected http: HttpClient) {}
 
-  create(toxicityRate: IToxicityRate): Observable<EntityResponseType> {
-    return this.http.post<IToxicityRate>(this.resourceUrl, toxicityRate, { observe: 'response' });
-  }
-
-  update(toxicityRate: IToxicityRate): Observable<EntityResponseType> {
-    return this.http.put<IToxicityRate>(this.resourceUrl, toxicityRate, { observe: 'response' });
-  }
-
-  find(id: number): Observable<EntityResponseType> {
-    return this.http.get<IToxicityRate>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IToxicityRate[]>(this.resourceUrl, { params: options, observe: 'response' });
-  }
-
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 }

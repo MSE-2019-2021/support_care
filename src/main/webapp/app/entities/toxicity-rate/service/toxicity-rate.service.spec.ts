@@ -24,56 +24,6 @@ describe('Service Tests', () => {
     });
 
     describe('Service methods', () => {
-      it('should find an element', () => {
-        const returnedFromService = Object.assign({}, elemDefault);
-
-        service.find(123).subscribe(resp => (expectedResult = resp.body));
-
-        const req = httpMock.expectOne({ method: 'GET' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toMatchObject(elemDefault);
-      });
-
-      it('should create a ToxicityRate', () => {
-        const returnedFromService = Object.assign(
-          {
-            id: 0,
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.create(new ToxicityRate()).subscribe(resp => (expectedResult = resp.body));
-
-        const req = httpMock.expectOne({ method: 'POST' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toMatchObject(expected);
-      });
-
-      it('should update a ToxicityRate', () => {
-        const returnedFromService = Object.assign(
-          {
-            id: 1,
-            name: 'BBBBBB',
-            description: 'BBBBBB',
-            notice: 'BBBBBB',
-            autonomousIntervention: 'BBBBBB',
-            interdependentIntervention: 'BBBBBB',
-            selfManagement: 'BBBBBB',
-          },
-          elemDefault
-        );
-
-        const expected = Object.assign({}, returnedFromService);
-
-        service.update(expected).subscribe(resp => (expectedResult = resp.body));
-
-        const req = httpMock.expectOne({ method: 'PUT' });
-        req.flush(returnedFromService);
-        expect(expectedResult).toMatchObject(expected);
-      });
-
       it('should return a list of ToxicityRate', () => {
         const returnedFromService = Object.assign(
           {
@@ -96,14 +46,6 @@ describe('Service Tests', () => {
         req.flush([returnedFromService]);
         httpMock.verify();
         expect(expectedResult).toContainEqual(expected);
-      });
-
-      it('should delete a ToxicityRate', () => {
-        service.delete(123).subscribe(resp => (expectedResult = resp.ok));
-
-        const req = httpMock.expectOne({ method: 'DELETE' });
-        req.flush({ status: 200 });
-        expect(expectedResult);
       });
     });
 

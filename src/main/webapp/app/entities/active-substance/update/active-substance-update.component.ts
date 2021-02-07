@@ -9,7 +9,6 @@ import { ActiveSubstanceService } from '../service/active-substance.service';
 import { INotice } from 'app/entities/notice/notice.model';
 import { IAdministration } from 'app/entities/administration/administration.model';
 import { AdministrationService } from 'app/entities/administration/service/administration.service';
-import { NoticeService } from 'app/entities/notice/service/notice.service';
 
 @Component({
   selector: 'custom-active-substance-update',
@@ -33,7 +32,6 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
   constructor(
     protected activeSubstanceService: ActiveSubstanceService,
     protected administrationService: AdministrationService,
-    protected noticeService: NoticeService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}

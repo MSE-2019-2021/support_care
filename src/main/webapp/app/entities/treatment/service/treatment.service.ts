@@ -15,24 +15,8 @@ export class TreatmentService {
 
   constructor(protected http: HttpClient) {}
 
-  create(treatment: ITreatment): Observable<EntityResponseType> {
-    return this.http.post<ITreatment>(this.resourceUrl, treatment, { observe: 'response' });
-  }
-
-  update(treatment: ITreatment): Observable<EntityResponseType> {
-    return this.http.put<ITreatment>(this.resourceUrl, treatment, { observe: 'response' });
-  }
-
-  find(id: number): Observable<EntityResponseType> {
-    return this.http.get<ITreatment>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-  }
-
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<ITreatment[]>(this.resourceUrl, { params: options, observe: 'response' });
-  }
-
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 }

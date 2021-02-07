@@ -7,15 +7,9 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
-        "administration": "Administrations",
-        "notice": "Notice",
         "activeSubstance": "Active Substances",
-        "treatment": "Treatments",
         "therapeuticRegime": "Therapeutic Regimes",
-        "document": "Document",
-        "content": "Content",
         "outcome": "PROMs",
-        "toxicityRate": "Toxicity Rate",
         "symptom": "Symptoms",
         "feedback": "Feedbacks",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"

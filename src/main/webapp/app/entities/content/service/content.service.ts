@@ -15,14 +15,6 @@ export class ContentService {
 
   constructor(protected http: HttpClient) {}
 
-  create(content: IContent): Observable<EntityResponseType> {
-    return this.http.post<IContent>(this.resourceUrl, content, { observe: 'response' });
-  }
-
-  update(content: IContent): Observable<EntityResponseType> {
-    return this.http.put<IContent>(this.resourceUrl, content, { observe: 'response' });
-  }
-
   find(id: number): Observable<EntityResponseType> {
     return this.http.get<IContent>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
@@ -30,9 +22,5 @@ export class ContentService {
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IContent[]>(this.resourceUrl, { params: options, observe: 'response' });
-  }
-
-  delete(id: number): Observable<HttpResponse<{}>> {
-    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 }
