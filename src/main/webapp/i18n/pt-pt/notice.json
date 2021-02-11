@@ -1,0 +1,33 @@
+{
+  "supportivecareApp": {
+    "notice": {
+      "home": {
+        "title": "Observações",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Criar nova Observação",
+        "createOrEditLabel": "Criar ou editar Observação",
+        "notFound": "Nenhuma Observação encontrado"
+      },
+      "created": "Uma nova Observação foi criado com o identificador {{ param }}",
+      "updated": "Observação com identificador {{ param }} foi actualizado",
+      "deleted": "Observação com identificador {{ param }} foi eliminado",
+      "delete": {
+        "question": "Tem a certeza que pretende eliminar Observação {{ id }}?"
+      },
+      "detail": {
+        "title": "Observação"
+      },
+      "id": "ID",
+      "name": "Nome",
+      "description": "Descrição",
+      "evaluation": "Avaliação",
+      "intervention": "Intervenção interdependente",
+      "activeSubstance": "Substancia Activa",
+      "help": {
+        "description": "Descrição.",
+        "evaluation": "Avaliação.",
+        "intervention": "Intervenção interdependente."
+      }
+    }
+  }
+}
