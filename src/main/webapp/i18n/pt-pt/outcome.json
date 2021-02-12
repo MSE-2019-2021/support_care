@@ -15,10 +15,6 @@
       "delete": {
         "question": "Tem a certeza que pretende eliminar {{ name }}?"
       },
-      "cancel": {
-        "title": "Deseja sair da criação de um PROM?",
-        "question": "Ao sair irá perder toda a informação inserida na criação deste PROM."
-      },
       "detail": {
         "title": "PROM"
       },

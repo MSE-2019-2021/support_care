@@ -16,10 +16,6 @@
       "delete": {
         "question": "Tem a certeza que pretende eliminar este regime terapêutico?"
       },
-      "cancel": {
-        "title": "Deseja sair da criação deste regime terapêutico?",
-        "question": "Ao sair irá perder toda a informação."
-      },
       "detail": {
         "title": "Regime Terapêutico"
       },
