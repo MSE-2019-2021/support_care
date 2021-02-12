@@ -96,12 +96,16 @@
     "item-count": "Mostrando {{first}} - {{second}} de {{total}} resultados."
   },
   "entity": {
+    "cancelPopUp": {
+      "header": "Tem a certeza que pretende cancelar?",
+      "body": "Ao sair irá perder toda a informação inserida"
+    },
     "action": {
       "addblob": "Adicionar ficheiro",
       "addimage": "Adicionar imagem",
       "back": "Voltar",
       "cancel": "Cancelar",
-      "leaveCreation": "Sair da criação",
+      "leaveCreation": "Sair",
       "delete": "Apagar",
       "edit": "Editar",
       "open": "Abrir",

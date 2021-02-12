@@ -16,10 +16,6 @@
       "delete": {
         "question": "Tem a certeza que pretende eliminar o sintoma?"
       },
-      "cancel": {
-        "title": "Deseja sair da edição deste sintoma?",
-        "question": "Ao sair irá perder toda a informação."
-      },
       "detail": {
         "title": "Sintoma"
       },

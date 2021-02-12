@@ -96,12 +96,16 @@
     "item-count": "Showing {{first}} - {{second}} of {{total}} items."
   },
   "entity": {
+    "cancelPopUp": {
+      "header": "Are you sure you want to cancel?",
+      "body": "By leaving you will loose all the inserted information"
+    },
     "action": {
       "addblob": "Add blob",
       "addimage": "Add image",
       "back": "Back",
       "cancel": "Cancel",
-      "leaveCreation": "Leave Creation",
+      "leaveCreation": "Leave",
       "delete": "Delete",
       "edit": "Edit",
       "open": "Open",
