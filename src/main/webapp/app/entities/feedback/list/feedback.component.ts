@@ -26,8 +26,8 @@ export class FeedbackComponent implements OnInit {
   dateFormat: string;
 
   sortForm = this.fb.group({
-    status: ['unsolved'],
-    creationDate: ['newer'],
+    status: [],
+    creationDate: [],
   });
 
   constructor(
@@ -85,6 +85,10 @@ export class FeedbackComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.sortForm.patchValue({
+      status: ['unsolved'],
+      creationDate: ['newer'],
+    });
     this.loadAll();
   }
 
