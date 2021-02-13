@@ -17,7 +17,8 @@
         "question": "Tem a certeza que pretende eliminar este regime terapêutico?"
       },
       "detail": {
-        "title": "Regime Terapêutico"
+        "title": "Regime Terapêutico",
+        "back": "Voltar para lista de regimes terapêuticos"
       },
       "generalInfo": "Informações gerais",
       "id": "ID",

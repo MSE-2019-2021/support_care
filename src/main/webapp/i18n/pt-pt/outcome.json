@@ -16,7 +16,8 @@
         "question": "Tem a certeza que pretende eliminar {{ name }}?"
       },
       "detail": {
-        "title": "PROM"
+        "title": "PROM",
+        "back": "Voltar para a lista de PROMs"
       },
       "id": "ID",
       "name": "Nome",

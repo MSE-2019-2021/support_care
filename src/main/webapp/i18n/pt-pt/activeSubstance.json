@@ -17,7 +17,8 @@
         "question": "Tem a certeza que pretende eliminar a substância ativa {{ id }}?"
       },
       "detail": {
-        "title": "Substância Ativa"
+        "title": "Substância Ativa",
+        "back": "Voltar para lista de substâncias ativas"
       },
       "generalInfo": "Informações gerais",
       "id": "ID",
