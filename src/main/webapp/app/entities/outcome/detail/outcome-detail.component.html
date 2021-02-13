@@ -39,6 +39,7 @@
           <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.outcome.attachmentDetails" [ngbTooltip]="'supportivecareApp.outcome.help.attachment' | translate"
             >File</label
           >
+          <div><span *ngIf="outcome.documents?.length === 0">-</span></div>
           <div *ngFor="let document of outcome.documents">
             <span>
               <a class="btn-link" (click)="downloadDocument(document)">{{ document.title }}</a>
@@ -49,8 +50,9 @@
           <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.outcome.link" [ngbTooltip]="'supportivecareApp.outcome.help.link' | translate"></label>
           <div>
             <span>
-              <a class="btn-link" (click)="redirectToLink(outcome.link)">{{ outcome.link }}</a>
+              <a class="btn-link" *ngIf="outcome.link" (click)="redirectToLink(outcome.link)">{{ outcome.link }}</a>
             </span>
+            <span *ngIf="!outcome.link">-</span>
           </div>
         </div>
       </div>

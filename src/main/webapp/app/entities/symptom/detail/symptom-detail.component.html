@@ -46,7 +46,8 @@
         <div class="form-group col-lg-9">
           <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.symptom.notice" [ngbTooltip]="'supportivecareApp.symptom.help.notice' | translate">Notice</label>
           <p>
-            <span>{{ symptom.notice }}</span>
+            <span *ngIf="symptom.notice">{{ symptom.notice }}</span>
+            <span *ngIf="!symptom.notice">-</span>
           </p>
         </div>
 
