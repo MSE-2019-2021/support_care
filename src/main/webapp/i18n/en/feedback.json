@@ -33,10 +33,10 @@
         "sortBy": "Sort by",
         "status": "Status",
         "solved": "Solved first",
-        "creationDate": "Creation date",
         "unsolved": "Unsolved first",
-        "newer": "Newer first",
-        "older": "Older first"
+        "creationDate": "Creation date",
+        "newer": "Latest first",
+        "older": "Oldest first"
       },
       "action": {
         "deleteAllResolved": "Delete all feedbacks resolved"

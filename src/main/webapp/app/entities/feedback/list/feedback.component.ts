@@ -21,8 +21,6 @@ export class FeedbackComponent implements OnInit {
   itemsPerPage: number;
   links: { [key: string]: number };
   page: number;
-  predicate: string;
-  ascending: boolean;
   dateFormat: string;
 
   sortForm = this.fb.group({
@@ -42,8 +40,6 @@ export class FeedbackComponent implements OnInit {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
-    this.ascending = true;
     this.dateFormat = DATE_TIME_FORMAT;
   }
 
@@ -110,9 +106,9 @@ export class FeedbackComponent implements OnInit {
       result.push('solved,asc');
     }
     if (this.sortForm.get('creationDate')!.value === 'older') {
-      result.push('createdDate,desc');
-    } else {
       result.push('createdDate,asc');
+    } else {
+      result.push('createdDate,desc');
     }
     result.push('id');
     return result;
