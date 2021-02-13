@@ -18,7 +18,8 @@
 
     <div class="entityLastUpdate">
       <h2 class="h2-color" data-cy="therapeuticRegimeDetailsHeading">
-        {{ therapeuticRegime.name }}<span *ngIf="therapeuticRegime.acronym" class="title-color"> ({{ therapeuticRegime.acronym }})</span>
+        {{ therapeuticRegime.name }}
+        <span *ngIf="therapeuticRegime.acronym" class="title-color"> ({{ therapeuticRegime.acronym }})</span>
       </h2>
       <div>
         <span customTranslate="entity.detail.lastUpdated"> </span>
@@ -48,6 +49,9 @@
           <div *ngIf="therapeuticRegime.treatment">
             <span>{{ therapeuticRegime.treatment?.type }}</span>
           </div>
+          <div *ngIf="!therapeuticRegime.treatment">
+            <span>-</span>
+          </div>
         </div>
         <div class="form-group col-lg-9">
           <label
@@ -65,7 +69,8 @@
             >Timing</label
           >
           <p>
-            <span>{{ therapeuticRegime.timing }}</span>
+            <span *ngIf="therapeuticRegime.timing">{{ therapeuticRegime.timing }}</span>
+            <span *ngIf="!therapeuticRegime.timing">-</span>
           </p>
         </div>
         <div class="form-group col-lg-9">
@@ -95,7 +100,8 @@
             >Notice</label
           >
           <p>
-            <span>{{ therapeuticRegime.notice }}</span>
+            <span *ngIf="therapeuticRegime.notice">{{ therapeuticRegime.notice }}</span>
+            <span *ngIf="!therapeuticRegime.notice">-</span>
           </p>
         </div>
         <div class="form-group col-lg-9 font-weight-bold">

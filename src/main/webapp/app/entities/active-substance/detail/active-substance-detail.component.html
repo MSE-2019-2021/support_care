@@ -47,7 +47,8 @@
         <div class="form-group col-lg-9">
           <label class="form-control-label font-weight-bold" customTranslate="supportivecareApp.activeSubstance.description">Description</label>
           <p>
-            <span>{{ activeSubstance.description }}</span>
+            <span *ngIf="activeSubstance.description">{{ activeSubstance.description }}</span>
+            <span *ngIf="!activeSubstance.description">-</span>
           </p>
         </div>
         <div class="form-group col-lg-9">
@@ -55,6 +56,7 @@
           <div *ngIf="activeSubstance.administration">
             <span>{{ activeSubstance.administration?.type }}</span>
           </div>
+          <div><span *ngIf="!activeSubstance.administration">-</span></div>
         </div>
       </div>
       <ng-container *ngIf="activeSubstance.notices && activeSubstance.notices.length > 0">
