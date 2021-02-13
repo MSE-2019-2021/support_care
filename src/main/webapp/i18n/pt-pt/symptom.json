@@ -17,7 +17,8 @@
         "question": "Tem a certeza que pretende eliminar o sintoma?"
       },
       "detail": {
-        "title": "Sintoma"
+        "title": "Sintoma",
+        "back": "Voltar para a lista de sintomas"
       },
       "generalInfo": "Informações gerais",
       "id": "ID",

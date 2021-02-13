@@ -16,7 +16,8 @@
         "question": "Are you sure you want to delete {{ name }}?"
       },
       "detail": {
-        "title": "PROM"
+        "title": "PROM",
+        "back": "Go back to the PROMs list"
       },
       "id": "ID",
       "name": "Name",

@@ -16,7 +16,8 @@
         "question": "Are you sure you want to delete Active Substance {{ id }}?"
       },
       "detail": {
-        "title": "Active Substance"
+        "title": "Active Substance",
+        "back": "Go back to active substances list"
       },
       "generalInfo": "General information",
       "id": "ID",

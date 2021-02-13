@@ -1,7 +1,7 @@
 <div class="entityWrapper">
   <div *ngIf="outcome">
     <button type="submit" [routerLink]="['/outcome']" class="btn button-transparent" data-cy="entityDetailsBackButton">
-      <fa-icon class="list-text-color" icon="arrow-left"></fa-icon>&nbsp;<span class="list-text-color" customTranslate="entity.action.back">Back</span>
+      <span class="list-text-color" customTranslate="supportivecareApp.outcome.detail.back"></span>
     </button>
     <button *customHasAnyAuthority="'ROLE_USER'" type="button" data-cy="entityEditButton" [routerLink]="['/outcome', outcome.id, 'edit']" class="btn btn-primary float-right button-create">
       <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span customTranslate="supportivecareApp.outcome.home.editLabel">Edit PROM</span>
