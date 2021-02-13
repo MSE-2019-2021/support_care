@@ -116,10 +116,10 @@
 
     <div class="entityUpdateButtonsWrapper">
       <button type="submit" id="save-entity" data-cy="entityCreateSaveButton" [disabled]="editForm.invalid || isSaving" class="btn button-create button-text text-white">
-        <fa-icon icon="check"></fa-icon>&nbsp;<span customTranslate="entity.action.save">Save</span>
+        <fa-icon icon="check"></fa-icon>&nbsp;&nbsp;<span customTranslate="entity.action.save">Save</span>
       </button>
-      <button type="button" id="cancel-save" class="btn btn-danger button-text" (click)="previousState()">
-        <fa-icon icon="times"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
+      <button type="button" id="cancel-save" class="btn btn-danger button-delete" (click)="previousState()">
+        <fa-icon icon="times"></fa-icon>&nbsp;&nbsp;<span customTranslate="entity.action.cancel">Cancel</span>
       </button>
     </div>
   </form>
