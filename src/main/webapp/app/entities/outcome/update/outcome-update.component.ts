@@ -16,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class OutcomeUpdateComponent implements OnInit {
   isSaving = false;
-  files = {};
+  files: FileList | undefined = undefined;
 
   editForm = this.fb.group({
     id: [],
@@ -97,9 +97,9 @@ export class OutcomeUpdateComponent implements OnInit {
     this.isSaving = true;
     const outcome = this.createFromForm();
     if (outcome.id !== undefined) {
-      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files as FileList));
+      this.subscribeToSaveResponse(this.outcomeService.update(outcome, this.files));
     } else {
-      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files as FileList));
+      this.subscribeToSaveResponse(this.outcomeService.create(outcome, this.files));
     }
   }
 
