@@ -11,7 +11,7 @@
         "editLabel": "Editar sintoma"
       },
       "created": "Sintoma foi criado com sucesso",
-      "updated": "Sintoma foi editado com sucesso",
+      "updated": "Sintoma foi actualizado com sucesso",
       "deleted": "Sintoma foi eliminado com sucesso",
       "delete": {
         "question": "Tem a certeza que pretende eliminar o sintoma?"

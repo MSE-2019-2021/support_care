@@ -7,12 +7,12 @@
     <p customTranslate="settings.cancel.question">Ao sair irá perder toda a informação inserida.</p>
   </div>
 
-  <div class="modal-footer">
-    <button data-cy="entityConfirmCancelButton" (click)="cancel(); goBack()" type="button" class="btn btn-danger">
-      <span class="button-text" customTranslate="settings.form.leave">Sair da edição</span>
+  <div class="modal-buttons">
+    <button data-cy="entityConfirmCancelButton" (click)="cancel(); goBack()" type="button" class="btn btn-danger button-delete">
+      <span class="button-text" customTranslate="settings.form.leave"></span>
     </button>
 
-    <button type="button" class="btn button-transparent mr-auto" data-dismiss="modal" (click)="cancel()">
+    <button type="button" class="btn button-transparent mr-auto button-cancel" data-dismiss="modal" (click)="cancel()">
       <span class="button-text list-text-color" customTranslate="settings.form.cancel">Cancelar</span>
     </button>
   </div>

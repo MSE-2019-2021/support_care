@@ -12,11 +12,13 @@
     </p>
   </div>
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()"><fa-icon icon="ban"></fa-icon>&nbsp;<span customTranslate="entity.action.cancel">Cancel</span></button>
+  <div class="modal-buttons">
+    <button id="custom-confirm-delete-activeSubstance" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger button-delete">
+      <span customTranslate="entity.action.delete">Delete</span>
+    </button>
 
-    <button id="custom-confirm-delete-activeSubstance" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
-      <fa-icon icon="times"></fa-icon>&nbsp;<span customTranslate="entity.action.delete">Delete</span>
+    <button type="button" class="btn button-transparent mr-auto button-cancel" data-dismiss="modal" (click)="cancel()">
+      <span class="button-text list-text-color" customTranslate="entity.action.cancel">Cancel</span>
     </button>
   </div>
 </form>

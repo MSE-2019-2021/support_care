@@ -7,12 +7,12 @@
     <p id="custom-cancel-outcome-heading" customTranslate="entity.cancelPopUp.body"></p>
   </div>
 
-  <div class="modal-footer">
-    <button id="custom-confirm-cancel-outcome" data-cy="entityConfirmCancelButton" (click)="confirmCancel()" type="button" class="btn btn-danger">
+  <div class="modal-buttons">
+    <button id="custom-confirm-cancel-outcome" data-cy="entityConfirmCancelButton" (click)="confirmCancel()" type="button" class="btn btn-danger button-delete">
       <span class="button-text" customTranslate="entity.action.leaveCreation">Leave</span>
     </button>
 
-    <button type="button" class="btn button-transparent mr-auto" data-dismiss="modal" (click)="cancel()">
+    <button type="button" class="btn button-transparent mr-auto button-cancel" data-dismiss="modal" (click)="cancel()">
       <span class="button-text list-text-color" customTranslate="entity.action.cancel">Cancel</span>
     </button>
   </div>

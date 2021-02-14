@@ -298,6 +298,18 @@ global styles
   margin-right: 20px;
 }
 
+.button-cancel {
+  min-width: 130px;
+}
+
+.modal-buttons {
+  padding: 0 20px 20px 20px;
+}
+
+.modal-buttons > button {
+  margin-right: 10px;
+}
+
 .button-sort {
   min-width: 48px;
   margin-right: 20px;

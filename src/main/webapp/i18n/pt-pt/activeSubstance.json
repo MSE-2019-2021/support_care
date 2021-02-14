@@ -11,7 +11,7 @@
         "namePlaceholder": "Pesquise por uma substância ativa..."
       },
       "created": "Substância ativa foi criada com sucesso",
-      "updated": "Substância ativa foi editada com sucesso",
+      "updated": "Substância ativa foi atualizada com sucesso",
       "deleted": "Substância ativa foi eliminada com sucesso",
       "delete": {
         "question": "Tem a certeza que pretende eliminar a substância ativa?"
