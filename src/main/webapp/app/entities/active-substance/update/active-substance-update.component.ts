@@ -9,6 +9,8 @@ import { ActiveSubstanceService } from '../service/active-substance.service';
 import { INotice } from 'app/entities/notice/notice.model';
 import { IAdministration } from 'app/entities/administration/administration.model';
 import { AdministrationService } from 'app/entities/administration/service/administration.service';
+import { ActiveSubstanceCancelDialogComponent } from '../cancel/active-substance-cancel-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'custom-active-substance-update',
@@ -33,7 +35,8 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     protected activeSubstanceService: ActiveSubstanceService,
     protected administrationService: AdministrationService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    protected modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -160,5 +163,9 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     const currentActiveSubstance = this.editForm.controls;
     const currentNotices = currentActiveSubstance.notices as FormArray;
     currentNotices.removeAt(i);
+  }
+
+  cancel(): void {
+    this.modalService.open(ActiveSubstanceCancelDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
   }
 }
