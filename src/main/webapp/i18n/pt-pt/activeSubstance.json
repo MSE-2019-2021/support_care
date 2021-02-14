@@ -10,11 +10,11 @@
         "notFound": "Nenhuma substância ativa encontrada",
         "namePlaceholder": "Pesquise por uma substância ativa..."
       },
-      "created": "Uma nova substância ativa foi criada com o identificador {{ param }}",
-      "updated": "Substância ativa com identificador {{ param }} foi actualizada",
-      "deleted": "Substância ativa com identificador {{ param }} foi eliminada",
+      "created": "Substância ativa foi criada com sucesso",
+      "updated": "Substância ativa foi editada com sucesso",
+      "deleted": "Substância ativa foi eliminada com sucesso",
       "delete": {
-        "question": "Tem a certeza que pretende eliminar a substância ativa {{ id }}?"
+        "question": "Tem a certeza que pretende eliminar a substância ativa?"
       },
       "detail": {
         "title": "Substância Ativa",

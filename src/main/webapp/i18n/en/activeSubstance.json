@@ -9,11 +9,11 @@
         "notFound": "No Active Substances found",
         "namePlaceholder": "Search for a active substance..."
       },
-      "created": "A new Active Substance is created with identifier {{ param }}",
-      "updated": "A Active Substance is updated with identifier {{ param }}",
-      "deleted": "A Active Substance is deleted with identifier {{ param }}",
+      "created": "Active substance was successfully created",
+      "updated": "Active substance was successfully edited",
+      "deleted": "Active substance was successfully deleted",
       "delete": {
-        "question": "Are you sure you want to delete Active Substance {{ id }}?"
+        "question": "Are you sure you want to delete this active substance?"
       },
       "detail": {
         "title": "Active Substance",
