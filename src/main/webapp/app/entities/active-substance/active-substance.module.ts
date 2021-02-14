@@ -6,6 +6,7 @@ import { ActiveSubstanceDetailComponent } from './detail/active-substance-detail
 import { ActiveSubstanceUpdateComponent } from './update/active-substance-update.component';
 import { ActiveSubstanceDeleteDialogComponent } from './delete/active-substance-delete-dialog.component';
 import { ActiveSubstanceRoutingModule } from './route/active-substance-routing.module';
+import { ActiveSubstanceCancelDialogComponent } from './cancel/active-substance-cancel-dialog.component';
 
 @NgModule({
   imports: [SharedModule, ActiveSubstanceRoutingModule],
@@ -14,6 +15,7 @@ import { ActiveSubstanceRoutingModule } from './route/active-substance-routing.m
     ActiveSubstanceDetailComponent,
     ActiveSubstanceUpdateComponent,
     ActiveSubstanceDeleteDialogComponent,
+    ActiveSubstanceCancelDialogComponent,
   ],
   entryComponents: [ActiveSubstanceDeleteDialogComponent],
 })
