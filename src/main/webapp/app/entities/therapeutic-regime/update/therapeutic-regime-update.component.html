@@ -120,6 +120,9 @@
           id="field_activeSubstances"
           data-cy="activeSubstance"
           [settings]="dropdownSettings"
+          (onFilterChange)="searching($event)"
+          infinite-scroll
+          (scrolled)="loadPage(page + 1)"
         >
         </ng-multiselect-dropdown>
         <div *ngIf="editForm.get('activeSubstances')!.invalid && (editForm.get('activeSubstances')!.dirty || editForm.get('activeSubstances')!.touched)">

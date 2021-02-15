@@ -58,5 +58,36 @@ describe('Component Tests', () => {
         });
       });
     });
+
+    describe('Dropdown actions', () => {
+      it('Should search active substances', () => {
+        // WHEN
+        comp.searching('');
+
+        // THEN
+        comp.reset();
+        expect(comp.page).toEqual(0);
+      });
+
+      it('Should filter query active substances by name', () => {
+        // WHEN
+        comp.searchName = 'name';
+        comp.getCriteria();
+
+        const result = comp.sort();
+
+        // THEN
+        expect(comp.searchName).toEqual('name');
+        expect(result).toEqual(['name,asc', 'id']);
+      });
+
+      it('should calculate the sort attribute for a name', () => {
+        // WHEN
+        const result = comp.sort();
+
+        // THEN
+        expect(result).toEqual(['name,asc', 'id']);
+      });
+    });
   });
 });
