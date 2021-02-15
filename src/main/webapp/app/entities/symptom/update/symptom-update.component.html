@@ -26,6 +26,9 @@
           id="field_therapeuticRegimes"
           data-cy="therapeuticRegime"
           [settings]="dropdownSettings"
+          (onFilterChange)="searchingTR($event)"
+          infinite-scroll
+          (scrolled)="loadPageTR(page + 1)"
         >
         </ng-multiselect-dropdown>
         <div *ngIf="editForm.get('therapeuticRegimes')!.invalid && (editForm.get('therapeuticRegimes')!.dirty || editForm.get('therapeuticRegimes')!.touched)">
@@ -43,6 +46,9 @@
           id="field_outcomes"
           data-cy="outcome"
           [settings]="dropdownSettings"
+          (onFilterChange)="searchingO($event)"
+          infinite-scroll
+          (scrolled)="loadPageO(page + 1)"
         >
         </ng-multiselect-dropdown>
         <div *ngIf="editForm.get('outcomes')!.invalid && (editForm.get('outcomes')!.dirty || editForm.get('outcomes')!.touched)">

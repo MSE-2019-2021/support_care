@@ -166,5 +166,45 @@ describe('Component Tests', () => {
         });
       }));
     });
+
+    describe('Dropdown actions', () => {
+      it('Should search therapeutic regimes', () => {
+        // WHEN
+        comp.searchingTR('');
+
+        // THEN
+        comp.resetTR();
+        expect(comp.page).toEqual(0);
+      });
+
+      it('Should search outcomes', () => {
+        // WHEN
+        comp.searchingO('');
+
+        // THEN
+        comp.resetO();
+        expect(comp.page).toEqual(0);
+      });
+
+      it('Should filter query therapeutic regimes or outcomes by name', () => {
+        // WHEN
+        comp.searchName = 'name';
+        comp.getCriteria();
+
+        const result = comp.sort();
+
+        // THEN
+        expect(comp.searchName).toEqual('name');
+        expect(result).toEqual(['name,asc', 'id']);
+      });
+
+      it('should calculate the sort attribute for a name', () => {
+        // WHEN
+        const result = comp.sort();
+
+        // THEN
+        expect(result).toEqual(['name,asc', 'id']);
+      });
+    });
   });
 });

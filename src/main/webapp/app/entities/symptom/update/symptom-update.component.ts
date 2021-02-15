@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse } from '@angular/common/http';
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,6 +13,8 @@ import { IToxicityRate } from 'app/entities/toxicity-rate/toxicity-rate.model';
 import { ToxicityRateService } from 'app/entities/toxicity-rate/service/toxicity-rate.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SymptomCancelDialogComponent } from 'app/entities/symptom/cancel/symptom-cancel-dialog.component';
+import { ITEMS_PER_PAGE } from 'app/config/pagination.constants';
+import { ParseLinks } from 'app/core/util/parse-links.service';
 
 @Component({
   selector: 'custom-symptom-update',
@@ -25,6 +27,14 @@ export class SymptomUpdateComponent implements OnInit {
   toxicityrates: IToxicityRate[] = [];
   dropdownList: { id: number; text: string }[] = [];
   dropdownSettings = {};
+  itemsPerPage: number;
+  links: { [key: string]: number };
+  isLoading = false;
+  page: number;
+  predicate: string;
+  ascending: boolean;
+  searchName: string | undefined;
+  timer: ReturnType<typeof setTimeout> = setTimeout(() => '', 200);
 
   editForm = this.fb.group({
     id: [],
@@ -42,8 +52,17 @@ export class SymptomUpdateComponent implements OnInit {
     protected toxicityRateService: ToxicityRateService,
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
-    private fb: FormBuilder
-  ) {}
+    private fb: FormBuilder,
+    protected parseLinks: ParseLinks
+  ) {
+    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.links = {
+      last: 0,
+    };
+    this.page = 0;
+    this.predicate = 'name';
+    this.ascending = true;
+  }
 
   ngOnInit(): void {
     this.dropdownSettings = {
@@ -127,6 +146,137 @@ export class SymptomUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  loadAllTR(): void {
+    this.isLoading = true;
+
+    this.therapeuticRegimeService
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
+      .subscribe(
+        (res: HttpResponse<ITherapeuticRegime[]>) => {
+          this.isLoading = false;
+          this.paginateTherapeuticRegimes(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
+  }
+
+  getCriteria(): {} {
+    let criteria = {};
+
+    if (this.searchName) {
+      criteria = { 'name.contains': this.searchName };
+    }
+    return criteria;
+  }
+
+  resetTR(): void {
+    this.page = 0;
+    this.therapeuticregimes = [];
+    this.loadAllTR();
+  }
+
+  loadPageTR(page: number): void {
+    this.page = page;
+    this.loadAllTR();
+  }
+
+  trackId(index: number, item: ITherapeuticRegime): number {
+    return item.id!;
+  }
+
+  sort(): string[] {
+    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  protected paginateTherapeuticRegimes(data: ITherapeuticRegime[] | null, headers: HttpHeaders): void {
+    this.links = this.parseLinks.parse(headers.get('link') ?? '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.therapeuticregimes.push(data[i]);
+      }
+    }
+  }
+
+  searchingTR(item: any): any {
+    clearTimeout(this.timer);
+    this.searchName = item;
+
+    this.timer = setTimeout(() => {
+      this.resetTR();
+    }, 200);
+  }
+
+  loadAllO(): void {
+    this.isLoading = true;
+
+    this.outcomeService
+      .query(
+        Object.assign(
+          {},
+          {
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+          },
+          this.getCriteria()
+        )
+      )
+      .subscribe(
+        (res: HttpResponse<IOutcome[]>) => {
+          this.isLoading = false;
+          this.paginateOutcomes(res.body, res.headers);
+        },
+        () => {
+          this.isLoading = false;
+        }
+      );
+  }
+
+  resetO(): void {
+    this.page = 0;
+    this.outcomes = [];
+    this.loadAllO();
+  }
+
+  loadPageO(page: number): void {
+    this.page = page;
+    this.loadAllO();
+  }
+
+  protected paginateOutcomes(data: IOutcome[] | null, headers: HttpHeaders): void {
+    this.links = this.parseLinks.parse(headers.get('link') ?? '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.outcomes.push(data[i]);
+      }
+    }
+  }
+
+  searchingO(item: any): any {
+    clearTimeout(this.timer);
+    this.searchName = item;
+
+    this.timer = setTimeout(() => {
+      this.resetO();
+    }, 200);
   }
 
   getSelectedTherapeuticRegime(options: ITherapeuticRegime[]): { id: number; text: string }[] {
