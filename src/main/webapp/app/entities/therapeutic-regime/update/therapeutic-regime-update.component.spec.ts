@@ -1,3 +1,5 @@
+import { HttpHeaders, HttpResponse } from '@angular/common/http';
+
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -66,6 +68,14 @@ describe('Component Tests', () => {
 
         // THEN
         comp.reset();
+        expect(comp.page).toEqual(0);
+      });
+
+      it('Should load page 0 for active substances', () => {
+        // WHEN
+        comp.loadPage(0);
+
+        // THEN
         expect(comp.page).toEqual(0);
       });
 

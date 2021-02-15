@@ -186,6 +186,22 @@ describe('Component Tests', () => {
         expect(comp.page).toEqual(0);
       });
 
+      it('Should load page 0 for outcomes', () => {
+        // WHEN
+        comp.loadPageO(0);
+
+        // THEN
+        expect(comp.page).toEqual(0);
+      });
+
+      it('Should load page 0 for therapeutic regimes', () => {
+        // WHEN
+        comp.loadPageTR(0);
+
+        // THEN
+        expect(comp.page).toEqual(0);
+      });
+
       it('Should filter query therapeutic regimes or outcomes by name', () => {
         // WHEN
         comp.searchName = 'name';
