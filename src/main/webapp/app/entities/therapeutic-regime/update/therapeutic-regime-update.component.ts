@@ -78,6 +78,7 @@ export class TherapeuticRegimeUpdateComponent implements OnInit {
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true,
+      allowRemoteDataSearch: true,
     };
     this.activatedRoute.data.subscribe(({ therapeuticRegime }) => {
       this.updateForm(therapeuticRegime);
