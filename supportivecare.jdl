@@ -126,7 +126,7 @@ entity Document {
 	/**
 	* Título.
 	*/
-	title String required maxlength(255),
+	title String required maxlength(1000),
 	/**
 	* Tamanho.
 	*/

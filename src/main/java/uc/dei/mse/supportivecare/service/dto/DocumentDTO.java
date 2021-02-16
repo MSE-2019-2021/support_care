@@ -18,7 +18,7 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
      * Título.
      */
     @NotNull
-    @Size(max = 255)
+    @Size(max = 1000)
     @ApiModelProperty(value = "Título.", required = true)
     private String title;
 

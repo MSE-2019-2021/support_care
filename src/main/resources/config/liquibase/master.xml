@@ -45,6 +45,7 @@
     <include file="config/liquibase/changelog/20210216190005_change_ToxicityRate_fields_size.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210216190006_change_Symptom_fields_size.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20210216190007_change_Feedback_fields_size.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210216190008_change_Document_fields_size.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
