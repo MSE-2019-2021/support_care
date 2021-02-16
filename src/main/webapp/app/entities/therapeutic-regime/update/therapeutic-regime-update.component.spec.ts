@@ -1,5 +1,3 @@
-import { HttpHeaders, HttpResponse } from '@angular/common/http';
-
 jest.mock('@angular/router');
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
