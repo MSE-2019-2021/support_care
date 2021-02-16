@@ -73,6 +73,7 @@ export class SymptomUpdateComponent implements OnInit {
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true,
+      allowRemoteDataSearch: true,
     };
     this.activatedRoute.data.subscribe(({ symptom }) => {
       this.updateForm(symptom);
