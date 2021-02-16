@@ -38,10 +38,10 @@ public class Document extends AbstractAuditingEntity implements Serializable {
     private Long size;
 
     /**
-     * Tipo de ficheiro.
+     * Tipo de ficheiro: https://tools.ietf.org/html/rfc6838#section-4.2
      */
-    @Size(max = 50)
-    @Column(name = "mime_type", length = 50)
+    @Size(max = 127)
+    @Column(name = "mime_type", length = 127)
     private String mimeType;
 
     @JsonIgnoreProperties(value = { "document" }, allowSetters = true)

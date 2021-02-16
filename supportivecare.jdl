@@ -134,7 +134,7 @@ entity Document {
 	/**
 	* Tipo de ficheiro.
 	*/
-  	mimeType String maxlength(50)
+  	mimeType String maxlength(127)
 }
 
 /**

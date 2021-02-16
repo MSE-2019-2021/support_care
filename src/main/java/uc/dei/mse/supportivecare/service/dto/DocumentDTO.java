@@ -30,9 +30,9 @@ public class DocumentDTO extends AbstractAuditingDTO implements Serializable {
     private Long size;
 
     /**
-     * Tipo de ficheiro.
+     * Tipo de ficheiro: https://tools.ietf.org/html/rfc6838#section-4.2
      */
-    @Size(max = 50)
+    @Size(max = 127)
     @ApiModelProperty(value = "Tipo de ficheiro.")
     private String mimeType;
 
