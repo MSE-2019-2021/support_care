@@ -6,21 +6,21 @@
       "fieldType": "String",
       "javadoc": "Descrição.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "evaluation",
       "fieldType": "String",
       "javadoc": "Avaliação.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "intervention",
       "fieldType": "String",
       "javadoc": "Intervenção interdependente.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

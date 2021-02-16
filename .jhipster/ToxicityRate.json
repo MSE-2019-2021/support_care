@@ -13,35 +13,35 @@
       "fieldType": "String",
       "javadoc": "Descrição.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
       "javadoc": "Informação ao doente.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "autonomousIntervention",
       "fieldType": "String",
       "javadoc": "Intervenção autónoma.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "interdependentIntervention",
       "fieldType": "String",
       "javadoc": "Intervenção interdependente.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "selfManagement",
       "fieldType": "String",
       "javadoc": "Suporte para auto-gestão.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

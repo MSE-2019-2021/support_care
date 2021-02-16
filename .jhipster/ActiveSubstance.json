@@ -27,7 +27,7 @@
       "fieldType": "String",
       "javadoc": "Descrição geral.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

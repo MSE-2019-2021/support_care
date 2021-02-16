@@ -26,7 +26,7 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
     name: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(255)]],
     dosage: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(30)]],
     form: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(255)]],
-    description: [null, [Validators.maxLength(1000)]],
+    description: [null, [Validators.maxLength(3000)]],
     administration: [],
     notices: new FormArray([]),
   });
@@ -140,9 +140,9 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
       currentNotices.push(
         this.fb.group({
           id: [null, []],
-          description: ['', Validators.required, Validators.maxLength(1000)],
-          evaluation: ['', Validators.maxLength(1000)],
-          intervention: ['', Validators.maxLength(1000)],
+          description: ['', Validators.required, Validators.maxLength(3000)],
+          evaluation: ['', Validators.maxLength(3000)],
+          intervention: ['', Validators.maxLength(3000)],
         })
       );
     } else {
@@ -150,9 +150,9 @@ export class ActiveSubstanceUpdateComponent implements OnInit {
         currentNotices.push(
           this.fb.group({
             id: [obj.id],
-            description: [obj.description, [Validators.required, Validators.maxLength(1000)]],
-            evaluation: [obj.evaluation, Validators.maxLength(1000)],
-            intervention: [obj.intervention, Validators.maxLength(1000)],
+            description: [obj.description, [Validators.required, Validators.maxLength(3000)]],
+            evaluation: [obj.evaluation, Validators.maxLength(3000)],
+            intervention: [obj.intervention, Validators.maxLength(3000)],
           })
         );
       });

@@ -35,8 +35,8 @@ public class Symptom extends AbstractAuditingEntity implements Serializable {
     /**
      * Informação ao enfermeiro.
      */
-    @Size(max = 1000)
-    @Column(name = "notice", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "notice", length = 3000)
     private String notice;
 
     @OneToMany(mappedBy = "symptom", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

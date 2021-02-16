@@ -21,8 +21,8 @@ export class OutcomeUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
-    description: [null, [Validators.maxLength(1000)]],
-    link: [null, [Validators.maxLength(1000)]],
+    description: [null, [Validators.maxLength(3000)]],
+    link: [null, [Validators.maxLength(3000)]],
     documents: new FormArray([]),
   });
 

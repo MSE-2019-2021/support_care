@@ -48,16 +48,16 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
      * Propósito.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "purpose", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "purpose", length = 3000, nullable = false)
     private String purpose;
 
     /**
      * Condições para administração.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "condition", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "condition", length = 3000, nullable = false)
     private String condition;
 
     /**
@@ -71,23 +71,23 @@ public class TherapeuticRegime extends AbstractAuditingEntity implements Seriali
      * Indicação para prescrição.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "indication", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "indication", length = 3000, nullable = false)
     private String indication;
 
     /**
      * Critérios de redução de dose.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "criteria", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "criteria", length = 3000, nullable = false)
     private String criteria;
 
     /**
      * Outras informações.
      */
-    @Size(max = 1000)
-    @Column(name = "notice", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "notice", length = 3000)
     private String notice;
 
     @ManyToMany

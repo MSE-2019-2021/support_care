@@ -13,7 +13,7 @@ export class DefineReasonDialogComponent implements OnInit {
   isSaving = false;
 
   editForm = this.fb.group({
-    reason: [null, [Validators.maxLength(1000)]],
+    reason: [null, [Validators.maxLength(3000)]],
     anonym: [null, [Validators.required]],
   });
 

@@ -27,14 +27,14 @@ public class OutcomeDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Descrição.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
     /**
      * Link.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Link.")
     private String link;
 

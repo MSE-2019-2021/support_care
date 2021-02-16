@@ -38,15 +38,15 @@ entity Notice {
 	/**
 	* Descrição.
 	*/
-	description String required maxlength(1000),
+	description String required maxlength(3000),
 	/**
 	* Avaliação.
 	*/
-	evaluation String required maxlength(1000),
+	evaluation String required maxlength(3000),
 	/**
 	* Intervenção interdependente.
 	*/
-	intervention String required maxlength(1000)
+	intervention String required maxlength(3000)
 }
 
 /**
@@ -68,7 +68,7 @@ entity ActiveSubstance {
 	/**
 	* Descrição geral.
 	*/
-	description String maxlength(1000)
+	description String maxlength(3000)
 }
 
 /**
@@ -96,11 +96,11 @@ entity TherapeuticRegime {
 	/**
 	* Propósito.
 	*/
-	purpose String required maxlength(1000),
+	purpose String required maxlength(3000),
 	/**
 	* Condições para administração.
 	*/
-	condition String required maxlength(1000),
+	condition String required maxlength(3000),
 	/**
 	* Calendarização.
 	*/
@@ -108,15 +108,15 @@ entity TherapeuticRegime {
 	/**
 	* Indicação para prescrição.
 	*/
-    indication String required maxlength(1000),
+    indication String required maxlength(3000),
 	/**
 	* Critérios de redução de dose.
 	*/
-    criteria String required maxlength(1000),
+    criteria String required maxlength(3000),
 	/**
 	* Outras informações.
 	*/
-    notice String maxlength(1000)
+    notice String maxlength(3000)
 }
 
 /**
@@ -158,11 +158,11 @@ entity Outcome {
 	/**
 	* Descrição.
 	*/
-	description String maxlength(1000)
+	description String maxlength(3000)
 	/**
 	* Link.
 	*/
-	link String maxlength(1000)
+	link String maxlength(3000)
 }
 
 /**
@@ -176,23 +176,23 @@ entity ToxicityRate {
 	/**
 	* Descrição.
 	*/
-	description String maxlength(1000),
+	description String maxlength(3000),
 	/**
 	* Informação ao doente.
 	*/
-	notice String maxlength(1000),
+	notice String maxlength(3000),
 	/**
 	* Intervenção autónoma.
 	*/
-    autonomousIntervention String maxlength(1000),
+    autonomousIntervention String maxlength(3000),
 	/**
 	* Intervenção interdependente.
 	*/
-    interdependentIntervention String maxlength(1000),
+    interdependentIntervention String maxlength(3000),
 	/**
 	* Suporte para auto-gestão.
 	*/
-    selfManagement String maxlength(1000)
+    selfManagement String maxlength(3000)
 }
 
 /**
@@ -206,7 +206,7 @@ entity Symptom {
 	/**
 	* Informação ao enfermeiro.
 	*/
-	notice String maxlength(1000)
+	notice String maxlength(3000)
 }
 
 /**
@@ -256,7 +256,7 @@ entity Feedback {
 	/**
 	* Razão.
 	*/
-	reason String maxlength(1000),
+	reason String maxlength(3000),
 	/**
 	* Resolvido.
 	*/

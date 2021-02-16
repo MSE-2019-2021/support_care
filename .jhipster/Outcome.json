@@ -13,14 +13,14 @@
       "fieldType": "String",
       "javadoc": "Descrição.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "link",
       "fieldType": "String",
       "javadoc": "Link.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

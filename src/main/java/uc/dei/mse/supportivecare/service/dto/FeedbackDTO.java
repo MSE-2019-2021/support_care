@@ -39,7 +39,7 @@ public class FeedbackDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Razão.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Razão.")
     private String reason;
 

@@ -39,7 +39,7 @@ export class SymptomUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     name: [null, [Validators.required, Validators.maxLength(255)]],
-    notice: [null, [Validators.maxLength(1000)]],
+    notice: [null, [Validators.maxLength(3000)]],
     therapeuticRegimes: [null, Validators.required],
     outcomes: [null, Validators.required],
     toxicityRates: new FormArray([]),
