@@ -149,5 +149,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "MSE@DEI.UC.PT © 2020"
+  "footer": "MSE@DEI.UC.PT © 2021"
 }
