@@ -33,36 +33,36 @@ public class ToxicityRate extends AbstractAuditingEntity implements Serializable
     /**
      * Descrição.
      */
-    @Size(max = 1000)
-    @Column(name = "description", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "description", length = 3000)
     private String description;
 
     /**
      * Informação ao doente.
      */
-    @Size(max = 1000)
-    @Column(name = "notice", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "notice", length = 3000)
     private String notice;
 
     /**
      * Intervenção autónoma.
      */
-    @Size(max = 1000)
-    @Column(name = "autonomous_intervention", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "autonomous_intervention", length = 3000)
     private String autonomousIntervention;
 
     /**
      * Intervenção interdependente.
      */
-    @Size(max = 1000)
-    @Column(name = "interdependent_intervention", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "interdependent_intervention", length = 3000)
     private String interdependentIntervention;
 
     /**
      * Suporte para auto-gestão.
      */
-    @Size(max = 1000)
-    @Column(name = "self_management", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "self_management", length = 3000)
     private String selfManagement;
 
     @ManyToOne

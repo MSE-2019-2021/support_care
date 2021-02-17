@@ -26,7 +26,7 @@
       "fieldType": "String",
       "javadoc": "Razão.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "solved",

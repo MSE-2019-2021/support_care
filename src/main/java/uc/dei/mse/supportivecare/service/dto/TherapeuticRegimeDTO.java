@@ -35,7 +35,7 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Propósito.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Propósito.", required = true)
     private String purpose;
 
@@ -43,7 +43,7 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Condições para administração.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Condições para administração.", required = true)
     private String condition;
 
@@ -58,7 +58,7 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Indicação para prescrição.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Indicação para prescrição.", required = true)
     private String indication;
 
@@ -66,14 +66,14 @@ public class TherapeuticRegimeDTO extends AbstractAuditingDTO implements Seriali
      * Critérios de redução de dose.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Critérios de redução de dose.", required = true)
     private String criteria;
 
     /**
      * Outras informações.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Outras informações.")
     private String notice;
 

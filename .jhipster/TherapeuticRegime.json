@@ -20,14 +20,14 @@
       "fieldType": "String",
       "javadoc": "Propósito.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "condition",
       "fieldType": "String",
       "javadoc": "Condições para administração.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "timing",
@@ -41,21 +41,21 @@
       "fieldType": "String",
       "javadoc": "Indicação para prescrição.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "criteria",
       "fieldType": "String",
       "javadoc": "Critérios de redução de dose.",
       "fieldValidateRules": ["required", "maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     },
     {
       "fieldName": "notice",
       "fieldType": "String",
       "javadoc": "Outras informações.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

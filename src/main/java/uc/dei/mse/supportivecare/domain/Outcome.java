@@ -35,15 +35,15 @@ public class Outcome extends AbstractAuditingEntity implements Serializable {
     /**
      * Descrição.
      */
-    @Size(max = 1000)
-    @Column(name = "description", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "description", length = 3000)
     private String description;
 
     /**
      * Link.
      */
-    @Size(max = 1000)
-    @Column(name = "link", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "link", length = 3000)
     private String link;
 
     @OneToMany(mappedBy = "outcome", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

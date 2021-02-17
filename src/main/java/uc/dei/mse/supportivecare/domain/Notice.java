@@ -26,24 +26,24 @@ public class Notice extends AbstractAuditingEntity implements Serializable {
      * Descrição.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "description", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "description", length = 3000, nullable = false)
     private String description;
 
     /**
      * Avaliação.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "evaluation", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "evaluation", length = 3000, nullable = false)
     private String evaluation;
 
     /**
      * Intervenção interdependente.
      */
     @NotNull
-    @Size(max = 1000)
-    @Column(name = "intervention", length = 1000, nullable = false)
+    @Size(max = 3000)
+    @Column(name = "intervention", length = 3000, nullable = false)
     private String intervention;
 
     @ManyToOne(optional = false)

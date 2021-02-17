@@ -27,7 +27,7 @@ public class SymptomDTO extends AbstractAuditingDTO implements Serializable {
     /**
      * Informação ao enfermeiro.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Informação ao enfermeiro.")
     private String notice;
 

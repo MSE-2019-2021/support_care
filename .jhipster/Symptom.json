@@ -13,7 +13,7 @@
       "fieldType": "String",
       "javadoc": "Informação ao enfermeiro.",
       "fieldValidateRules": ["maxlength"],
-      "fieldValidateRulesMaxlength": "1000"
+      "fieldValidateRulesMaxlength": "3000"
     }
   ],
   "relationships": [

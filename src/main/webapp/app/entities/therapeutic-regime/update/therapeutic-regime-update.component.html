@@ -42,8 +42,8 @@
         <textarea type="text" rows="3" class="form-control" name="purpose" id="field_purpose" data-cy="purpose" formControlName="purpose"> </textarea>
         <div *ngIf="editForm.get('purpose')!.invalid && (editForm.get('purpose')!.dirty || editForm.get('purpose')!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get('purpose')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('purpose')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('purpose')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>
@@ -67,8 +67,8 @@
         <textarea type="text" rows="3" class="form-control" name="condition" id="field_condition" data-cy="condition" formControlName="condition"></textarea>
         <div *ngIf="editForm.get('condition')!.invalid && (editForm.get('condition')!.dirty || editForm.get('condition')!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get('condition')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('condition')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('condition')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>
@@ -86,8 +86,8 @@
         <textarea type="text" rows="3" class="form-control" name="indication" id="field_indication" data-cy="indication" formControlName="indication"></textarea>
         <div *ngIf="editForm.get('indication')!.invalid && (editForm.get('indication')!.dirty || editForm.get('indication')!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get('indication')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('indication')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('indication')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>
@@ -96,8 +96,8 @@
         <textarea type="text" rows="3" class="form-control" name="criteria" id="field_criteria" data-cy="criteria" formControlName="criteria"></textarea>
         <div *ngIf="editForm.get('criteria')!.invalid && (editForm.get('criteria')!.dirty || editForm.get('criteria')!.touched)">
           <small class="form-text text-danger" *ngIf="editForm.get('criteria')?.errors?.required" customTranslate="entity.validation.required"> This field is required. </small>
-          <small class="form-text text-danger" *ngIf="editForm.get('criteria')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('criteria')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>
@@ -105,8 +105,8 @@
         <label class="form-control-label" customTranslate="supportivecareApp.therapeuticRegime.notice" for="field_notice">Notice</label>
         <textarea type="text" rows="3" class="form-control" name="notice" id="field_notice" data-cy="notice" formControlName="notice"></textarea>
         <div *ngIf="editForm.get('notice')!.invalid && (editForm.get('notice')!.dirty || editForm.get('notice')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('notice')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('notice')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>

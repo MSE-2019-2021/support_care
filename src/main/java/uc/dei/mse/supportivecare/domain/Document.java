@@ -26,8 +26,8 @@ public class Document extends AbstractAuditingEntity implements Serializable {
      * Título.
      */
     @NotNull
-    @Size(max = 255)
-    @Column(name = "title", length = 255, nullable = false)
+    @Size(max = 1000)
+    @Column(name = "title", length = 1000, nullable = false)
     private String title;
 
     /**

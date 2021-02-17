@@ -18,7 +18,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
      * Descrição.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Descrição.", required = true)
     private String description;
 
@@ -26,7 +26,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
      * Avaliação.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Avaliação.", required = true)
     private String evaluation;
 
@@ -34,7 +34,7 @@ public class NoticeDTO extends AbstractAuditingDTO implements Serializable {
      * Intervenção interdependente.
      */
     @NotNull
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Intervenção interdependente.", required = true)
     private String intervention;
 

@@ -23,8 +23,8 @@
         >
         <textarea type="text" class="form-control" name="description" id="field_description" data-cy="description" formControlName="description"></textarea>
         <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>
@@ -53,8 +53,8 @@
         <label class="form-control-label" customTranslate="supportivecareApp.outcome.link" for="field_link" [ngbTooltip]="'supportivecareApp.outcome.help.link' | translate"></label>
         <input type="text" class="form-control" name="link" id="field_link" data-cy="link" formControlName="link" />
         <div *ngIf="editForm.get('link')!.invalid && (editForm.get('link')!.dirty || editForm.get('link')!.touched)">
-          <small class="form-text text-danger" *ngIf="editForm.get('link')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 1000 }">
-            This field cannot be longer than 1000 characters.
+          <small class="form-text text-danger" *ngIf="editForm.get('link')?.errors?.maxlength" customTranslate="entity.validation.maxlength" [translateValues]="{ max: 3000 }">
+            This field cannot be longer than 3000 characters.
           </small>
         </div>
       </div>

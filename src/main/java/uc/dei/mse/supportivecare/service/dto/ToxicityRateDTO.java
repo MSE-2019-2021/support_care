@@ -25,35 +25,35 @@ public class ToxicityRateDTO extends AbstractAuditingDTO implements Serializable
     /**
      * Descrição.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Descrição.")
     private String description;
 
     /**
      * Informação ao doente.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Informação ao doente.")
     private String notice;
 
     /**
      * Intervenção autónoma.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Intervenção autónoma.")
     private String autonomousIntervention;
 
     /**
      * Intervenção interdependente.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Intervenção interdependente.")
     private String interdependentIntervention;
 
     /**
      * Suporte para auto-gestão.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Suporte para auto-gestão.")
     private String selfManagement;
 

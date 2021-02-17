@@ -46,8 +46,8 @@ public class Feedback extends AbstractAuditingEntity implements Serializable {
     /**
      * Razão.
      */
-    @Size(max = 1000)
-    @Column(name = "reason", length = 1000)
+    @Size(max = 3000)
+    @Column(name = "reason", length = 3000)
     private String reason;
 
     /**

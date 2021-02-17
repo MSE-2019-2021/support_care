@@ -43,7 +43,7 @@ public class ActiveSubstanceDTO extends AbstractAuditingDTO implements Serializa
     /**
      * Descrição geral.
      */
-    @Size(max = 1000)
+    @Size(max = 3000)
     @ApiModelProperty(value = "Descrição geral.")
     private String description;
 
