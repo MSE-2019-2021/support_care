@@ -33,6 +33,7 @@ export class UserManagementUpdateComponent implements OnInit {
     activated: [],
     langKey: [],
     authorities: [],
+    password: ['', [Validators.minLength(4), Validators.maxLength(50)]],
   });
 
   constructor(private userService: UserService, private route: ActivatedRoute, private fb: FormBuilder) {}
@@ -80,6 +81,7 @@ export class UserManagementUpdateComponent implements OnInit {
       activated: user.activated,
       langKey: user.langKey,
       authorities: user.authorities,
+      password: user.password,
     });
   }
 
@@ -91,6 +93,7 @@ export class UserManagementUpdateComponent implements OnInit {
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
+    user.password = this.editForm.get(['password'])!.value;
   }
 
   private onSaveSuccess(): void {
