@@ -289,6 +289,21 @@ public class UserService {
             );
     }
 
+    @Transactional
+    public void changeUserPassword(String login, String newPassword) {
+        userRepository
+            .findOneByLogin(login)
+            .ifPresent(
+                user -> {
+                    String encryptedPassword = passwordEncoder.encode(newPassword);
+                    user.setPassword(encryptedPassword);
+                    userRepository.save(user);
+                    this.clearUserCaches(user);
+                    log.debug("Changed password for User: {}", user);
+                }
+            );
+    }
+
     @Transactional(readOnly = true)
     public Page<AdminUserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(AdminUserDTO::new);
