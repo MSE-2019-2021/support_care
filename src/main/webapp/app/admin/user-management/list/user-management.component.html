@@ -72,7 +72,7 @@
                 <span class="d-none d-md-inline" customTranslate="entity.action.edit">Edit</span>
               </button>
 
-              <button type="button" (click)="resetUserPassword()" class="btn btn-outline-primary btn-sm" [disabled]="!currentAccount || currentAccount.login === user.login">
+              <button type="button" (click)="resetUserPassword(user)" class="btn btn-outline-primary btn-sm" [disabled]="!currentAccount || currentAccount.login === user.login">
                 <fa-icon icon="key"></fa-icon>
                 <span class="d-none d-md-inline" customTranslate="userManagement.resetUserPassword.buttonTitle">Reset Passworf</span>
               </button>

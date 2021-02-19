@@ -109,7 +109,14 @@ export class UserManagementComponent implements OnInit {
     this.users = users;
   }
 
-  resetUserPassword(): void {
-    this.modalService.open(UserManagementResetUserPasswordDialogComponent, { centered: true, size: 'lg', backdrop: 'static' });
+  resetUserPassword(user: User): void {
+    const modalRef = this.modalService.open(UserManagementResetUserPasswordDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.user = user;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'reset') {
+        this.loadAll();
+      }
+    });
   }
 }
