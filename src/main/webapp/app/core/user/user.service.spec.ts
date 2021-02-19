@@ -13,7 +13,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IUser;
     let date: Date;
-    let expectedResult: IUser | IUser[] | boolean | null;
+    let eResult: IUser | IUser[] | boolean | null;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -22,6 +22,7 @@ describe('Service Tests', () => {
 
       service = TestBed.inject(UserService);
       httpMock = TestBed.inject(HttpTestingController);
+      eResult = null;
       date = new Date();
       elemDefault = new User(0, 'AAAA', 'AAAA', 'AAAA', 'AAAA', true, 'AAAA', ['AAAA'], 'AAAA', date, 'AAAA', date, 'AAAA');
     });
@@ -99,10 +100,10 @@ describe('Service Tests', () => {
 
         const expected = Object.assign({}, returnedFromService);
 
-        service.changePassword(expected).subscribe(resp => (expectedResult = resp));
+        service.changePassword(expected).subscribe(resp => (eResult = resp));
         const req = httpMock.expectOne({ method: 'PUT' });
         req.flush(returnedFromService);
-        expect(expectedResult).toMatchObject(expected);
+        expect(eResult).toMatchObject(expected);
       });
     });
   });
