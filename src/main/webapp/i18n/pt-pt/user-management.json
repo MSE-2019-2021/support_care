@@ -28,7 +28,7 @@
     "lastModifiedBy": "Alterado por",
     "lastModifiedDate": "Alterado em",
     "resetUserPassword": {
-      "buttonTitle": "Redefinir palavra-passe",
+      "buttonTitle": "Repor Password",
       "modalTitle": "Aviso: Ao clicar em redefinir irá alterar a palavra passe deste utilizador!",
       "reset": "Redefinir"
     }

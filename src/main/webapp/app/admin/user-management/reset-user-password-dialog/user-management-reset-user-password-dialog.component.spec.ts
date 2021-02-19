@@ -7,7 +7,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementResetUserPasswordDialogComponent } from './user-management-reset-user-password-dialog.component';
 
 describe('Component Tests', () => {
-  describe('ActiveSubstance Management Cancel Component', () => {
+  describe('User Management Reset User Password Component', () => {
     let comp: UserManagementResetUserPasswordDialogComponent;
     let fixture: ComponentFixture<UserManagementResetUserPasswordDialogComponent>;
     let mockActiveModal: NgbActiveModal;
@@ -34,7 +34,7 @@ describe('Component Tests', () => {
           tick();
 
           // THEN
-          expect(mockActiveModal.close).toHaveBeenCalledWith('canceled');
+          expect(mockActiveModal.close).toHaveBeenCalledWith('reset');
         })
       ));
 
