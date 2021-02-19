@@ -4,13 +4,16 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { Authority } from 'app/config/authority.constants';
 import { UserService } from 'app/core/user/user.service';
-import { User } from 'app/core/user/user.model';
+import { IUser, User } from 'app/core/user/user.model';
 import { SERVER_API_URL } from 'app/app.constants';
 
 describe('Service Tests', () => {
   describe('User Service', () => {
     let service: UserService;
     let httpMock: HttpTestingController;
+    let elemDefault: IUser;
+    let date: Date;
+    let expectedResult: IUser | IUser[] | boolean | null;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -19,6 +22,8 @@ describe('Service Tests', () => {
 
       service = TestBed.inject(UserService);
       httpMock = TestBed.inject(HttpTestingController);
+      date = new Date();
+      elemDefault = new User(0, 'AAAA', 'AAAA', 'AAAA', 'AAAA', true, 'AAAA', ['AAAA'], 'AAAA', date, 'AAAA', date, 'AAAA');
     });
 
     afterEach(() => {
@@ -71,6 +76,33 @@ describe('Service Tests', () => {
           statusText: 'Bad Request',
         });
         expect(expectedResult).toEqual(404);
+      });
+
+      it('should change user password', () => {
+        const returnedFromService = Object.assign(
+          {
+            id: 0,
+            login: 'AAAA',
+            firstName: 'AAAA',
+            lastName: 'AAAA',
+            activated: true,
+            langKey: 'AAAA',
+            authorities: ['AAAA'],
+            createdBy: 'AAAA',
+            createdDate: date,
+            lastModifiedBy: 'AAAA',
+            lastModifiedDate: date,
+            password: 'AAAA',
+          },
+          elemDefault
+        );
+
+        const expected = Object.assign({}, returnedFromService);
+
+        service.changePassword(expected).subscribe(resp => (expectedResult = resp));
+        const req = httpMock.expectOne({ method: 'PUT' });
+        req.flush(returnedFromService);
+        expect(expectedResult).toMatchObject(expected);
       });
     });
   });
