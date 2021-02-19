@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LANGUAGES } from 'app/config/language.constants';
 import { User } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'custom-user-mgmt-update',
@@ -33,10 +34,9 @@ export class UserManagementUpdateComponent implements OnInit {
     activated: [],
     langKey: [],
     authorities: [],
-    password: ['', [Validators.minLength(4), Validators.maxLength(50)]],
   });
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private fb: FormBuilder, protected modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ user }) => {
@@ -81,7 +81,6 @@ export class UserManagementUpdateComponent implements OnInit {
       activated: user.activated,
       langKey: user.langKey,
       authorities: user.authorities,
-      password: user.password,
     });
   }
 
@@ -93,7 +92,6 @@ export class UserManagementUpdateComponent implements OnInit {
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
-    user.password = this.editForm.get(['password'])!.value;
   }
 
   private onSaveSuccess(): void {

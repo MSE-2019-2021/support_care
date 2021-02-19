@@ -26,6 +26,11 @@
     "createdBy": "Created by",
     "createdDate": "Created date",
     "lastModifiedBy": "Modified by",
-    "lastModifiedDate": "Modified date"
+    "lastModifiedDate": "Modified date",
+    "resetUserPassword": {
+      "buttonTitle": "Reset Password",
+      "modalTitle": "Warning: By clicking on reset you are resting this user's password",
+      "reset": "Reset"
+    }
   }
 }

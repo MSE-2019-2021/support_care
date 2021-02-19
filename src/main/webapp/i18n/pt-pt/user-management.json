@@ -26,6 +26,11 @@
     "createdBy": "Criado por",
     "createdDate": "Criado em",
     "lastModifiedBy": "Alterado por",
-    "lastModifiedDate": "Alterado em"
+    "lastModifiedDate": "Alterado em",
+    "resetUserPassword": {
+      "buttonTitle": "Redefinir palavra-passe",
+      "modalTitle": "Aviso: Ao clicar em redefinir irá alterar a palavra passe deste utilizador!",
+      "reset": "Redefinir"
+    }
   }
 }
