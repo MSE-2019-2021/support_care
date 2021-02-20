@@ -2,6 +2,7 @@ jest.mock('@ng-bootstrap/ng-bootstrap');
 
 import { ComponentFixture, TestBed, waitForAsync, inject, fakeAsync, tick } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { of } from 'rxjs';
 
@@ -22,7 +23,7 @@ describe('Component Tests', () => {
         TestBed.configureTestingModule({
           imports: [HttpClientTestingModule],
           declarations: [UserManagementResetUserPasswordDialogComponent],
-          providers: [NgbActiveModal],
+          providers: [NgbActiveModal, FormBuilder],
         })
           .overrideTemplate(UserManagementResetUserPasswordDialogComponent, '')
           .compileComponents();
