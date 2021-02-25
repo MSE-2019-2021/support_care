@@ -10,6 +10,7 @@ import { Account } from 'app/core/user/account.model';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.model';
 import { UserManagementDeleteDialogComponent } from '../delete/user-management-delete-dialog.component';
+import { UserManagementResetUserPasswordDialogComponent } from 'app/admin/user-management/reset-user-password-dialog/user-management-reset-user-password-dialog.component';
 
 @Component({
   selector: 'custom-user-mgmt',
@@ -106,5 +107,16 @@ export class UserManagementComponent implements OnInit {
   private onSuccess(users: User[] | null, headers: HttpHeaders): void {
     this.totalItems = Number(headers.get('X-Total-Count'));
     this.users = users;
+  }
+
+  resetUserPassword(user: User): void {
+    const modalRef = this.modalService.open(UserManagementResetUserPasswordDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.user = user;
+    // unsubscribe not needed because closed completes on modal close
+    modalRef.closed.subscribe(reason => {
+      if (reason === 'reset') {
+        this.loadAll();
+      }
+    });
   }
 }

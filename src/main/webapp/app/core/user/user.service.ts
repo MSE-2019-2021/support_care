@@ -36,6 +36,10 @@ export class UserService {
     return this.http.get<IUser[]>(this.userManagementUrl, { params: options, observe: 'response' });
   }
 
+  changePassword(user: IUser): Observable<{}> {
+    return this.http.put(`${this.userManagementUrl}/${user.login!}`, user);
+  }
+
   delete(login: string): Observable<{}> {
     return this.http.delete(`${this.userManagementUrl}/${login}`);
   }

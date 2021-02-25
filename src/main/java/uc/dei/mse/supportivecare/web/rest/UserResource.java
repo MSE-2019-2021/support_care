@@ -30,7 +30,9 @@ import uc.dei.mse.supportivecare.service.UserService;
 import uc.dei.mse.supportivecare.service.dto.AdminUserDTO;
 import uc.dei.mse.supportivecare.web.rest.errors.BadRequestAlertException;
 import uc.dei.mse.supportivecare.web.rest.errors.EmailAlreadyUsedException;
+import uc.dei.mse.supportivecare.web.rest.errors.InvalidPasswordException;
 import uc.dei.mse.supportivecare.web.rest.errors.LoginAlreadyUsedException;
+import uc.dei.mse.supportivecare.web.rest.vm.ManagedUserVM;
 
 /**
  * REST controller for managing users.
@@ -177,6 +179,28 @@ public class UserResource {
     public ResponseEntity<AdminUserDTO> getUser(@PathVariable @Pattern(regexp = Constants.LOGIN_REGEX) String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+    }
+
+    /**
+     * {@code PUT /admin/users/:login} : Updates password of an existing User.
+     *
+     * @param login the login of the user to find.
+     * @param managedUserVM the managed user View Model.
+     * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
+     * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     */
+    @PutMapping("/users/{login}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<Void> changePassword(
+        @PathVariable @Pattern(regexp = Constants.LOGIN_REGEX) String login,
+        @Valid @RequestBody ManagedUserVM managedUserVM
+    ) {
+        log.debug("REST request to update User password: {}", login);
+        if (AccountResource.isPasswordLengthInvalid(managedUserVM.getPassword())) {
+            throw new InvalidPasswordException();
+        }
+        userService.changeUserPassword(login, managedUserVM.getPassword());
+        return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.updated", login)).build();
     }
 
     /**

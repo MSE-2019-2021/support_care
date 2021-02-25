@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import uc.dei.mse.supportivecare.domain.User;
 import uc.dei.mse.supportivecare.repository.UserRepository;
 import uc.dei.mse.supportivecare.security.AuthoritiesConstants;
 import uc.dei.mse.supportivecare.service.dto.AdminUserDTO;
+import uc.dei.mse.supportivecare.service.dto.PasswordChangeDTO;
 import uc.dei.mse.supportivecare.service.dto.UserDTO;
 import uc.dei.mse.supportivecare.service.mapper.UserMapper;
 import uc.dei.mse.supportivecare.web.rest.vm.ManagedUserVM;
@@ -72,6 +74,9 @@ class UserResourceIT {
 
     @Autowired
     private CacheManager cacheManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private MockMvc restUserMockMvc;
@@ -467,6 +472,120 @@ class UserResourceIT {
                 put("/api/admin/users").contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(managedUserVM))
             )
             .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @Transactional
+    void testChangePassword() throws Exception {
+        User user = new User();
+        String currentPassword = RandomStringUtils.random(60);
+        user.setPassword(passwordEncoder.encode(currentPassword));
+        user.setLogin("change-password");
+        user.setEmail("change-password@example.com");
+        userRepository.saveAndFlush(user);
+
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setPassword("new password");
+
+        restUserMockMvc
+            .perform(
+                put("/api/admin/users/{login}", user.getLogin())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(managedUserVM))
+            )
+            .andExpect(status().isNoContent());
+
+        assertThat(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).get(user.getLogin())).isNull();
+
+        User updatedUser = userRepository.findOneByLogin("change-password").orElse(null);
+        assertThat(passwordEncoder.matches(managedUserVM.getPassword(), updatedUser.getPassword())).isTrue();
+    }
+
+    @Test
+    @Transactional
+    void testChangePasswordTooSmall() throws Exception {
+        User user = new User();
+        String currentPassword = RandomStringUtils.random(60);
+        user.setPassword(passwordEncoder.encode(currentPassword));
+        user.setLogin("change-password-too-small");
+        user.setEmail("change-password-too-small@example.com");
+        userRepository.saveAndFlush(user);
+
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setPassword(RandomStringUtils.random(ManagedUserVM.PASSWORD_MIN_LENGTH - 1));
+
+        restUserMockMvc
+            .perform(
+                put("/api/admin/users/{login}", user.getLogin())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(managedUserVM))
+            )
+            .andExpect(status().isBadRequest());
+
+        User updatedUser = userRepository.findOneByLogin("change-password-too-small").orElse(null);
+        assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
+    }
+
+    @Test
+    @Transactional
+    void testChangePasswordTooLong() throws Exception {
+        User user = new User();
+        String currentPassword = RandomStringUtils.random(60);
+        user.setPassword(passwordEncoder.encode(currentPassword));
+        user.setLogin("change-password-too-long");
+        user.setEmail("change-password-too-long@example.com");
+        userRepository.saveAndFlush(user);
+
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setPassword(RandomStringUtils.random(ManagedUserVM.PASSWORD_MAX_LENGTH + 1));
+
+        restUserMockMvc
+            .perform(
+                put("/api/admin/users/{login}", user.getLogin())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(managedUserVM))
+            )
+            .andExpect(status().isBadRequest());
+
+        User updatedUser = userRepository.findOneByLogin("change-password-too-long").orElse(null);
+        assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
+    }
+
+    @Test
+    @Transactional
+    void testChangePasswordEmpty() throws Exception {
+        User user = new User();
+        String currentPassword = RandomStringUtils.random(60);
+        user.setPassword(passwordEncoder.encode(currentPassword));
+        user.setLogin("change-password-empty");
+        user.setEmail("change-password-empty@example.com");
+        userRepository.saveAndFlush(user);
+
+        ManagedUserVM managedUserVM = new ManagedUserVM();
+        managedUserVM.setLogin(user.getLogin());
+        managedUserVM.setEmail(user.getEmail());
+        managedUserVM.setPassword("");
+
+        restUserMockMvc
+            .perform(
+                put("/api/admin/users/{login}", user.getLogin())
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(managedUserVM))
+            )
+            .andExpect(status().isBadRequest());
+
+        User updatedUser = userRepository.findOneByLogin("change-password-empty").orElse(null);
+        assertThat(updatedUser.getPassword()).isEqualTo(user.getPassword());
     }
 
     @Test
